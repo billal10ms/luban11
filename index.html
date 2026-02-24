@@ -676,6 +676,37 @@
         .qty-btn { background: none; border: none; color: var(--gold-primary); cursor: pointer; display: flex; align-items: center; padding: 5px; transition: var(--transition-fast); }
         .qty-btn:hover { color: var(--text-white); transform: scale(1.3); }
 
+        /* Filter Buttons */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-gold);
+            color: var(--text-dim);
+            padding: 12px 24px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-radius: 1px;
+        }
+        .filter-btn:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+        .filter-btn.active {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+            border-color: var(--gold-primary);
+            font-weight: 600;
+        }
+
         /* Accessibility */
         :focus-visible { outline: 2px solid var(--gold-primary); outline-offset: 4px; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
@@ -688,6 +719,7 @@
         }
 
     </style>
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
 
@@ -757,6 +789,14 @@
                 <div style="width: 60px; height: 1px; background: var(--gold-primary); margin: 0 auto 15px;"></div>
                 <p style="color: var(--text-dim); letter-spacing: 5px; text-transform: uppercase; font-size: 0.7rem;">Selected Olfactory Masterpieces</p>
             </div>
+            
+            <div class="filter-container">
+                <button class="filter-btn active interactive" data-filter="All" onclick="setFilter('All')">All</button>
+                <button class="filter-btn interactive" data-filter="Masculine" onclick="setFilter('Masculine')">Masculine</button>
+                <button class="filter-btn interactive" data-filter="Feminine" onclick="setFilter('Feminine')">Feminine</button>
+                <button class="filter-btn interactive" data-filter="Unisex" onclick="setFilter('Unisex')">Unisex</button>
+            </div>
+
             <div class="product-grid" id="product-list"></div>
         </section>
 
@@ -916,34 +956,22 @@
         const PRICE_6ML_BDT = 300;
         const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbx-2IooPMPFvx02eF5inEmrQ4G2LKT8HoE0ZjifrJIILT0flmSLHxetFN1vDsFVON31Ig/exec";
 
-        const products = [
-    { "id": 1, "name": "Ehsas Al Arabia", "price3ml": 200.0, "price6ml": 300.0, "desc": "Oud, Rose, and Amber", "vibe": "Exotic, luxurious, and deeply Middle Eastern.", "img": "https://i.ibb.co.com/qYg6CR3M/ehsas-al-arabia.png", category: "Oriental" },
-    { "id": 2, "name": "Vampire Blood", "price3ml": 200.0, "price6ml": 300.0, "desc": "Red Berries, Jasmine, and Plum", "vibe": "Dark, sweet, and gothic.", "img": "https://i.ibb.co/VpWmC5gv/Red-and-Black-Modern-Black-Friday-Luxury-Fragrance-Perfume-Sale-Instagram-Post.png", category: "Sweet" },
-    { "id": 3, "name": "Creed Aventus", "price3ml": 200.0, "price6ml": 300.0, "desc": "Pineapple, Birch, and Musk", "vibe": "Smoky, fruity, sophisticated.", "img": "https://i.ibb.co/dwwbGFFL/Creed-Aventus.png", category: "Masculine" },
-    { "id": 4, "name": "Baccarat Rouge 540", "price3ml": 200.0, "price6ml": 300.0, "desc": "Saffron, Jasmine, and Amberwood", "vibe": "Airy, burnt-sugar sweetness.", "img": "https://i.ibb.co/5zdJRRc/Baccarat-Rouge-540.png", category: "Luxury" },
-    { "id": 5, "name": "Lattafa Khamrah", "price3ml": 200.0, "price6ml": 300.0, "desc": "Cinnamon, Dates, and Praline", "vibe": "Warm, boozy, and decadently sweet gourmand.", "img": "https://i.ibb.co.com/rfkGptqY/lubanfragrance.png", "category": "Gourmand" },
-    { "id": 6, "name": "Lattafa Yara", "price3ml": 200.0, "price6ml": 300.0, "desc": "Heliotrope, Orchid, and Tropical Fruits", "vibe": "Creamy, powdery, and strawberry-marshmallow sweetness.", "img": "https://i.ibb.co.com/HD9xRYg4/Yara.png", "category": "Feminine" },
-    { "id": 7, "name": "Stronger With You", "price3ml": 200.0, "price6ml": 300.0, "desc": "Chestnut, Cardamom, and Vanilla", "vibe": "Warm, sweet, and cozy—the ultimate date night scent.", "img": "https://i.ibb.co.com/992Qgj3v/Stronger-With-You-canva.png", category: "Date Night" },
-    { "id": 8, "name": "Ariana Grande Cloud", "price3ml": 200.0, "price6ml": 300.0, "desc": "Lavender, Pear, Bergamot, and Whipped Cream", "vibe": "Dreamy, fluffy, and sweet—like a cozy vanilla cloud.", "img": "https://i.ibb.co/tpr16NRQ/Ariana-Grande-Cloud.jpg", "category": "Female" },
-    { "id": 10, "name": "YSL Black Opium", "price3ml": 200.0, "price6ml": 300.0, "desc": "Coffee, Vanilla, and White Flowers", "vibe": "Addictive, energizing, and sensual.", "img": "https://i.ibb.co.com/TDz28qGd/Balck-Opium.jpg", "category": "Feminine" },
-    { "id": 11, "name": "Good Girl", "price3ml": 200.0, "price6ml": 300.0, "desc": "Tuberose, Jasmine, and Roasted Tonka Bean", "vibe": "A powerful contrast of light and dark florals.", "img": "https://i.ibb.co.com/Fqdtg7jd/Good-Girl.jpg", "category": "Feminine" },
-    { "id": 12, "name": "Scandal", "price3ml": 200.0, "price6ml": 300.0, "desc": "Honey, Gardenia, and Blood Orange", "vibe": "Bold, honey-sweet, and provocative.", "img": "https://i.ibb.co/pcJc8sJ/Scandal-canva.png", category: "Sweet" },
-    { "id": 13, "name": "Versace Eros", "price3ml": 200.0, "price6ml": 300.0, "desc": "Mint, Candy Apple, and Vanilla", "vibe": "Loud, sweet, and perfect for a vibrant night out.", "img": "https://i.ibb.co.com/Xfzz4vHW/Eros-canva.png", category: "Date Night" },
-    { "id": 15, "name": "Hawas Fire", "price3ml": 200.00, "price6ml": 300.00, "desc": "Pepper, Nutmeg, and Intense Musk", "vibe": "A spicy, fiery evolution of the Hawas DNA.", "img": "https://i.ibb.co.com/V0cfjRpv/Fire.jpg" },
-    { "id": 14, "name": "Hawas Ice", "price3ml": 200.00, "price6ml": 300.00, "desc": "Frozen Apple, Bergamot, and Mint", "vibe": "Louder, fresher, and colder than the original DNA.", "img": "https://i.ibb.co.com/RkC0QbCT/Ice.jpg" },
-    { "id": 17, "name": "Tobacco Vanille", "price3ml": 200.0, "price6ml": 300.0, "desc": "Tobacco Leaf, Spices, and Creamy Vanilla", "vibe": "Rich, opulent, and smells like a private luxury lounge.", "img": "https://i.ibb.co/XfHdmS75/Tobacco-Vanille-canva.png", category: "Luxury" },
-    { "id": 19, "name": "Miss Dior", "price3ml": 200.0, "price6ml": 300.0, "desc": "Iris, Peony, and Lily-of-the-Valley", "vibe": "Elegant, floral, and romantic.", "img": "https://i.ibb.co.com/C5TwSXbL/Miss.jpg", "category": "Feminine" },
-    { "id": 20, "name": "Lady Million", "price3ml": 200.0, "price6ml": 300.0, "desc": "Raspberry, Neroli, and Arabian Jasmine", "vibe": "Vibrant, glamorous, and honey-sweet.", "img": "https://i.ibb.co.com/2YvBKMXH/Lady.jpg", "category": "Feminine" },
-    { "id": 21, "name": "Bombshell", "price3ml": 200.0, "price6ml": 300.0, "desc": "Passionfruit, Peony, and Orchid", "vibe": "Bright, fruity, and unapologetically feminine.", "img": "https://i.ibb.co.com/BpCXdrB/Bomb.jpg", "category": "Feminine" },
-    { "id": 22, "name": "Acqua Di Gio", "price3ml": 200.0, "price6ml": 300.0, "desc": "Sea Notes, Lime, and Jasmine", "vibe": "The gold standard for aquatics—clean, light, and airy.", "img": "https://i.ibb.co.com/Gf613zdJ/Acqua-canva.png", category: "Fresh" },
-    { "id": 23, "name": "Cool Water Man", "price3ml": 200.0, "price6ml": 300.0, "desc": "Sea Water, Mint, and Lavender", "vibe": "Fresh, aquatic blue classic.", "img": "https://i.ibb.co.com/6RrtfJzJ/Blue-and-White-Modern-Premium-Fragrance-Instagram-Story.jpg", category: "Classic" },
-    { "id": 27, "name": "Sultan (Al-Rehab)", "price3ml": 200.0, "price6ml": 300.0, "desc": "Cedar, Juniper, and Musk", "vibe": "Concentrated woodiness—very masculine and robust.", "img": "https://i.ibb.co.com/1fFTxNF9/sultan.png", category: "Oriental" },
-    { "id": 28, "name": "Paris Hilton (Men)", "price3ml": 200.0, "price6ml": 300.0, "desc": "Cucumber and Mango Profile", "vibe": "A fruity, fresh profile that is casual and easy-going.", "img": "https://i.ibb.co.com/DDspXc3t/Paris-Hilton-Men.png", category: "Fresh" }
-  ];
+        const products = [ { "id": 1, "name": "Ehsas Al Arabia", "price3ml": 200.0, "price6ml": 300.0, "desc": "Oud, Rose, and Amber", "vibe": "Exotic, luxurious, and deeply Middle Eastern.", "img": "https://i.ibb.co.com/qYg6CR3M/ehsas-al-arabia.png", "category": "Oriental", "gender": "Unisex" }, { "id": 2, "name": "Vampire Blood", "price3ml": 200.0, "price6ml": 300.0, "desc": "Red Berries, Jasmine, and Plum", "vibe": "Dark, sweet, and gothic.", "img": "https://i.ibb.co/VpWmC5gv/Red-and-Black-Modern-Black-Friday-Luxury-Fragrance-Perfume-Sale-Instagram-Post.png", "category": "Sweet", "gender": "Unisex" }, { "id": 3, "name": "Creed Aventus", "price3ml": 200.0, "price6ml": 300.0, "desc": "Pineapple, Birch, and Musk", "vibe": "Smoky, fruity, sophisticated.", "img": "https://i.ibb.co/dwwbGFFL/Creed-Aventus.png", "category": "Masculine", "gender": "Masculine" }, { "id": 4, "name": "Baccarat Rouge 540", "price3ml": 200.0, "price6ml": 300.0, "desc": "Saffron, Jasmine, and Amberwood", "vibe": "Airy, burnt-sugar sweetness.", "img": "https://i.ibb.co/5zdJRRc/Baccarat-Rouge-540.png", "category": "Luxury", "gender": "Unisex" }, { "id": 5, "name": "Lattafa Khamrah", "price3ml": 200.0, "price6ml": 300.0, "desc": "Cinnamon, Dates, and Praline", "vibe": "Warm, boozy, and decadently sweet gourmand.", "img": "https://i.ibb.co.com/rfkGptqY/lubanfragrance.png", "category": "Gourmand", "gender": "Unisex" }, { "id": 6, "name": "Lattafa Yara", "price3ml": 200.0, "price6ml": 300.0, "desc": "Heliotrope, Orchid, and Tropical Fruits", "vibe": "Creamy, powdery, and strawberry-marshmallow sweetness.", "img": "https://i.ibb.co.com/HD9xRYg4/Yara.png", "category": "Feminine", "gender": "Feminine" }, { "id": 7, "name": "Stronger With You", "price3ml": 200.0, "price6ml": 300.0, "desc": "Chestnut, Cardamom, and Vanilla", "vibe": "Warm, sweet, and cozy—the ultimate date night scent.", "img": "https://i.ibb.co.com/992Qgj3v/Stronger-With-You-canva.png", "category": "Date Night", "gender": "Masculine" }, { "id": 8, "name": "Ariana Grande Cloud", "price3ml": 200.0, "price6ml": 300.0, "desc": "Lavender, Pear, Bergamot, and Whipped Cream", "vibe": "Dreamy, fluffy, and sweet—like a cozy vanilla cloud.", "img": "https://i.ibb.co/tpr16NRQ/Ariana-Grande-Cloud.jpg", "category": "Female", "gender": "Feminine" }, { "id": 10, "name": "YSL Black Opium", "price3ml": 200.0, "price6ml": 300.0, "desc": "Coffee, Vanilla, and White Flowers", "vibe": "Addictive, energizing, and sensual.", "img": "https://i.ibb.co.com/TDz28qGd/Balck-Opium.jpg", "category": "Feminine", "gender": "Feminine" }, { "id": 11, "name": "Good Girl", "price3ml": 200.0, "price6ml": 300.0, "desc": "Tuberose, Jasmine, and Roasted Tonka Bean", "vibe": "A powerful contrast of light and dark florals.", "img": "https://i.ibb.co.com/Fqdtg7jd/Good-Girl.jpg", "category": "Feminine", "gender": "Feminine" }, {
+"id": 13,
+"name": "Versace Eros",
+"price3ml": 200.0,
+"price6ml": 300.0,
+"desc": "Mint, Candy Apple, and Vanilla",
+"vibe": "Loud, sweet, and perfect for a vibrant night out.",
+"img": "https://i.ibb.co/Xfzz4vHW/Eros-canva.png",
+"category": "Date Night",
+"gender": "Masculine"
+}, { "id": 15, "name": "Hawas Fire", "price3ml": 200.0, "price6ml": 300.0, "desc": "Pepper, Nutmeg, and Intense Musk", "vibe": "A spicy, fiery evolution of the Hawas DNA.", "img": "https://i.ibb.co.com/V0cfjRpv/Fire.jpg", "category": "Masculine", "gender": "Masculine" }, { "id": 14, "name": "Hawas Ice", "price3ml": 200.0, "price6ml": 300.0, "desc": "Frozen Apple, Bergamot, and Mint", "vibe": "Louder, fresher, and colder than the original DNA.", "img": "https://i.ibb.co.com/RkC0QbCT/Ice.jpg", "category": "Masculine", "gender": "Masculine" }, { "id": 17, "name": "Tobacco Vanille", "price3ml": 200.0, "price6ml": 300.0, "desc": "Tobacco Leaf, Spices, and Creamy Vanilla", "vibe": "Rich, opulent, and smells like a private luxury lounge.", "img": "https://i.ibb.co/XfHdmS75/Tobacco-Vanille-canva.png", "category": "Luxury", "gender": "Unisex" }, { "id": 19, "name": "Miss Dior", "price3ml": 200.0, "price6ml": 300.0, "desc": "Iris, Peony, and Lily-of-the-Valley", "vibe": "Elegant, floral, and romantic.", "img": "https://i.ibb.co.com/C5TwSXbL/Miss.jpg", "category": "Feminine", "gender": "Feminine" }, { "id": 20, "name": "Lady Million", "price3ml": 200.0, "price6ml": 300.0, "desc": "Raspberry, Neroli, and Arabian Jasmine", "vibe": "Vibrant, glamorous, and honey-sweet.", "img": "https://i.ibb.co.com/2YvBKMXH/Lady.jpg", "category": "Feminine", "gender": "Feminine" }, { "id": 21, "name": "Bombshell", "price3ml": 200.0, "price6ml": 300.0, "desc": "Passionfruit, Peony, and Orchid", "vibe": "Bright, fruity, and unapologetically feminine.", "img": "https://i.ibb.co.com/BpCXdrB/Bomb.jpg", "category": "Feminine", "gender": "Feminine" }, { "id": 22, "name": "Acqua Di Gio", "price3ml": 200.0, "price6ml": 300.0, "desc": "Sea Notes, Lime, and Jasmine", "vibe": "The gold standard for aquatics—clean, light, and airy.", "img": "https://i.ibb.co.com/Gf613zdJ/Acqua-canva.png", "category": "Fresh", "gender": "Masculine" }, { "id": 23, "name": "Cool Water Man", "price3ml": 200.0, "price6ml": 300.0, "desc": "Sea Water, Mint, and Lavender", "vibe": "Fresh, aquatic blue classic.", "img": "https://i.ibb.co.com/6RrtfJzJ/Blue-and-White-Modern-Premium-Fragrance-Instagram-Story.jpg", "category": "Classic", "gender": "Unisex" }, { "id": 27, "name": "Sultan", "price3ml": 200.0, "price6ml": 300.0, "desc": "Cedar, Juniper, and Musk", "vibe": "Concentrated woodiness—very masculine and robust.", "img": "https://i.ibb.co.com/1fFTxNF9/sultan.png", "category": "Oriental", "gender": "Unisex" }, { "id": 28, "name": "Paris Hilton (Men)", "price3ml": 200.0, "price6ml": 300.0, "desc": "Cucumber and Mango Profile", "vibe": "A fruity, fresh profile that is casual and easy-going.", "img": "https://i.ibb.co.com/DDspXc3t/Paris-Hilton-Men.png", "category": "Fresh", "gender": "Unisex" } ];
 
         const CART_STORAGE_KEY = 'luban_cart_v1';
         let cart = [];
         let selectedSize = '3ml';
+        let currentFilter = 'All';
 
         function saveCartToStorage() { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart)); }
         function loadCartFromStorage() { const raw = localStorage.getItem(CART_STORAGE_KEY); if (raw) cart = JSON.parse(raw); }
@@ -976,9 +1004,20 @@
             }
         }
 
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.dataset.filter === filter) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            renderShop();
+        }
+
         function renderShop() {
             const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => `
+            const filtered = currentFilter === 'All' ? products : products.filter(p => p.gender === currentFilter);
+            
+            list.innerHTML = filtered.map(p => `
                 <div class="product-card interactive" onclick="showView('details', ${p.id})">
                     <div class="image-container">
                         <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)">
@@ -1212,5 +1251,6 @@
             renderShop();
         });
     </script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
