@@ -536,39 +536,67 @@
             align-items: center;
             justify-content: center;
             z-index: 10;
-            transition: var(--transition-fast);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 25px rgba(0,0,0,0.6);
             color: var(--text-dim);
         }
-        .wishlist-btn svg {
-            transition: transform 0.3s ease;
-            fill: none;
-        }
         
-        /* Active State */
+        .wishlist-btn svg {
+            transition: all 0.3s ease;
+            fill: none;
+            stroke-width: 1.5px;
+        }
+
+        /* Hover State (General) */
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+            color: var(--gold-bright);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 20px rgba(233, 196, 106, 0.2);
+        }
+
+        /* Active State (Wishlisted) */
         .wishlist-btn.active {
             color: var(--gold-primary);
             border-color: var(--gold-primary);
         }
+        
         .wishlist-btn.active svg {
-            fill: var(--gold-primary);
-        }
-
-        /* Hover State */
-        .wishlist-btn:hover {
-            background: var(--gold-primary);
-            color: var(--bg-dark) !important;
-            border-color: var(--gold-primary);
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 0 30px var(--gold-muted);
+            fill: currentColor; /* Filled Gold Heart */
+            stroke: none;
         }
         
-        /* Hover + Active: Filled Dark Heart */
-        .wishlist-btn.active:hover svg {
-            fill: var(--bg-dark);
+        /* Active + Hover */
+        .wishlist-btn.active:hover {
+            color: var(--gold-bright);
+            border-color: var(--gold-bright);
         }
         
-        /* Hover + Inactive: Empty Dark Heart (Outline) */
+        /* Tooltip Styles (Preserved) */
+        .wishlist-tooltip {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--gold-primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            border: 1px solid var(--border-gold);
+            z-index: 20;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .wishlist-btn:hover .wishlist-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
         .wishlist-btn:not(.active):hover svg {
             fill: none;
         }
@@ -1106,6 +1134,16 @@
             font-weight: 800;
         }
         
+        /* Hide number input arrows */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+          margin: 0; 
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+
         /* Mob Menu Refinement */
         @media (max-width: 1024px) {
             nav { padding: 0 var(--container-padding); }
@@ -1196,7 +1234,7 @@
             </div>
             <div class="wishlist-trigger interactive" onclick="showWishlist()" role="button" aria-label="Open wishlist" style="position: relative; margin-right: 1.5rem; cursor: pointer;">
                 <i data-lucide="heart" stroke="#cba35c" size="22"></i>
-                <span id="wishlist-count-desktop" style="position: absolute; top: -5px; right: -8px; background: var(--gold-primary); color: var(--bg-dark); font-size: 9px; font-weight: 800; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">0</span>
+                <span id="wishlist-count-desktop" style="position: absolute; top: -5px; right: -8px; background: var(--gold-primary); color: var(--bg-dark); font-size: 9px; font-weight: 800; width: 16px; height: 16px; display: none; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);"></span>
             </div>
             <div class="cart-trigger interactive" onclick="toggleCart(true)" role="button" aria-label="Open cart">
                 <i data-lucide="shopping-bag" stroke="#cba35c" size="22"></i>
@@ -1473,10 +1511,12 @@
         const RECENTLY_VIEWED_KEY = 'luban_recent_v1';
         const SEARCH_HISTORY_KEY = 'luban_search_history_v1';
         const WISHLIST_STORAGE_KEY = 'luban_wishlist_v1';
+        const WISHLIST_QTY_KEY = 'luban_wishlist_qty_v1';
         let cart = [];
         let recentlyViewed = [];
         let searchHistory = [];
         let wishlist = [];
+        let wishlistQuantities = {};
         let selectedSize = '3ml';
         let currentFilter = 'All';
 
@@ -1500,6 +1540,16 @@
             }
         }
 
+        function saveWishlistQuantities() { localStorage.setItem(WISHLIST_QTY_KEY, JSON.stringify(wishlistQuantities)); }
+        function loadWishlistQuantities() {
+            try {
+                const raw = localStorage.getItem(WISHLIST_QTY_KEY);
+                if (raw) wishlistQuantities = JSON.parse(raw);
+            } catch (e) {
+                wishlistQuantities = {};
+            }
+        }
+
         function toggleWishlist(id) {
             const index = wishlist.indexOf(id);
             let message = '';
@@ -1509,10 +1559,16 @@
                 wishlist.splice(index, 1);
                 message = 'Removed from Wishlist';
                 wasAdded = false;
+                // Cleanup quantity
+                delete wishlistQuantities[id];
+                saveWishlistQuantities();
             } else {
                 wishlist.push(id);
                 message = 'Added to Wishlist';
                 wasAdded = true;
+                // Initialize quantity
+                wishlistQuantities[id] = 1;
+                saveWishlistQuantities();
             }
             
             saveWishlist();
@@ -1525,6 +1581,13 @@
             heartBtns.forEach(btn => {
                 if (isWishlisted) btn.classList.add('active');
                 else btn.classList.remove('active');
+                
+                // Update tooltip text
+                const tooltip = btn.querySelector('.wishlist-tooltip');
+                if (tooltip) {
+                    tooltip.innerText = isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist';
+                }
+                btn.setAttribute('aria-label', isWishlisted ? 'Remove from wishlist' : 'Add to wishlist');
                 
                 // Remove inline styles to let CSS classes take over
                 btn.style.color = '';
@@ -1543,7 +1606,10 @@
 
             // If we are in the wishlist view, we need a full re-render to remove the item
             if (currentFilter === 'Wishlist') {
-                renderShop();
+                // Delay re-render to allow animation to play
+                setTimeout(() => {
+                    renderShop();
+                }, 400);
             }
         }
 
@@ -1560,41 +1626,46 @@
                 // Clear any pending cleanup to prevent race conditions
                 if (wishlistAnimationTimeout) clearTimeout(wishlistAnimationTimeout);
 
-                if (count === 0) {
-                    desktopCount.style.display = 'none';
-                    desktopCount.innerHTML = '0';
+                // If not animating, handle simple visibility
+                if (!animate) {
+                    if (count === 0) {
+                        desktopCount.style.display = 'none';
+                        desktopCount.innerHTML = '';
+                    } else {
+                        desktopCount.style.display = 'flex';
+                        desktopCount.innerHTML = `<span class="wishlist-number" style="transform: translateY(0); opacity: 1;">${count}</span>`;
+                    }
                     return;
                 }
                 
+                // If animating, ensure it's visible during animation
                 desktopCount.style.display = 'flex';
-                
-                // If not animating, or if the badge was previously hidden/empty, just show the number
-                if (!animate || desktopCount.innerHTML === '0' || desktopCount.innerHTML === '') {
-                    desktopCount.innerHTML = `<span class="wishlist-number" style="transform: translateY(0); opacity: 1;">${count}</span>`;
-                    return;
-                }
 
                 const direction = wasAdded ? 'up' : 'down';
                 
                 // Get the current visible number (if any)
                 const currentNum = desktopCount.querySelector('.wishlist-number');
                 
-                // Create new number
-                const newNum = document.createElement('span');
-                newNum.className = 'wishlist-number';
-                newNum.innerText = count;
-                newNum.style.transform = direction === 'up' ? 'translateY(100%)' : 'translateY(-100%)';
-                newNum.style.opacity = '0';
-                
-                desktopCount.appendChild(newNum);
-                
-                // Force reflow
-                void newNum.offsetWidth;
+                // Create new number (ONLY if count > 0)
+                let newNum = null;
+                if (count > 0) {
+                    newNum = document.createElement('span');
+                    newNum.className = 'wishlist-number';
+                    newNum.innerText = count;
+                    newNum.style.transform = direction === 'up' ? 'translateY(100%)' : 'translateY(-100%)';
+                    newNum.style.opacity = '0';
+                    desktopCount.appendChild(newNum);
+                    
+                    // Force reflow
+                    void newNum.offsetWidth;
+                }
                 
                 // Animate
                 requestAnimationFrame(() => {
-                    newNum.style.transform = 'translateY(0)';
-                    newNum.style.opacity = '1';
+                    if (newNum) {
+                        newNum.style.transform = 'translateY(0)';
+                        newNum.style.opacity = '1';
+                    }
                     
                     if (currentNum) {
                         currentNum.style.transform = direction === 'up' ? 'translateY(-100%)' : 'translateY(100%)';
@@ -1607,9 +1678,18 @@
                     if (currentNum && currentNum.parentNode === desktopCount) {
                         desktopCount.removeChild(currentNum);
                     }
-                    // Ensure the new number is firmly in place
-                    newNum.style.transform = 'translateY(0)';
-                    newNum.style.opacity = '1';
+                    
+                    if (newNum) {
+                        // Ensure the new number is firmly in place
+                        newNum.style.transform = 'translateY(0)';
+                        newNum.style.opacity = '1';
+                    }
+                    
+                    // If count reached 0, hide the badge after animation
+                    if (count === 0) {
+                        desktopCount.style.display = 'none';
+                        desktopCount.innerHTML = '';
+                    }
                 }, 300);
             }
         }
@@ -1725,13 +1805,6 @@
             currentFilter = 'Wishlist';
             renderShop();
             handleNavClick('shop');
-        }
-
-        function updateWishlistCount() {
-            const countEl = document.getElementById('wishlist-count');
-            const mobileCountEl = document.getElementById('wishlist-count-mobile');
-            if (countEl) countEl.innerText = wishlist.length;
-            if (mobileCountEl) mobileCountEl.innerText = wishlist.length;
         }
 
         function handleSearchInput(value) {
@@ -1945,30 +2018,59 @@
                     return;
                 }
                 
+                if (currentFilter === 'Wishlist') {
+                    // Denser Grid for Wishlist
+                    list.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+                    list.style.gap = '25px';
+                } else {
+                    // Standard Grid
+                    list.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+                    list.style.gap = 'clamp(20px, 4vw, 40px)';
+                }
+                
                 list.innerHTML = filtered.map(p => {
                     const isWishlisted = wishlist.includes(p.id);
-                    const quickAddBtn = currentFilter === 'Wishlist' ? `
-                        <button onclick="event.stopPropagation(); addToCart(${p.id});" class="btn-gold interactive" style="width:100%; margin-top:15px; padding:12px; font-size:0.65rem; display:flex; align-items:center; justify-content:center; gap:8px;">
-                            <i data-lucide="shopping-bag" size="14"></i> Quick Add
-                        </button>
-                    ` : '';
+                    let quickAddBtn = '';
+                    let qtyControls = '';
+
+                    if (currentFilter === 'Wishlist') {
+                        const qty = wishlistQuantities[p.id] || 1;
+                        // Compact controls for wishlist
+                        const isMinQty = qty <= 1;
+                        qtyControls = `
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; background:rgba(255,255,255,0.05); padding:6px; border-radius:4px; border: 1px solid var(--border-white);">
+                                <button id="wishlist-minus-${p.id}" onclick="event.stopPropagation(); changeWishlistQty(${p.id}, -1)" class="qty-btn interactive ${isMinQty ? 'disabled' : ''}" style="width:28px; height:28px; padding:0; opacity:${isMinQty ? '0.3' : '1'}; pointer-events:${isMinQty ? 'none' : 'auto'};"><i data-lucide="minus" size="14"></i></button>
+                                <input type="number" id="wishlist-qty-${p.id}" value="${qty}" readonly
+                                    onclick="event.stopPropagation()" 
+                                    style="font-size:0.85rem; font-weight:700; width:36px; text-align:center; color:var(--text-white); background:transparent; border:none; -moz-appearance: textfield; padding:0; pointer-events:none;">
+                                <button onclick="event.stopPropagation(); changeWishlistQty(${p.id}, 1)" class="qty-btn interactive" style="width:28px; height:28px; padding:0;"><i data-lucide="plus" size="14"></i></button>
+                            </div>
+                        `;
+                        quickAddBtn = `
+                            <button id="quick-add-btn-${p.id}" onclick="event.stopPropagation(); addWishlistItemToCart(${p.id});" class="btn-gold interactive" style="width:100%; margin-top:10px; padding:10px; font-size:0.7rem; display:flex; align-items:center; justify-content:center; gap:8px; border-radius:4px; letter-spacing:1px; font-weight:600;">
+                                <i data-lucide="shopping-bag" size="14"></i> Add (${qty})
+                            </button>
+                        `;
+                    }
                     
                     return `
-                    <div class="product-card interactive" onclick="showView('details', ${p.id})">
-                        <button data-wishlist-id="${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" aria-label="Add to wishlist">
-                            <i data-lucide="heart" size="24"></i>
+                    <div class="product-card interactive" onclick="showView('details', ${p.id})" style="${currentFilter === 'Wishlist' ? 'padding:15px; display:flex; flex-direction:column; height:100%;' : ''}">
+                        <button data-wishlist-id="${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" aria-label="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}" style="${currentFilter === 'Wishlist' ? 'top:15px; right:15px; width:36px; height:36px;' : ''}">
+                            <i data-lucide="heart" size="${currentFilter === 'Wishlist' ? '18' : '24'}"></i>
+                            <span class="wishlist-tooltip">${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}</span>
                         </button>
-                        <div class="image-container">
+                        <div class="image-container" style="${currentFilter === 'Wishlist' ? 'height:200px; margin-bottom:15px; background:var(--bg-accent); border-radius:2px;' : ''}">
                             <div class="parallax-wrapper">
-                                <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)">
+                                <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" style="${currentFilter === 'Wishlist' ? 'max-width:85%; max-height:85%;' : ''}">
                             </div>
                         </div>
-                        <div class="product-info">
-                            <div class="product-header">
-                                <h3 class="product-name">${p.name}</h3>
-                                <span class="product-price">${PRICE_3ML_BDT}৳</span>
+                        <div class="product-info" style="${currentFilter === 'Wishlist' ? 'padding:0; flex:1; display:flex; flex-direction:column;' : ''}">
+                            <div class="product-header" style="${currentFilter === 'Wishlist' ? 'flex-direction:column; align-items:flex-start; gap:4px; margin-bottom:auto;' : ''}">
+                                <h3 class="product-name" style="${currentFilter === 'Wishlist' ? 'font-size:0.95rem; line-height:1.3;' : ''}">${p.name}</h3>
+                                <span class="product-price" style="${currentFilter === 'Wishlist' ? 'font-size:0.85rem; color:var(--gold-primary); font-weight:600;' : ''}">${PRICE_3ML_BDT}৳</span>
                             </div>
-                            <p class="product-desc">${p.desc}</p>
+                            ${currentFilter !== 'Wishlist' ? `<p class="product-desc">${p.desc}</p>` : ''}
+                            ${qtyControls}
                             ${quickAddBtn}
                         </div>
                     </div>
@@ -2033,8 +2135,9 @@
                 <div>
                     <div style="background:var(--bg-accent); border:1px solid var(--border-gold); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:clamp(20px, 8vw, 80px); box-shadow: var(--shadow-medium); position: relative;">
                         <img src="${p.img}" style="max-width:90%; max-height:90%; object-fit:contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));" onerror="handleImageError(this)">
-                        <button data-wishlist-id="${p.id}" onclick="toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" style="top:30px; right:30px; width:50px; height:50px;">
+                        <button data-wishlist-id="${p.id}" onclick="toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" style="top:30px; right:30px; width:50px; height:50px;" aria-label="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}">
                             <i data-lucide="heart" size="24"></i>
+                            <span class="wishlist-tooltip">${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}</span>
                         </button>
                     </div>
                     <div>
@@ -2097,16 +2200,86 @@
             }
         }
 
-        function addToCart(id) {
+        function addToCart(id, qty = 1) {
             const p = products.find(x => x.id === id);
             const currentPrice = selectedSize === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT;
             const cartId = `${id}-${selectedSize}`;
             const exists = cart.find(x => x.cartId === cartId);
-            if(exists) exists.qty++;
-            else cart.push({ ...p, cartId, selectedSize, activePrice: currentPrice, qty: 1 });
+            if(exists) exists.qty += qty;
+            else cart.push({ ...p, cartId, selectedSize, activePrice: currentPrice, qty: qty });
             updateCartCount();
             saveCartToStorage();
             toggleCart(true);
+        }
+
+        function changeWishlistQty(id, delta) {
+            const current = wishlistQuantities[id] || 1;
+            const newQty = Math.max(1, current + delta);
+            wishlistQuantities[id] = newQty;
+            saveWishlistQuantities();
+            
+            const qtyEl = document.getElementById(`wishlist-qty-${id}`);
+            if (qtyEl) qtyEl.value = newQty;
+            
+            // Update minus button state
+            const minusBtn = document.getElementById(`wishlist-minus-${id}`);
+            if (minusBtn) {
+                if (newQty <= 1) {
+                    minusBtn.style.opacity = '0.3';
+                    minusBtn.style.pointerEvents = 'none';
+                    minusBtn.classList.add('disabled');
+                } else {
+                    minusBtn.style.opacity = '1';
+                    minusBtn.style.pointerEvents = 'auto';
+                    minusBtn.classList.remove('disabled');
+                }
+            }
+            
+            // Animate button click
+            const btn = event.currentTarget;
+            if (btn && btn.classList.contains('qty-btn')) {
+                btn.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                }, 100);
+            }
+            
+            const btnEl = document.getElementById(`quick-add-btn-${id}`);
+            if (btnEl) btnEl.innerHTML = `<i data-lucide="shopping-bag" size="14"></i> Add (${newQty})`;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function updateWishlistQtyFromInput(id, value) {
+            let newQty = parseInt(value);
+            if (isNaN(newQty) || newQty < 1) newQty = 1;
+            wishlistQuantities[id] = newQty;
+            saveWishlistQuantities();
+            
+            const qtyEl = document.getElementById(`wishlist-qty-${id}`);
+            if (qtyEl) qtyEl.value = newQty;
+            
+            const btnEl = document.getElementById(`quick-add-btn-${id}`);
+            if (btnEl) btnEl.innerHTML = `<i data-lucide="shopping-bag" size="14"></i> Add (${newQty})`;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function syncWishlistQuantities() {
+            // Remove quantities for items not in wishlist
+            Object.keys(wishlistQuantities).forEach(key => {
+                if (!wishlist.includes(parseInt(key))) {
+                    delete wishlistQuantities[key];
+                }
+            });
+            // Ensure all wishlist items have a quantity
+            wishlist.forEach(id => {
+                if (!wishlistQuantities[id]) wishlistQuantities[id] = 1;
+            });
+            saveWishlistQuantities();
+        }
+
+        function addWishlistItemToCart(id) {
+            const qty = wishlistQuantities[id] || 1;
+            addToCart(id, qty);
         }
 
         function changeQty(cartId, delta) {
@@ -2121,7 +2294,26 @@
 
         function renderCart() {
             const cont = document.getElementById('cart-items');
-            cont.innerHTML = cart.length ? '' : '<div style="text-align:center; opacity:0.3; margin-top:140px;"><i data-lucide="shopping-bag" size="48" style="margin-bottom:20px;"></i><p style="letter-spacing:5px; text-transform:uppercase; font-size:0.75rem;">Your library is empty</p></div>';
+            
+            if (cart.length === 0) {
+                cont.innerHTML = `
+                    <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; animation: luxuryFadeIn 0.5s ease forwards; padding-top: 40px;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(203, 163, 92, 0.05); border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                            <i data-lucide="shopping-bag" size="32" style="color: var(--gold-primary); opacity: 0.8;"></i>
+                        </div>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text-white); margin-bottom: 12px; letter-spacing: 1px;">Your Cart is Empty</h3>
+                        <p style="color: var(--text-dim); font-size: 0.9rem; max-width: 260px; margin-bottom: 35px; line-height: 1.6;">Discover our exclusive collection of fragrances and find your signature scent.</p>
+                        <button onclick="toggleCart(false); showView('main');" class="btn-gold interactive" style="padding: 14px 28px; font-size: 0.75rem; letter-spacing: 2px; width: auto;">
+                            EXPLORE COLLECTION
+                        </button>
+                    </div>
+                `;
+                document.getElementById('cart-total').innerText = '0৳';
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            cont.innerHTML = '';
             let subtotal = 0;
             cart.forEach((item, index) => {
                 subtotal += item.activePrice * item.qty;
@@ -2308,6 +2500,8 @@
             loadRecentlyViewed();
             loadSearchHistory();
             loadWishlist();
+            loadWishlistQuantities();
+            syncWishlistQuantities();
             updateCartCount();
             updateWishlistCount();
             renderShop();
