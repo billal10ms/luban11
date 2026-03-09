@@ -4,6 +4,59 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Luban Fragrance | The Essence of Elegance</title>
+    <meta name="description" content="Luban Fragrance - Discover the essence of elegance with our refined collection of artisanal scents. Handcrafted quality in every drop. Explore our masculine, feminine, and unisex masterpieces." />
+    <meta name="keywords" content="fragrance, perfume, luxury scent, Luban Fragrance, artisanal perfume, Dhaka fragrance, luxury perfume Bangladesh, Ehsas Al Arabia, Baccarat Rouge 540" />
+    <meta name="author" content="Luban Fragrance" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ais-dev-ohwk6jgnp4df5j2bsolzwp-24760088017.asia-southeast1.run.app/" />
+    <meta property="og:title" content="Luban Fragrance | The Essence of Elegance" />
+    <meta property="og:description" content="Refined quality in every drop. Discover our curated collection of artisanal fragrances and olfactory masterpieces." />
+    <meta property="og:image" content="https://i.ibb.co.com/Vcq9NZsL/Logo.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ais-dev-ohwk6jgnp4df5j2bsolzwp-24760088017.asia-southeast1.run.app/" />
+    <meta property="twitter:title" content="Luban Fragrance | The Essence of Elegance" />
+    <meta property="twitter:description" content="Refined quality in every drop. Discover our curated collection of artisanal fragrances and olfactory masterpieces." />
+    <meta property="twitter:image" content="https://i.ibb.co.com/Vcq9NZsL/Logo.png" />
+
+    <link rel="canonical" href="https://ais-dev-ohwk6jgnp4df5j2bsolzwp-24760088017.asia-southeast1.run.app/" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Luban Fragrance",
+      "url": "https://ais-dev-ohwk6jgnp4df5j2bsolzwp-24760088017.asia-southeast1.run.app/",
+      "logo": "https://i.ibb.co.com/Vcq9NZsL/Logo.png",
+      "description": "Refined quality in every drop. Luban Fragrance represents the pinnacle of olfactory craftsmanship.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD"
+      },
+      "sameAs": [
+        "https://www.facebook.com/people/Luban-Fragrance/61586484638332/",
+        "https://www.instagram.com/lubanfragrance"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://ais-dev-ohwk6jgnp4df5j2bsolzwp-24760088017.asia-southeast1.run.app/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ais-dev-ohwk6jgnp4df5j2bsolzwp-24760088017.asia-southeast1.run.app/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
     <link rel="icon" type="image/png" href="https://i.ibb.co.com/Vcq9NZsL/Logo.png">
     <link rel="shortcut icon" type="image/png" href="https://i.ibb.co.com/Vcq9NZsL/Logo.png">
     <link rel="apple-touch-icon" href="https://i.ibb.co.com/Vcq9NZsL/Logo.png">
@@ -95,8 +148,16 @@
         }
 
         @keyframes luxuryFadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.98); 
+                filter: blur(8px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+                filter: blur(0);
+            }
         }
 
         /* Section Offsets for Sticky Header Alignment */
@@ -985,8 +1046,8 @@
         }
         
         #mobile-menu.active .mobile-link { 
-            opacity: 1; 
-            transform: translateY(0); 
+            animation: luxuryFadeIn 1s var(--ease-luxury) both;
+            animation-delay: calc(0.1s + (0.08s * var(--i)));
         }
 
         /* Micro-interactions (Floaters) */
@@ -1077,12 +1138,10 @@
             margin-bottom: 1rem;
             position: relative;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s var(--ease-out-expo) 0.05s;
+            will-change: transform, opacity, filter;
         }
         #mobile-menu.active .mobile-search-container {
-            opacity: 1;
-            transform: translateY(0);
+            animation: luxuryFadeIn 1.2s var(--ease-luxury) 0.1s both;
         }
 
         #mobile-recent-section {
@@ -1091,11 +1150,12 @@
             padding: 0 20px;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.8s var(--ease-out-expo) 0.3s;
         }
         #mobile-menu.active #mobile-recent-section {
-            opacity: 1;
-            transform: translateY(0);
+            animation: luxuryFadeIn 1s var(--ease-luxury) 0.4s both;
+        }
+        #mobile-menu.active #mobile-social-icons {
+            animation: luxuryFadeIn 1s var(--ease-luxury) 0.5s both;
         }
         #mobile-recent-list::-webkit-scrollbar {
             display: none;
@@ -1125,7 +1185,7 @@
         .mobile-submenu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s var(--ease-luxury);
+            transition: max-height 0.6s var(--ease-luxury), opacity 0.6s var(--ease-luxury), margin 0.6s var(--ease-luxury);
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
@@ -1133,9 +1193,9 @@
             opacity: 0;
         }
         .mobile-submenu.active {
-            max-height: 300px;
+            max-height: 400px;
             margin-top: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             opacity: 1;
         }
         .mobile-sublink {
@@ -1144,8 +1204,14 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             text-decoration: none;
-            transition: var(--transition-fast);
+            transition: color 0.3s ease;
             text-align: center;
+            opacity: 0;
+            will-change: transform, opacity, filter;
+        }
+        .mobile-submenu.active .mobile-sublink {
+            animation: luxuryFadeIn 1s var(--ease-luxury) both;
+            animation-delay: calc(0.1s + (var(--j) * 0.1s));
         }
         .mobile-sublink:hover { color: var(--gold-primary); }
 
@@ -1302,7 +1368,6 @@
         }
 
     </style>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
 
@@ -1334,11 +1399,11 @@
             <div style="display:flex; flex-direction:column; align-items:center; width: 100%;">
                 <a href="javascript:void(0)" style="--i:2" class="mobile-link interactive" onclick="toggleSubmenu('collection-submenu')">Collection <i data-lucide="chevron-down" id="submenu-icon" size="20" style="vertical-align:middle; margin-left:5px; transition: transform 0.4s ease;"></i></a>
                 <div id="collection-submenu" class="mobile-submenu">
-                    <a href="javascript:void(0)" class="mobile-sublink" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">All Masterpieces</a>
-                    <a href="javascript:void(0)" class="mobile-sublink" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">Masculine</a>
-                    <a href="javascript:void(0)" class="mobile-sublink" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">Feminine</a>
-                    <a href="javascript:void(0)" class="mobile-sublink" onclick="setFilter('Unisex'); handleNavClick('shop'); toggleMobileMenu();">Unisex</a>
-                    <a href="javascript:void(0)" class="mobile-sublink" onclick="showWishlist(); toggleMobileMenu();" style="color:var(--gold-primary); font-weight:700;">My Wishlist (<span id="wishlist-count-mobile">0</span>)</a>
+                    <a href="javascript:void(0)" style="--j:1" class="mobile-sublink" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">All Masterpieces</a>
+                    <a href="javascript:void(0)" style="--j:2" class="mobile-sublink" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">Masculine</a>
+                    <a href="javascript:void(0)" style="--j:3" class="mobile-sublink" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">Feminine</a>
+                    <a href="javascript:void(0)" style="--j:4" class="mobile-sublink" onclick="setFilter('Unisex'); handleNavClick('shop'); toggleMobileMenu();">Unisex</a>
+                    <a href="javascript:void(0)" style="--j:5" class="mobile-sublink" onclick="showWishlist(); toggleMobileMenu();" style="color:var(--gold-primary); font-weight:700;">My Wishlist (<span id="wishlist-count-mobile">0</span>)</a>
                 </div>
             </div>
 
@@ -1353,7 +1418,7 @@
                 </div>
             </div>
             
-            <div style="display:flex; gap: 40px; margin-top: 20px;">
+            <div id="mobile-social-icons" style="display:flex; gap: 40px; margin-top: 20px; opacity: 0; transform: translateY(20px);">
                 <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary);" class="interactive" aria-label="Facebook"><i data-lucide="facebook" size="32"></i></a>
                 <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary);" class="interactive" aria-label="Instagram"><i data-lucide="instagram" size="32"></i></a>
             </div>
@@ -1365,36 +1430,39 @@
         <i data-lucide="message-circle" size="24"></i>
     </a>
 
-    <nav id="navbar">
-        <div onclick="showView('main')" class="nav-logo-container interactive" style="cursor:pointer" role="button" aria-label="Go to homepage">
-            <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo" class="nav-logo-img">
-        </div>
-        
-        <ul class="nav-links">
-            <li><a href="javascript:void(0)" onclick="handleNavClick('hero')" class="interactive">The Scent</a></li>
-            <li><a href="javascript:void(0)" onclick="handleNavClick('shop')" class="interactive">Collection</a></li>
-            <li><a href="javascript:void(0)" onclick="handleNavClick('about')" class="interactive">Heritage</a></li>
-            <li><a href="javascript:void(0)" onclick="handleNavClick('contact')" class="interactive">Contact</a></li>
-        </ul>
+    <header>
+        <nav id="navbar">
+            <div onclick="showView('main')" class="nav-logo-container interactive" style="cursor:pointer" role="button" aria-label="Go to homepage">
+                <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo" class="nav-logo-img">
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="javascript:void(0)" onclick="handleNavClick('hero')" class="interactive">The Scent</a></li>
+                <li><a href="javascript:void(0)" onclick="handleNavClick('shop')" class="interactive">Collection</a></li>
+                <li><a href="javascript:void(0)" onclick="handleNavClick('about')" class="interactive">Heritage</a></li>
+                <li><a href="javascript:void(0)" onclick="handleNavClick('contact')" class="interactive">Contact</a></li>
+            </ul>
 
-        <div class="nav-actions">
-            <div class="social-icons-nav">
-                <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" class="social-link interactive" aria-label="Facebook"><i data-lucide="facebook" size="18"></i></a>
-                <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" class="social-link interactive" aria-label="Instagram"><i data-lucide="instagram" size="18"></i></a>
+            <div class="nav-actions">
+                <div class="social-icons-nav">
+                    <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" class="social-link interactive" aria-label="Facebook"><i data-lucide="facebook" size="18"></i></a>
+                    <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" class="social-link interactive" aria-label="Instagram"><i data-lucide="instagram" size="18"></i></a>
+                </div>
+                <div class="wishlist-trigger interactive" onclick="showWishlist()" role="button" aria-label="Open wishlist" style="position: relative; margin-right: 1.5rem; cursor: pointer;">
+                    <i data-lucide="heart" stroke="#cba35c" size="22"></i>
+                    <span id="wishlist-count-desktop" style="position: absolute; top: -5px; right: -8px; background: var(--gold-primary); color: var(--bg-dark); font-size: 9px; font-weight: 800; width: 16px; height: 16px; display: none; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);"></span>
+                </div>
+                <div class="cart-trigger interactive" onclick="toggleCart(true)" role="button" aria-label="Open cart">
+                    <i data-lucide="shopping-bag" stroke="#cba35c" size="22"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <button class="menu-toggle interactive" onclick="toggleMobileMenu()" aria-label="Open Menu"><i data-lucide="menu" size="32"></i></button>
             </div>
-            <div class="wishlist-trigger interactive" onclick="showWishlist()" role="button" aria-label="Open wishlist" style="position: relative; margin-right: 1.5rem; cursor: pointer;">
-                <i data-lucide="heart" stroke="#cba35c" size="22"></i>
-                <span id="wishlist-count-desktop" style="position: absolute; top: -5px; right: -8px; background: var(--gold-primary); color: var(--bg-dark); font-size: 9px; font-weight: 800; width: 16px; height: 16px; display: none; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);"></span>
-            </div>
-            <div class="cart-trigger interactive" onclick="toggleCart(true)" role="button" aria-label="Open cart">
-                <i data-lucide="shopping-bag" stroke="#cba35c" size="22"></i>
-                <span id="cart-count">0</span>
-            </div>
-            <button class="menu-toggle interactive" onclick="toggleMobileMenu()" aria-label="Open Menu"><i data-lucide="menu" size="32"></i></button>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <div id="main-view">
+    <main>
+        <div id="main-view">
         <section id="hero">
             <div class="hero-bg-text" aria-hidden="true">LUBAN</div>
             <div class="hero-content">
@@ -1470,10 +1538,10 @@
                 
                 <div class="checkout-panel">
                     <h3 class="playfair" style="font-size: clamp(1.5rem, 3vw, 1.8rem); margin-bottom: 30px; color: var(--gold-primary);">Send an Inquiry</h3>
-                    <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 20px;">
-                        <input type="text" placeholder="Full Name" class="input interactive" style="border-bottom: 1px solid var(--border-gold); background:transparent;" aria-label="Name" required>
-                        <input type="email" placeholder="Email Address" class="input interactive" style="border-bottom: 1px solid var(--border-gold); background:transparent;" aria-label="Email" required>
-                        <textarea placeholder="Your message..." rows="4" class="input interactive" style="border-bottom: 1px solid var(--border-gold); background:transparent; resize: none;" aria-label="Message"></textarea>
+                    <form onsubmit="handleContactSubmit(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                        <input type="text" id="contact-name" placeholder="Full Name" class="input interactive" style="border-bottom: 1px solid var(--border-gold); background:transparent;" aria-label="Name" required>
+                        <input type="email" id="contact-email" placeholder="Email Address" class="input interactive" style="border-bottom: 1px solid var(--border-gold); background:transparent;" aria-label="Email" required>
+                        <textarea id="contact-message" placeholder="Your message..." rows="4" class="input interactive" style="border-bottom: 1px solid var(--border-gold); background:transparent; resize: none;" aria-label="Message" required></textarea>
                         <button type="submit" class="btn-gold interactive" style="width:100%; margin-top:10px;">Send Message</button>
                     </form>
                 </div>
@@ -1525,7 +1593,7 @@
                         </div>
 
                         <div style="margin-top:30px; padding:20px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:4px; font-size:0.7rem; line-height:1.6; color:var(--text-dim);">
-                            <p><i data-lucide="info" size="12" style="margin-right:8px; vertical-align:middle; color:var(--gold-primary);"></i> Complimentary shipping is applied to all orders exceeding 2,000৳. Standard logistics fee of 120৳ for Dhaka and 150৳ for other regions applies otherwise.</p>
+                            <p><i data-lucide="info" size="12" style="margin-right:8px; vertical-align:middle; color:var(--gold-primary);"></i> Complimentary shipping is applied to all orders exceeding 2,000৳. Standard logistics fee of 70৳ for Dhaka and 120৳ for other regions applies otherwise.</p>
                         </div>
                     </div>
                 </aside>
@@ -1662,6 +1730,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <div id="cart-overlay" onclick="toggleCart(false)">
         <div class="cart-drawer" onclick="event.stopPropagation()">
@@ -1995,7 +2065,7 @@
             list.innerHTML = recentProducts.map(p => `
                 <div onclick="showView('details', ${p.id}); toggleMobileMenu();" style="flex-shrink:0; width:80px; text-align:center; cursor:pointer;">
                     <div style="width:80px; height:80px; background:var(--bg-accent); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
-                        <img src="${p.img}" style="max-width:70%; max-height:70%; object-fit:contain;" onerror="handleImageError(this)">
+                        <img src="${p.img}" alt="${p.name}" style="max-width:70%; max-height:70%; object-fit:contain;" onerror="handleImageError(this)">
                     </div>
                     <p style="font-size:0.55rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${p.name}</p>
                 </div>
@@ -2335,7 +2405,7 @@
             document.getElementById('details-content').innerHTML = `
                 <div>
                     <div style="background:var(--bg-accent); border:1px solid var(--border-gold); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:clamp(20px, 8vw, 80px); box-shadow: var(--shadow-medium); position: relative;">
-                        <img src="${p.img}" style="max-width:90%; max-height:90%; object-fit:contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));" onerror="handleImageError(this)">
+                        <img src="${p.img}" alt="${p.name}" style="max-width:90%; max-height:90%; object-fit:contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));" onerror="handleImageError(this)">
                         <button data-wishlist-id="${p.id}" onclick="toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" style="top:30px; right:30px; width:50px; height:50px;" aria-label="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}">
                             <i data-lucide="heart" size="24"></i>
                             <span class="wishlist-tooltip">${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}</span>
@@ -2378,7 +2448,7 @@
                         ${recentProducts.map(rp => `
                             <div class="interactive" onclick="showView('details', ${rp.id})" style="cursor:pointer; background: rgba(255,255,255,0.01); border: 1px solid var(--border-gold); padding: 20px; border-radius: 1px; transition: var(--transition-fast);">
                                 <div style="aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; margin-bottom:15px; background: var(--bg-accent); overflow:hidden;">
-                                    <img src="${rp.img}" style="max-width:70%; max-height:70%; object-fit:contain; transition: var(--transition-fast);" onerror="handleImageError(this)">
+                                    <img src="${rp.img}" alt="${rp.name}" style="max-width:70%; max-height:70%; object-fit:contain; transition: var(--transition-fast);" onerror="handleImageError(this)">
                                 </div>
                                 <h4 style="font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:5px; font-weight:400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${rp.name}</h4>
                                 <p style="color:var(--gold-primary); font-weight:700; font-size:0.9rem;">${PRICE_3ML_BDT}৳</p>
@@ -2524,7 +2594,7 @@
                 div.style.animationDelay = `${index * 0.08}s`;
                 div.innerHTML = `
                     <div style="width:70px; height:70px; background:var(--bg-accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid var(--border-white);">
-                        <img src="${item.img}" style="max-width:80%; max-height:80%; object-fit:contain" onerror="handleImageError(this)">
+                        <img src="${item.img}" alt="${item.name}" style="max-width:80%; max-height:80%; object-fit:contain" onerror="handleImageError(this)">
                     </div>
                     <div style="flex:1">
                         <h4 style="font-size:0.95rem; margin-bottom:5px; text-transform:uppercase; letter-spacing:1px; font-weight:400;">${item.name}</h4>
@@ -2564,7 +2634,7 @@
                 row.className = 'checkout-item-row';
                 row.innerHTML = `
                     <div style="width:65px; height:65px; background:var(--bg-accent); display:flex; align-items:center; justify-content:center; border: 1px solid rgba(203, 163, 92, 0.3); flex-shrink: 0; border-radius: 2px; overflow: hidden;">
-                        <img src="${item.img}" style="max-width:80%; max-height:80%; object-fit:contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));" onerror="handleImageError(this)">
+                        <img src="${item.img}" alt="${item.name}" style="max-width:80%; max-height:80%; object-fit:contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));" onerror="handleImageError(this)">
                     </div>
                     <div style="flex:1">
                         <div style="font-weight:500; text-transform:uppercase; font-size:0.8rem; letter-spacing:1.5px; margin-bottom:4px; color:var(--text-white);">${item.name}</div>
@@ -2668,36 +2738,66 @@
             if (window.lucide) lucide.createIcons();
         }
 
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            
+            const whatsappNumber = "8801935322213";
+            const text = `*New Inquiry from Luban Fragrance Website*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
+            
+            window.open(whatsappUrl, '_blank');
+            showToast('Opening WhatsApp...');
+            
+            // Clear form
+            event.target.reset();
+        }
+
         async function executeOrder() {
+            const orderId = 'LB' + Date.now();
+            const name = document.getElementById('billing-name').value;
+            const phone = document.getElementById('billing-phone').value;
+            const email = document.getElementById('billing-email').value;
+            const city = document.getElementById('billing-city').value;
+            const address = document.getElementById('billing-address').value;
+            const total = document.getElementById('checkout-total').innerText;
+
             const order = {
-                id: 'LB' + Date.now(),
-                name: document.getElementById('billing-name').value,
-                phone: document.getElementById('billing-phone').value,
-                email: document.getElementById('billing-email').value,
-                city: document.getElementById('billing-city').value,
-                address: document.getElementById('billing-address').value,
+                id: orderId,
+                name: name,
+                phone: phone,
+                email: email,
+                city: city,
+                address: address,
                 notes: "",
                 items: cart,
-                total: document.getElementById('checkout-total').innerText
+                total: total
             };
+
             const overlay = document.createElement('div');
             overlay.className = 'confirm-overlay';
             overlay.innerHTML = `<div class="confirm-box" style="border-radius:1px; border:1px solid var(--gold-primary);"><h2 style="letter-spacing:10px; color:var(--gold-primary);">TRANSMITTING</h2><p style="margin-top:25px; color:var(--text-dim); letter-spacing:3px; text-transform:uppercase; font-size:0.75rem;">Finalizing your olfactory selection...</p></div>`;
             document.body.appendChild(overlay);
             setTimeout(() => overlay.classList.add('show'), 10);
+
             try {
-                await fetch(APPS_SCRIPT_EXEC_URL, { method: "POST", body: JSON.stringify(order) });
+                // Log to Google Sheets (optional but kept for robustness)
+                fetch(APPS_SCRIPT_EXEC_URL, { method: "POST", body: JSON.stringify(order) }).catch(e => console.error("Logging failed", e));
             } catch (err) { console.error("Order logging failed", err); }
+
             setTimeout(() => {
-                overlay.querySelector('.confirm-box').innerHTML = `<i data-lucide="check" size="72" color="#cba35c" style="margin-bottom:20px;"></i><h2 style="margin-top:20px; letter-spacing:10px;">SECURED</h2><p style="margin-top:15px; color:var(--gold-muted); text-transform:uppercase; letter-spacing:4px; font-size:0.7rem;">Your order ${order.id} is being prepared.</p>`;
-                lucide.createIcons();
+                overlay.querySelector('.confirm-box').innerHTML = `<i data-lucide="check" size="72" color="#cba35c" style="margin-bottom:20px;"></i><h2 style="margin-top:20px; letter-spacing:10px;">SECURED</h2><p style="margin-top:15px; color:var(--gold-muted); text-transform:uppercase; letter-spacing:4px; font-size:0.7rem;">Your order ${orderId} is being prepared.</p><p style="margin-top:10px; font-size:0.6rem; color:var(--gold-primary);">Thank you for your purchase.</p>`;
+                if (window.lucide) lucide.createIcons();
+                
                 setTimeout(() => {
-                    alert(`Thank you ${order.name}. Your selection has been secured and a confirmation will follow.`);
                     cart = [];
                     saveCartToStorage();
                     updateCartCount();
                     showView('main');
                     overlay.remove();
+                    alert(`Thank you ${name}. Your order ${orderId} has been successfully placed.`);
                 }, 2500);
             }, 1800);
         }
@@ -2740,6 +2840,5 @@
             }
         });
     </script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>
