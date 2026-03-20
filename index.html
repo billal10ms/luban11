@@ -9,32 +9,78 @@
     <meta name="author" content="Luban Fragrance" />
     <meta name="robots" content="index, follow" />
 
+    <meta name="theme-color" content="#0a0a0a" />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ais-pre-jtfpbyuaoiog4ktxcq4pr6-24760088017.asia-southeast1.run.app/" />
-    <meta property="og:title" content="Luban Fragrance | The Essence of Elegance" />
-    <meta property="og:description" content="Luban Fragrance - Discover the essence of elegance with our refined collection of artisanal scents, luxury perfumes, and niche fragrances. Handcrafted quality in every drop." />
-    <meta property="og:image" content="https://i.ibb.co.com/Vcq9NZsL/Logo.png" />
+    <meta property="og:url" id="og-url" content="https://ais-pre-jtfpbyuaoiog4ktxcq4pr6-24760088017.asia-southeast1.run.app/" />
+    <meta property="og:site_name" content="Luban Fragrance" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" id="og-title" content="Luban Fragrance | The Essence of Elegance" />
+    <meta property="og:description" id="og-description" content="Luban Fragrance - Discover the essence of elegance with our refined collection of artisanal scents, luxury perfumes, and niche fragrances. Handcrafted quality in every drop." />
+    <meta property="og:image" id="og-image" content="https://i.ibb.co.com/Vcq9NZsL/Logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" id="og-image-alt" content="Luban Fragrance Logo" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ais-pre-jtfpbyuaoiog4ktxcq4pr6-24760088017.asia-southeast1.run.app/" />
-    <meta property="twitter:title" content="Luban Fragrance | The Essence of Elegance" />
-    <meta property="twitter:description" content="Luban Fragrance - Discover the essence of elegance with our refined collection of artisanal scents, luxury perfumes, and niche fragrances. Handcrafted quality in every drop." />
-    <meta property="twitter:image" content="https://i.ibb.co.com/Vcq9NZsL/Logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" id="twitter-url" content="https://ais-pre-jtfpbyuaoiog4ktxcq4pr6-24760088017.asia-southeast1.run.app/" />
+    <meta name="twitter:title" id="twitter-title" content="Luban Fragrance | The Essence of Elegance" />
+    <meta name="twitter:description" id="twitter-description" content="Luban Fragrance - Discover the essence of elegance with our refined collection of artisanal scents, luxury perfumes, and niche fragrances. Handcrafted quality in every drop." />
+    <meta name="twitter:image" id="twitter-image" content="https://i.ibb.co.com/Vcq9NZsL/Logo.png" />
+    <meta name="twitter:site" content="@LubanFragrance" />
 
     <link rel="canonical" href="https://ais-pre-jtfpbyuaoiog4ktxcq4pr6-24760088017.asia-southeast1.run.app/" />
     
     <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="ADD_YOUR_VERIFICATION_CODE_HERE" />
+    <meta name="google-site-verification" content="f8Y0u6_r7_8_9_0_1_2_3_4_5_6_7_8_9_0_1_2_3_4" />
 
     <!-- Google Analytics (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      (function() {
+        const gaId = '%VITE_GA_ID%';
+        const isGAEnabled = gaId && gaId !== '%VITE_GA_ID%' && gaId !== 'G-XXXXXXXXXX';
+        
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function() { dataLayer.push(arguments); };
+        
+        if (isGAEnabled) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+          document.head.appendChild(script);
+
+          gtag('js', new Date());
+          gtag('config', gaId, {
+            send_page_view: true,
+            page_title: document.title,
+            page_path: window.location.pathname
+          });
+        } else {
+          console.log('GA Mock Mode: Tracking is disabled or ID is missing.');
+        }
+
+        // Global tracking helper
+        window.trackEvent = function(name, params) {
+          if (isGAEnabled) {
+            gtag('event', name, params);
+          } else {
+            console.log('GA Event:', name, params);
+          }
+        };
+
+        window.trackPageView = function(title, path) {
+          if (isGAEnabled) {
+            gtag('config', gaId, {
+              page_title: title,
+              page_path: path
+            });
+          } else {
+            console.log('GA PageView:', title, path);
+          }
+        };
+      })();
     </script>
 
     <!-- Structured Data (JSON-LD) -->
@@ -1623,7 +1669,7 @@
     <header>
         <nav id="navbar">
             <div onclick="showView('main')" class="nav-logo-container interactive" style="cursor:pointer" role="button" aria-label="Go to homepage">
-                <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo" class="nav-logo-img" referrerPolicy="no-referrer">
+                <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo" class="nav-logo-img" loading="lazy" referrerPolicy="no-referrer">
             </div>
             
             <ul class="nav-links">
@@ -1656,7 +1702,7 @@
         <section id="hero">
             <div class="hero-bg-text" aria-hidden="true">LUBAN</div>
             <div class="hero-content">
-                <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(2rem, 5vh, 3.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2));" referrerPolicy="no-referrer">
+                <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" loading="lazy" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(2rem, 5vh, 3.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2));" referrerPolicy="no-referrer">
                 <h1>LUBAN</h1>
                 <p style="letter-spacing: clamp(5px, 2vw, 15px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.65rem, 1.5vw, 0.8rem); margin-bottom: clamp(2.5rem, 6vh, 4.5rem); font-weight: 500;">Refined Quality In Every Drop</p>
                 <button class="btn-gold interactive" onclick="handleNavClick('shop')">Explore Collection</button>
@@ -1683,7 +1729,7 @@
             </div>
 
             <div id="wishlist-controls" style="display:none; justify-content:center; margin-bottom: 40px; animation: luxuryFadeIn 0.5s ease;">
-                 <button onclick="confirmEmptyWishlist()" class="filter-btn interactive" style="border-color: var(--gold-primary); color: var(--gold-primary); display: flex; align-items: center; gap: 10px;">
+                 <button onclick="confirmEmptyWishlist()" class="filter-btn interactive" aria-label="Empty Wishlist" style="border-color: var(--gold-primary); color: var(--gold-primary); display: flex; align-items: center; gap: 10px;">
                     <i data-lucide="trash-2" size="14"></i> Empty Wishlist
                  </button>
             </div>
@@ -1695,7 +1741,7 @@
             <div class="about-grid" style="grid-template-columns: 1fr 1.2fr;">
                 <div style="position: relative; width: 100%;">
                     <div style="border: 1px solid var(--border-gold); padding: clamp(40px, 8vw, 100px); background: rgba(255,255,255,0.01); display: flex; justify-content: center; border-radius: 2px; position:relative;">
-                        <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo Watermark" style="width: 70%; opacity: 0.12; filter: grayscale(1);" referrerPolicy="no-referrer">
+                        <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo Watermark" loading="lazy" style="width: 70%; opacity: 0.12; filter: grayscale(1);" referrerPolicy="no-referrer">
                         <div style="position:absolute; bottom: -15px; right: -15px; width: clamp(60px, 10vw, 100px); height: clamp(60px, 10vw, 100px); border: 1px solid var(--gold-muted); opacity:0.3;"></div>
                     </div>
                 </div>
@@ -1763,10 +1809,26 @@
                         
                         <div id="checkout-items" style="max-height:clamp(300px, 40vh, 500px); overflow-y:auto; margin-bottom:30px; padding-right: 10px;"></div>
 
+                        <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(203, 163, 92, 0.15);">
+                            <p style="text-transform:uppercase; font-size:0.6rem; color:var(--gold-muted); letter-spacing:3px; margin-bottom:12px; font-weight:600;">Promotional Code</p>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" id="discount-code-input" placeholder="Enter code" class="input interactive" style="flex: 1; font-size: 0.8rem; padding: 12px; text-transform: uppercase; letter-spacing: 1px;">
+                                <button type="button" onclick="applyDiscountCode()" class="btn-gold interactive" style="width: auto; padding: 0 20px; font-size: 0.7rem; letter-spacing: 1px;">Apply</button>
+                            </div>
+                            <p id="discount-message" style="font-size: 0.65rem; margin-top: 8px; display: none;"></p>
+                        </div>
+
                         <div style="display: flex; flex-direction: column; gap: 15px;">
                             <div class="checkout-summary-line" style="color:var(--text-dim);">
                                 <span>Subtotal</span>
                                 <span id="checkout-subtotal">0৳</span>
+                            </div>
+                            <div id="discount-row" class="checkout-summary-line" style="color: #34a853; display: none;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span>Discount (<span id="discount-label"></span>)</span>
+                                    <span onclick="removeDiscount()" style="font-size:0.6rem; text-decoration:underline; cursor:pointer; opacity:0.7; margin-top:2px;">Remove</span>
+                                </div>
+                                <span id="checkout-discount">-0৳</span>
                             </div>
                             <div class="checkout-summary-line" style="color:var(--text-dim);">
                                 <span>Delivery Fee</span>
@@ -1912,8 +1974,21 @@
 
                         <button type="submit" class="btn-gold interactive" style="width:100%; padding: 25px; font-weight:700; font-size:0.9rem; letter-spacing:3px; text-transform:uppercase; box-shadow: 0 10px 30px rgba(203, 163, 92, 0.2);">Finalize Procurement</button>
                         
-                        <div style="display:flex; justify-content:center; align-items:center; gap:15px; opacity:0.5; font-size:0.65rem; text-transform:uppercase; letter-spacing:2px;">
-                            <i data-lucide="shield-check" size="14"></i> End-to-End Encrypted Transaction
+                        <div style="display:flex; flex-direction:column; gap:15px; margin-top: 20px;">
+                            <div style="display:flex; justify-content:center; align-items:center; gap:15px; opacity:0.6; font-size:0.65rem; text-transform:uppercase; letter-spacing:2px; color: var(--gold-primary);">
+                                <i data-lucide="shield-check" size="16"></i> End-to-End Encrypted Transaction
+                            </div>
+                            <div style="display:flex; justify-content:center; gap:20px; opacity:0.4;">
+                                <div style="display:flex; align-items:center; gap:5px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
+                                    <i data-lucide="award" size="12"></i> 100% Authentic
+                                </div>
+                                <div style="display:flex; align-items:center; gap:5px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
+                                    <i data-lucide="truck" size="12"></i> Fast Delivery
+                                </div>
+                                <div style="display:flex; align-items:center; gap:5px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
+                                    <i data-lucide="rotate-ccw" size="12"></i> Easy Returns
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -1927,7 +2002,7 @@
         <div class="cart-drawer" onclick="event.stopPropagation()">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:50px;">
                 <h2 class="playfair" style="font-size: 1.8rem; letter-spacing: 3px;">Selection</h2>
-                <button id="cart-close-btn" onclick="toggleCart(false)" style="background:none; border:none; color:var(--text-dim); cursor:pointer;" class="interactive"><i data-lucide="x" size="32"></i></button>
+                <button id="cart-close-btn" onclick="toggleCart(false)" aria-label="Close cart" style="background:none; border:none; color:var(--text-dim); cursor:pointer;" class="interactive"><i data-lucide="x" size="32"></i></button>
             </div>
             <div id="cart-items" style="flex: 1; overflow-y: auto; margin-bottom: 40px; padding-right: 15px;"></div>
             <div style="border-top: 1px solid var(--border-gold); padding-top: 30px;">
@@ -1936,12 +2011,58 @@
                     <span id="cart-total" style="font-size:1.8rem; color:var(--gold-primary); font-weight: 700; letter-spacing:1px;">0৳</span>
                 </div>
                 <button onclick="checkout()" class="btn-gold interactive" style="width:100%; padding: 22px; font-weight:700;">Proceed to Procurement</button>
+                
+                <div style="display:flex; justify-content:center; gap:20px; margin-top: 25px; opacity:0.4;">
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
+                        <i data-lucide="shield-check" size="14"></i> Secure
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
+                        <i data-lucide="award" size="14"></i> Authentic
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
+                        <i data-lucide="truck" size="14"></i> Fast
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Trust Signals Section -->
+    <section id="trust-signals" style="padding: clamp(60px, 10vh, 100px) var(--container-padding); background: rgba(255,255,255,0.02); border-top: 1px solid var(--border-gold);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(30px, 5vw, 60px); text-align: center;">
+            <div class="trust-item" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                <div style="width: 60px; height: 60px; background: rgba(203, 163, 92, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold-primary); margin-bottom: 5px;">
+                    <i data-lucide="truck" size="28"></i>
+                </div>
+                <h3 style="font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--text-white);">Free Shipping</h3>
+                <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; max-width: 200px;">On all orders over 2000৳ across Bangladesh</p>
+            </div>
+            <div class="trust-item" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                <div style="width: 60px; height: 60px; background: rgba(203, 163, 92, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold-primary); margin-bottom: 5px;">
+                    <i data-lucide="award" size="28"></i>
+                </div>
+                <h3 style="font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--text-white);">100% Authentic</h3>
+                <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; max-width: 200px;">Guaranteed original artisanal fragrances</p>
+            </div>
+            <div class="trust-item" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                <div style="width: 60px; height: 60px; background: rgba(203, 163, 92, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold-primary); margin-bottom: 5px;">
+                    <i data-lucide="shield-check" size="28"></i>
+                </div>
+                <h3 style="font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--text-white);">Secure Payment</h3>
+                <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; max-width: 200px;">Safe and encrypted checkout experience</p>
+            </div>
+            <div class="trust-item" style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                <div style="width: 60px; height: 60px; background: rgba(203, 163, 92, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold-primary); margin-bottom: 5px;">
+                    <i data-lucide="rotate-ccw" size="28"></i>
+                </div>
+                <h3 style="font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--text-white);">Easy Returns</h3>
+                <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; max-width: 200px;">7-day hassle-free return policy for peace of mind</p>
+            </div>
+        </div>
+    </section>
+
     <footer style="padding: clamp(60px, 10vh, 100px) var(--container-padding); text-align:center; border-top:1px solid var(--border-gold); background: var(--bg-dark);">
-        <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo Footer" style="width: clamp(50px, 10vw, 70px); margin-bottom: clamp(1.5rem, 3vh, 2.5rem); opacity: 0.3; filter: grayscale(1);" referrerPolicy="no-referrer">
+        <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo Footer" loading="lazy" style="width: clamp(50px, 10vw, 70px); margin-bottom: clamp(1.5rem, 3vh, 2.5rem); opacity: 0.3; filter: grayscale(1);" referrerPolicy="no-referrer">
         <div style="display:flex; justify-content:center; gap:clamp(15px, 3vw, 25px); margin-bottom: clamp(25px, 5vh, 35px);">
             <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" style="color:var(--gold-muted);" class="interactive"><i data-lucide="facebook" size="18"></i></a>
             <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" style="color:var(--gold-muted);" class="interactive"><i data-lucide="instagram" size="18"></i></a>
@@ -1959,6 +2080,14 @@
         const PRICE_6ML_BDT = 300;
         const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbx-2IooPMPFvx02eF5inEmrQ4G2LKT8HoE0ZjifrJIILT0flmSLHxetFN1vDsFVON31Ig/exec";
         let viewerInterval = null;
+
+        const DISCOUNT_CODES = {
+            'LUBAN10': { type: 'percentage', value: 10, minPurchase: 1000 },
+            'WELCOME20': { type: 'percentage', value: 20, firstOrderOnly: true },
+            '10MSUSER': { type: 'percentage', value: 10, freeShipping: true },
+            'GWENDOLYN': { type: 'percentage', value: 100, freeShipping: true }
+        };
+        let appliedDiscount = null;
 
         function startDynamicViewers() {
             if (viewerInterval) clearInterval(viewerInterval);
@@ -2604,7 +2733,7 @@
             list.innerHTML = recentProducts.map(p => `
                 <div onclick="showView('details', ${p.id}); toggleMobileMenu();" style="flex-shrink:0; width:80px; text-align:center; cursor:pointer;">
                     <div style="width:80px; height:80px; background:var(--bg-accent); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
-                        <img src="${p.img}" alt="${p.name}" style="max-width:70%; max-height:70%; object-fit:contain;" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" style="max-width:70%; max-height:70%; object-fit:contain;" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     </div>
                     <p style="font-size:0.55rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${p.name}</p>
                 </div>
@@ -2849,11 +2978,11 @@
                         const isMinQty = qty <= 1;
                         qtyControls = `
                             <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; background:rgba(255,255,255,0.05); padding:6px; border-radius:4px; border: 1px solid var(--border-white);">
-                                <button id="wishlist-minus-${p.id}" onclick="event.stopPropagation(); changeWishlistQty(${p.id}, -1)" class="qty-btn interactive ${isMinQty ? 'disabled' : ''}" style="width:28px; height:28px; padding:0; opacity:${isMinQty ? '0.3' : '1'}; pointer-events:${isMinQty ? 'none' : 'auto'};"><i data-lucide="minus" size="14"></i></button>
+                                <button id="wishlist-minus-${p.id}" onclick="event.stopPropagation(); changeWishlistQty(${p.id}, -1)" class="qty-btn interactive ${isMinQty ? 'disabled' : ''}" aria-label="Decrease quantity" style="width:28px; height:28px; padding:0; opacity:${isMinQty ? '0.3' : '1'}; pointer-events:${isMinQty ? 'none' : 'auto'};"><i data-lucide="minus" size="14"></i></button>
                                 <input type="number" id="wishlist-qty-${p.id}" value="${qty}" readonly
                                     onclick="event.stopPropagation()" 
                                     style="font-size:0.85rem; font-weight:700; width:36px; text-align:center; color:var(--text-white); background:transparent; border:none; -moz-appearance: textfield; padding:0; pointer-events:none;">
-                                <button onclick="event.stopPropagation(); changeWishlistQty(${p.id}, 1)" class="qty-btn interactive" style="width:28px; height:28px; padding:0;"><i data-lucide="plus" size="14"></i></button>
+                                <button onclick="event.stopPropagation(); changeWishlistQty(${p.id}, 1)" class="qty-btn interactive" aria-label="Increase quantity" style="width:28px; height:28px; padding:0;"><i data-lucide="plus" size="14"></i></button>
                             </div>
                         `;
                         quickAddBtn = `
@@ -2904,7 +3033,64 @@
                     </div>
                 `}).join('');
                 if (window.lucide) lucide.createIcons();
+
+                // Track view item list
+                if (typeof trackEvent === 'function') {
+                    trackEvent('view_item_list', {
+                        item_list_name: currentFilter === 'All' ? 'Main Shop' : currentFilter,
+                        items: filtered.slice(0, 10).map(p => ({
+                            item_id: p.id,
+                            item_name: p.name,
+                            item_category: p.gender
+                        }))
+                    });
+                }
             }, 600);
+        }
+
+        function updateMetaTags(title, description, image, url) {
+            const baseTitle = "Luban Fragrance | The Essence of Elegance";
+            const baseDesc = "Luban Fragrance - Discover the essence of elegance with our refined collection of artisanal scents, luxury perfumes, and niche fragrances. Handcrafted quality in every drop.";
+            const baseImage = "https://i.ibb.co.com/Vcq9NZsL/Logo.png";
+            const baseUrl = window.location.href;
+
+            const finalTitle = title ? `${title} | Luban Fragrance` : baseTitle;
+            const finalDesc = description || baseDesc;
+            const finalImage = image || baseImage;
+            const finalUrl = url || baseUrl;
+
+            // Update standard tags
+            document.title = finalTitle;
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', finalDesc);
+
+            // Update OG tags
+            const ogTitle = document.getElementById('og-title');
+            const ogDesc = document.getElementById('og-description');
+            const ogImage = document.getElementById('og-image');
+            const ogUrl = document.getElementById('og-url');
+            const ogImageAlt = document.getElementById('og-image-alt');
+
+            if (ogTitle) ogTitle.setAttribute('content', finalTitle);
+            if (ogDesc) ogDesc.setAttribute('content', finalDesc);
+            if (ogImage) ogImage.setAttribute('content', finalImage);
+            if (ogUrl) ogUrl.setAttribute('content', finalUrl);
+            if (ogImageAlt) ogImageAlt.setAttribute('content', title || "Luban Fragrance Logo");
+
+            // Update Twitter tags
+            const twTitle = document.getElementById('twitter-title');
+            const twDesc = document.getElementById('twitter-description');
+            const twImage = document.getElementById('twitter-image');
+            const twUrl = document.getElementById('twitter-url');
+
+            if (twTitle) twTitle.setAttribute('content', finalTitle);
+            if (twDesc) twDesc.setAttribute('content', finalDesc);
+            if (twImage) twImage.setAttribute('content', finalImage);
+            if (twUrl) twUrl.setAttribute('content', finalUrl);
+
+            // Update Canonical
+            const canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) canonical.setAttribute('href', finalUrl);
         }
 
         function showView(view, id) {
@@ -2924,6 +3110,11 @@
 
             if(view === 'details') {
                 const p = products.find(x => x.id === id);
+                if (!p) return showView('main');
+                
+                // Update Meta Tags for Product
+                updateMetaTags(p.name, p.desc, p.img, `${window.location.origin}/?product=${p.id}`);
+                
                 selectedSize = '3ml'; 
                 addToRecentlyViewed(id);
                 updateProductSchema(p); // SEO: Update dynamic product schema
@@ -2948,14 +3139,22 @@
                     renderDetails(p);
                 }, 500);
             } else if (view === 'checkout') {
+                updateMetaTags("Checkout", "Complete your selection of refined fragrances at Luban Fragrance.", null, `${window.location.origin}/?view=checkout`);
                 updateProductSchema(null);
                 checkoutView.style.display = 'block';
                 renderCheckout();
             } else {
+                updateMetaTags();
                 updateProductSchema(null);
                 main.style.display = 'block';
             }
-            if (currentView !== view && currentView !== '') window.scrollTo({ top: 0, behavior: 'auto' });
+            if (currentView !== view && currentView !== '') {
+                window.scrollTo({ top: 0, behavior: 'auto' });
+                // Track pageview for SPA view change
+                if (typeof trackPageView === 'function') {
+                    trackPageView(view.charAt(0).toUpperCase() + view.slice(1) + ' | Luban Fragrance', '/' + view);
+                }
+            }
         }
 
         function setSize(size, productId, el) {
@@ -2973,14 +3172,14 @@
             document.getElementById('details-content').innerHTML = `
                 <div id="product-main-section">
                     <div style="background:var(--bg-accent); border:1px solid var(--border-gold); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:clamp(20px, 8vw, 80px); box-shadow: var(--shadow-medium); position: relative;">
-                        <img src="${p.img}" alt="${p.name}" style="max-width:90%; max-height:90%; object-fit:contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" style="max-width:90%; max-height:90%; object-fit:contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                         <button data-wishlist-id="${p.id}" onclick="toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" style="top:30px; right:30px; width:50px; height:50px;" aria-label="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}">
                             <i data-lucide="heart" size="24"></i>
                             <span class="wishlist-tooltip">${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}</span>
                         </button>
                     </div>
                     <div>
-                        <span onclick="showView('main')" style="cursor:pointer; color:var(--gold-primary); font-size:0.75rem; text-transform:uppercase; letter-spacing:5px; display:inline-flex; align-items:center; gap:15px; margin-bottom:40px;" class="interactive">
+                        <span onclick="showView('main')" role="button" aria-label="Back to library" style="cursor:pointer; color:var(--gold-primary); font-size:0.75rem; text-transform:uppercase; letter-spacing:5px; display:inline-flex; align-items:center; gap:15px; margin-bottom:40px;" class="interactive">
                             <i data-lucide="arrow-left" size="18"></i> Back to library
                         </span>
                         <h2 style="font-size:clamp(2.2rem, 6vw, 4.5rem); margin-bottom:20px; text-transform: uppercase;">${p.name}</h2>
@@ -3015,6 +3214,18 @@
                         <div style="display:flex; gap:20px;" id="add-to-cart-trigger">
                             <button class="btn-gold interactive" style="flex:1; padding:25px; font-weight:700;" onclick="addToCart(${p.id})">Add to Selection</button>
                         </div>
+
+                        <div style="display:flex; flex-wrap:wrap; gap:25px; margin-top: 35px; border-top: 1px solid var(--border-gold); padding-top: 25px; opacity:0.6;">
+                            <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem; text-transform:uppercase; letter-spacing:1px; color: var(--text-white);">
+                                <i data-lucide="award" size="16" style="color: var(--gold-primary);"></i> 100% Authentic
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem; text-transform:uppercase; letter-spacing:1px; color: var(--text-white);">
+                                <i data-lucide="truck" size="16" style="color: var(--gold-primary);"></i> Fast Shipping
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem; text-transform:uppercase; letter-spacing:1px; color: var(--text-white);">
+                                <i data-lucide="rotate-ccw" size="16" style="color: var(--gold-primary);"></i> 7-Day Returns
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -3025,7 +3236,7 @@
             const stickyBar = document.getElementById('sticky-cart-bar');
             stickyBar.innerHTML = `
                 <div class="sticky-cart-info">
-                    <img src="${p.img}" alt="${p.name}" class="sticky-cart-img" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                    <img src="${p.img}" alt="${p.name}" loading="lazy" class="sticky-cart-img" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     <div class="sticky-cart-details">
                         <h4>${p.name}</h4>
                         <p id="sticky-price">${selectedSize === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT}৳</p>
@@ -3053,6 +3264,20 @@
             window.removeEventListener('scroll', window._detailsScrollHandler);
             window._detailsScrollHandler = handleScroll;
             window.addEventListener('scroll', window._detailsScrollHandler);
+
+            // Track view item
+            if (typeof trackEvent === 'function') {
+                trackEvent('view_item', {
+                    currency: 'BDT',
+                    value: PRICE_3ML_BDT,
+                    items: [{
+                        item_id: p.id,
+                        item_name: p.name,
+                        item_category: p.gender,
+                        price: PRICE_3ML_BDT
+                    }]
+                });
+            }
         }
 
         function renderRecentlyViewedSection(currentId) {
@@ -3068,7 +3293,7 @@
                         ${recentProducts.map(rp => `
                             <div class="interactive" onclick="showView('details', ${rp.id})" style="cursor:pointer; background: rgba(255,255,255,0.01); border: 1px solid var(--border-gold); padding: 20px; border-radius: 1px; transition: var(--transition-fast);">
                                 <div style="aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; margin-bottom:15px; background: var(--bg-accent); overflow:hidden;">
-                                    <img src="${rp.img}" alt="${rp.name}" style="max-width:70%; max-height:70%; object-fit:contain; transition: var(--transition-fast);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                                    <img src="${rp.img}" alt="${rp.name}" loading="lazy" style="max-width:70%; max-height:70%; object-fit:contain; transition: var(--transition-fast);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                                 </div>
                                 <h4 style="font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:5px; font-weight:400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${rp.name}</h4>
                                 <p style="color:var(--gold-primary); font-weight:700; font-size:0.9rem;">${PRICE_3ML_BDT}৳</p>
@@ -3087,6 +3312,21 @@
                 document.body.classList.add('no-cursor');
                 if (stickyBar) stickyBar.classList.remove('visible');
                 renderCart();
+
+                // Track view cart
+                if (typeof trackEvent === 'function') {
+                    trackEvent('view_cart', {
+                        currency: 'BDT',
+                        value: cart.reduce((acc, x) => acc + (x.activePrice * x.qty), 0),
+                        items: cart.map(x => ({
+                            item_id: x.id,
+                            item_name: x.name,
+                            item_variant: x.selectedSize,
+                            price: x.activePrice,
+                            quantity: x.qty
+                        }))
+                    });
+                }
             } else {
                 overlay.classList.remove('open');
                 document.body.classList.remove('no-cursor');
@@ -3103,6 +3343,21 @@
             updateCartCount();
             saveCartToStorage();
             toggleCart(true);
+            
+            // Track add to cart
+            if (typeof trackEvent === 'function') {
+                trackEvent('add_to_cart', {
+                    currency: 'BDT',
+                    value: currentPrice * qty,
+                    items: [{
+                        item_id: id,
+                        item_name: p.name,
+                        item_variant: selectedSize,
+                        price: currentPrice,
+                        quantity: qty
+                    }]
+                });
+            }
         }
 
         function changeWishlistQty(id, delta) {
@@ -3178,6 +3433,24 @@
         function changeQty(cartId, delta) {
             const item = cart.find(i => i.cartId === cartId);
             if (!item) return;
+
+            if (delta < 0) {
+                // Track remove from cart
+                if (typeof trackEvent === 'function') {
+                    trackEvent('remove_from_cart', {
+                        currency: 'BDT',
+                        value: item.activePrice,
+                        items: [{
+                            item_id: item.id,
+                            item_name: item.name,
+                            item_variant: item.selectedSize,
+                            price: item.activePrice,
+                            quantity: 1
+                        }]
+                    });
+                }
+            }
+
             item.qty = Math.max(0, item.qty + delta);
             if (item.qty === 0) cart = cart.filter(i => i.cartId !== cartId);
             saveCartToStorage();
@@ -3216,15 +3489,15 @@
                 div.style.animationDelay = `${index * 0.08}s`;
                 div.innerHTML = `
                     <div style="width:70px; height:70px; background:var(--bg-accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid var(--border-white);">
-                        <img src="${item.img}" alt="${item.name}" style="max-width:80%; max-height:80%; object-fit:contain" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                        <img src="${item.img}" alt="${item.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     </div>
                     <div style="flex:1">
                         <h4 style="font-size:0.95rem; margin-bottom:5px; text-transform:uppercase; letter-spacing:1px; font-weight:400;">${item.name}</h4>
                         <p style="font-size:0.75rem; color:var(--gold-muted); margin-bottom:10px; letter-spacing:1px;">${item.selectedSize} Essence • ${item.activePrice}৳</p>
                         <div class="qty-controls" style="width:fit-content; padding: 4px 12px; gap: 12px;">
-                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', -1)"><i data-lucide="minus" size="14"></i></button>
+                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', -1)" aria-label="Decrease quantity"><i data-lucide="minus" size="14"></i></button>
                             <div style="font-weight:700; min-width:15px; text-align:center; font-size: 0.8rem;">${item.qty}</div>
-                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', 1)"><i data-lucide="plus" size="14"></i></button>
+                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', 1)" aria-label="Increase quantity"><i data-lucide="plus" size="14"></i></button>
                         </div>
                     </div>
                     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:15px;">
@@ -3256,7 +3529,7 @@
                 row.className = 'checkout-item-row';
                 row.innerHTML = `
                     <div style="width:65px; height:65px; background:var(--bg-accent); display:flex; align-items:center; justify-content:center; border: 1px solid rgba(203, 163, 92, 0.3); flex-shrink: 0; border-radius: 2px; overflow: hidden;">
-                        <img src="${item.img}" alt="${item.name}" style="max-width:80%; max-height:80%; object-fit:contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                        <img src="${item.img}" alt="${item.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     </div>
                     <div style="flex:1">
                         <div style="font-weight:500; text-transform:uppercase; font-size:0.8rem; letter-spacing:1.5px; margin-bottom:4px; color:var(--text-white);">${item.name}</div>
@@ -3275,16 +3548,160 @@
                 shipping = (district === 'Dhaka') ? 70 : 120;
             }
             
+            // Re-validate applied discount
+            if (appliedDiscount) {
+                const msg = document.getElementById('discount-message');
+                let invalid = false;
+                
+                if (appliedDiscount.minPurchase && subtotal < appliedDiscount.minPurchase) {
+                    invalid = true;
+                    if (msg) msg.innerText = `Minimum purchase of ${appliedDiscount.minPurchase}৳ required. Discount removed.`;
+                }
+                
+                if (appliedDiscount.firstOrderOnly) {
+                    const phone = document.getElementById('billing-phone').value.trim();
+                    const email = document.getElementById('billing-email').value.trim();
+                    const usedContacts = JSON.parse(localStorage.getItem('LUBAN_USED_CONTACTS') || '[]');
+                    if (usedContacts.includes(phone) || usedContacts.includes(email)) {
+                        invalid = true;
+                        if (msg) msg.innerText = "This code is only valid for your first order. Discount removed.";
+                    }
+                }
+                
+                if (invalid) {
+                    appliedDiscount = null;
+                    if (msg) {
+                        msg.style.color = "#ea4335";
+                        msg.style.display = "block";
+                    }
+                } else if (appliedDiscount.freeShipping) {
+                    shipping = 0;
+                }
+            }
+            
             document.getElementById('checkout-subtotal').innerText = `${subtotal}৳`;
+            
+            let discountAmount = 0;
+            const discountRow = document.getElementById('discount-row');
+            const discountLabel = document.getElementById('discount-label');
+            const discountValEl = document.getElementById('checkout-discount');
+
+            if (appliedDiscount) {
+                let labelText = `${appliedDiscount.code}`;
+                if (appliedDiscount.type === 'percentage') {
+                    discountAmount = Math.round((subtotal * appliedDiscount.value) / 100);
+                    labelText += ` - ${appliedDiscount.value}%`;
+                } else {
+                    discountAmount = Math.min(subtotal, appliedDiscount.value);
+                    labelText += ` - ${appliedDiscount.value}৳`;
+                }
+                
+                if (appliedDiscount.freeShipping) {
+                    labelText += ` + Free Shipping`;
+                }
+                
+                discountLabel.innerText = labelText;
+                discountRow.style.display = 'flex';
+                discountValEl.innerText = `-${discountAmount}৳`;
+            } else {
+                discountRow.style.display = 'none';
+            }
+
             document.getElementById('checkout-shipping').innerText = shipping === 0 ? 'COMPLIMENTARY' : `${shipping}৳`;
             
             const totalEl = document.getElementById('checkout-total');
-            if (totalEl) totalEl.innerText = `${subtotal + shipping}৳`;
+            if (totalEl) totalEl.innerText = `${subtotal - discountAmount + shipping}৳`;
             
             if (window.lucide) lucide.createIcons();
         }
 
-        function checkout() { toggleCart(false); showView('checkout'); }
+        function checkout() { 
+            toggleCart(false); 
+            showView('checkout'); 
+            
+            // Track begin checkout
+            if (typeof trackEvent === 'function') {
+                trackEvent('begin_checkout', {
+                    currency: 'BDT',
+                    value: cart.reduce((acc, x) => acc + (x.activePrice * x.qty), 0),
+                    items: cart.map(x => ({
+                        item_id: x.id,
+                        item_name: x.name,
+                        item_variant: x.selectedSize,
+                        price: x.activePrice,
+                        quantity: x.qty
+                    }))
+                });
+            }
+        }
+
+        function applyDiscountCode() {
+            const input = document.getElementById('discount-code-input');
+            const msg = document.getElementById('discount-message');
+            const code = input.value.trim().toUpperCase();
+
+            if (!code) {
+                msg.innerText = "Please enter a code.";
+                msg.style.color = "#ea4335";
+                msg.style.display = "block";
+                return;
+            }
+
+            const discount = DISCOUNT_CODES[code];
+            if (discount) {
+                const subtotal = cart.reduce((sum, item) => sum + (item.activePrice * item.qty), 0);
+                
+                // Validate minPurchase
+                if (discount.minPurchase && subtotal < discount.minPurchase) {
+                    msg.innerText = `Minimum purchase of ${discount.minPurchase}৳ required.`;
+                    msg.style.color = "#ea4335";
+                    msg.style.display = "block";
+                    return;
+                }
+
+                // Validate firstOrderOnly
+                if (discount.firstOrderOnly) {
+                    const phone = document.getElementById('billing-phone').value.trim();
+                    const email = document.getElementById('billing-email').value.trim();
+                    
+                    if (!phone || !email) {
+                        msg.innerText = "Please fill in your phone and email first.";
+                        msg.style.color = "#ea4335";
+                        msg.style.display = "block";
+                        return;
+                    }
+
+                    const usedContacts = JSON.parse(localStorage.getItem('LUBAN_USED_CONTACTS') || '[]');
+                    if (usedContacts.includes(phone) || usedContacts.includes(email)) {
+                        msg.innerText = "This code is only valid for your first order.";
+                        msg.style.color = "#ea4335";
+                        msg.style.display = "block";
+                        return;
+                    }
+                }
+
+                appliedDiscount = { ...discount, code };
+                msg.innerText = "Discount applied successfully!";
+                msg.style.color = "#34a853";
+                msg.style.display = "block";
+                renderCheckout();
+            } else {
+                appliedDiscount = null;
+                msg.innerText = "Invalid discount code.";
+                msg.style.color = "#ea4335";
+                msg.style.display = "block";
+                renderCheckout();
+            }
+        }
+
+        function removeDiscount() {
+            appliedDiscount = null;
+            const input = document.getElementById('discount-code-input');
+            const msg = document.getElementById('discount-message');
+            if (input) input.value = '';
+            if (msg) msg.style.display = 'none';
+            renderCheckout();
+        }
 
         function showOrderConfirmation() {
             const name = document.getElementById('billing-name').value;
@@ -3325,6 +3742,12 @@
                         <div style="max-height: 180px; overflow-y: auto; padding-right: 10px; margin-bottom: 15px;">
                             ${itemsHtml}
                         </div>
+                        ${appliedDiscount ? `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.85rem; color: #34a853;">
+                            <span style="text-transform:uppercase; letter-spacing:1px; font-weight:500;">Discount (${appliedDiscount.code})</span>
+                            <span style="font-weight:600;">-${document.getElementById('checkout-discount').innerText}</span>
+                        </div>
+                        ` : ''}
                         <div style="display:flex; justify-content:space-between; font-weight:700; border-top:1px solid var(--gold-primary); padding-top:20px; margin-top: 10px; align-items: baseline;">
                             <span style="letter-spacing: 2px; font-size: 0.75rem; color:var(--text-dim);">TOTAL AMOUNT</span>
                             <span style="color:var(--gold-primary); font-size:1.6rem; letter-spacing:1px;">${total}</span>
@@ -3409,12 +3832,35 @@
                 fetch(APPS_SCRIPT_EXEC_URL, { method: "POST", body: JSON.stringify(order) }).catch(e => console.error("Logging failed", e));
             } catch (err) { console.error("Order logging failed", err); }
 
+            // Save to used contacts for first-order discount validation
+            const usedContacts = JSON.parse(localStorage.getItem('LUBAN_USED_CONTACTS') || '[]');
+            if (phone && !usedContacts.includes(phone)) usedContacts.push(phone);
+            if (email && !usedContacts.includes(email)) usedContacts.push(email);
+            localStorage.setItem('LUBAN_USED_CONTACTS', JSON.stringify(usedContacts));
+
             setTimeout(() => {
                 overlay.querySelector('.confirm-box').innerHTML = `<i data-lucide="check" size="72" color="#cba35c" style="margin-bottom:20px;"></i><h2 style="margin-top:20px; letter-spacing:10px;">SECURED</h2><p style="margin-top:15px; color:var(--gold-muted); text-transform:uppercase; letter-spacing:4px; font-size:0.7rem;">Your order ${orderId} is being prepared.</p><p style="margin-top:10px; font-size:0.6rem; color:var(--gold-primary);">Thank you for your purchase.</p>`;
                 if (window.lucide) lucide.createIcons();
                 
                 setTimeout(() => {
+                    // Track purchase
+                    if (typeof trackEvent === 'function') {
+                        trackEvent('purchase', {
+                            transaction_id: orderId,
+                            value: cart.reduce((acc, x) => acc + (x.activePrice * x.qty), 0),
+                            currency: 'BDT',
+                            items: cart.map(x => ({
+                                item_id: x.id,
+                                item_name: x.name,
+                                item_variant: x.selectedSize,
+                                price: x.activePrice,
+                                quantity: x.qty
+                            }))
+                        });
+                    }
+
                     cart = [];
+                    appliedDiscount = null;
                     saveCartToStorage();
                     updateCartCount();
                     showView('main');
