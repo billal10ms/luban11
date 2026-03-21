@@ -1599,52 +1599,50 @@
 
         .bottom-nav-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--text-dim);
+            color: rgba(255, 255, 255, 0.4);
             text-decoration: none;
-            font-size: 0.65rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: var(--transition-fast);
+            transition: all 0.4s var(--ease-luxury);
             position: relative;
-            gap: 5px;
             -webkit-tap-highlight-color: transparent;
         }
 
         .bottom-nav-item:active {
-            transform: scale(0.92);
+            transform: scale(0.9);
         }
 
         .bottom-nav-item.active {
             color: var(--gold-primary);
-            text-shadow: 0 0 10px var(--gold-primary-glow);
+        }
+
+        .bottom-nav-item i {
+            transition: all 0.4s var(--ease-luxury);
         }
 
         .bottom-nav-item.active i {
-            transform: translateY(-2px);
-            filter: drop-shadow(0 0 5px var(--gold-primary-glow));
+            filter: drop-shadow(0 0 10px rgba(203, 163, 92, 0.3));
         }
 
         .bottom-nav-badge {
             position: absolute;
-            top: 10px;
-            right: 25%;
+            top: 15px;
+            right: 30%;
             background: var(--gold-primary);
             color: var(--bg-dark);
-            font-size: 0.6rem;
-            font-weight: 700;
-            min-width: 16px;
-            height: 16px;
+            font-size: 0.55rem;
+            font-weight: 800;
+            min-width: 14px;
+            height: 14px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 4px;
+            padding: 0 3px;
             border: 1px solid var(--bg-dark);
             transform: scale(0);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2;
         }
 
         .bottom-nav-badge.visible {
@@ -1673,15 +1671,39 @@
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
         /* Confirmation & Review Modals */
+        /* Custom Scrollbar for Luxury Feel */
+        .luxury-scroll::-webkit-scrollbar {
+            width: 3px;
+        }
+        .luxury-scroll::-webkit-scrollbar-track {
+            background: rgba(203, 163, 92, 0.05);
+        }
+        .luxury-scroll::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 10px;
+        }
+
         .confirm-overlay {
             position: fixed; 
             inset: 0; 
             background: radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.98) 100%);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 3000; opacity: 0; visibility: hidden;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            z-index: 3000; 
+            opacity: 0; 
+            visibility: hidden;
             transition: all 0.8s var(--ease-luxury);
             backdrop-filter: blur(20px);
             padding: 20px;
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 600px) {
+            .confirm-overlay {
+                align-items: flex-start;
+                padding: 40px 15px;
+            }
         }
         .confirm-overlay.show { opacity: 1; visibility: visible; }
         .confirm-box {
@@ -2061,6 +2083,14 @@
                 <p style="color: var(--text-dim); letter-spacing: clamp(3px, 1vw, 5px); text-transform: uppercase; font-size: clamp(0.6rem, 1.2vw, 0.7rem);">Selected Olfactory Masterpieces</p>
             </div>
             
+            <div style="max-width: 600px; margin: 0 auto 60px; position: relative; padding: 0 20px;">
+                <div style="position: relative;">
+                    <input type="text" id="shop-search" class="input interactive" placeholder="Search our collection..." oninput="handleSearchInput(this.value, 'shop')" style="padding: 15px 50px 15px 20px; border-radius: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(203, 163, 92, 0.2); width: 100%;">
+                    <i data-lucide="search" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold-primary); pointer-events: none;" size="20"></i>
+                    <div id="shop-search-suggestions" class="search-suggestions" style="top: 100%; width: 100%; display: none;"></div>
+                </div>
+            </div>
+
             <div class="filter-container" style="margin-bottom: 60px;">
                 <div class="filter-group-label">Gender Profile</div>
                 <button class="filter-btn active interactive" data-filter="All" onclick="setFilter('All')">All</button>
@@ -3332,25 +3362,35 @@
         function clearMobileSearch() {
             const input = document.getElementById('mobile-search');
             input.value = '';
-            handleSearchInput('');
+            handleSearchInput('', 'mobile');
             input.focus();
         }
 
-        function handleSearchInput(value) {
-            const clearBtn = document.getElementById('clear-mobile-search');
+        function handleSearchInput(value, source = 'mobile') {
+            const clearBtnId = source === 'mobile' ? 'clear-mobile-search' : 'clear-shop-search';
+            const clearBtn = document.getElementById(clearBtnId);
             if (clearBtn) clearBtn.style.display = value ? 'block' : 'none';
             if (window.lucide) lucide.createIcons();
             
-            const suggestionsEl = document.getElementById('search-suggestions');
+            const suggestionsId = source === 'mobile' ? 'search-suggestions' : 'shop-search-suggestions';
+            const suggestionsEl = document.getElementById(suggestionsId);
+            if (!suggestionsEl) return;
+
             if (!value || value.length < 2) {
                 suggestionsEl.classList.remove('active');
+                if (source === 'shop') renderShop();
                 return;
             }
 
             const query = value.toLowerCase();
+            
+            // Trigger shop render if it's the shop search
+            if (source === 'shop') {
+                renderShop(value);
+            }
+
             const suggestions = products
                 .filter(p => {
-                    // For suggestions, we prioritize name and category
                     const text = `${p.name} ${p.category}`;
                     return fuzzyMatch(text, query);
                 })
@@ -3359,7 +3399,7 @@
 
             if (suggestions.length > 0) {
                 suggestionsEl.innerHTML = suggestions.map(s => `
-                    <div class="suggestion-item" onclick="applyRecentSearch('${s}')">${s}</div>
+                    <div class="suggestion-item" onclick="applyRecentSearch('${s}', '${source}')">${s}</div>
                 `).join('');
                 suggestionsEl.classList.add('active');
             } else {
@@ -3381,9 +3421,14 @@
             `).join('');
         }
 
-        function applyRecentSearch(query) {
-            document.getElementById('mobile-search').value = query;
-            handleMobileSearch();
+        function applyRecentSearch(query, source = 'mobile') {
+            const inputId = source === 'mobile' ? 'mobile-search' : 'shop-search';
+            const input = document.getElementById(inputId);
+            if (input) {
+                input.value = query;
+                handleSearchInput(query, source);
+                if (source === 'mobile') handleMobileSearch();
+            }
         }
 
         function toggleSubmenu(id) {
@@ -3748,17 +3793,39 @@
                 updateProductSchema(null);
                 main.style.display = 'block';
             }
-            if (currentView !== view && currentView !== '') {
-                // Update bottom navigation active state
-                document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
-                if (view === 'main') document.getElementById('nav-home')?.classList.add('active');
-                else if (view === 'shop') document.getElementById('nav-shop')?.classList.add('active');
-                else if (view === 'wishlist') document.getElementById('nav-wishlist')?.classList.add('active');
 
+            if (currentView !== view && currentView !== '') {
+                updateBottomNavActive(view);
                 window.scrollTo({ top: 0, behavior: 'auto' });
                 // Track pageview for SPA view change
                 if (typeof trackPageView === 'function') {
                     trackPageView(view.charAt(0).toUpperCase() + view.slice(1) + ' | Luban Fragrance', '/' + view);
+                }
+            }
+        }
+
+        function updateBottomNavActive(view, section = '') {
+            document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('active'));
+            
+            if (view === 'details') {
+                document.getElementById('nav-shop')?.classList.add('active');
+                return;
+            }
+            
+            if (view === 'checkout') {
+                document.getElementById('nav-cart')?.classList.add('active');
+                return;
+            }
+
+            if (view === 'main') {
+                if (section === 'shop') {
+                    if (currentFilter === 'Wishlist') {
+                        document.getElementById('nav-wishlist')?.classList.add('active');
+                    } else {
+                        document.getElementById('nav-shop')?.classList.add('active');
+                    }
+                } else if (section === 'hero' || section === '') {
+                    document.getElementById('nav-home')?.classList.add('active');
                 }
             }
         }
@@ -4434,60 +4501,80 @@
             overlay.id = 'order-confirmation-modal';
             
             let itemsHtml = cart.map(item => `
-                <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.85rem; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px;">
-                    <div style="display:flex; flex-direction:column;">
-                        <span style="text-transform:uppercase; letter-spacing:1px; font-weight:500;">${item.name}</span>
-                        <span style="color:var(--gold-muted); font-size:0.7rem;">${item.qty} units x ${item.selectedSize}</span>
+                <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:0.8rem; border-bottom: 1px solid rgba(203, 163, 92, 0.1); padding-bottom: 12px; gap: 10px;">
+                    <div style="display:flex; flex-direction:column; gap: 4px; flex: 1;">
+                        <span style="text-transform:uppercase; letter-spacing:1.2px; font-weight:600; color: var(--text-white); line-height: 1.3;">${item.name}</span>
+                        <span style="color:var(--gold-muted); font-size:0.6rem; letter-spacing: 1px; text-transform: uppercase;">${item.qty} units × ${item.selectedSize}</span>
                     </div>
-                    <span style="color:var(--gold-primary); font-weight:600;">${item.activePrice * item.qty}৳</span>
+                    <span style="color:var(--gold-primary); font-weight:700; font-family: var(--font-mono); white-space: nowrap;">${item.activePrice * item.qty}৳</span>
                 </div>
             `).join('');
 
             overlay.innerHTML = `
-                <div class="confirm-box" style="text-align: left; max-width: 500px; border: 1px solid var(--gold-primary); background: var(--bg-dark); box-shadow: 0 20px 60px rgba(0,0,0,0.8);">
+                <div class="confirm-box" style="text-align: left; max-width: 500px; border: 1px solid var(--gold-primary); background: var(--bg-dark); box-shadow: 0 30px 90px rgba(0,0,0,0.9); padding: clamp(25px, 6vw, 40px); margin: auto;">
                     <div style="text-align:center; margin-bottom:30px;">
-                        <i data-lucide="package-search" size="40" color="#cba35c" style="margin-bottom:15px;"></i>
-                        <h2 class="playfair" style="letter-spacing:5px; color:var(--gold-primary); font-size: 1.6rem; text-transform: uppercase;">Review Selection</h2>
+                        <div style="width: 30px; height: 1px; background: var(--gold-primary); margin: 0 auto 12px;"></div>
+                        <h2 class="playfair" style="letter-spacing:6px; color:var(--gold-primary); font-size: clamp(1.2rem, 4vw, 1.4rem); text-transform: uppercase; font-weight: 400;">Review Selection</h2>
+                        <p style="font-size: 0.55rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-top: 6px;">Final Procurement Verification</p>
                     </div>
                     
-                    <div style="margin-bottom:30px; background: rgba(203, 163, 92, 0.03); padding: 25px; border: 1px solid rgba(203, 163, 92, 0.2); border-radius: 4px;">
-                        <h3 style="font-size:0.6rem; color:var(--gold-muted); text-transform:uppercase; letter-spacing:3px; margin-bottom:15px; border-bottom: 1px solid rgba(203, 163, 92, 0.2); padding-bottom: 12px;">Your Selection</h3>
-                        <div style="max-height: 180px; overflow-y: auto; padding-right: 10px; margin-bottom: 15px;">
+                    <div style="margin-bottom:30px; background: rgba(203, 163, 92, 0.02); padding: clamp(15px, 5vw, 30px); border: 1px solid rgba(203, 163, 92, 0.15); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: 0; right: 0; width: 25px; height: 25px; border-top: 1px solid var(--gold-primary); border-right: 1px solid var(--gold-primary); opacity: 0.3;"></div>
+                        
+                        <h3 style="font-size:0.5rem; color:var(--gold-muted); text-transform:uppercase; letter-spacing:3px; margin-bottom:15px; opacity: 0.8;">Your Selection</h3>
+                        <div class="luxury-scroll" style="max-height: clamp(150px, 40vh, 220px); overflow-y: auto; padding-right: 10px; margin-bottom: 15px;">
                             ${itemsHtml}
                         </div>
+                        
                         ${appliedDiscount ? `
-                        <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.85rem; color: #34a853;">
-                            <span style="text-transform:uppercase; letter-spacing:1px; font-weight:500;">Discount (${appliedDiscount.code})</span>
-                            <span style="font-weight:600;">-${document.getElementById('checkout-discount').innerText}</span>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:0.75rem; color: #4ade80; border-top: 1px dashed rgba(74, 222, 128, 0.2); padding-top: 15px;">
+                            <span style="text-transform:uppercase; letter-spacing:1px; font-weight:500;">Incentive (${appliedDiscount.code})</span>
+                            <span style="font-weight:700;">-${document.getElementById('checkout-discount').innerText}</span>
                         </div>
                         ` : ''}
-                        <div style="display:flex; justify-content:space-between; font-weight:700; border-top:1px solid var(--gold-primary); padding-top:20px; margin-top: 10px; align-items: baseline;">
-                            <span style="letter-spacing: 2px; font-size: 0.75rem; color:var(--text-dim);">TOTAL AMOUNT</span>
-                            <span style="color:var(--gold-primary); font-size:1.6rem; letter-spacing:1px;">${total}</span>
+                        
+                        <div style="display:flex; justify-content:space-between; font-weight:700; border-top:1px solid var(--gold-primary); padding-top:20px; margin-top: 5px; align-items: baseline; gap: 10px;">
+                            <span style="letter-spacing: 2px; font-size: 0.6rem; color:var(--text-dim); text-transform: uppercase; flex: 1;">Total Procurement</span>
+                            <span style="color:var(--gold-primary); font-size:clamp(1.4rem, 5vw, 1.8rem); letter-spacing:1px; font-family: var(--font-mono); white-space: nowrap;">${total}</span>
                         </div>
                     </div>
 
-                    <div style="margin-bottom:40px; padding: 0 5px;">
-                        <h3 style="font-size:0.6rem; color:var(--gold-muted); text-transform:uppercase; letter-spacing:3px; margin-bottom:15px;">Delivery Details</h3>
-                        <div style="display:grid; gap: 12px;">
-                            <div style="display:flex; align-items:flex-start; gap:12px;">
-                                <i data-lucide="user" size="14" style="margin-top:2px; color:var(--gold-muted);"></i>
-                                <p style="font-size:0.85rem; line-height:1.4;"><span style="color:var(--gold-muted); text-transform:uppercase; font-size:0.65rem; letter-spacing:1px; display:block; margin-bottom:2px;">Recipient</span> ${name}</p>
+                    <div style="margin-bottom:35px; padding: 0 2px;">
+                        <h3 style="font-size:0.5rem; color:var(--gold-muted); text-transform:uppercase; letter-spacing:3px; margin-bottom:20px; opacity: 0.8;">Logistics Details</h3>
+                        <div style="display:grid; gap: 15px;">
+                            <div style="display:flex; align-items:flex-start; gap:15px;">
+                                <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(203, 163, 92, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i data-lucide="user" size="12" style="color:var(--gold-primary);"></i>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:2px;">
+                                    <span style="color:var(--gold-muted); text-transform:uppercase; font-size:0.55rem; letter-spacing:1.5px; font-weight: 500;">Recipient</span>
+                                    <span style="font-size:0.8rem; color: var(--text-white); font-weight: 400;">${name}</span>
+                                </div>
                             </div>
-                            <div style="display:flex; align-items:flex-start; gap:12px;">
-                                <i data-lucide="phone" size="14" style="margin-top:2px; color:var(--gold-muted);"></i>
-                                <p style="font-size:0.85rem; line-height:1.4;"><span style="color:var(--gold-muted); text-transform:uppercase; font-size:0.65rem; letter-spacing:1px; display:block; margin-bottom:2px;">Contact</span> ${phone}</p>
+                            <div style="display:flex; align-items:flex-start; gap:15px;">
+                                <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(203, 163, 92, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i data-lucide="phone" size="12" style="color:var(--gold-primary);"></i>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:2px;">
+                                    <span style="color:var(--gold-muted); text-transform:uppercase; font-size:0.55rem; letter-spacing:1.5px; font-weight: 500;">Contact</span>
+                                    <span style="font-size:0.8rem; color: var(--text-white); font-weight: 400;">${phone}</span>
+                                </div>
                             </div>
-                            <div style="display:flex; align-items:flex-start; gap:12px;">
-                                <i data-lucide="map-pin" size="14" style="margin-top:2px; color:var(--gold-muted);"></i>
-                                <p style="font-size:0.85rem; line-height:1.4;"><span style="color:var(--gold-muted); text-transform:uppercase; font-size:0.65rem; letter-spacing:1px; display:block; margin-bottom:2px;">Destination</span> ${city}, ${address}</p>
+                            <div style="display:flex; align-items:flex-start; gap:15px;">
+                                <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(203, 163, 92, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i data-lucide="map-pin" size="12" style="color:var(--gold-primary);"></i>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:2px;">
+                                    <span style="color:var(--gold-muted); text-transform:uppercase; font-size:0.55rem; letter-spacing:1.5px; font-weight: 500;">Destination</span>
+                                    <span style="font-size:0.8rem; color: var(--text-white); font-weight: 400; line-height: 1.4;">${city}, ${address}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                        <button onclick="document.getElementById('order-confirmation-modal').remove()" class="filter-btn interactive" style="width:100%; padding:18px; font-size: 0.7rem; letter-spacing:2px;">Modify</button>
-                        <button onclick="document.getElementById('order-confirmation-modal').remove(); executeOrder();" class="btn-gold interactive" style="width:100%; padding:18px; font-size:0.7rem; letter-spacing:2px;">Confirm Selection</button>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                        <button onclick="document.getElementById('order-confirmation-modal').remove()" class="filter-btn interactive" style="width:100%; padding:15px; font-size: 0.6rem; letter-spacing:2px; text-transform: uppercase; border-radius: 0;">Modify</button>
+                        <button onclick="document.getElementById('order-confirmation-modal').remove(); executeOrder();" class="btn-gold interactive" style="width:100%; padding:15px; font-size:0.6rem; letter-spacing:2px; text-transform: uppercase; border-radius: 0;">Confirm</button>
                     </div>
                 </div>
             `;
@@ -4613,6 +4700,23 @@
             if(backToTop) backToTop.classList.toggle('visible', scrollY > 600);
             const bgText = document.querySelector('.hero-bg-text');
             if(bgText) bgText.style.transform = `translateX(${scrollY * 0.12}px)`;
+
+            // Update bottom nav active state based on scroll position in main view
+            const mainView = document.getElementById('main-view');
+            if (mainView && mainView.style.display !== 'none') {
+                const sections = ['hero', 'shop', 'about', 'contact'];
+                let currentSection = 'hero';
+                for (const sectionId of sections) {
+                    const element = document.getElementById(sectionId);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        if (rect.top <= 200) {
+                            currentSection = sectionId;
+                        }
+                    }
+                }
+                updateBottomNavActive('main', currentSection);
+            }
         });
 
         document.addEventListener('mousemove', (e) => {
@@ -4674,22 +4778,18 @@
         });
     </script>
     <nav class="bottom-nav">
-        <a href="javascript:void(0)" onclick="showView('main')" class="bottom-nav-item active" id="nav-home">
-            <i data-lucide="home" size="20"></i>
-            <span>Home</span>
+        <a href="javascript:void(0)" onclick="handleNavClick('hero')" class="bottom-nav-item active" id="nav-home">
+            <i data-lucide="home" size="22" stroke-width="1.2"></i>
         </a>
-        <a href="javascript:void(0)" onclick="showView('shop')" class="bottom-nav-item" id="nav-shop">
-            <i data-lucide="search" size="20"></i>
-            <span>Shop</span>
+        <a href="javascript:void(0)" onclick="setFilter('All'); handleNavClick('shop');" class="bottom-nav-item" id="nav-shop">
+            <i data-lucide="compass" size="22" stroke-width="1.2"></i>
         </a>
-        <a href="javascript:void(0)" onclick="showView('wishlist')" class="bottom-nav-item" id="nav-wishlist">
-            <i data-lucide="heart" size="20"></i>
-            <span>Wishlist</span>
+        <a href="javascript:void(0)" onclick="showWishlist()" class="bottom-nav-item" id="nav-wishlist">
+            <i data-lucide="heart" size="22" stroke-width="1.2"></i>
             <span id="bottom-wishlist-count" class="bottom-nav-badge">0</span>
         </a>
         <a href="javascript:void(0)" onclick="toggleCart(true)" class="bottom-nav-item" id="nav-cart">
-            <i data-lucide="shopping-bag" size="20"></i>
-            <span>Cart</span>
+            <i data-lucide="shopping-bag" size="22" stroke-width="1.2"></i>
             <span id="bottom-cart-count" class="bottom-nav-badge">0</span>
         </a>
     </nav>
