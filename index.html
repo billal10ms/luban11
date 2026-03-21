@@ -1070,14 +1070,24 @@
             top: 0; right: -100%;
             width: 100%; max-width: 520px;
             height: 100%;
-            background: var(--bg-dark);
+            background: radial-gradient(circle at top right, rgba(20, 20, 20, 0.98) 0%, var(--bg-dark) 100%);
+            backdrop-filter: blur(25px);
             border-left: 1px solid var(--border-gold);
             padding: clamp(30px, 5vw, 60px);
-            transition: right 0.8s var(--ease-out-expo);
+            transition: right 0.8s var(--ease-luxury);
             display: flex; flex-direction: column;
             box-shadow: -20px 0 60px rgba(0,0,0,0.8);
             z-index: 2001;
             padding-bottom: calc(30px + env(safe-area-inset-bottom));
+        }
+
+        .cart-drawer::before {
+            content: "";
+            position: absolute;
+            inset: 15px;
+            border: 1px solid rgba(203, 163, 92, 0.1);
+            pointer-events: none;
+            z-index: 0;
         }
         /* Sophisticated Internal Materialization */
         .cart-drawer > * {
@@ -1133,44 +1143,113 @@
             #cart-overlay.open .cart-drawer > * { transform: translateY(0); }
         }
 
-        /* Mobile Menu Refined Animation - Scale & Fade Reveal */
+        /* Mobile Menu Refined Animation - Luxury Overlay Reveal */
         #mobile-menu {
-            position: fixed; inset: 0; background: var(--bg-dark); z-index: 1001;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 3rem; 
-            transform: scale(0.92); 
+            position: fixed; 
+            inset: 0; 
+            background: radial-gradient(circle at center, rgba(10, 10, 10, 0.95) 0%, rgba(5, 5, 5, 0.98) 100%);
+            backdrop-filter: blur(25px);
+            z-index: 2000;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            gap: 2.5rem; 
+            transform: translateY(100%); 
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: transform 0.8s var(--ease-out-expo), opacity 0.8s var(--ease-out-expo), visibility 0.8s;
+            transition: transform 1s var(--ease-luxury), opacity 0.8s ease, visibility 0.8s;
             padding: 0 20px;
+            overflow: hidden;
         }
+
+        #mobile-menu button[aria-label="Close menu"] {
+            transition: transform 0.6s var(--ease-luxury), color 0.4s ease;
+        }
+        #mobile-menu button[aria-label="Close menu"]:hover {
+            color: var(--gold-bright);
+            transform: rotate(90deg);
+        }
+        #mobile-menu button[aria-label="Close menu"]:active {
+            transform: scale(0.85) rotate(90deg);
+            filter: drop-shadow(0 0 15px var(--gold-primary-glow));
+        }
+        #mobile-menu::before {
+            content: "";
+            position: absolute;
+            inset: 20px;
+            border: 1px solid rgba(203, 163, 92, 0.15);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1.5s var(--ease-luxury) 0.6s;
+            z-index: 1;
+        }
+
         #mobile-menu.active { 
-            transform: scale(1); 
+            transform: translateY(0); 
             opacity: 1; 
             visibility: visible;
             pointer-events: auto;
         }
+
+        #mobile-menu.active .luxury-emblem {
+            opacity: 0.03 !important;
+            transform: translate(-50%, -50%) scale(1) !important;
+        }
+        #mobile-menu.active::before {
+            opacity: 1;
+            box-shadow: inset 0 0 30px rgba(203, 163, 92, 0.05);
+        }
         
         /* Refined entrance for each mobile-link */
         .mobile-link { 
-            font-family: 'Playfair Display'; font-size: clamp(2rem, 8vw, 2.8rem); color: var(--gold-primary); 
-            letter-spacing: 5px; text-decoration: none; 
+            font-family: 'Playfair Display'; 
+            font-size: clamp(1.8rem, 7vw, 2.5rem); 
+            color: var(--gold-primary); 
+            letter-spacing: 6px; 
+            text-decoration: none; 
             text-align: center;
+            text-transform: uppercase;
             will-change: transform, opacity, filter;
             opacity: 0;
-            /* Precise refined lift and pronounced fade timing as requested */
-            transform: translateY(20px);
-            transition: 
-                opacity 0.8s var(--ease-out-expo), 
-                transform 0.8s var(--ease-out-expo);
-            /* Sequential transition-delay logic based on index */
-            transition-delay: calc(0.1s + (0.08s * var(--i))); 
+            transform: translateY(30px);
+            transition: opacity 1s var(--ease-luxury), transform 1s var(--ease-luxury), color 0.4s ease;
+            transition-delay: calc(0.2s + (0.1s * var(--i))); 
+            position: relative;
+            z-index: 2;
         }
         
+        .mobile-link:hover {
+            color: var(--gold-bright);
+            filter: drop-shadow(0 0 10px var(--gold-primary-glow));
+        }
+
+        .mobile-link::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold-bright);
+            transition: width 0.6s var(--ease-luxury), left 0.6s var(--ease-luxury);
+            box-shadow: 0 0 10px var(--gold-primary-glow);
+        }
+
+        .mobile-link:hover::after, .mobile-link:active::after {
+            width: 60px;
+            left: calc(50% - 30px);
+        }
+
+        .mobile-link:active {
+            color: var(--gold-bright);
+            transform: scale(0.95);
+            filter: drop-shadow(0 0 15px var(--gold-primary-glow));
+        }
         #mobile-menu.active .mobile-link { 
-            animation: luxuryFadeIn 1s var(--ease-luxury) both;
-            animation-delay: calc(0.1s + (0.08s * var(--i)));
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Micro-interactions (Floaters) */
@@ -1188,8 +1267,8 @@
         }
         @media (max-width: 768px) {
             #back-to-top, #whatsapp-float { right: 20px; width: 50px; height: 50px; }
-            #whatsapp-float { bottom: 90px; }
-            #back-to-top { bottom: 25px; }
+            #whatsapp-float { bottom: calc(150px + env(safe-area-inset-bottom)); }
+            #back-to-top { bottom: calc(85px + env(safe-area-inset-bottom)); }
         }
         #back-to-top { bottom: 40px; background: rgba(203, 163, 92, 0.1); color: var(--gold-primary); opacity: 0; visibility: hidden; }
         #back-to-top.visible { opacity: 1; visibility: visible; }
@@ -1256,12 +1335,16 @@
 
         /* Mobile Menu Search & Sub-menu Refinements */
         .mobile-search-container {
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 1rem;
+            width: min(90%, 400px);
             position: relative;
+            margin-bottom: 1.5rem;
+            transition: all 0.6s var(--ease-luxury);
+            z-index: 2;
             opacity: 0;
             will-change: transform, opacity, filter;
+        }
+        .mobile-search-container:focus-within {
+            filter: drop-shadow(0 0 15px rgba(203, 163, 92, 0.1));
         }
         #mobile-menu.active .mobile-search-container {
             animation: luxuryFadeIn 1.2s var(--ease-luxury) 0.1s both;
@@ -1273,12 +1356,52 @@
             padding: 0 20px;
             opacity: 0;
             transform: translateY(20px);
+            transition: all 1s var(--ease-luxury);
         }
         #mobile-menu.active #mobile-recent-section {
-            animation: luxuryFadeIn 1s var(--ease-luxury) 0.4s both;
+            opacity: 1;
+            transform: translateY(0);
+            animation: luxuryFadeIn 1.2s var(--ease-luxury) 0.6s both;
+        }
+        #mobile-social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 1s var(--ease-luxury);
         }
         #mobile-menu.active #mobile-social-icons {
-            animation: luxuryFadeIn 1s var(--ease-luxury) 0.5s both;
+            opacity: 1;
+            transform: translateY(0);
+            animation: luxuryFadeIn 1.2s var(--ease-luxury) 0.8s both;
+        }
+        .social-icon-mobile:hover {
+            color: var(--gold-bright) !important;
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px var(--gold-primary-glow));
+        }
+        .mobile-recent-item:hover {
+            transform: translateY(-5px);
+        }
+        .mobile-recent-item:hover img {
+            transform: scale(1.1);
+        }
+        .mobile-recent-item:hover p {
+            color: var(--gold-primary);
+        }
+        .mobile-recent-item:active {
+            transform: scale(0.92);
+            filter: drop-shadow(0 0 10px var(--gold-primary-glow));
+        }
+        .search-history-tag:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary) !important;
+            background: rgba(203, 163, 92, 0.05) !important;
+            transform: translateY(-2px);
+        }
+        .search-history-tag:active {
+            transform: scale(0.95);
         }
         #mobile-recent-list::-webkit-scrollbar {
             display: none;
@@ -1290,51 +1413,85 @@
         .mobile-search-input {
             width: 100%;
             background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-gold);
-            padding: 15px 45px 15px 20px;
+            border: 1px solid rgba(203, 163, 92, 0.2);
+            padding: 18px 45px 18px 20px;
             color: var(--text-white);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border-radius: 1px;
             letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.4s var(--ease-luxury);
+        }
+        .mobile-search-input:focus {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--gold-primary);
+            outline: none;
+            box-shadow: 0 0 20px rgba(203, 163, 92, 0.1);
         }
         .mobile-search-icon {
             position: absolute;
-            right: 15px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gold-primary);
             pointer-events: none;
+            opacity: 0.6;
+            transition: opacity 0.4s var(--ease-luxury);
+        }
+        .mobile-search-input:focus + .mobile-search-icon {
+            opacity: 1;
+        }
+        #clear-mobile-search:active {
+            transform: translateY(-50%) scale(0.85) !important;
+            filter: drop-shadow(0 0 10px var(--gold-primary-glow));
         }
         .mobile-submenu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.6s var(--ease-luxury), opacity 0.6s var(--ease-luxury), margin 0.6s var(--ease-luxury);
+            transition: max-height 0.8s var(--ease-luxury), opacity 0.8s var(--ease-luxury), margin 0.8s var(--ease-luxury);
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
             margin-top: 0;
             opacity: 0;
+            padding-left: 10px;
+            border-left: 1px solid rgba(203, 163, 92, 0.05);
         }
         .mobile-submenu.active {
-            max-height: 400px;
+            max-height: 500px;
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
             opacity: 1;
         }
         .mobile-sublink {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-decoration: none;
-            transition: color 0.3s ease;
-            text-align: center;
+            transition: all 0.6s var(--ease-luxury);
+            text-align: left;
             opacity: 0;
             will-change: transform, opacity, filter;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mobile-sublink:hover {
+            color: var(--gold-primary);
+            padding-left: 10px;
+        }
+        .mobile-sublink:active {
+            color: var(--gold-bright);
+            transform: scale(0.98);
+            filter: drop-shadow(0 0 10px var(--gold-primary-glow));
+        }
+        #mobile-menu.active .mobile-sublink {
+            animation: luxuryFadeIn 1s var(--ease-luxury) forwards;
         }
         .mobile-submenu.active .mobile-sublink {
             animation: luxuryFadeIn 1s var(--ease-luxury) both;
-            animation-delay: calc(0.1s + (var(--j) * 0.1s));
+            animation-delay: calc(0.2s + (var(--j) * 0.08s));
         }
         .mobile-sublink:hover { color: var(--gold-primary); }
 
@@ -1343,54 +1500,173 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: var(--bg-dark);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border-gold);
             border-top: none;
             z-index: 10;
-            max-height: 250px;
+            max-height: 300px;
             overflow-y: auto;
             display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            animation: luxuryFadeIn 0.6s var(--ease-luxury) forwards;
         }
         .search-suggestions.active { display: block; }
         .suggestion-item {
-            padding: 12px 20px;
+            padding: 14px 20px;
             cursor: pointer;
-            transition: var(--transition-fast);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.85rem;
+            transition: all 0.4s var(--ease-luxury);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-size: 0.8rem;
             color: var(--text-dim);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .suggestion-item:hover {
-            background: rgba(203, 163, 92, 0.1);
+            background: rgba(203, 163, 92, 0.05);
             color: var(--gold-primary);
+            padding-left: 25px;
+            box-shadow: inset 5px 0 0 var(--gold-primary);
         }
         .suggestion-item:last-child { border-bottom: none; }
 
         /* Shimmer/Skeleton Loading States */
         .skeleton {
-            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+            background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 75%);
             background-size: 200% 100%;
             animation: shimmer 2s infinite linear;
-            border-radius: 2px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(203, 163, 92, 0.05), transparent);
+            animation: shimmer-gold 2s infinite linear;
+        }
+
         @keyframes shimmer {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+        
+        @keyframes shimmer-gold {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
         .skeleton-card {
             padding: 30px;
             border: 1px solid var(--border-gold);
             display: flex;
             flex-direction: column;
             gap: 20px;
+            background: var(--bg-accent);
+            border-radius: 4px;
         }
-        .skeleton-img { aspect-ratio: 1/1; width: 100%; }
+
+        /* Bottom Navigation for Mobile */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-gold);
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            z-index: 1000;
+            padding-bottom: env(safe-area-inset-bottom);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .bottom-nav {
+                display: grid;
+            }
+            body {
+                padding-bottom: 70px;
+            }
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition-fast);
+            position: relative;
+            gap: 5px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .bottom-nav-item:active {
+            transform: scale(0.92);
+        }
+
+        .bottom-nav-item.active {
+            color: var(--gold-primary);
+            text-shadow: 0 0 10px var(--gold-primary-glow);
+        }
+
+        .bottom-nav-item.active i {
+            transform: translateY(-2px);
+            filter: drop-shadow(0 0 5px var(--gold-primary-glow));
+        }
+
+        .bottom-nav-badge {
+            position: absolute;
+            top: 10px;
+            right: 25%;
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+            font-size: 0.6rem;
+            font-weight: 700;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            border: 1px solid var(--bg-dark);
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .bottom-nav-badge.visible {
+            transform: scale(1);
+        }
+        .skeleton-img { aspect-ratio: 1/1; width: 100%; margin-bottom: 10px; }
         .skeleton-title { height: 24px; width: 60%; }
         .skeleton-text { height: 14px; width: 100%; }
         .skeleton-price { height: 20px; width: 30%; }
+        .skeleton-btn { height: 45px; width: 100%; margin-top: 10px; }
+        
+        .skeleton-checkout-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-white);
+        }
+        .skeleton-checkout-img { width: 65px; height: 65px; flex-shrink: 0; }
+        .skeleton-checkout-info { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        .skeleton-checkout-title { height: 16px; width: 70%; }
+        .skeleton-checkout-meta { height: 12px; width: 40%; }
+        .skeleton-checkout-price { height: 16px; width: 50px; }
 
         /* Accessibility */
         :focus-visible { outline: 2px solid var(--gold-primary); outline-offset: 4px; }
@@ -1398,11 +1674,13 @@
 
         /* Confirmation & Review Modals */
         .confirm-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            position: fixed; 
+            inset: 0; 
+            background: radial-gradient(circle at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.98) 100%);
             display: flex; align-items: center; justify-content: center;
             z-index: 3000; opacity: 0; visibility: hidden;
-            transition: all 0.5s var(--ease-luxury);
-            backdrop-filter: blur(10px);
+            transition: all 0.8s var(--ease-luxury);
+            backdrop-filter: blur(20px);
             padding: 20px;
         }
         .confirm-overlay.show { opacity: 1; visibility: visible; }
@@ -1423,18 +1701,19 @@
         /* Toast Notification */
         .toast {
             position: fixed;
-            bottom: 40px;
+            bottom: calc(100px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: rgba(2, 6, 6, 0.95);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--gold-primary);
             color: var(--gold-primary);
-            padding: 16px 32px;
+            padding: 14px 28px;
             border-radius: 2px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 20px var(--gold-primary-glow);
             z-index: 4000;
             opacity: 0;
-            transition: all 0.6s var(--ease-out-expo);
+            transition: all 0.8s var(--ease-luxury);
             display: flex;
             align-items: center;
             gap: 15px;
@@ -1446,17 +1725,18 @@
         .toast.show {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8), 0 0 30px var(--gold-primary-glow);
         }
 
         /* Wishlist Animations */
         @keyframes heartPop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+            50% { transform: scale(1.5); filter: drop-shadow(0 0 10px var(--gold-primary-glow)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
         }
         
         .animate-pop {
-            animation: heartPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: heartPop 0.6s var(--ease-luxury);
         }
 
         #wishlist-count-desktop { overflow: hidden !important; }
@@ -1467,7 +1747,7 @@
             justify-content: center;
             width: 100%;
             height: 100%;
-            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.3s ease;
+            transition: transform 0.6s var(--ease-luxury), opacity 0.6s ease;
             will-change: transform, opacity;
             font-size: 9px;
             font-weight: 800;
@@ -1603,6 +1883,59 @@
             .sticky-cart-actions { gap: 10px; }
             .sticky-cart-bar .btn-gold { padding: 12px 20px; font-size: 0.6rem; letter-spacing: 2px; }
         }
+        .note-tag {
+            padding: 6px 14px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--text-white);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .note-tag:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .scent-intensity-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .scent-intensity-fill {
+            height: 100%;
+            background: var(--gold-primary);
+            box-shadow: 0 0 10px var(--gold-primary-glow);
+            transition: width 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        @keyframes noteFadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .note-layer {
+            animation: noteFadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .note-layer:nth-child(1) { animation-delay: 0.2s; }
+        .note-layer:nth-child(2) { animation-delay: 0.4s; }
+        .note-layer:nth-child(3) { animation-delay: 0.6s; }
+
+        .scent-profile-container {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-gold);
+            padding-top: 40px;
+            animation: luxuryFadeIn 1s ease;
+        }
     </style>
 </head>
 <body>
@@ -1620,11 +1953,19 @@
     </div>
 
     <div id="mobile-menu" aria-hidden="true">
-        <button onclick="toggleMobileMenu()" aria-label="Close menu" style="position:absolute; top:30px; right:30px; background:none; border:none; color:var(--gold-primary);"><i data-lucide="x" size="36"></i></button>
+        <div class="luxury-emblem" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); opacity: 0; pointer-events: none; z-index: 0; transition: all 2s var(--ease-luxury) 0.4s;">
+            <i data-lucide="crown" size="300" color="#cba35c"></i>
+        </div>
+        <button onclick="toggleMobileMenu()" aria-label="Close menu" class="interactive" style="position:absolute; top:clamp(20px, 5vw, 40px); right:clamp(20px, 5vw, 40px); background:none; border:none; color:var(--gold-primary); z-index: 10;">
+            <i data-lucide="x" size="36"></i>
+        </button>
         
         <div class="mobile-search-container">
             <input type="text" id="mobile-search" class="mobile-search-input" placeholder="Search our collection..." onkeyup="if(event.key === 'Enter') handleMobileSearch()" oninput="handleSearchInput(this.value)">
             <i data-lucide="search" class="mobile-search-icon" size="18"></i>
+            <button id="clear-mobile-search" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:10px; z-index: 10; transition: all 0.4s var(--ease-luxury);">
+                <i data-lucide="x" size="14"></i>
+            </button>
             <div id="search-suggestions" class="search-suggestions"></div>
             <div id="search-history-container" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
         </div>
@@ -1654,9 +1995,9 @@
                 </div>
             </div>
             
-            <div id="mobile-social-icons" style="display:flex; gap: 40px; margin-top: 20px; opacity: 0; transform: translateY(20px);">
-                <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary);" class="interactive" aria-label="Facebook"><i data-lucide="facebook" size="32"></i></a>
-                <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary);" class="interactive" aria-label="Instagram"><i data-lucide="instagram" size="32"></i></a>
+            <div id="mobile-social-icons" style="display:flex; gap: 40px; margin-top: 30px; opacity: 0; transform: translateY(20px); justify-content: center; width: 100%;">
+                <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary); transition: all 0.4s var(--ease-luxury);" class="interactive social-icon-mobile" aria-label="Facebook"><i data-lucide="facebook" size="32"></i></a>
+                <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary); transition: all 0.4s var(--ease-luxury);" class="interactive social-icon-mobile" aria-label="Instagram"><i data-lucide="instagram" size="32"></i></a>
             </div>
         </div>
     </div>
@@ -2114,7 +2455,18 @@
     "category": "Oriental",
     "gender": "Unisex",
     "img": "https://i.ibb.co/Cs01Jw3p/ehsas.webp",
-    "stock": 5
+    "stock": 5,
+    "notes": {
+      "top": ["Saffron", "Rose"],
+      "heart": ["Oud", "Patchouli"],
+      "base": ["Amber", "Musk"]
+    },
+    "scentProfile": {
+      "Woody": 85,
+      "Floral": 40,
+      "Spicy": 60,
+      "Sweet": 30
+    }
   },
   {
     "id": 2,
@@ -2125,7 +2477,18 @@
     "category": "Sweet",
     "gender": "Unisex",
     "img": "https://i.ibb.co/Mr9dm39/blood.webp",
-    "stock": 12
+    "stock": 12,
+    "notes": {
+      "top": ["Red Berries", "Plum"],
+      "heart": ["Jasmine", "Rose"],
+      "base": ["Vanilla", "Patchouli"]
+    },
+    "scentProfile": {
+      "Sweet": 90,
+      "Fruity": 80,
+      "Floral": 40,
+      "Dark": 70
+    }
   },
   {
     "id": 3,
@@ -2136,7 +2499,18 @@
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/20GFMS5j/creed.webp",
-    "stock": 3
+    "stock": 3,
+    "notes": {
+      "top": ["Pineapple", "Bergamot", "Black Currant"],
+      "heart": ["Birch", "Patchouli", "Jasmine"],
+      "base": ["Musk", "Oakmoss", "Ambergris"]
+    },
+    "scentProfile": {
+      "Fruity": 85,
+      "Smoky": 75,
+      "Woody": 60,
+      "Fresh": 70
+    }
   },
   {
     "id": 4,
@@ -2147,7 +2521,18 @@
     "category": "Luxury",
     "gender": "Unisex",
     "img": "https://i.ibb.co/39fHzxmK/540.webp",
-    "stock": 8
+    "stock": 8,
+    "notes": {
+      "top": ["Saffron", "Jasmine"],
+      "heart": ["Amberwood", "Ambergris"],
+      "base": ["Fir Resin", "Cedar"]
+    },
+    "scentProfile": {
+      "Sweet": 80,
+      "Woody": 50,
+      "Airy": 90,
+      "Spicy": 40
+    }
   },
   {
     "id": 5,
@@ -2158,7 +2543,18 @@
     "category": "Gourmand",
     "gender": "Unisex",
     "img": "https://i.ibb.co/RGNbrf3X/khamra.webp",
-    "stock": 15
+    "stock": 15,
+    "notes": {
+      "top": ["Cinnamon", "Nutmeg", "Bergamot"],
+      "heart": ["Dates", "Praline", "Tuberose"],
+      "base": ["Vanilla", "Tonka Bean", "Amberwood"]
+    },
+    "scentProfile": {
+      "Sweet": 95,
+      "Spicy": 70,
+      "Warm": 90,
+      "Boozy": 60
+    }
   },
   {
     "id": 6,
@@ -2169,7 +2565,18 @@
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/Z1LpMRV2/yara.webp",
-    "stock": 4
+    "stock": 4,
+    "notes": {
+      "top": ["Heliotrope", "Tangerine", "Orchid"],
+      "heart": ["Tropical Fruits", "Gourmand Accord"],
+      "base": ["Vanilla", "Musk", "Sandalwood"]
+    },
+    "scentProfile": {
+      "Sweet": 90,
+      "Powdery": 70,
+      "Floral": 60,
+      "Creamy": 80
+    }
   },
   {
     "id": 7,
@@ -2180,7 +2587,18 @@
     "category": "Date Night",
     "gender": "Masculine",
     "img": "https://i.ibb.co/gZYCRWmc/you.webp",
-    "stock": 7
+    "stock": 7,
+    "notes": {
+      "top": ["Cardamom", "Pink Pepper", "Mint"],
+      "heart": ["Sage", "Melon", "Pineapple"],
+      "base": ["Vanilla", "Chestnut", "Cedar"]
+    },
+    "scentProfile": {
+      "Sweet": 85,
+      "Spicy": 60,
+      "Warm": 80,
+      "Nutty": 70
+    }
   },
   {
     "id": 8,
@@ -2191,7 +2609,18 @@
     "category": "Female",
     "gender": "Feminine",
     "img": "https://i.ibb.co/kVGcWSg0/cloud.webp",
-    "stock": 20
+    "stock": 20,
+    "notes": {
+      "top": ["Lavender", "Pear", "Bergamot"],
+      "heart": ["Whipped Cream", "Praline", "Coconut"],
+      "base": ["Musk", "Woody Notes"]
+    },
+    "scentProfile": {
+      "Sweet": 90,
+      "Creamy": 85,
+      "Airy": 70,
+      "Floral": 40
+    }
   },
   {
     "id": 10,
@@ -2202,7 +2631,18 @@
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/kVn358pR/opium.webp",
-    "stock": 6
+    "stock": 6,
+    "notes": {
+      "top": ["Pear", "Pink Pepper", "Orange Blossom"],
+      "heart": ["Coffee", "Jasmine", "Bitter Almond"],
+      "base": ["Vanilla", "Patchouli", "Cedar"]
+    },
+    "scentProfile": {
+      "Sweet": 80,
+      "Coffee": 90,
+      "Floral": 50,
+      "Warm": 70
+    }
   },
   {
     "id": 11,
@@ -2213,7 +2653,18 @@
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/cKRpG7kN/Good-Girl.webp",
-    "stock": 9
+    "stock": 9,
+    "notes": {
+      "top": ["Almond", "Coffee", "Bergamot"],
+      "heart": ["Jasmine Sambac", "Tuberose", "Orris"],
+      "base": ["Tonka Bean", "Cacao", "Vanilla"]
+    },
+    "scentProfile": {
+      "Floral": 85,
+      "Sweet": 75,
+      "Warm": 70,
+      "Powdery": 50
+    }
   },
   {
     "id": 13,
@@ -2224,7 +2675,18 @@
     "category": "Date Night",
     "gender": "Masculine",
     "img": "https://i.ibb.co/m5GyHvdS/versoseros.webp",
-    "stock": 5
+    "stock": 5,
+    "notes": {
+      "top": ["Mint", "Green Apple", "Lemon"],
+      "heart": ["Tonka Bean", "Ambroxan", "Geranium"],
+      "base": ["Vanilla", "Cedar", "Oakmoss"]
+    },
+    "scentProfile": {
+      "Fresh": 80,
+      "Sweet": 85,
+      "Minty": 90,
+      "Woody": 50
+    }
   },
   {
     "id": 14,
@@ -2235,7 +2697,18 @@
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/TDDSfD2Q/hawasice.webp",
-    "stock": 11
+    "stock": 11,
+    "notes": {
+      "top": ["Frozen Apple", "Bergamot", "Lemon"],
+      "heart": ["Mint", "Orange Blossom", "Cardamom"],
+      "base": ["Musk", "Amber", "Sandalwood"]
+    },
+    "scentProfile": {
+      "Fresh": 95,
+      "Fruity": 80,
+      "Aquatic": 70,
+      "Sweet": 50
+    }
   },
   {
     "id": 15,
@@ -2246,7 +2719,18 @@
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/0VK5z58x/fire.webp",
-    "stock": 2
+    "stock": 2,
+    "notes": {
+      "top": ["Black Pepper", "Saffron", "Nutmeg"],
+      "heart": ["Clove", "Leather", "Oud"],
+      "base": ["Musk", "Amber", "Patchouli"]
+    },
+    "scentProfile": {
+      "Spicy": 95,
+      "Woody": 80,
+      "Warm": 90,
+      "Leathery": 60
+    }
   },
   {
     "id": 17,
@@ -2257,7 +2741,18 @@
     "category": "Luxury",
     "gender": "Unisex",
     "img": "https://i.ibb.co/YFR6M3nN/image.webp",
-    "stock": 8
+    "stock": 8,
+    "notes": {
+      "top": ["Tobacco Leaf", "Spicy Notes"],
+      "heart": ["Vanilla", "Cacao", "Tonka Bean"],
+      "base": ["Dried Fruits", "Woody Notes"]
+    },
+    "scentProfile": {
+      "Sweet": 80,
+      "Spicy": 70,
+      "Tobacco": 95,
+      "Warm": 90
+    }
   },
   {
     "id": 19,
@@ -2268,7 +2763,18 @@
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/Zzw0DHTf/dior.webp",
-    "stock": 14
+    "stock": 14,
+    "notes": {
+      "top": ["Iris", "Peony", "Lily-of-the-Valley"],
+      "heart": ["Apricot", "Rose", "Peach"],
+      "base": ["Vanilla", "Musk", "Benzoin"]
+    },
+    "scentProfile": {
+      "Floral": 95,
+      "Powdery": 70,
+      "Sweet": 50,
+      "Fresh": 60
+    }
   },
   {
     "id": 20,
@@ -2279,7 +2785,18 @@
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/hJXVDTmk/lady.webp",
-    "stock": 7
+    "stock": 7,
+    "notes": {
+      "top": ["Raspberry", "Neroli", "Amalfi Lemon"],
+      "heart": ["Jasmine", "African Orange Flower", "Gardenia"],
+      "base": ["White Honey", "Patchouli", "Amber"]
+    },
+    "scentProfile": {
+      "Sweet": 90,
+      "Floral": 80,
+      "Fruity": 70,
+      "Honey": 85
+    }
   },
   {
     "id": 21,
@@ -2290,7 +2807,18 @@
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/cSMDrwBh/bomsheel.webp",
-    "stock": 10
+    "stock": 10,
+    "notes": {
+      "top": ["Passionfruit", "Grapefruit", "Pineapple"],
+      "heart": ["Peony", "Vanilla Orchid", "Red Berries"],
+      "base": ["Musk", "Woody Notes", "Oakmoss"]
+    },
+    "scentProfile": {
+      "Fruity": 95,
+      "Floral": 85,
+      "Fresh": 70,
+      "Sweet": 60
+    }
   },
   {
     "id": 22,
@@ -2301,7 +2829,18 @@
     "category": "Fresh",
     "gender": "Masculine",
     "img": "https://i.ibb.co/LDc2f9RX/acqua.webp",
-    "stock": 18
+    "stock": 18,
+    "notes": {
+      "top": ["Lime", "Lemon", "Bergamot"],
+      "heart": ["Sea Notes", "Jasmine", "Calone"],
+      "base": ["White Musk", "Cedar", "Oakmoss"]
+    },
+    "scentProfile": {
+      "Fresh": 95,
+      "Aquatic": 90,
+      "Citrus": 85,
+      "Floral": 30
+    }
   },
   {
     "id": 23,
@@ -2312,7 +2851,18 @@
     "category": "Classic",
     "gender": "Unisex",
     "img": "https://i.ibb.co/5gp5xdhG/coolwater.webp",
-    "stock": 9
+    "stock": 9,
+    "notes": {
+      "top": ["Sea Water", "Mint", "Lavender"],
+      "heart": ["Sandalwood", "Jasmine", "Neroli"],
+      "base": ["Musk", "Tobacco", "Oakmoss"]
+    },
+    "scentProfile": {
+      "Fresh": 90,
+      "Aquatic": 85,
+      "Aromatic": 80,
+      "Green": 70
+    }
   },
   {
     "id": 27,
@@ -2323,7 +2873,18 @@
     "category": "Oriental",
     "gender": "Unisex",
     "img": "https://i.ibb.co/fRTnbyL/sultan.webp",
-    "stock": 4
+    "stock": 4,
+    "notes": {
+      "top": ["Juniper", "Bergamot", "Lemon"],
+      "heart": ["Cedar", "Sandalwood", "Rose"],
+      "base": ["Musk", "Amber", "Vanilla"]
+    },
+    "scentProfile": {
+      "Woody": 95,
+      "Aromatic": 70,
+      "Spicy": 50,
+      "Warm": 60
+    }
   },
   {
     "id": 28,
@@ -2334,7 +2895,18 @@
     "category": "Fresh",
     "gender": "Unisex",
     "img": "https://i.ibb.co/bMtnhjq4/paris.webp",
-    "stock": 13
+    "stock": 13,
+    "notes": {
+      "top": ["Cucumber", "Mango", "Mandarin Orange"],
+      "heart": ["Sage", "Basil", "Geranium"],
+      "base": ["Sandalwood", "Amber", "Musk"]
+    },
+    "scentProfile": {
+      "Fresh": 90,
+      "Fruity": 85,
+      "Green": 70,
+      "Aquatic": 60
+    }
   }
 ];
 
@@ -2366,8 +2938,8 @@
                         "offers": {
                             "@type": "AggregateOffer",
                             "priceCurrency": "BDT",
-                            "lowPrice": p.price3ml,
-                            "highPrice": p.price6ml,
+                            "lowPrice": p.price["3ml"],
+                            "highPrice": p.price["6ml"],
                             "offerCount": 2,
                             "availability": "https://schema.org/InStock",
                             "url": currentUrl
@@ -2432,7 +3004,7 @@
                     "@type": "Offer",
                     "url": `${currentUrl}#details-${p.id}`,
                     "priceCurrency": "BDT",
-                    "price": p.price3ml,
+                    "price": p.price["3ml"],
                     "priceValidUntil": "2027-12-31",
                     "availability": "https://schema.org/InStock",
                     "itemCondition": "https://schema.org/NewCondition"
@@ -2558,8 +3130,13 @@
             const count = wishlist.length;
             const mobileCount = document.getElementById('wishlist-count-mobile');
             const desktopCount = document.getElementById('wishlist-count-desktop');
+            const bottomBadge = document.getElementById('bottom-wishlist-count');
             
             if (mobileCount) mobileCount.innerText = count;
+            if (bottomBadge) {
+                bottomBadge.innerText = count;
+                bottomBadge.classList.toggle('visible', count > 0);
+            }
 
             if (desktopCount) {
                 // Clear any pending cleanup to prevent race conditions
@@ -2702,8 +3279,10 @@
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('active');
-            if (menu.classList.contains('active')) {
+            const isActive = menu.classList.toggle('active');
+            
+            if (isActive) {
+                document.body.style.overflow = 'hidden';
                 document.body.classList.add('no-cursor');
                 // Reset submenu and search on open
                 document.getElementById('collection-submenu').classList.remove('active');
@@ -2713,8 +3292,12 @@
                 renderSearchHistory();
                 renderMobileRecent();
                 updateWishlistCount();
+            } else {
+                setTimeout(() => {
+                    document.body.style.overflow = '';
+                    document.body.classList.remove('no-cursor');
+                }, 800);
             }
-            else document.body.classList.remove('no-cursor');
         }
 
         function renderMobileRecent() {
@@ -2731,11 +3314,11 @@
             const recentProducts = recentlyViewed.map(id => products.find(p => p.id === id)).filter(Boolean);
             
             list.innerHTML = recentProducts.map(p => `
-                <div onclick="showView('details', ${p.id}); toggleMobileMenu();" style="flex-shrink:0; width:80px; text-align:center; cursor:pointer;">
-                    <div style="width:80px; height:80px; background:var(--bg-accent); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
-                        <img src="${p.img}" alt="${p.name}" loading="lazy" style="max-width:70%; max-height:70%; object-fit:contain;" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                <div onclick="showView('details', ${p.id}); toggleMobileMenu();" class="mobile-recent-item" style="flex-shrink:0; width:90px; text-align:center; cursor:pointer; transition: transform 0.4s var(--ease-luxury);">
+                    <div style="width:90px; height:90px; background:rgba(255,255,255,0.02); border:1px solid rgba(203, 163, 92, 0.1); display:flex; align-items:center; justify-content:center; margin-bottom:10px; position:relative; overflow:hidden;">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain; transition: transform 0.6s var(--ease-luxury);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     </div>
-                    <p style="font-size:0.55rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${p.name}</p>
+                    <p style="font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition: color 0.4s ease;">${p.name}</p>
                 </div>
             `).join('');
         }
@@ -2746,7 +3329,18 @@
             handleNavClick('shop');
         }
 
+        function clearMobileSearch() {
+            const input = document.getElementById('mobile-search');
+            input.value = '';
+            handleSearchInput('');
+            input.focus();
+        }
+
         function handleSearchInput(value) {
+            const clearBtn = document.getElementById('clear-mobile-search');
+            if (clearBtn) clearBtn.style.display = value ? 'block' : 'none';
+            if (window.lucide) lucide.createIcons();
+            
             const suggestionsEl = document.getElementById('search-suggestions');
             if (!value || value.length < 2) {
                 suggestionsEl.classList.remove('active');
@@ -2781,7 +3375,7 @@
                 return;
             }
             container.innerHTML = searchHistory.map(q => `
-                <span onclick="applyRecentSearch('${q}')" class="interactive" style="font-size: 0.65rem; color: var(--gold-muted); border: 1px solid rgba(203, 163, 92, 0.2); padding: 4px 10px; border-radius: 1px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition-fast);">
+                <span onclick="applyRecentSearch('${q}')" class="interactive search-history-tag" style="font-size: 0.65rem; color: var(--gold-muted); border: 1px solid rgba(203, 163, 92, 0.1); padding: 6px 14px; border-radius: 1px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s var(--ease-luxury); background: rgba(255,255,255,0.02);">
                     ${q}
                 </span>
             `).join('');
@@ -2904,21 +3498,23 @@
                 wishlistControls.style.display = (currentFilter === 'Wishlist' && wishlist.length > 0) ? 'flex' : 'none';
             }
             
+            // Show skeletons immediately to simulate loading
+            list.innerHTML = Array(currentFilter === 'Wishlist' ? wishlist.length || 4 : 8).fill(0).map(() => `
+                <div class="skeleton-card" style="${currentFilter === 'Wishlist' ? 'padding:15px;' : ''}">
+                    <div class="skeleton skeleton-img" style="${currentFilter === 'Wishlist' ? 'height:200px;' : ''}"></div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-price"></div>
+                    </div>
+                    <div class="skeleton skeleton-text"></div>
+                    ${currentFilter === 'Wishlist' ? `<div class="skeleton skeleton-btn"></div>` : ''}
+                </div>
+            `).join('');
+
             // Add filtering class for transition
             list.classList.add('filtering');
             
-            // Show skeletons first to simulate loading
             setTimeout(() => {
-                list.innerHTML = Array(8).fill(0).map(() => `
-                    <div class="skeleton-card">
-                        <div class="skeleton skeleton-img"></div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div class="skeleton skeleton-title"></div>
-                            <div class="skeleton skeleton-price"></div>
-                        </div>
-                        <div class="skeleton skeleton-text"></div>
-                    </div>
-                `).join('');
                 list.classList.remove('filtering');
             }, 300);
 
@@ -3122,7 +3718,7 @@
                 // Show detail skeleton
                 document.getElementById('details-content').innerHTML = `
                     <div class="about-grid" style="grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 100px);">
-                        <div class="skeleton skeleton-img" style="aspect-ratio:1/1; width:100%;"></div>
+                        <div class="skeleton skeleton-img" style="aspect-ratio:1/1; width:100%; border-radius: 4px;"></div>
                         <div style="display:flex; flex-direction:column; gap:30px;">
                             <div class="skeleton skeleton-title" style="height:60px; width:80%;"></div>
                             <div class="skeleton skeleton-price" style="height:40px; width:40%;"></div>
@@ -3130,6 +3726,10 @@
                             <div class="skeleton skeleton-text" style="height:20px; width:90%;"></div>
                             <div class="skeleton skeleton-text" style="height:20px; width:95%;"></div>
                             <div class="skeleton" style="height:60px; width:100%; margin-top:20px;"></div>
+                            <div style="display:flex; gap:15px; margin-top:20px;">
+                                <div class="skeleton" style="height:50px; width:120px; border-radius: 25px;"></div>
+                                <div class="skeleton" style="height:50px; width:120px; border-radius: 25px;"></div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -3149,6 +3749,12 @@
                 main.style.display = 'block';
             }
             if (currentView !== view && currentView !== '') {
+                // Update bottom navigation active state
+                document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+                if (view === 'main') document.getElementById('nav-home')?.classList.add('active');
+                else if (view === 'shop') document.getElementById('nav-shop')?.classList.add('active');
+                else if (view === 'wishlist') document.getElementById('nav-wishlist')?.classList.add('active');
+
                 window.scrollTo({ top: 0, behavior: 'auto' });
                 // Track pageview for SPA view change
                 if (typeof trackPageView === 'function') {
@@ -3165,6 +3771,68 @@
             document.getElementById('detail-price').innerText = `${price}৳`;
             const stickyPrice = document.getElementById('sticky-price');
             if (stickyPrice) stickyPrice.innerText = `${price}৳`;
+        }
+
+        function renderScentProfile(p) {
+            if (!p.notes && !p.scentProfile) return '';
+
+            const notesHtml = p.notes ? `
+                <div class="scent-profile-container">
+                    <h4 style="font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 30px; text-align: center;">Olfactory Journey</h4>
+                    <div style="display: flex; flex-direction: column; gap: 25px;">
+                        <div class="note-layer">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="width: 80px; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-muted); font-weight: 600;">Top Notes</div>
+                                <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 10px;">
+                                    ${p.notes.top.map(n => `<span class="note-tag">${n}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note-layer">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="width: 80px; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-muted); font-weight: 600;">Heart Notes</div>
+                                <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 10px;">
+                                    ${p.notes.heart.map(n => `<span class="note-tag">${n}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note-layer">
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div style="width: 80px; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-muted); font-weight: 600;">Base Notes</div>
+                                <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 10px;">
+                                    ${p.notes.base.map(n => `<span class="note-tag">${n}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ` : '';
+
+            const profileHtml = p.scentProfile ? `
+                <div style="margin-top: 50px;">
+                    <h4 style="font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-primary); margin-bottom: 30px; text-align: center;">Scent Characteristics</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 25px;">
+                        ${Object.entries(p.scentProfile).map(([key, value]) => `
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);">
+                                    <span>${key}</span>
+                                    <span>${value}%</span>
+                                </div>
+                                <div class="scent-intensity-bar">
+                                    <div class="scent-intensity-fill" style="width: ${value}%;"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : '';
+
+            return `
+                <div class="interactive-scent-profile">
+                    ${notesHtml}
+                    ${profileHtml}
+                </div>
+            `;
         }
 
         function renderDetails(p) {
@@ -3211,7 +3879,10 @@
                         </div>
                         <p style="font-style:italic; color:var(--text-dim); margin-bottom:30px; border-left:2px solid var(--gold-primary); padding-left:30px; font-size:clamp(1rem, 3vw, 1.2rem); font-family:'Playfair Display'; opacity:0.8;">"${p.vibe}"</p>
                         <p style="color:var(--text-dim); margin-bottom:50px; line-height: 2; font-size:1.05rem;">Masterfully blended notes of ${p.desc}. Every drop is a testament to quality, curated for those who seek the extraordinary and demand only the finest.</p>
-                        <div style="display:flex; gap:20px;" id="add-to-cart-trigger">
+                        
+                        ${renderScentProfile(p)}
+
+                        <div style="display:flex; gap:20px; margin-top: 50px;" id="add-to-cart-trigger">
                             <button class="btn-gold interactive" style="flex:1; padding:25px; font-weight:700;" onclick="addToCart(${p.id})">Add to Selection</button>
                         </div>
 
@@ -3309,6 +3980,7 @@
             const stickyBar = document.getElementById('sticky-cart-bar');
             if(open) {
                 overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
                 document.body.classList.add('no-cursor');
                 if (stickyBar) stickyBar.classList.remove('visible');
                 renderCart();
@@ -3329,7 +4001,10 @@
                 }
             } else {
                 overlay.classList.remove('open');
-                document.body.classList.remove('no-cursor');
+                setTimeout(() => {
+                    document.body.style.overflow = '';
+                    document.body.classList.remove('no-cursor');
+                }, 800);
             }
         }
 
@@ -3479,50 +4154,87 @@
                 return;
             }
 
-            cont.innerHTML = '';
-            let subtotal = 0;
-            cart.forEach((item, index) => {
-                subtotal += item.activePrice * item.qty;
-                const div = document.createElement('div');
-                div.className = 'cart-item';
-                /* Sequential entrance delay as requested */
-                div.style.animationDelay = `${index * 0.08}s`;
-                div.innerHTML = `
-                    <div style="width:70px; height:70px; background:var(--bg-accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid var(--border-white);">
-                        <img src="${item.img}" alt="${item.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+            // Show skeletons for cart items
+            cont.innerHTML = Array(cart.length).fill(0).map(() => `
+                <div class="skeleton-checkout-item" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <div class="skeleton skeleton-checkout-img" style="width:70px; height:70px;"></div>
+                    <div class="skeleton-checkout-info">
+                        <div class="skeleton skeleton-checkout-title"></div>
+                        <div class="skeleton skeleton-checkout-meta"></div>
                     </div>
-                    <div style="flex:1">
-                        <h4 style="font-size:0.95rem; margin-bottom:5px; text-transform:uppercase; letter-spacing:1px; font-weight:400;">${item.name}</h4>
-                        <p style="font-size:0.75rem; color:var(--gold-muted); margin-bottom:10px; letter-spacing:1px;">${item.selectedSize} Essence • ${item.activePrice}৳</p>
-                        <div class="qty-controls" style="width:fit-content; padding: 4px 12px; gap: 12px;">
-                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', -1)" aria-label="Decrease quantity"><i data-lucide="minus" size="14"></i></button>
-                            <div style="font-weight:700; min-width:15px; text-align:center; font-size: 0.8rem;">${item.qty}</div>
-                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', 1)" aria-label="Increase quantity"><i data-lucide="plus" size="14"></i></button>
+                    <div class="skeleton skeleton-checkout-price"></div>
+                </div>
+            `).join('');
+
+            setTimeout(() => {
+                cont.innerHTML = '';
+                let subtotal = 0;
+                cart.forEach((item, index) => {
+                    subtotal += item.activePrice * item.qty;
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    /* Sequential entrance delay as requested */
+                    div.style.animationDelay = `${index * 0.08}s`;
+                    div.innerHTML = `
+                        <div style="width:70px; height:70px; background:var(--bg-accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid var(--border-white);">
+                            <img src="${item.img}" alt="${item.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                         </div>
-                    </div>
-                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:15px;">
-                        <span style="font-weight:700; color:var(--gold-primary); font-size: 0.9rem;">${item.activePrice * item.qty}৳</span>
-                        <i data-lucide="trash-2" size="18" style="cursor:pointer; color:rgba(255,255,255,0.2);" onclick="changeQty('${item.cartId}', -${item.qty})" class="interactive"></i>
-                    </div>
-                `;
-                cont.appendChild(div);
-            });
-            document.getElementById('cart-total').innerText = `${subtotal}৳`;
-            if (window.lucide) lucide.createIcons();
+                        <div style="flex:1">
+                            <h4 style="font-size:0.95rem; margin-bottom:5px; text-transform:uppercase; letter-spacing:1px; font-weight:400;">${item.name}</h4>
+                            <p style="font-size:0.75rem; color:var(--gold-muted); margin-bottom:10px; letter-spacing:1px;">${item.selectedSize} Essence • ${item.activePrice}৳</p>
+                            <div class="qty-controls" style="width:fit-content; padding: 4px 12px; gap: 12px;">
+                                <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', -1)" aria-label="Decrease quantity"><i data-lucide="minus" size="14"></i></button>
+                                <div style="font-weight:700; min-width:15px; text-align:center; font-size: 0.8rem;">${item.qty}</div>
+                                <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', 1)" aria-label="Increase quantity"><i data-lucide="plus" size="14"></i></button>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:15px;">
+                            <span style="font-weight:700; color:var(--gold-primary); font-size: 0.9rem;">${item.activePrice * item.qty}৳</span>
+                            <i data-lucide="trash-2" size="18" style="cursor:pointer; color:rgba(255,255,255,0.2);" onclick="changeQty('${item.cartId}', -${item.qty})" class="interactive"></i>
+                        </div>
+                    `;
+                    cont.appendChild(div);
+                });
+                document.getElementById('cart-total').innerText = `${subtotal}৳`;
+                if (window.lucide) lucide.createIcons();
+            }, 400);
         }
 
         function updateCartCount() {
-            document.getElementById('cart-count').innerText = cart.reduce((a,b) => a+b.qty, 0);
+            const count = cart.reduce((a,b) => a+b.qty, 0);
+            const badge = document.getElementById('cart-count');
+            const bottomBadge = document.getElementById('bottom-cart-count');
+            
+            if (badge) badge.innerText = count;
+            
+            if (bottomBadge) {
+                bottomBadge.innerText = count;
+                bottomBadge.classList.toggle('visible', count > 0);
+            }
         }
 
         function renderCheckout() {
             const itemsEl = document.getElementById('checkout-items');
             const itemCountEl = document.getElementById('checkout-item-count');
-            itemsEl.innerHTML = '';
-            let subtotal = 0;
-            let totalItems = 0;
             
-            cart.forEach(item => {
+            // Show skeletons for checkout items
+            itemsEl.innerHTML = Array(Math.max(cart.length, 2)).fill(0).map(() => `
+                <div class="skeleton-checkout-item">
+                    <div class="skeleton skeleton-checkout-img"></div>
+                    <div class="skeleton-checkout-info">
+                        <div class="skeleton skeleton-checkout-title"></div>
+                        <div class="skeleton skeleton-checkout-meta"></div>
+                    </div>
+                    <div class="skeleton skeleton-checkout-price"></div>
+                </div>
+            `).join('');
+
+            setTimeout(() => {
+                itemsEl.innerHTML = '';
+                let subtotal = 0;
+                let totalItems = 0;
+                
+                cart.forEach(item => {
                 subtotal += item.activePrice * item.qty;
                 totalItems += item.qty;
                 const row = document.createElement('div');
@@ -3613,6 +4325,7 @@
             if (totalEl) totalEl.innerText = `${subtotal - discountAmount + shipping}৳`;
             
             if (window.lucide) lucide.createIcons();
+            }, 500);
         }
 
         function checkout() { 
@@ -3712,7 +4425,7 @@
             const total = document.getElementById('checkout-total').innerText;
 
             if (!name || !phone || !email || !city || !address) {
-                alert("Please complete all required fields.");
+                showToast("Please complete all required fields.");
                 return;
             }
 
@@ -3809,6 +4522,15 @@
             const address = document.getElementById('billing-address').value;
             const total = document.getElementById('checkout-total').innerText;
 
+            // Clean items for logging/tracking
+            const cleanItems = cart.map(item => ({
+                id: item.id,
+                name: item.name,
+                variant: item.selectedSize,
+                price: item.activePrice,
+                qty: item.qty
+            }));
+
             const order = {
                 id: orderId,
                 name: name,
@@ -3817,8 +4539,9 @@
                 city: city,
                 address: address,
                 notes: "",
-                items: cart,
-                total: total
+                items: cleanItems,
+                total: total,
+                discountCode: appliedDiscount ? appliedDiscount.code : 'NONE'
             };
 
             const overlay = document.createElement('div');
@@ -3828,8 +4551,12 @@
             setTimeout(() => overlay.classList.add('show'), 10);
 
             try {
-                // Log to Google Sheets (optional but kept for robustness)
-                fetch(APPS_SCRIPT_EXEC_URL, { method: "POST", body: JSON.stringify(order) }).catch(e => console.error("Logging failed", e));
+                // Log to Google Sheets
+                fetch(APPS_SCRIPT_EXEC_URL, { 
+                    method: "POST", 
+                    mode: 'no-cors', // Use no-cors for Apps Script if needed, or handle CORS on server
+                    body: JSON.stringify(order) 
+                }).catch(e => console.error("Logging failed", e));
             } catch (err) { console.error("Order logging failed", err); }
 
             // Save to used contacts for first-order discount validation
@@ -3849,11 +4576,11 @@
                             transaction_id: orderId,
                             value: cart.reduce((acc, x) => acc + (x.activePrice * x.qty), 0),
                             currency: 'BDT',
-                            items: cart.map(x => ({
+                            items: cleanItems.map(x => ({
                                 item_id: x.id,
                                 item_name: x.name,
-                                item_variant: x.selectedSize,
-                                price: x.activePrice,
+                                item_variant: x.variant,
+                                price: x.price,
                                 quantity: x.qty
                             }))
                         });
@@ -3864,9 +4591,14 @@
                     saveCartToStorage();
                     updateCartCount();
                     showView('main');
-                    overlay.remove();
-                    alert(`Thank you ${name}. Your order ${orderId} has been successfully placed.`);
-                }, 2500);
+                    
+                    // Smooth removal of overlay
+                    overlay.classList.remove('show');
+                    setTimeout(() => overlay.remove(), 500);
+                    
+                    // Show a success toast instead of alert
+                    showToast(`Order ${orderId} placed successfully!`);
+                }, 3000);
             }, 1800);
         }
 
@@ -3891,6 +4623,38 @@
             }
         });
 
+        function initSwipeGestures() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const cartOverlay = document.getElementById('cart-overlay');
+            
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            // Mobile Menu Swipe (Swipe left to close)
+            mobileMenu.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+            
+            mobileMenu.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 70) { // Swipe left
+                    toggleMobileMenu();
+                }
+            }, {passive: true});
+            
+            // Cart Overlay Swipe (Swipe right to close)
+            cartOverlay.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+            
+            cartOverlay.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX - touchStartX > 70) { // Swipe right
+                    toggleCart(false);
+                }
+            }, {passive: true});
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             loadCartFromStorage();
             loadRecentlyViewed();
@@ -3901,6 +4665,7 @@
             updateCartCount();
             updateWishlistCount();
             renderShop();
+            initSwipeGestures();
 
             const districtSelect = document.getElementById('billing-city');
             if (districtSelect) {
@@ -3908,6 +4673,27 @@
             }
         });
     </script>
+    <nav class="bottom-nav">
+        <a href="javascript:void(0)" onclick="showView('main')" class="bottom-nav-item active" id="nav-home">
+            <i data-lucide="home" size="20"></i>
+            <span>Home</span>
+        </a>
+        <a href="javascript:void(0)" onclick="showView('shop')" class="bottom-nav-item" id="nav-shop">
+            <i data-lucide="search" size="20"></i>
+            <span>Shop</span>
+        </a>
+        <a href="javascript:void(0)" onclick="showView('wishlist')" class="bottom-nav-item" id="nav-wishlist">
+            <i data-lucide="heart" size="20"></i>
+            <span>Wishlist</span>
+            <span id="bottom-wishlist-count" class="bottom-nav-badge">0</span>
+        </a>
+        <a href="javascript:void(0)" onclick="toggleCart(true)" class="bottom-nav-item" id="nav-cart">
+            <i data-lucide="shopping-bag" size="20"></i>
+            <span>Cart</span>
+            <span id="bottom-cart-count" class="bottom-nav-badge">0</span>
+        </a>
+    </nav>
+
     <div id="sticky-cart-bar" class="sticky-cart-bar"></div>
 </body>
 </html>
