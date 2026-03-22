@@ -225,10 +225,10 @@
             :root { --container-padding: 5%; }
             #hero h1 { letter-spacing: 0.1em; } 
             .hero-content p { letter-spacing: 5px !important; font-size: 0.75rem !important; margin-bottom: 2.5rem !important; }
-            .filter-btn { padding: 8px 16px; font-size: 0.65rem; letter-spacing: 2px; flex: 1 1 auto; text-align: center; min-width: 100px; }
-            .filter-container { gap: 8px; margin-bottom: 30px; padding: 0 10px; }
-            .input, textarea, select { font-size: 16px; padding: 15px; }
-            .btn-gold { padding: 16px 32px; letter-spacing: 3px; font-size: 0.65rem; }
+            .filter-btn { padding: 12px 20px; font-size: 0.75rem; letter-spacing: 2px; flex: 1 1 auto; text-align: center; min-width: 100px; min-height: 44px; }
+            .filter-container { gap: 10px; margin-bottom: 30px; padding: 0 10px; }
+            .input, textarea, select { font-size: 16px; padding: 18px; min-height: 50px; }
+            .btn-gold { padding: 18px 36px; letter-spacing: 3px; font-size: 0.75rem; min-height: 50px; }
         }
         @media (max-width: 480px) {
             :root { --container-padding: 4%; }
@@ -283,9 +283,19 @@
             }
         }
 
-        /* Section Offsets for Sticky Header Alignment */
-        #hero, #shop, #about, #contact, #details-view, #checkout-view {
-            scroll-margin-top: var(--nav-height);
+        button:active {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+
+        /* Interactive Feedback */
+        .interactive {
+            transition: transform 0.2s var(--ease-luxury), opacity 0.2s var(--ease-luxury);
+            cursor: pointer;
+        }
+        .interactive:active {
+            transform: scale(0.95);
+            opacity: 0.8;
         }
 
         /* Desktop Custom Cursor - Refined and Minimal */
@@ -611,6 +621,16 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 48px; /* Touch target */
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-gold:active {
+            transform: scale(0.96);
+            opacity: 0.9;
         }
         @media (max-width: 768px) {
             .btn-gold { padding: 18px 36px; letter-spacing: 3px; }
@@ -913,7 +933,7 @@
             left: 15px;
             background: #050a09; /* Perfectly matches the section container background for a seamless luxury look */
             padding: 0 10px;
-            font-size: 0.65rem;
+            font-size: 0.75rem; /* Increased for mobile */
             color: var(--gold-primary);
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -1012,11 +1032,15 @@
             border: 1px solid var(--border-white);
             color: var(--text-white);
             padding: 18px;
-            font-size: 0.9rem;
+            font-size: 1rem; /* Better for mobile to prevent zoom */
             transition: var(--transition-fast);
             border-radius: 1px;
             width: 100%;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .input:active, textarea:active, select:active {
+            background: rgba(255, 255, 255, 0.05);
         }
         select {
             appearance: none;
@@ -1278,9 +1302,31 @@
         #whatsapp-float:hover { transform: translateY(-10px); background: #25D366; color: white; border-color: #25D366; }
 
         /* Quantity UI - Tactical Feel */
-        .qty-controls { display: flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.03); padding: 8px 20px; border-radius: 1px; border: 1px solid var(--border-white); }
-        .qty-btn { background: none; border: none; color: var(--gold-primary); cursor: pointer; display: flex; align-items: center; padding: 5px; transition: var(--transition-fast); }
-        .qty-btn:hover { color: var(--text-white); transform: scale(1.3); }
+        .qty-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            background: rgba(255,255,255,0.03); 
+            padding: 8px 20px; 
+            border-radius: 1px; 
+            border: 1px solid var(--border-white); 
+        }
+        .qty-btn { 
+            background: none; 
+            border: none; 
+            color: var(--gold-primary); 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 12px; /* Increased for touch target */
+            transition: var(--transition-fast); 
+            -webkit-tap-highlight-color: transparent;
+            min-width: 44px;
+            min-height: 44px;
+        }
+        .qty-btn:hover { color: var(--text-white); transform: scale(1.1); }
+        .qty-btn:active { transform: scale(0.9); opacity: 0.7; }
 
         /* Filter Buttons & Categories */
         .filter-container {
@@ -1303,17 +1349,26 @@
             background: transparent;
             border: 1px solid var(--border-gold);
             color: var(--text-dim);
-            padding: 10px 20px;
+            padding: 12px 24px; /* Increased for touch target */
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.65rem;
+            font-size: 0.75rem; /* Slightly larger */
             cursor: pointer;
             transition: var(--transition-fast);
             border-radius: 1px;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .filter-btn:hover {
             border-color: var(--gold-primary);
             color: var(--gold-primary);
+        }
+        .filter-btn:active {
+            transform: scale(0.95);
+            background: rgba(203, 163, 92, 0.1);
         }
         .filter-btn.active {
             background: var(--gold-primary);
@@ -1761,6 +1816,40 @@
             animation: heartPop 0.6s var(--ease-luxury);
         }
 
+        .animate-card-pulse {
+            animation: cardPulse 0.8s var(--ease-luxury);
+        }
+
+        @keyframes cardPulse {
+            0% { border-color: var(--border-gold); box-shadow: 0 0 0 transparent; }
+            50% { border-color: var(--gold-primary); box-shadow: 0 0 25px var(--gold-primary-glow); }
+            100% { border-color: var(--border-gold); box-shadow: 0 0 0 transparent; }
+        }
+
+        .wishlist-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(203, 163, 92, 0.9);
+            color: var(--bg-dark);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 5;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         #wishlist-count-desktop { overflow: hidden !important; }
         .wishlist-number {
             position: absolute;
@@ -1995,16 +2084,7 @@
         <div style="width: 100%; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 2rem; padding: 20px 0;">
             <a href="javascript:void(0)" style="--i:1" class="mobile-link interactive" onclick="handleNavClick('hero'); toggleMobileMenu();">The Scent</a>
             
-            <div style="display:flex; flex-direction:column; align-items:center; width: 100%;">
-                <a href="javascript:void(0)" style="--i:2" class="mobile-link interactive" onclick="toggleSubmenu('collection-submenu')">Collection <i data-lucide="chevron-down" id="submenu-icon" size="20" style="vertical-align:middle; margin-left:5px; transition: transform 0.4s ease;"></i></a>
-                <div id="collection-submenu" class="mobile-submenu">
-                    <a href="javascript:void(0)" style="--j:1" class="mobile-sublink" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">All Masterpieces</a>
-                    <a href="javascript:void(0)" style="--j:2" class="mobile-sublink" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">Masculine</a>
-                    <a href="javascript:void(0)" style="--j:3" class="mobile-sublink" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">Feminine</a>
-                    <a href="javascript:void(0)" style="--j:4" class="mobile-sublink" onclick="setFilter('Unisex'); handleNavClick('shop'); toggleMobileMenu();">Unisex</a>
-                    <a href="javascript:void(0)" style="--j:5" class="mobile-sublink" onclick="showWishlist(); toggleMobileMenu();" style="color:var(--gold-primary); font-weight:700;">My Wishlist (<span id="wishlist-count-mobile">0</span>)</a>
-                </div>
-            </div>
+            <a href="javascript:void(0)" style="--i:2" class="mobile-link interactive" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">Collection</a>
 
             <a href="javascript:void(0)" style="--i:3" class="mobile-link interactive" onclick="handleNavClick('about'); toggleMobileMenu();">Heritage</a>
             <a href="javascript:void(0)" style="--i:4" class="mobile-link interactive" onclick="handleNavClick('contact'); toggleMobileMenu();">Contact</a>
@@ -2037,7 +2117,7 @@
             
             <ul class="nav-links">
                 <li><a href="javascript:void(0)" onclick="handleNavClick('hero')" class="interactive">The Scent</a></li>
-                <li><a href="javascript:void(0)" onclick="handleNavClick('shop')" class="interactive">Collection</a></li>
+                <li><a href="javascript:void(0)" onclick="setFilter('All'); handleNavClick('shop')" class="interactive">Collection</a></li>
                 <li><a href="javascript:void(0)" onclick="handleNavClick('about')" class="interactive">Heritage</a></li>
                 <li><a href="javascript:void(0)" onclick="handleNavClick('contact')" class="interactive">Contact</a></li>
             </ul>
@@ -2068,35 +2148,45 @@
                 <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" loading="lazy" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(2rem, 5vh, 3.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2));" referrerPolicy="no-referrer">
                 <h1>LUBAN</h1>
                 <p style="letter-spacing: clamp(5px, 2vw, 15px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.65rem, 1.5vw, 0.8rem); margin-bottom: clamp(2.5rem, 6vh, 4.5rem); font-weight: 500;">Refined Quality In Every Drop</p>
-                <button class="btn-gold interactive" onclick="handleNavClick('shop')">Explore Collection</button>
+                <button class="btn-gold interactive" onclick="setFilter('All'); handleNavClick('shop')">Explore Collection</button>
             </div>
-            <div class="scroll-indicator" onclick="handleNavClick('shop')">
+            <div class="scroll-indicator" onclick="setFilter('All'); handleNavClick('shop')">
                 <span>Scroll</span>
                 <div class="scroll-line"></div>
             </div>
         </section>
 
         <section id="shop">
-            <div style="text-align: center; margin-bottom: clamp(40px, 8vh, 80px);">
-                <h2 style="font-size: clamp(2rem, 5vw, 4.5rem); margin-bottom: 15px; color: var(--gold-primary); letter-spacing: clamp(6px, 2vw, 12px);">The Library</h2>
-                <div style="width: 60px; height: 1px; background: var(--gold-primary); margin: 0 auto 15px;"></div>
-                <p style="color: var(--text-dim); letter-spacing: clamp(3px, 1vw, 5px); text-transform: uppercase; font-size: clamp(0.6rem, 1.2vw, 0.7rem);">Selected Olfactory Masterpieces</p>
-            </div>
-            
-            <div style="max-width: 600px; margin: 0 auto 60px; position: relative; padding: 0 20px;">
-                <div style="position: relative;">
-                    <input type="text" id="shop-search" class="input interactive" placeholder="Search our collection..." oninput="handleSearchInput(this.value, 'shop')" style="padding: 15px 50px 15px 20px; border-radius: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(203, 163, 92, 0.2); width: 100%;">
-                    <i data-lucide="search" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold-primary); pointer-events: none;" size="20"></i>
-                    <div id="shop-search-suggestions" class="search-suggestions" style="top: 100%; width: 100%; display: none;"></div>
+            <div id="shop-header-content" style="animation: luxuryFadeIn 0.5s ease;">
+                <div style="text-align: center; margin-bottom: clamp(40px, 8vh, 80px);">
+                    <h2 style="font-size: clamp(2rem, 5vw, 4.5rem); margin-bottom: 15px; color: var(--gold-primary); letter-spacing: clamp(6px, 2vw, 12px);">The Library</h2>
+                    <div style="width: 60px; height: 1px; background: var(--gold-primary); margin: 0 auto 15px;"></div>
+                    <p style="color: var(--text-dim); letter-spacing: clamp(3px, 1vw, 5px); text-transform: uppercase; font-size: clamp(0.6rem, 1.2vw, 0.7rem);">Selected Olfactory Masterpieces</p>
+                </div>
+                
+                <div style="max-width: 600px; margin: 0 auto 60px; position: relative; padding: 0 20px;">
+                    <div style="position: relative;">
+                        <input type="text" id="shop-search" class="input interactive" placeholder="Search our collection..." oninput="handleSearchInput(this.value, 'shop')" style="padding: 15px 50px 15px 20px; border-radius: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(203, 163, 92, 0.2); width: 100%;">
+                        <i data-lucide="search" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold-primary); pointer-events: none;" size="20"></i>
+                        <div id="shop-search-suggestions" class="search-suggestions" style="top: 100%; width: 100%; display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="filter-container" style="margin-bottom: 60px;">
+                    <div class="filter-group-label">Gender Profile</div>
+                    <button class="filter-btn active interactive" data-filter="All" onclick="setFilter('All')">All</button>
+                    <button class="filter-btn interactive" data-filter="Masculine" onclick="setFilter('Masculine')">Masculine</button>
+                    <button class="filter-btn interactive" data-filter="Feminine" onclick="setFilter('Feminine')">Feminine</button>
+                    <button class="filter-btn interactive" data-filter="Unisex" onclick="setFilter('Unisex')">Unisex</button>
                 </div>
             </div>
 
-            <div class="filter-container" style="margin-bottom: 60px;">
-                <div class="filter-group-label">Gender Profile</div>
-                <button class="filter-btn active interactive" data-filter="All" onclick="setFilter('All')">All</button>
-                <button class="filter-btn interactive" data-filter="Masculine" onclick="setFilter('Masculine')">Masculine</button>
-                <button class="filter-btn interactive" data-filter="Feminine" onclick="setFilter('Feminine')">Feminine</button>
-                <button class="filter-btn interactive" data-filter="Unisex" onclick="setFilter('Unisex')">Unisex</button>
+            <div id="wishlist-header" style="display:none; text-align: center; margin-bottom: 60px; animation: luxuryFadeIn 0.5s ease;">
+                <h2 style="font-size: clamp(2rem, 5vw, 4.5rem); margin-bottom: 15px; color: var(--gold-primary); letter-spacing: clamp(6px, 2vw, 12px);">My Wishlist</h2>
+                <div style="width: 60px; height: 1px; background: var(--gold-primary); margin: 0 auto 15px;"></div>
+                <button onclick="setFilter('All')" class="filter-btn interactive" style="border-color: var(--gold-primary); color: var(--gold-primary); font-size: 0.7rem; padding: 10px 20px; display: inline-flex; align-items: center; gap: 8px; margin: 0 auto;">
+                    <i data-lucide="arrow-left" size="14"></i> Back to Collection
+                </button>
             </div>
 
             <div id="wishlist-controls" style="display:none; justify-content:center; margin-bottom: 40px; animation: luxuryFadeIn 0.5s ease;">
@@ -3093,19 +3183,21 @@
 
         function toggleWishlist(id) {
             const index = wishlist.indexOf(id);
+            const product = products.find(p => p.id === id);
+            const productName = product ? product.name : 'Item';
             let message = '';
             let wasAdded = false;
             
             if (index > -1) {
                 wishlist.splice(index, 1);
-                message = 'Removed from Wishlist';
+                message = `Removed ${productName} from Wishlist`;
                 wasAdded = false;
                 // Cleanup quantity
                 delete wishlistQuantities[id];
                 saveWishlistQuantities();
             } else {
                 wishlist.push(id);
-                message = 'Added to Wishlist';
+                message = `Added ${productName} to Wishlist`;
                 wasAdded = true;
                 // Initialize quantity
                 wishlistQuantities[id] = 1;
@@ -3114,11 +3206,12 @@
             
             saveWishlist();
             updateWishlistCount(true, wasAdded);
-            showToast(message);
+            showToast(message, wasAdded ? 'heart' : 'check');
             
             // Update all heart buttons (Grid AND Detail view)
             const heartBtns = document.querySelectorAll(`button[data-wishlist-id="${id}"]`);
             const isWishlisted = wishlist.includes(id);
+            
             heartBtns.forEach(btn => {
                 if (isWishlisted) btn.classList.add('active');
                 else btn.classList.remove('active');
@@ -3142,6 +3235,34 @@
                     icon.classList.remove('animate-pop');
                     void icon.offsetWidth; // Trigger reflow
                     icon.classList.add('animate-pop');
+                }
+
+                // Update product card feedback
+                const card = btn.closest('.product-card');
+                if (card) {
+                    // Card pulse animation on add
+                    if (wasAdded) {
+                        card.classList.remove('animate-card-pulse');
+                        void card.offsetWidth;
+                        card.classList.add('animate-card-pulse');
+                    }
+
+                    // Update Wishlist Badge
+                    const imgContainer = card.querySelector('.image-container');
+                    if (imgContainer) {
+                        let badge = imgContainer.querySelector('.wishlist-badge');
+                        if (isWishlisted) {
+                            if (!badge) {
+                                badge = document.createElement('div');
+                                badge.className = 'wishlist-badge';
+                                badge.innerHTML = '<i data-lucide="heart" size="10"></i> Saved';
+                                imgContainer.prepend(badge);
+                                if (window.lucide) lucide.createIcons();
+                            }
+                        } else {
+                            if (badge) badge.remove();
+                        }
+                    }
                 }
             });
 
@@ -3269,7 +3390,9 @@
 
         function emptyWishlist() {
             wishlist = [];
+            wishlistQuantities = {};
             saveWishlist();
+            saveWishlistQuantities();
             updateWishlistCount(true);
             renderShop();
             const modal = document.getElementById('empty-wishlist-modal');
@@ -3280,10 +3403,14 @@
             showToast('Wishlist Cleared');
         }
 
-        function showToast(message) {
+        function showToast(message, iconName = 'check') {
             const toast = document.getElementById('toast-notification');
             if (toast) {
                 toast.querySelector('span').innerText = message;
+                const icon = toast.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', iconName);
+                }
                 toast.classList.add('show');
                 if (window.lucide) lucide.createIcons();
                 setTimeout(() => toast.classList.remove('show'), 3000);
@@ -3355,8 +3482,17 @@
 
         function showWishlist() {
             currentFilter = 'Wishlist';
+            updateFilterUI();
             renderShop();
             handleNavClick('shop');
+
+            // Update URL
+            if (history.pushState) {
+                const newUrl = `${window.location.origin}${window.location.pathname}?view=wishlist`;
+                if (window.location.href !== newUrl) {
+                    history.pushState({view: 'wishlist'}, 'Wishlist', newUrl);
+                }
+            }
         }
 
         function clearMobileSearch() {
@@ -3537,6 +3673,18 @@
         function renderShop(searchQuery = '') {
             const list = document.getElementById('product-list');
             
+            // Toggle Shop/Wishlist Headers
+            const shopHeader = document.getElementById('shop-header-content');
+            const wishlistHeader = document.getElementById('wishlist-header');
+            
+            if (currentFilter === 'Wishlist') {
+                if (shopHeader) shopHeader.style.display = 'none';
+                if (wishlistHeader) wishlistHeader.style.display = 'block';
+            } else {
+                if (shopHeader) shopHeader.style.display = 'block';
+                if (wishlistHeader) wishlistHeader.style.display = 'none';
+            }
+
             // Toggle Wishlist Controls
             const wishlistControls = document.getElementById('wishlist-controls');
             if (wishlistControls) {
@@ -3584,13 +3732,14 @@
                 }
 
                 if (filtered.length === 0) {
+                    const isWishlist = currentFilter === 'Wishlist';
                     list.innerHTML = `
                         <div style="grid-column: 1/-1; text-align:center; padding: clamp(60px, 10vh, 100px) 0; display:flex; flex-direction:column; align-items:center; gap:20px; animation: luxuryFadeIn 0.5s ease;">
                             <div style="width:80px; height:80px; border:1px solid var(--gold-muted); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold-muted); margin-bottom:10px;">
-                                <i data-lucide="search-x" size="32"></i>
+                                <i data-lucide="${isWishlist ? 'heart' : 'search-x'}" size="32"></i>
                             </div>
-                            <h3 style="color:var(--gold-primary); letter-spacing:4px; text-transform:uppercase; font-size:1.2rem;">No Matches Found</h3>
-                            <p style="color:var(--text-dim); font-size:0.9rem; max-width:400px; line-height:1.6;">We could not locate any scents matching your query. Try adjusting your search terms or explore our full collection.</p>
+                            <h3 style="color:var(--gold-primary); letter-spacing:4px; text-transform:uppercase; font-size:1.2rem;">${isWishlist ? 'Your Wishlist is Empty' : 'No Matches Found'}</h3>
+                            <p style="color:var(--text-dim); font-size:0.9rem; max-width:400px; line-height:1.6;">${isWishlist ? 'Explore our collection and save your favorite olfactory masterpieces to view them here later.' : 'We could not locate any scents matching your query. Try adjusting your search terms or explore our full collection.'}</p>
                             <button onclick="setFilter('All'); document.getElementById('mobile-search').value=''; renderShop();" class="btn-gold interactive" style="padding:15px 30px; font-size:0.7rem; margin-top:20px;">View Full Collection</button>
                         </div>
                     `;
@@ -3640,6 +3789,7 @@
                             <span class="wishlist-tooltip">${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}</span>
                         </button>
                         <div class="image-container" style="${currentFilter === 'Wishlist' ? 'height:200px; margin-bottom:15px; background:var(--bg-accent); border-radius:2px;' : ''}">
+                            ${isWishlisted ? '<div class="wishlist-badge"><i data-lucide="heart" size="10"></i> Saved</div>' : ''}
                             <div class="parallax-wrapper">
                                 <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" style="${currentFilter === 'Wishlist' ? 'max-width:85%; max-height:85%;' : ''}" referrerPolicy="no-referrer">
                             </div>
@@ -3756,6 +3906,14 @@
                 // Update Meta Tags for Product
                 updateMetaTags(p.name, p.desc, p.img, `${window.location.origin}/?product=${p.id}`);
                 
+                // Update URL
+                if (history.pushState) {
+                    const newUrl = `${window.location.origin}${window.location.pathname}?product=${p.id}`;
+                    if (window.location.href !== newUrl) {
+                        history.pushState({view: 'details', id: p.id}, p.name, newUrl);
+                    }
+                }
+                
                 selectedSize = '3ml'; 
                 addToRecentlyViewed(id);
                 updateProductSchema(p); // SEO: Update dynamic product schema
@@ -3788,10 +3946,23 @@
                 updateProductSchema(null);
                 checkoutView.style.display = 'block';
                 renderCheckout();
+
+                // Update URL
+                if (history.pushState) {
+                    const newUrl = `${window.location.origin}${window.location.pathname}?view=checkout`;
+                    if (window.location.href !== newUrl) {
+                        history.pushState({view: 'checkout'}, 'Checkout', newUrl);
+                    }
+                }
             } else {
                 updateMetaTags();
                 updateProductSchema(null);
                 main.style.display = 'block';
+
+                // Update URL
+                if (history.pushState && window.location.search !== '') {
+                    history.pushState({view: 'main'}, 'Luban Fragrance', window.location.pathname);
+                }
             }
 
             if (currentView !== view && currentView !== '') {
@@ -3949,8 +4120,13 @@
                         
                         ${renderScentProfile(p)}
 
-                        <div style="display:flex; gap:20px; margin-top: 50px;" id="add-to-cart-trigger">
-                            <button class="btn-gold interactive" style="flex:1; padding:25px; font-weight:700;" onclick="addToCart(${p.id})">Add to Selection</button>
+                        <div style="display:flex; gap:15px; margin-top: 50px;" id="add-to-cart-trigger">
+                            <button class="btn-gold interactive" style="flex:1; padding:25px; font-weight:700; display: flex; align-items: center; justify-content: center; gap: 12px;" onclick="addToCart(${p.id})">
+                                <i data-lucide="shopping-bag" size="20"></i> Add to Selection
+                            </button>
+                            <button class="filter-btn interactive" style="width: 70px; padding: 25px; display: flex; align-items: center; justify-content: center; border-color: var(--gold-primary); color: var(--gold-primary);" onclick="shareProduct(${p.id})" aria-label="Share product">
+                                <i data-lucide="share-2" size="20"></i>
+                            </button>
                         </div>
 
                         <div style="display:flex; flex-wrap:wrap; gap:25px; margin-top: 35px; border-top: 1px solid var(--border-gold); padding-top: 25px; opacity:0.6;">
@@ -4073,6 +4249,93 @@
                     document.body.classList.remove('no-cursor');
                 }, 800);
             }
+        }
+
+        function shareProduct(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+
+            const url = `${window.location.origin}${window.location.pathname}?product=${p.id}`;
+            const shareData = {
+                title: p.name,
+                text: `Check out this exquisite fragrance: ${p.name} at Luban Fragrance.`,
+                url: url
+            };
+
+            if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+                navigator.share(shareData)
+                    .then(() => showToast('Shared successfully'))
+                    .catch((err) => {
+                        if (err.name !== 'AbortError') {
+                            showCustomShareModal(p);
+                        }
+                    });
+            } else {
+                showCustomShareModal(p);
+            }
+        }
+
+        function showCustomShareModal(p) {
+            const url = `${window.location.origin}${window.location.pathname}?product=${p.id}`;
+            const text = `Check out this exquisite fragrance: ${p.name} at Luban Fragrance.`;
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'confirm-overlay';
+            overlay.id = 'share-modal';
+            
+            overlay.onclick = (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('show');
+                    setTimeout(() => overlay.remove(), 500);
+                }
+            };
+
+            overlay.innerHTML = `
+                <div class="confirm-box" style="max-width: 450px; width: 90%;">
+                    <h3 style="color:var(--gold-primary); text-transform:uppercase; letter-spacing:3px; margin-bottom:20px;">Share Fragrance</h3>
+                    <p style="color:var(--text-dim); margin-bottom:25px; font-size:0.9rem;">Spread the essence of ${p.name}.</p>
+                    
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px; margin-bottom:30px;">
+                        <a href="https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--text-white); text-decoration:none;">
+                            <div style="width:50px; height:50px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center;">
+                                <i data-lucide="message-circle" size="24" style="color:white;"></i>
+                            </div>
+                            <span style="font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;">WhatsApp</span>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--text-white); text-decoration:none;">
+                            <div style="width:50px; height:50px; border-radius:50%; background:#1877F2; display:flex; align-items:center; justify-content:center;">
+                                <i data-lucide="facebook" size="24" style="color:white;"></i>
+                            </div>
+                            <span style="font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;">Facebook</span>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--text-white); text-decoration:none;">
+                            <div style="width:50px; height:50px; border-radius:50%; background:#1DA1F2; display:flex; align-items:center; justify-content:center;">
+                                <i data-lucide="twitter" size="24" style="color:white;"></i>
+                            </div>
+                            <span style="font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;">Twitter</span>
+                        </a>
+                    </div>
+
+                    <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border-gold); padding:10px; display:flex; align-items:center; gap:10px; border-radius:2px; margin-bottom:20px;">
+                        <input type="text" value="${url}" readonly style="background:transparent; border:none; color:var(--text-dim); font-size:0.8rem; flex:1; outline:none;">
+                        <button onclick="copyToClipboard('${url}')" class="btn-gold interactive" style="padding:8px 15px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">Copy</button>
+                    </div>
+
+                    <button onclick="const el = document.getElementById('share-modal'); el.classList.remove('show'); setTimeout(() => el.remove(), 500);" class="filter-btn interactive" style="width:100%;">Close</button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            if (window.lucide) lucide.createIcons();
+            setTimeout(() => overlay.classList.add('show'), 10);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Link copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast('Failed to copy link', 'alert-circle');
+            });
         }
 
         function addToCart(id, qty = 1) {
@@ -4775,6 +5038,36 @@
             if (districtSelect) {
                 districtSelect.addEventListener('change', renderCheckout);
             }
+
+            // Handle deep linking
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('product');
+            const view = urlParams.get('view');
+            
+            if (productId) {
+                showView('details', parseInt(productId));
+            } else if (view === 'checkout') {
+                showView('checkout');
+            } else if (view === 'wishlist') {
+                showWishlist();
+            }
+
+            // Handle browser back/forward
+            window.addEventListener('popstate', (event) => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = urlParams.get('product');
+                const view = urlParams.get('view');
+                
+                if (productId) {
+                    showView('details', parseInt(productId));
+                } else if (view === 'checkout') {
+                    showView('checkout');
+                } else if (view === 'wishlist') {
+                    showWishlist();
+                } else {
+                    showView('main');
+                }
+            });
         });
     </script>
     <nav class="bottom-nav">
