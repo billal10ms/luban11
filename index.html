@@ -98,8 +98,8 @@
         "addressCountry": "BD"
       },
       "sameAs": [
-        "https://www.facebook.com/people/Luban-Fragrance/61586484638332/",
-        "https://www.instagram.com/lubanfragrance"
+        "https://www.facebook.com/profile.php?id=61586484638332",
+        "https://www.instagram.com/lubanfragrance/"
       ]
     }
     </script>
@@ -279,6 +279,19 @@
             100% { 
                 opacity: 1; 
                 transform: translateY(0) scale(1); 
+                filter: blur(0);
+            }
+        }
+
+        @keyframes luxurySlideIn {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-20px); 
+                filter: blur(4px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0); 
                 filter: blur(0);
             }
         }
@@ -482,7 +495,64 @@
         @media (max-width: 480px) {
             .nav-actions { gap: 0.8rem; }
         }
-        .social-icons-nav { display: flex; gap: 1.5rem; border-right: 1px solid var(--border-gold); padding-right: 2.5rem; }
+        .social-icons-nav { display: flex; gap: 0.8rem; align-items: center; }
+        .social-link-header {
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(203, 163, 92, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            background: rgba(203, 163, 92, 0.05);
+            transition: all 0.4s var(--ease-luxury);
+            text-decoration: none;
+        }
+        .social-link-header:hover {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(203, 163, 92, 0.2);
+        }
+        
+        .social-link-proper {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--border-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            background: rgba(203, 163, 92, 0.05);
+            transition: all 0.4s var(--ease-luxury);
+            text-decoration: none;
+        }
+        
+        .social-link-proper:hover {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+            border-color: var(--gold-bright);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(203, 163, 92, 0.2);
+        }
+        
+        .hero-social-rail {
+            position: absolute;
+            left: var(--container-padding);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+            animation: luxuryFadeIn 1s var(--ease-luxury) 0.5s both;
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-social-rail { display: none; }
+        }
         .social-link { color: var(--gold-muted); transition: var(--transition-fast); }
         .social-link:hover { color: var(--gold-primary); transform: translateY(-3px); }
 
@@ -848,6 +918,16 @@
             font-size: 1.2rem;
             white-space: nowrap;
             margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .regular-price {
+            color: var(--text-dim);
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            font-weight: 400;
         }
         .product-desc {
             font-size: 0.75rem;
@@ -994,6 +1074,56 @@
             margin-bottom: 12px;
             font-size: 0.9rem;
             letter-spacing: 1px;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--text-dim);
+            animation: luxuryFadeIn 0.8s ease;
+        }
+        .breadcrumbs a {
+            color: var(--text-dim);
+            transition: var(--transition-fast);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .breadcrumbs a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold-primary);
+            transition: var(--transition-fast);
+        }
+        .breadcrumbs a:hover {
+            color: var(--gold-primary);
+        }
+        .breadcrumbs a:hover::after {
+            width: 100%;
+        }
+        .breadcrumbs .separator {
+            color: var(--gold-muted);
+            opacity: 0.4;
+            display: flex;
+            align-items: center;
+        }
+        .breadcrumbs .current {
+            color: var(--gold-primary);
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .breadcrumbs { gap: 8px; font-size: 0.6rem; letter-spacing: 1.5px; }
         }
 
         .checkout-total-line {
@@ -1303,17 +1433,36 @@
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-gold);
             cursor: pointer;
+            text-decoration: none;
         }
         @media (max-width: 768px) {
             #back-to-top, #whatsapp-float { right: 20px; width: 50px; height: 50px; }
             #whatsapp-float { bottom: calc(150px + env(safe-area-inset-bottom)); }
             #back-to-top { bottom: calc(85px + env(safe-area-inset-bottom)); }
         }
-        #back-to-top { bottom: 40px; background: rgba(203, 163, 92, 0.1); color: var(--gold-primary); opacity: 0; visibility: hidden; }
-        #back-to-top.visible { opacity: 1; visibility: visible; }
+        #back-to-top { 
+            bottom: 40px; 
+            background: rgba(203, 163, 92, 0.08); 
+            color: var(--gold-primary); 
+            opacity: 0; 
+            visibility: hidden;
+            transform: translateY(20px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #back-to-top.visible { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0);
+        }
         #whatsapp-float { bottom: 120px; background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.2); color: #25D366; }
         
-        #back-to-top:hover { transform: translateY(-10px); background: var(--gold-primary); color: var(--bg-dark); border-color: var(--gold-primary); }
+        #back-to-top:hover { 
+            transform: translateY(-10px); 
+            background: var(--gold-primary); 
+            color: var(--bg-dark); 
+            border-color: var(--gold-bright);
+            box-shadow: 0 15px 45px rgba(203, 163, 92, 0.25);
+        }
         #whatsapp-float:hover { transform: translateY(-10px); background: #25D366; color: white; border-color: #25D366; }
 
         /* Quantity UI - Tactical Feel */
@@ -1602,52 +1751,75 @@
         .mobile-submenu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.8s var(--ease-luxury), opacity 0.8s var(--ease-luxury), margin 0.8s var(--ease-luxury);
+            transition: max-height 0.8s var(--ease-luxury), opacity 0.8s var(--ease-luxury), margin 0.8s var(--ease-luxury), padding 0.8s var(--ease-luxury);
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
             margin-top: 0;
             opacity: 0;
-            padding-left: 10px;
-            border-left: 1px solid rgba(203, 163, 92, 0.05);
+            padding-left: 15px;
+            border-left: 1px solid rgba(203, 163, 92, 0.1);
+            width: 80%;
         }
         .mobile-submenu.active {
             max-height: 500px;
             margin-top: 1.5rem;
             margin-bottom: 1.5rem;
             opacity: 1;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            background: rgba(203, 163, 92, 0.03);
+            border-radius: 2px;
         }
         .mobile-sublink {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
             text-transform: uppercase;
             letter-spacing: 2px;
             text-decoration: none;
-            transition: all 0.6s var(--ease-luxury);
+            transition: all 0.4s var(--ease-luxury);
             text-align: left;
             opacity: 0;
             will-change: transform, opacity, filter;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            position: relative;
+        }
+        .mobile-sublink::before {
+            content: '';
+            width: 0;
+            height: 1px;
+            background: var(--gold-primary);
+            transition: width 0.4s var(--ease-luxury);
+        }
+        .mobile-sublink:hover::before {
+            width: 15px;
         }
         .mobile-sublink:hover {
             color: var(--gold-primary);
-            padding-left: 10px;
+            padding-left: 5px;
         }
         .mobile-sublink:active {
             color: var(--gold-bright);
             transform: scale(0.98);
             filter: drop-shadow(0 0 10px var(--gold-primary-glow));
         }
+        .mobile-sublink.active {
+            color: var(--gold-primary);
+            font-weight: 600;
+            padding-left: 10px;
+        }
+        .mobile-sublink.active::before {
+            width: 20px;
+        }
         #mobile-menu.active .mobile-sublink {
-            animation: luxuryFadeIn 1s var(--ease-luxury) forwards;
+            /* Initial state for sublinks when menu opens but submenu is closed */
         }
         .mobile-submenu.active .mobile-sublink {
-            animation: luxuryFadeIn 1s var(--ease-luxury) both;
-            animation-delay: calc(0.2s + (var(--j) * 0.08s));
+            animation: luxurySlideIn 0.8s var(--ease-luxury) both;
+            animation-delay: calc(0.1s + (var(--j) * 0.06s));
         }
-        .mobile-sublink:hover { color: var(--gold-primary); }
 
         .search-suggestions {
             position: absolute;
@@ -1736,7 +1908,7 @@
             backdrop-filter: blur(20px);
             border-top: 1px solid var(--border-gold);
             display: none;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             z-index: 1000;
             padding-bottom: env(safe-area-inset-bottom);
             box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
@@ -1770,11 +1942,11 @@
             color: var(--gold-primary);
         }
 
-        .bottom-nav-item i {
+        .bottom-nav-item svg {
             transition: all 0.4s var(--ease-luxury);
         }
 
-        .bottom-nav-item.active i {
+        .bottom-nav-item.active svg {
             filter: drop-shadow(0 0 10px rgba(203, 163, 92, 0.3));
         }
 
@@ -1944,6 +2116,26 @@
             animation: fadeIn 0.5s ease;
         }
 
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ea4335;
+            color: white;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 5;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
@@ -1976,7 +2168,7 @@
         /* Mob Menu Refinement */
         @media (max-width: 1024px) {
             nav { padding: 0 var(--container-padding); }
-            .nav-links, .social-icons-nav { display: none; }
+            .nav-links { display: none; }
             .menu-toggle { display: block; }
         }
 
@@ -2166,135 +2358,68 @@
         <div class="luxury-emblem" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); opacity: 0; pointer-events: none; z-index: 0; transition: all 2s var(--ease-luxury) 0.4s;">
             <i data-lucide="crown" size="300" color="#cba35c"></i>
         </div>
-        <button onclick="toggleMobileMenu()" aria-label="Close menu" class="interactive" style="position:absolute; top:clamp(20px, 5vw, 40px); right:clamp(20px, 5vw, 40px); background:none; border:none; color:var(--gold-primary); z-index: 10;">
+        <button onclick="closeMobileMenu()" aria-label="Close menu" class="interactive" style="position:absolute; top:clamp(20px, 5vw, 40px); right:clamp(20px, 5vw, 40px); background:none; border:none; color:var(--gold-primary); z-index: 10;">
             <i data-lucide="x" size="36"></i>
         </button>
-        
-        <div class="mobile-search-container" style="width: 90%; margin-top: 80px; position: relative;">
-            <input type="text" id="mobile-search" class="mobile-search-input" placeholder="Search our collection..." onkeyup="if(event.key === 'Enter') handleMobileSearch()" oninput="handleSearchInput(this.value)">
-            <i data-lucide="search" class="mobile-search-icon interactive" onclick="handleMobileSearch()" size="24" style="cursor: pointer;"></i>
-            <button id="clear-mobile-search" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:35px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:10px; z-index: 10; transition: all 0.4s var(--ease-luxury);">
-                <i data-lucide="x" size="14"></i>
-            </button>
-            
-            <div id="search-suggestions" class="search-suggestions" style="margin-top: 10px; border-radius: 0 0 4px 4px; border: 1px solid rgba(203, 163, 92, 0.1); background: rgba(10, 10, 10, 0.98);"></div>
-            
-            <div id="mobile-search-extras" style="margin-top: 25px; width: 100%;">
-                <!-- Search History -->
-                <div id="search-history-section" style="margin-bottom: 25px;">
-                    <h5 id="search-history-title" style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; opacity: 0.6; text-align: center; display: none;">Recent Searches</h5>
-                    <div id="search-history-container" style="display: flex; flex-wrap: wrap; gap: 10px; width: 100%; justify-content: center;"></div>
-                    <div id="clear-history-btn" style="display: none; justify-content: center; width: 100%; margin-top: 10px;">
-                        <button onclick="clearSearchHistory()" style="background: none; border: none; color: var(--gold-muted); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; opacity: 0.6; transition: opacity 0.4s ease;" class="interactive">Clear History</button>
-                    </div>
-                </div>
 
-                <!-- Trending Section -->
-                <div id="trending-searches" style="margin-top: 30px; text-align: center;">
-                    <h5 style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; opacity: 0.6;">Trending Now</h5>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
-                        <span onclick="applyRecentSearch('Oud')" class="interactive trending-tag">Oud</span>
-                        <span onclick="applyRecentSearch('Musk')" class="interactive trending-tag">Musk</span>
-                        <span onclick="applyRecentSearch('Oriental')" class="interactive trending-tag">Oriental</span>
-                        <span onclick="applyRecentSearch('Luxury')" class="interactive trending-tag">Luxury</span>
-                        <span onclick="applyRecentSearch('Summer')" class="interactive trending-tag">Summer</span>
-                    </div>
-                </div>
-
-                <!-- Quick Categories -->
-                <div id="quick-categories" style="margin-top: 30px; text-align: center;">
-                    <h5 style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; opacity: 0.6;">Quick Categories</h5>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 10px;">
-                        <button onclick="setFilter('Oriental'); handleNavClick('shop'); toggleMobileMenu();" class="interactive" style="background: rgba(203, 163, 92, 0.05); border: 1px solid rgba(203, 163, 92, 0.1); color: var(--gold-primary); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px; border-radius: 1px;">Oriental</button>
-                        <button onclick="setFilter('Luxury'); handleNavClick('shop'); toggleMobileMenu();" class="interactive" style="background: rgba(203, 163, 92, 0.05); border: 1px solid rgba(203, 163, 92, 0.1); color: var(--gold-primary); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px; border-radius: 1px;">Luxury</button>
-                        <button onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();" class="interactive" style="background: rgba(203, 163, 92, 0.05); border: 1px solid rgba(203, 163, 92, 0.1); color: var(--gold-primary); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px; border-radius: 1px;">Masculine</button>
-                        <button onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();" class="interactive" style="background: rgba(203, 163, 92, 0.05); border: 1px solid rgba(203, 163, 92, 0.1); color: var(--gold-primary); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px; border-radius: 1px;">Feminine</button>
-                    </div>
+        <!-- Dedicated Search View -->
+        <div id="mobile-search-view" style="width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; padding: 120px 20px 80px; gap: 3rem;">
+            <div style="width: 100%; position: relative;">
+                <input type="text" id="mobile-search-input" class="mobile-search-input" placeholder="Search collection..." onkeyup="if(event.key === 'Enter') handleMobileSearch()" style="width: 100%; background: none; border: none; border-bottom: 1px solid var(--border-gold); color: var(--gold-primary); font-size: 1.5rem; padding: 15px 0; font-family: 'Playfair Display', serif; outline: none;">
+                <i data-lucide="search" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: var(--gold-primary); opacity: 0.6;"></i>
+            </div>
+            
+            <div style="width: 100%; text-align: center;">
+                <h5 style="font-size: 0.65rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px;">Trending Searches</h5>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+                    <span onclick="applySearch('Oud')" class="interactive" style="font-size: 0.75rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 8px 18px; border-radius: 20px; cursor: pointer;">Oud</span>
+                    <span onclick="applySearch('Musk')" class="interactive" style="font-size: 0.75rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 8px 18px; border-radius: 20px; cursor: pointer;">Musk</span>
+                    <span onclick="applySearch('Oriental')" class="interactive" style="font-size: 0.75rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 8px 18px; border-radius: 20px; cursor: pointer;">Oriental</span>
+                    <span onclick="applySearch('Luxury')" class="interactive" style="font-size: 0.75rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 8px 18px; border-radius: 20px; cursor: pointer;">Luxury</span>
                 </div>
             </div>
         </div>
-
-        <div id="mobile-menu-content" style="width: 100%; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 2rem; padding: 100px 0 60px;">
-            <!-- Luxury Greeting -->
-            <div style="--i:0.2; text-align: center; opacity: 0; transform: translateY(20px); animation: luxuryFadeIn 1s var(--ease-luxury) 0.1s forwards;">
-                <p style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 5px;">Welcome to Luban</p>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-primary); font-style: italic;">The Art of Fragrance</h3>
-            </div>
-
-            <!-- Free Shipping Banner -->
-            <div style="--i:0.5; background: rgba(203, 163, 92, 0.05); border: 1px solid rgba(203, 163, 92, 0.1); padding: 12px 25px; border-radius: 1px; width: 90%; text-align: center; opacity: 0; transform: translateY(20px); animation: luxuryFadeIn 1s var(--ease-luxury) 0.2s forwards;">
-                <p style="font-size: 0.6rem; color: var(--gold-primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">Free Shipping on orders over 2000৳</p>
-            </div>
-
-            <a href="javascript:void(0)" style="--i:1" class="mobile-link interactive" onclick="handleNavClick('hero'); toggleMobileMenu();">The Scent</a>
+        
+        <div id="mobile-menu-content" style="width: 100%; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 2.5rem; padding: 120px 0 80px;">
+            <h4 style="--i:0.1; font-size: 0.65rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; opacity: 0; transform: translateY(20px); animation: luxuryFadeIn 1s var(--ease-luxury) 0.1s forwards;">Store Menu</h4>
             
-            <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-                <a href="javascript:void(0)" style="--i:2" class="mobile-link interactive" onclick="toggleSubmenu('collection-submenu')">
-                    Collection <i data-lucide="chevron-down" id="submenu-icon" size="16" style="margin-left: 10px; transition: transform 0.4s var(--ease-luxury);"></i>
+            <a href="javascript:void(0)" style="--i:0.2" class="mobile-link interactive playfair" onclick="handleNavClick('hero'); toggleMobileMenu();" style="font-size: 1.8rem; letter-spacing: 4px;">The Scent</a>
+            
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; --i:0.3; opacity: 0; transform: translateY(20px); animation: luxuryFadeIn 1s var(--ease-luxury) 0.2s forwards;">
+                <a href="javascript:void(0)" class="mobile-link interactive playfair" onclick="toggleSubmenu('collection-submenu', this)" style="font-size: 1.8rem; letter-spacing: 4px;">
+                    Collection 
+                    <svg class="submenu-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 15px; transition: transform 0.4s var(--ease-luxury);"><path d="m6 9 6 6 6-6"></path></svg>
                 </a>
                 <div id="collection-submenu" class="mobile-submenu">
-                    <a href="javascript:void(0)" style="--j:1" class="mobile-sublink interactive" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">All Scents</a>
-                    <a href="javascript:void(0)" style="--j:2" class="mobile-sublink interactive" onclick="setFilter('Oriental'); handleNavClick('shop'); toggleMobileMenu();">Oriental</a>
-                    <a href="javascript:void(0)" style="--j:3" class="mobile-sublink interactive" onclick="setFilter('Luxury'); handleNavClick('shop'); toggleMobileMenu();">Luxury</a>
-                    <a href="javascript:void(0)" style="--j:4" class="mobile-sublink interactive" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">Masculine</a>
-                    <a href="javascript:void(0)" style="--j:5" class="mobile-sublink interactive" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">Feminine</a>
+                    <a href="javascript:void(0)" style="--j:1" class="mobile-sublink interactive" data-filter="All" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">All Scents</a>
+                    <a href="javascript:void(0)" style="--j:2" class="mobile-sublink interactive" data-filter="Oriental" onclick="setFilter('Oriental'); handleNavClick('shop'); toggleMobileMenu();">Oriental</a>
+                    <a href="javascript:void(0)" style="--j:3" class="mobile-sublink interactive" data-filter="Luxury" onclick="setFilter('Luxury'); handleNavClick('shop'); toggleMobileMenu();">Luxury</a>
+                    <a href="javascript:void(0)" style="--j:4" class="mobile-sublink interactive" data-filter="Masculine" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">Masculine</a>
+                    <a href="javascript:void(0)" style="--j:5" class="mobile-sublink interactive" data-filter="Feminine" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">Feminine</a>
                 </div>
             </div>
 
-            <a href="javascript:void(0)" style="--i:3" class="mobile-link interactive" onclick="handleNavClick('about'); toggleMobileMenu();">Heritage</a>
-            <a href="javascript:void(0)" style="--i:4" class="mobile-link interactive" onclick="handleNavClick('contact'); toggleMobileMenu();">Contact</a>
+            <a href="javascript:void(0)" style="--i:0.4" class="mobile-link interactive playfair" onclick="handleNavClick('about'); toggleMobileMenu();" style="font-size: 1.8rem; letter-spacing: 4px;">Heritage</a>
+            <a href="javascript:void(0)" style="--i:0.5" class="mobile-link interactive playfair" onclick="handleNavClick('contact'); toggleMobileMenu();" style="font-size: 1.8rem; letter-spacing: 4px;">Contact</a>
 
-            <!-- Extra Links: Wishlist & Cart -->
-            <div style="display: flex; gap: 30px; margin-top: 10px;">
-                <a href="javascript:void(0)" style="--i:5" class="mobile-link interactive" onclick="showWishlist(); toggleMobileMenu();" style="font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
-                    Wishlist <span id="wishlist-count-mobile" style="font-size: 0.7rem; background: var(--gold-primary); color: var(--bg-dark); padding: 2px 8px; border-radius: 10px; font-weight: 700;">0</span>
-                </a>
-                <a href="javascript:void(0)" style="--i:6" class="mobile-link interactive" onclick="toggleCart(true); toggleMobileMenu();" style="font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
-                    Cart <span id="cart-count-mobile" style="font-size: 0.7rem; background: var(--gold-primary); color: var(--bg-dark); padding: 2px 8px; border-radius: 10px; font-weight: 700;">0</span>
-                </a>
-            </div>
-
-            <!-- Recently Viewed in Mobile Menu -->
-            <div id="mobile-recent-section" style="width: 90%; margin-top: 20px;">
-                <h4 style="font-size: 0.65rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; text-align: center; opacity: 0.6;">Recently Viewed</h4>
-                <div id="mobile-recent-list" style="display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; -ms-overflow-style: none;">
-                    <!-- Items injected via JS -->
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div style="--i:6.5; display: flex; gap: 20px; margin-top: 10px; opacity: 0; transform: translateY(20px); animation: luxuryFadeIn 1s var(--ease-luxury) 0.7s forwards;">
-                <button onclick="alert('Order tracking coming soon!')" class="interactive" style="background: none; border: 1px solid rgba(203, 163, 92, 0.2); color: var(--gold-muted); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; padding: 10px 20px; border-radius: 1px;">Track Order</button>
-                <button onclick="alert('Store policies coming soon!')" class="interactive" style="background: none; border: 1px solid rgba(203, 163, 92, 0.2); color: var(--gold-muted); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; padding: 10px 20px; border-radius: 1px;">Policies</button>
-            </div>
-
-            <!-- Store Info & Quick Contact -->
-            <div style="--i:7; margin-top: 40px; text-align: center; opacity: 0; transform: translateY(20px); animation: luxuryFadeIn 1s var(--ease-luxury) 0.8s forwards; width: 90%; border-top: 1px solid rgba(203, 163, 92, 0.05); padding-top: 40px;">
-                <div style="margin-bottom: 30px;">
-                    <h5 style="font-size: 0.6rem; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px;">Boutique Location</h5>
-                    <p style="font-size: 0.75rem; color: var(--text-dim); line-height: 1.6;">Dhaka, Bangladesh<br>Open Daily: 10 AM - 9 PM</p>
-                </div>
-                
-                <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
-                    <a href="tel:+8801935322213" class="interactive" style="color: var(--gold-primary); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; display: flex; align-items: center; gap: 10px;">
-                        <i data-lucide="phone" size="16"></i> +880 1935 322213
-                    </a>
-                    <a href="https://wa.me/8801935322213" target="_blank" class="interactive" style="color: var(--gold-primary); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; display: flex; align-items: center; gap: 10px;">
-                        <i data-lucide="message-circle" size="16"></i> WhatsApp Concierge
-                    </a>
-                </div>
-            </div>
+            <h4 style="--i:0.6; font-size: 0.65rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 4px; margin-top: 40px; margin-bottom: 10px; opacity: 0; transform: translateY(20px); animation: luxuryFadeIn 1s var(--ease-luxury) 0.5s forwards;">Quick Links</h4>
             
-            <div id="mobile-social-icons" style="display:flex; gap: 40px; margin-top: 40px; opacity: 0; transform: translateY(20px); justify-content: center; width: 100%;">
-                <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary); transition: all 0.4s var(--ease-luxury);" class="interactive social-icon-mobile" aria-label="Facebook"><i data-lucide="facebook" size="32"></i></a>
-                <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary); transition: all 0.4s var(--ease-luxury);" class="interactive social-icon-mobile" aria-label="Instagram"><i data-lucide="instagram" size="32"></i></a>
+            <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; width: 100%;">
+                <a href="javascript:void(0)" style="--i:0.7" class="mobile-link interactive playfair" onclick="showWishlist(); toggleMobileMenu();" style="font-size: 1.8rem; letter-spacing: 4px; display: flex; align-items: center; gap: 15px;">
+                    Wishlist <span id="wishlist-count-mobile" style="font-size: 0.8rem; background: var(--gold-primary); color: var(--bg-dark); padding: 4px 12px; border-radius: 20px; font-weight: 700; font-family: var(--font-sans);">0</span>
+                </a>
+                <a href="javascript:void(0)" style="--i:0.8" class="mobile-link interactive playfair" onclick="toggleCart(true); toggleMobileMenu();" style="font-size: 1.8rem; letter-spacing: 4px; display: flex; align-items: center; gap: 15px;">
+                    Cart <span id="cart-count-mobile" style="font-size: 0.8rem; background: var(--gold-primary); color: var(--bg-dark); padding: 4px 12px; border-radius: 20px; font-weight: 700; font-family: var(--font-sans);">0</span>
+                </a>
             </div>
         </div>
     </div>
 
-    <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" role="button" aria-label="Back to top" class="interactive"><i data-lucide="arrow-up" size="24"></i></div>
+    <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" role="button" aria-label="Back to top" class="interactive">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
+    </div>
     <a id="whatsapp-float" href="https://wa.me/8801935322213?text=Hello%2C%20I'm%20interested%20in%20Luban%20Fragrance!" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp contact" class="interactive">
-        <i data-lucide="message-circle" size="24"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
     </a>
 
     <header>
@@ -2314,26 +2439,32 @@
                 <div class="desktop-search-container" id="desktop-search-container">
                     <input type="text" id="desktop-search" class="desktop-search-input" placeholder="Search collection..." onkeyup="if(event.key === 'Enter') handleDesktopSearch()" oninput="handleSearchInput(this.value, 'desktop')">
                     <button id="clear-desktop-search" onclick="clearDesktopSearch()" class="interactive" style="position:absolute; right:45px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:5px; z-index: 10;">
-                        <i data-lucide="x" size="14"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
                     </button>
                     <div class="desktop-search-trigger interactive" onclick="handleSearchIconClick()" role="button" aria-label="Toggle search">
-                        <i data-lucide="search" size="22"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </div>
                     <div id="desktop-search-suggestions" class="search-suggestions"></div>
                 </div>
-                <div class="social-icons-nav">
-                    <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" class="social-link interactive" aria-label="Facebook"><i data-lucide="facebook" size="18"></i></a>
-                    <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" class="social-link interactive" aria-label="Instagram"><i data-lucide="instagram" size="18"></i></a>
+                <div class="social-icons-nav" style="margin-left: 5px;">
+                    <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="social-link-header interactive" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="social-link-header interactive" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                    </a>
                 </div>
                 <div class="wishlist-trigger interactive" onclick="showWishlist()" role="button" aria-label="Open wishlist" style="position: relative; cursor: pointer;">
-                    <i data-lucide="heart" stroke="#cba35c" size="22"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                     <span id="wishlist-count-desktop" style="position: absolute; top: -5px; right: -8px; background: var(--gold-primary); color: var(--bg-dark); font-size: 9px; font-weight: 800; width: 16px; height: 16px; display: none; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);"></span>
                 </div>
                 <div class="cart-trigger interactive" onclick="toggleCart(true)" role="button" aria-label="Open cart">
-                    <i data-lucide="shopping-bag" stroke="#cba35c" size="22"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     <span id="cart-count">0</span>
                 </div>
-                <button class="menu-toggle interactive" onclick="toggleMobileMenu()" aria-label="Open Menu"><i data-lucide="menu" size="32"></i></button>
+                <button class="menu-toggle interactive" onclick="toggleMobileMenu()" aria-label="Open Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+                </button>
             </div>
         </nav>
     </header>
@@ -2342,6 +2473,16 @@
         <div id="main-view">
         <section id="hero">
             <div class="hero-bg-text" aria-hidden="true">LUBAN</div>
+            <div class="hero-social-rail">
+                <div style="writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: 4px; font-size: 0.6rem; color: var(--gold-muted); margin-bottom: 20px; font-weight: 600;">Follow Us</div>
+                <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="social-link-proper interactive" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="social-link-proper interactive" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                </a>
+                <div style="width: 1px; height: 60px; background: var(--border-gold); margin: 10px auto 0;"></div>
+            </div>
             <div class="hero-content">
                 <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" loading="lazy" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(2rem, 5vh, 3.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2));" referrerPolicy="no-referrer">
                 <h1>LUBAN</h1>
@@ -2355,6 +2496,7 @@
         </section>
 
         <section id="shop">
+            <div id="shop-breadcrumbs-container" style="max-width: 1300px; margin: 0 auto 30px; padding: 0 20px;"></div>
             <div id="shop-header-content" style="animation: luxuryFadeIn 0.5s ease;">
                 <div style="text-align: center; margin-bottom: clamp(40px, 8vh, 80px);">
                     <h2 style="font-size: clamp(2rem, 5vw, 4.5rem); margin-bottom: 15px; color: var(--gold-primary); letter-spacing: clamp(6px, 2vw, 12px);">The Library</h2>
@@ -2431,6 +2573,17 @@
                             <div style="width:clamp(50px, 8vw, 60px); height:clamp(50px, 8vw, 60px); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; color:var(--gold-primary); border-radius:50%; background: rgba(203, 163, 92, 0.05); flex-shrink:0;"><i data-lucide="mail" size="24"></i></div>
                             <div><p style="text-transform:uppercase; font-size:0.6rem; color:var(--gold-muted); letter-spacing:3px; margin-bottom:5px;">Email Address</p><p style="font-size:clamp(0.9rem, 1.2vw, 1rem); font-weight:400; word-break: break-all;">lubanfragrance@gmail.com</p></div>
                         </div>
+                        <div style="margin-top: 20px;">
+                            <p style="text-transform:uppercase; font-size:0.6rem; color:var(--gold-muted); letter-spacing:3px; margin-bottom:15px;">Follow Our Essence</p>
+                            <div style="display:flex; gap:15px;">
+                                <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="social-link-proper interactive" aria-label="Facebook">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                </a>
+                                <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="social-link-proper interactive" aria-label="Instagram">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -2448,11 +2601,13 @@
     </div>
 
     <div id="details-view" style="display: none; min-height: 100vh; padding: clamp(120px, 15vh, 200px) var(--container-padding) clamp(60px, 10vh, 120px);">
+        <div id="details-breadcrumbs-container" style="max-width: 1300px; margin: 0 auto 40px;"></div>
         <div id="details-content"></div>
     </div>
 
     <section id="checkout-view" style="display:none; padding: clamp(100px, 12vh, 160px) var(--container-padding) clamp(60px, 10vh, 120px); background: radial-gradient(circle at 50% -20%, rgba(203, 163, 92, 0.05) 0%, transparent 70%);">
         <div style="max-width:1300px; margin:0 auto;">
+            <div id="checkout-breadcrumbs-container" style="margin-bottom: 40px;"></div>
             <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; margin-bottom:clamp(40px, 8vh, 80px); border-bottom: 1px solid rgba(203, 163, 92, 0.2); padding-bottom: 30px; gap: 20px;">
                 <a href="javascript:void(0)" onclick="showView('main')" style="color:var(--gold-primary); font-size:0.7rem; text-transform:uppercase; letter-spacing:4px; display:inline-flex; align-items:center; gap:12px; text-decoration:none; font-weight:600;" class="interactive"><i data-lucide="arrow-left" size="16"></i> Return to Collection</a>
                 <div style="text-align: right;">
@@ -2491,6 +2646,10 @@
                                     <span onclick="removeDiscount()" style="font-size:0.6rem; text-decoration:underline; cursor:pointer; opacity:0.7; margin-top:2px;">Remove</span>
                                 </div>
                                 <span id="checkout-discount">-0৳</span>
+                            </div>
+                            <div id="savings-row" class="checkout-summary-line" style="color: #34a853; font-weight: 600; background: rgba(52, 168, 83, 0.05); padding: 10px; border-radius: 4px; border: 1px dashed rgba(52, 168, 83, 0.2); display: none;">
+                                <span>Total Savings</span>
+                                <span id="checkout-savings">0৳</span>
                             </div>
                             <div class="checkout-summary-line" style="color:var(--text-dim);">
                                 <span>Delivery Fee</span>
@@ -2725,9 +2884,13 @@
 
     <footer style="padding: clamp(60px, 10vh, 100px) var(--container-padding); text-align:center; border-top:1px solid var(--border-gold); background: var(--bg-dark);">
         <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo Footer" loading="lazy" style="width: clamp(50px, 10vw, 70px); margin-bottom: clamp(1.5rem, 3vh, 2.5rem); opacity: 0.3; filter: grayscale(1);" referrerPolicy="no-referrer">
-        <div style="display:flex; justify-content:center; gap:clamp(15px, 3vw, 25px); margin-bottom: clamp(25px, 5vh, 35px);">
-            <a href="https://www.facebook.com/people/Luban-Fragrance/61586484638332/" target="_blank" rel="noopener noreferrer" style="color:var(--gold-muted);" class="interactive"><i data-lucide="facebook" size="18"></i></a>
-            <a href="https://www.instagram.com/lubanfragrance" target="_blank" rel="noopener noreferrer" style="color:var(--gold-muted);" class="interactive"><i data-lucide="instagram" size="18"></i></a>
+        <div style="display:flex; justify-content:center; gap:clamp(20px, 4vw, 30px); margin-bottom: clamp(30px, 6vh, 45px);">
+            <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="social-link-proper interactive" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="social-link-proper interactive" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+            </a>
         </div>
         <div style="max-width: 800px; margin: 0 auto 40px; color: var(--text-dim); font-size: 0.85rem; line-height: 1.8; opacity: 0.8;">
             <p>Luban Fragrance is your premier destination for <strong>luxury perfumes</strong> and <strong>artisanal fragrances</strong> in Dhaka, Bangladesh. Our curated collection features <strong>niche perfumery</strong>, <strong>signature scents</strong>, and <strong>premium colognes</strong> handcrafted with the finest ingredients. From exotic <strong>oud perfumes</strong> to long-lasting <strong>unisex fragrances</strong>, discover the pinnacle of olfactory craftsmanship and high-end scents.</p>
@@ -2740,6 +2903,8 @@
 
         const PRICE_3ML_BDT = 200;
         const PRICE_6ML_BDT = 300;
+        const REGULAR_PRICE_3ML_BDT = 350;
+        const REGULAR_PRICE_6ML_BDT = 500;
         const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbx-2IooPMPFvx02eF5inEmrQ4G2LKT8HoE0ZjifrJIILT0flmSLHxetFN1vDsFVON31Ig/exec";
         let viewerInterval = null;
 
@@ -3635,31 +3800,61 @@
             saveRecentlyViewed();
         }
 
-        function toggleMobileMenu() {
+        function closeMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            const isActive = menu.classList.toggle('active');
+            menu.classList.remove('active');
+            setTimeout(() => {
+                document.body.style.overflow = '';
+                document.body.classList.remove('no-cursor');
+            }, 800);
+        }
+
+        function toggleMobileMenu(mode = 'menu') {
+            const menu = document.getElementById('mobile-menu');
+            const menuContent = document.getElementById('mobile-menu-content');
+            const searchContainer = document.getElementById('mobile-search-view');
+            
+            // If already active and just switching mode, don't toggle class
+            const isCurrentlyActive = menu.classList.contains('active');
+            
+            if (!isCurrentlyActive) {
+                menu.classList.add('active');
+            } else if (isCurrentlyActive && ((mode === 'search' && searchContainer?.style.display === 'flex') || (mode === 'menu' && menuContent.style.display === 'flex'))) {
+                // If clicking same mode while active, close it
+                closeMobileMenu();
+                return;
+            }
+
+            const isActive = menu.classList.contains('active');
             
             if (isActive) {
                 document.body.style.overflow = 'hidden';
                 document.body.classList.add('no-cursor');
-                // Reset submenu and search on open
-                const submenu = document.getElementById('collection-submenu');
-                const submenuIcon = document.getElementById('submenu-icon');
-                if (submenu) submenu.classList.remove('active');
-                if (submenuIcon) submenuIcon.style.transform = 'rotate(0deg)';
                 
-                document.getElementById('mobile-search').value = '';
-                handleSearchInput('', 'mobile');
-                document.getElementById('search-suggestions').classList.remove('active');
-                renderSearchHistory();
-                renderMobileRecent();
+                // Set mode-based visibility
+                if (mode === 'search') {
+                    if (searchContainer) searchContainer.style.display = 'flex';
+                    if (menuContent) menuContent.style.display = 'none';
+                    setTimeout(() => {
+                        const input = document.getElementById('mobile-search-input');
+                        if (input) input.focus();
+                    }, 600);
+                } else {
+                    if (searchContainer) searchContainer.style.display = 'none';
+                    if (menuContent) menuContent.style.display = 'flex';
+                    // Scroll to top of menu content
+                    if (menu) menu.scrollTop = 0;
+                }
+
+                // Reset submenu on open
+                const submenu = document.getElementById('collection-submenu');
+                if (submenu) submenu.classList.remove('active');
+                
                 updateWishlistCount();
                 updateCartCount();
+                updateFilterUI();
             } else {
-                setTimeout(() => {
-                    document.body.style.overflow = '';
-                    document.body.classList.remove('no-cursor');
-                }, 800);
+                closeMobileMenu();
             }
         }
 
@@ -3681,7 +3876,11 @@
                     <div style="width:90px; height:90px; background:rgba(255,255,255,0.02); border:1px solid rgba(203, 163, 92, 0.1); display:flex; align-items:center; justify-content:center; margin-bottom:10px; position:relative; overflow:hidden;">
                         <img src="${p.img}" alt="${p.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain; transition: transform 0.6s var(--ease-luxury);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     </div>
-                    <p style="font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition: color 0.4s ease;">${p.name}</p>
+                    <p style="font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition: color 0.4s ease; margin-bottom: 2px;">${p.name}</p>
+                    <p style="font-size:0.6rem; color:var(--gold-primary); font-weight:600; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                        <span class="regular-price" style="font-size: 0.5rem; opacity: 0.5;">${REGULAR_PRICE_3ML_BDT}৳</span>
+                        ${PRICE_3ML_BDT}৳
+                    </p>
                 </div>
             `).join('');
         }
@@ -3724,14 +3923,7 @@
 
         function handleSearchIconClick() {
             if (window.innerWidth <= 1024) {
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (!mobileMenu.classList.contains('active')) {
-                    toggleMobileMenu();
-                }
-                setTimeout(() => {
-                    const input = document.getElementById('mobile-search');
-                    if (input) input.focus();
-                }, 600);
+                toggleMobileMenu('search');
                 return;
             }
 
@@ -3783,19 +3975,21 @@
         }
 
         function handleMobileSearch() {
-            const input = document.getElementById('mobile-search');
+            const input = document.getElementById('mobile-search-input');
             const query = input.value.trim();
             if (!query) return;
-            
-            // Hide suggestions
-            const suggestionsEl = document.getElementById('search-suggestions');
-            if (suggestionsEl) suggestionsEl.classList.remove('active');
             
             addToSearchHistory(query);
             setFilter('All'); 
             renderShop(query);
             toggleMobileMenu();
             handleNavClick('shop');
+        }
+
+        function applySearch(query) {
+            const input = document.getElementById('mobile-search-input');
+            if (input) input.value = query;
+            handleMobileSearch();
         }
 
         function handleShopSearch() {
@@ -3863,7 +4057,11 @@
                         <img src="${p.img}" alt="${p.name}" style="width: 40px; height: 40px; object-fit: contain; background: rgba(255,255,255,0.02); border: 1px solid rgba(203, 163, 92, 0.1);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                         <div style="flex: 1;">
                             <p style="font-size: 0.8rem; color: var(--gold-primary); margin: 0; text-transform: uppercase; letter-spacing: 1px;">${p.name}</p>
-                            <p style="font-size: 0.65rem; color: var(--text-dim); margin: 0;">${p.category}</p>
+                            <p style="font-size: 0.65rem; color: var(--text-dim); margin: 0; display: flex; align-items: center; gap: 8px;">
+                                ${p.category} • 
+                                <span class="regular-price" style="font-size: 0.6rem; opacity: 0.5;">${REGULAR_PRICE_3ML_BDT}৳</span>
+                                <span style="color: var(--gold-primary); font-weight: 600;">${PRICE_3ML_BDT}৳</span>
+                            </p>
                         </div>
                     </div>
                 `).join('');
@@ -3943,10 +4141,29 @@
             if (suggestionsEl) suggestionsEl.classList.remove('active');
         }
 
-        function toggleSubmenu(id) {
+        function toggleSubmenu(id, trigger) {
             const submenu = document.getElementById(id);
+            if (!submenu) return;
+            
+            const isOpening = !submenu.classList.contains('active');
+            
+            // Close all other submenus
+            document.querySelectorAll('.mobile-submenu').forEach(el => {
+                if (el.id !== id) {
+                    el.classList.remove('active');
+                    // Find corresponding icon and reset it
+                    const otherTrigger = el.previousElementSibling;
+                    if (otherTrigger) {
+                        const otherIcon = otherTrigger.querySelector('.submenu-icon');
+                        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+            
             submenu.classList.toggle('active');
-            const icon = document.getElementById('submenu-icon');
+            
+            // Find icon within the trigger or by ID as fallback
+            const icon = trigger ? trigger.querySelector('.submenu-icon') : document.getElementById('submenu-icon');
             if (icon) {
                 icon.style.transform = submenu.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
             }
@@ -4011,6 +4228,15 @@
                     btn.classList.remove('active');
                 }
             });
+            
+            // Highlight mobile sublinks
+            document.querySelectorAll('.mobile-sublink').forEach(link => {
+                if (link.dataset.filter === currentFilter) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         }
 
         function levenshtein(a, b) {
@@ -4053,6 +4279,9 @@
 
         function renderShop(searchQuery = '') {
             const list = document.getElementById('product-list');
+            
+            // Update Breadcrumbs for Shop
+            updateBreadcrumbs('main');
             
             // Toggle Shop/Wishlist Headers
             const shopHeader = document.getElementById('shop-header-content');
@@ -4170,7 +4399,7 @@
                             <span class="wishlist-tooltip">${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}</span>
                         </button>
                         <div class="image-container" style="${currentFilter === 'Wishlist' ? 'height:200px; margin-bottom:15px; background:var(--bg-accent); border-radius:2px;' : ''}">
-                            ${isWishlisted ? '<div class="wishlist-badge"><i data-lucide="heart" size="10"></i> Saved</div>' : ''}
+                            ${isWishlisted ? '<div class="wishlist-badge"><i data-lucide="heart" size="10"></i> Saved</div>' : '<div class="discount-badge"><i data-lucide="zap" size="10"></i> 43% OFF</div>'}
                             <div class="parallax-wrapper">
                                 <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" style="${currentFilter === 'Wishlist' ? 'max-width:85%; max-height:85%;' : ''}" referrerPolicy="no-referrer">
                             </div>
@@ -4178,7 +4407,10 @@
                         <div class="product-info" style="${currentFilter === 'Wishlist' ? 'padding:0; flex:1; display:flex; flex-direction:column;' : ''}">
                             <div class="product-header" style="${currentFilter === 'Wishlist' ? 'flex-direction:column; align-items:flex-start; gap:4px; margin-bottom:auto;' : ''}">
                                 <h3 class="product-name" style="${currentFilter === 'Wishlist' ? 'font-size:0.95rem; line-height:1.3;' : ''}">${p.name}</h3>
-                                <span class="product-price" style="${currentFilter === 'Wishlist' ? 'font-size:0.85rem; color:var(--gold-primary); font-weight:600;' : ''}">${PRICE_3ML_BDT}৳</span>
+                                <span class="product-price" style="${currentFilter === 'Wishlist' ? 'font-size:0.85rem; color:var(--gold-primary); font-weight:600;' : ''}">
+                                    <span class="regular-price">${REGULAR_PRICE_3ML_BDT}৳</span>
+                                    ${PRICE_3ML_BDT}৳
+                                </span>
                             </div>
                             ${currentFilter !== 'Wishlist' ? `
                                 <div class="scarcity-container" style="margin-bottom: 12px;">
@@ -4265,6 +4497,68 @@
             if (canonical) canonical.setAttribute('href', finalUrl);
         }
 
+        function renderBreadcrumbs(path) {
+            return `
+                <div class="breadcrumbs">
+                    ${path.map((crumb, index) => {
+                        const isLast = index === path.length - 1;
+                        const separator = index > 0 ? `<span class="separator"><i data-lucide="chevron-right" size="10"></i></span>` : '';
+                        
+                        if (isLast) {
+                            return `${separator}<span class="current">${crumb.label}</span>`;
+                        } else {
+                            let onclick = '';
+                            if (crumb.filter) {
+                                onclick = `setFilter('${crumb.filter}'); handleNavClick('shop');`;
+                            } else if (crumb.id) {
+                                onclick = `showView('${crumb.view}', ${crumb.id})`;
+                            } else {
+                                onclick = `showView('${crumb.view}')`;
+                            }
+                            
+                            return `
+                                ${separator}
+                                <a href="javascript:void(0)" onclick="${onclick}" class="interactive">
+                                    ${crumb.label}
+                                </a>
+                            `;
+                        }
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function updateBreadcrumbs(view, p = null) {
+            const path = [{ label: 'Home', view: 'main' }];
+            
+            if (view === 'details' && p) {
+                path.push({ label: 'Shop', view: 'main' });
+                path.push({ label: p.name, view: 'details', id: p.id });
+                const container = document.getElementById('details-breadcrumbs-container');
+                if (container) {
+                    container.innerHTML = renderBreadcrumbs(path);
+                    if (window.lucide) lucide.createIcons();
+                }
+            } else if (view === 'checkout') {
+                path.push({ label: 'Checkout', view: 'checkout' });
+                const container = document.getElementById('checkout-breadcrumbs-container');
+                if (container) {
+                    container.innerHTML = renderBreadcrumbs(path);
+                    if (window.lucide) lucide.createIcons();
+                }
+            } else if (view === 'main') {
+                path.push({ label: 'Shop', view: 'main' });
+                if (currentFilter !== 'All') {
+                    path.push({ label: currentFilter, view: 'main', filter: currentFilter });
+                }
+                const container = document.getElementById('shop-breadcrumbs-container');
+                if (container) {
+                    container.innerHTML = renderBreadcrumbs(path);
+                    if (window.lucide) lucide.createIcons();
+                }
+            }
+        }
+
         function showView(view, id) {
             const main = document.getElementById('main-view');
             const detailView = document.getElementById('details-view');
@@ -4283,6 +4577,8 @@
             if(view === 'details') {
                 const p = products.find(x => x.id === id);
                 if (!p) return showView('main');
+                
+                updateBreadcrumbs('details', p);
                 
                 // Update Meta Tags for Product
                 updateMetaTags(p.name, p.desc, p.img, `${window.location.origin}/?product=${p.id}`);
@@ -4323,6 +4619,7 @@
                     renderDetails(p);
                 }, 500);
             } else if (view === 'checkout') {
+                updateBreadcrumbs('checkout');
                 updateMetaTags("Checkout", "Complete your selection of refined fragrances at Luban Fragrance.", null, `${window.location.origin}/?view=checkout`);
                 updateProductSchema(null);
                 checkoutView.style.display = 'block';
@@ -4385,9 +4682,13 @@
         function setSize(size, productId, el) {
             selectedSize = size;
             const price = size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT;
+            const regularPrice = size === '3ml' ? REGULAR_PRICE_3ML_BDT : REGULAR_PRICE_6ML_BDT;
             document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
             if (el) el.classList.add('active');
-            document.getElementById('detail-price').innerText = `${price}৳`;
+            document.getElementById('detail-price').innerHTML = `
+                <span class="regular-price" style="font-size: 1.4rem;">${regularPrice}৳</span>
+                ${price}৳
+            `;
             const stickyPrice = document.getElementById('sticky-price');
             if (stickyPrice) stickyPrice.innerText = `${price}৳`;
         }
@@ -4459,6 +4760,7 @@
             document.getElementById('details-content').innerHTML = `
                 <div id="product-main-section">
                     <div style="background:var(--bg-accent); border:1px solid var(--border-gold); aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; padding:clamp(20px, 8vw, 80px); box-shadow: var(--shadow-medium); position: relative;">
+                        <div class="discount-badge" style="top:30px; left:30px; padding:6px 15px; font-size:0.75rem;"><i data-lucide="zap" size="14"></i> 43% OFF</div>
                         <img src="${p.img}" alt="${p.name}" loading="lazy" style="max-width:90%; max-height:90%; object-fit:contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                         <button data-wishlist-id="${p.id}" onclick="toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" style="top:30px; right:30px; width:50px; height:50px;" aria-label="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}">
                             <i data-lucide="heart" size="24"></i>
@@ -4490,7 +4792,10 @@
                             `}
                         </div>
 
-                        <div id="detail-price" style="font-size:clamp(1.8rem, 4vw, 2.5rem); color:var(--gold-primary); font-weight: 700; margin-bottom:40px; letter-spacing:2px;">${PRICE_3ML_BDT}৳</div>
+                        <div id="detail-price" style="font-size:clamp(1.8rem, 4vw, 2.5rem); color:var(--gold-primary); font-weight: 700; margin-bottom:40px; letter-spacing:2px; display: flex; align-items: center; gap: 15px;">
+                            <span class="regular-price" style="font-size: 1.4rem;">${REGULAR_PRICE_3ML_BDT}৳</span>
+                            ${PRICE_3ML_BDT}৳
+                        </div>
                         <p style="text-transform:uppercase; font-size:0.7rem; color:var(--gold-muted); letter-spacing:4px; margin-bottom:20px; font-weight:600;">Selection Volume</p>
                         <div style="display:flex; gap:20px; margin-bottom: 50px;">
                             <button class="size-btn active interactive" onclick="setSize('3ml', ${p.id}, this)">3 mL Volume</button>
@@ -4591,7 +4896,10 @@
                                     <img src="${rp.img}" alt="${rp.name}" loading="lazy" style="max-width:70%; max-height:70%; object-fit:contain; transition: var(--transition-fast);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                                 </div>
                                 <h4 style="font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:5px; font-weight:400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${rp.name}</h4>
-                                <p style="color:var(--gold-primary); font-weight:700; font-size:0.9rem;">${PRICE_3ML_BDT}৳</p>
+                                <p style="color:var(--gold-primary); font-weight:700; font-size:0.9rem; display: flex; align-items: center; gap: 10px;">
+                                    <span class="regular-price" style="font-size: 0.75rem; opacity: 0.5;">${REGULAR_PRICE_3ML_BDT}৳</span>
+                                    ${PRICE_3ML_BDT}৳
+                                </p>
                             </div>
                         `).join('')}
                     </div>
@@ -4677,36 +4985,35 @@
                     <p style="color:var(--text-dim); margin-bottom:25px; font-size:0.9rem;">Spread the essence of ${p.name}.</p>
                     
                     <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px; margin-bottom:30px;">
-                        <a href="https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--text-white); text-decoration:none;">
-                            <div style="width:50px; height:50px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center;">
-                                <i data-lucide="message-circle" size="24" style="color:white;"></i>
+                        <a href="https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:12px; color:var(--text-white); text-decoration:none; transition: all 0.3s ease;" onmouseover="this.querySelector('span').style.color='var(--gold-primary)';" onmouseout="this.querySelector('span').style.color='var(--gold-muted)';" >
+                            <div style="width:60px; height:60px; border-radius:50%; border: 1px solid var(--gold-muted); display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.03); transition: all 0.3s ease;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
                             </div>
-                            <span style="font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;">WhatsApp</span>
+                            <span style="font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; color:var(--gold-muted); font-weight:500; transition: color 0.3s ease;">WhatsApp</span>
                         </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--text-white); text-decoration:none;">
-                            <div style="width:50px; height:50px; border-radius:50%; background:#1877F2; display:flex; align-items:center; justify-content:center;">
-                                <i data-lucide="facebook" size="24" style="color:white;"></i>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:12px; color:var(--text-white); text-decoration:none; transition: all 0.3s ease;" onmouseover="this.querySelector('span').style.color='var(--gold-primary)';" onmouseout="this.querySelector('span').style.color='var(--gold-muted)';" >
+                            <div style="width:60px; height:60px; border-radius:50%; border: 1px solid var(--gold-muted); display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.03); transition: all 0.3s ease;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                             </div>
-                            <span style="font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;">Facebook</span>
+                            <span style="font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; color:var(--gold-muted); font-weight:500; transition: color 0.3s ease;">Facebook</span>
                         </a>
-                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:10px; color:var(--text-white); text-decoration:none;">
-                            <div style="width:50px; height:50px; border-radius:50%; background:#1DA1F2; display:flex; align-items:center; justify-content:center;">
-                                <i data-lucide="twitter" size="24" style="color:white;"></i>
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}" target="_blank" class="share-option interactive" style="display:flex; flex-direction:column; align-items:center; gap:12px; color:var(--text-white); text-decoration:none; transition: all 0.3s ease;" onmouseover="this.querySelector('span').style.color='var(--gold-primary)';" onmouseout="this.querySelector('span').style.color='var(--gold-muted)';" >
+                            <div style="width:60px; height:60px; border-radius:50%; border: 1px solid var(--gold-muted); display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.03); transition: all 0.3s ease;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
                             </div>
-                            <span style="font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;">Twitter</span>
+                            <span style="font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; color:var(--gold-muted); font-weight:500; transition: color 0.3s ease;">Twitter</span>
                         </a>
                     </div>
 
-                    <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border-gold); padding:10px; display:flex; align-items:center; gap:10px; border-radius:2px; margin-bottom:20px;">
+                    <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border-gold); padding:10px; display:flex; align-items:center; gap:10px; border-radius:2px; margin-bottom:25px;">
                         <input type="text" value="${url}" readonly style="background:transparent; border:none; color:var(--text-dim); font-size:0.8rem; flex:1; outline:none;">
                         <button onclick="copyToClipboard('${url}')" class="btn-gold interactive" style="padding:8px 15px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">Copy</button>
                     </div>
 
-                    <button onclick="const el = document.getElementById('share-modal'); el.classList.remove('show'); setTimeout(() => el.remove(), 500);" class="filter-btn interactive" style="width:100%;">Close</button>
+                    <button onclick="const el = document.getElementById('share-modal'); el.classList.remove('show'); setTimeout(() => el.remove(), 500);" class="btn-gold interactive" style="width:100%; background:transparent; border-color:rgba(255,255,255,0.1); color:var(--text-dim);">Close</button>
                 </div>
             `;
             document.body.appendChild(overlay);
-            if (window.lucide) lucide.createIcons();
             setTimeout(() => overlay.classList.add('show'), 10);
         }
 
@@ -4892,7 +5199,11 @@
                         </div>
                         <div style="flex:1">
                             <h4 style="font-size:0.95rem; margin-bottom:5px; text-transform:uppercase; letter-spacing:1px; font-weight:400;">${item.name}</h4>
-                            <p style="font-size:0.75rem; color:var(--gold-muted); margin-bottom:10px; letter-spacing:1px;">${item.selectedSize} Essence • ${item.activePrice}৳</p>
+                            <p style="font-size:0.75rem; color:var(--gold-muted); margin-bottom:10px; letter-spacing:1px; display: flex; align-items: center; gap: 8px;">
+                                ${item.selectedSize} Essence • 
+                                <span class="regular-price" style="font-size: 0.65rem; opacity: 0.5;">${item.selectedSize === '3ml' ? REGULAR_PRICE_3ML_BDT : REGULAR_PRICE_6ML_BDT}৳</span>
+                                <span style="color: var(--gold-primary); font-weight: 600;">${item.activePrice}৳</span>
+                            </p>
                             <div class="qty-controls" style="width:fit-content; padding: 4px 12px; gap: 12px;">
                                 <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', -1)" aria-label="Decrease quantity"><i data-lucide="minus" size="14"></i></button>
                                 <div style="font-weight:700; min-width:15px; text-align:center; font-size: 0.8rem;">${item.qty}</div>
@@ -4946,10 +5257,13 @@
                 itemsEl.innerHTML = '';
                 let subtotal = 0;
                 let totalItems = 0;
+                let totalSavings = 0;
                 
                 cart.forEach(item => {
-                subtotal += item.activePrice * item.qty;
-                totalItems += item.qty;
+                    const regularPrice = item.selectedSize === '3ml' ? REGULAR_PRICE_3ML_BDT : REGULAR_PRICE_6ML_BDT;
+                    totalSavings += (regularPrice - item.activePrice) * item.qty;
+                    subtotal += item.activePrice * item.qty;
+                    totalItems += item.qty;
                 const row = document.createElement('div');
                 row.className = 'checkout-item-row';
                 row.innerHTML = `
@@ -4958,7 +5272,11 @@
                     </div>
                     <div style="flex:1">
                         <div style="font-weight:500; text-transform:uppercase; font-size:0.8rem; letter-spacing:1.5px; margin-bottom:4px; color:var(--text-white);">${item.name}</div>
-                        <div style="color:var(--gold-muted); font-size:0.65rem; text-transform:uppercase; letter-spacing:1px;">${item.qty} units • ${item.selectedSize}</div>
+                        <div style="color:var(--gold-muted); font-size:0.65rem; text-transform:uppercase; letter-spacing:1px; display: flex; align-items: center; gap: 6px;">
+                            ${item.qty} units • ${item.selectedSize} • 
+                            <span class="regular-price" style="font-size: 0.55rem; opacity: 0.5;">${item.selectedSize === '3ml' ? REGULAR_PRICE_3ML_BDT : REGULAR_PRICE_6ML_BDT}৳</span>
+                            <span>${item.activePrice}৳</span>
+                        </div>
                     </div>
                     <div style="font-weight:700; color:var(--gold-primary); font-size:0.9rem; letter-spacing:0.5px;">${item.activePrice * item.qty}৳</div>
                 `;
@@ -5030,6 +5348,18 @@
                 discountValEl.innerText = `-${discountAmount}৳`;
             } else {
                 discountRow.style.display = 'none';
+            }
+
+            // Display Total Savings
+            const savingsRow = document.getElementById('savings-row');
+            const savingsValEl = document.getElementById('checkout-savings');
+            const finalSavings = totalSavings + discountAmount;
+            
+            if (finalSavings > 0) {
+                savingsRow.style.display = 'flex';
+                savingsValEl.innerText = `${finalSavings}৳`;
+            } else {
+                savingsRow.style.display = 'none';
             }
 
             document.getElementById('checkout-shipping').innerText = shipping === 0 ? 'COMPLIMENTARY' : `${shipping}৳`;
@@ -5465,21 +5795,24 @@
     </script>
     <nav class="bottom-nav">
         <a href="javascript:void(0)" onclick="handleNavClick('hero')" class="bottom-nav-item active" id="nav-home">
-            <i data-lucide="home" size="22" stroke-width="1.2"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         </a>
         <a href="javascript:void(0)" onclick="setFilter('All'); handleNavClick('shop');" class="bottom-nav-item" id="nav-shop">
-            <i data-lucide="compass" size="22" stroke-width="1.2"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
         </a>
         <a href="javascript:void(0)" onclick="handleSearchIconClick()" class="bottom-nav-item" id="nav-search">
-            <i data-lucide="search" size="22" stroke-width="1.2"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
         <a href="javascript:void(0)" onclick="showWishlist()" class="bottom-nav-item" id="nav-wishlist">
-            <i data-lucide="heart" size="22" stroke-width="1.2"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             <span id="bottom-wishlist-count" class="bottom-nav-badge">0</span>
         </a>
         <a href="javascript:void(0)" onclick="toggleCart(true)" class="bottom-nav-item" id="nav-cart">
-            <i data-lucide="shopping-bag" size="22" stroke-width="1.2"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
             <span id="bottom-cart-count" class="bottom-nav-badge">0</span>
+        </a>
+        <a href="javascript:void(0)" onclick="toggleMobileMenu('menu')" class="bottom-nav-item" id="nav-menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
         </a>
     </nav>
 
