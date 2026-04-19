@@ -191,7 +191,16 @@
             :root { --container-padding: 5%; }
             .footer-grid { grid-template-columns: 1fr !important; gap: 50px !important; text-align: center; }
             .footer-grid > div { display: flex; flex-direction: column; align-items: center; }
-            .product-grid { grid-template-columns: 1fr !important; gap: 25px; }
+            .product-grid { 
+                grid-template-columns: 1fr !important; 
+                gap: 50px; 
+                padding: 20px 0;
+            }
+            .product-card {
+                padding: 15px;
+                border: 1px solid rgba(255,255,255,0.03);
+                background: rgba(255,255,255,0.01);
+            }
             .about-grid, .contact-grid { grid-template-columns: 1fr !important; gap: 35px; }
             .hero-content p { letter-spacing: 1.5px !important; font-size: 0.7rem !important; }
             .filter-btn { min-width: 80px; padding: 8px 12px; }
@@ -277,7 +286,7 @@
             line-height: 1.6;
             transition: var(--transition-fast);
         }
-        .footer-contact-link:hover {
+        .footer-contact-link:hover, .footer-contact-item:hover .footer-contact-link {
             color: var(--gold-primary);
         }
 
@@ -328,6 +337,114 @@
             }
         }
 
+        /* Luxury Spark Button for Nav */
+        .btn-luxury-spark {
+            background: linear-gradient(135deg, rgba(203, 163, 92, 0.1), rgba(203, 163, 92, 0.02));
+            border: 1px solid rgba(203, 163, 92, 0.3);
+            color: var(--gold-primary);
+            padding: 8px 18px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 40px;
+            transition: all 0.5s var(--ease-luxury);
+            height: 42px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(203, 163, 92, 0.05);
+        }
+
+        .btn-luxury-spark::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s var(--ease-luxury);
+        }
+
+        .btn-luxury-spark:hover {
+            border-color: var(--gold-primary);
+            background: rgba(203, 163, 92, 0.15);
+            box-shadow: 0 0 20px rgba(203, 163, 92, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .btn-luxury-spark:hover::before {
+            left: 100%;
+        }
+
+        .btn-luxury-spark i {
+            transition: transform 0.6s var(--ease-luxury);
+        }
+
+        .btn-luxury-spark:hover i {
+            transform: scale(1.2) rotate(15deg);
+            color: var(--gold-bright);
+        }
+
+        @media (max-width: 640px) {
+            .btn-luxury-spark span { display: none; }
+            .btn-luxury-spark { width: 42px; padding: 0; justify-content: center; border-radius: 50%; }
+        }
+
+        /* Nav Action Icons Refinement */
+        .wishlist-trigger, .cart-trigger, .desktop-search-trigger {
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.4s var(--ease-luxury);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist-trigger:hover, .cart-trigger:hover, .desktop-search-trigger:hover {
+            background: rgba(203, 163, 92, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .wishlist-trigger svg, .cart-trigger svg, .desktop-search-trigger svg {
+            transition: stroke 0.4s var(--ease-luxury);
+        }
+
+        .wishlist-trigger:hover svg, .cart-trigger:hover svg, .desktop-search-trigger:hover svg {
+            stroke: var(--gold-bright);
+        }
+
+        /* Professional Search Refinements */
+        .suggestion-item:hover {
+            background: rgba(203, 163, 92, 0.05) !important;
+        }
+        .suggestion-item:hover img {
+            transform: scale(1.1);
+        }
+        .suggestion-item:hover .suggestion-arrow {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+        .suggestion-item.selected {
+            background: rgba(203, 163, 92, 0.08) !important;
+        }
+        .suggestion-item.selected .suggestion-arrow {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .search-suggestions.active {
+            animation: luxuryFadeIn 0.4s var(--ease-luxury) forwards;
+        }
+
         @keyframes luxurySlideIn {
             0% { 
                 opacity: 0; 
@@ -373,6 +490,7 @@
                 will-change: transform;
                 transform: translate(-50%, -50%);
                 box-shadow: 0 0 15px var(--gold-primary);
+                opacity: 0;
             }
             #custom-cursor::after {
                 content: '';
@@ -436,7 +554,7 @@
         /* Scroll Indicator in Hero */
         .scroll-indicator {
             position: absolute;
-            bottom: 40px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -463,7 +581,7 @@
         }
         .scroll-line {
             width: 1px;
-            height: 40px;
+            height: 30px;
             background: linear-gradient(to bottom, var(--gold-muted), transparent);
         }
 
@@ -477,73 +595,101 @@
             padding: env(safe-area-inset-top) var(--container-padding) 0;
             height: calc(var(--nav-height) + env(safe-area-inset-top));
             z-index: 1000;
-            transition: var(--transition-smooth);
+            transition: height 0.6s var(--ease-luxury), background 0.6s var(--ease-luxury), padding 0.6s var(--ease-luxury), backdrop-filter 0.6s var(--ease-luxury);
             background: transparent;
+            animation: headerEntrance 1.2s var(--ease-luxury) forwards;
+        }
+
+        @keyframes headerEntrance {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
 
         nav.scrolled {
-            height: calc(clamp(70px, 8vh, 90px) + env(safe-area-inset-top));
+            height: calc(clamp(70px, 8vh, 85px) + env(safe-area-inset-top));
             padding-top: env(safe-area-inset-top);
-            background: rgba(2, 6, 6, 0.85);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--border-gold);
-            box-shadow: var(--shadow-subtle);
+            background: rgba(2, 6, 6, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(203, 163, 92, 0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 1024px) {
-            nav.scrolled { height: calc(clamp(60px, 7vh, 70px) + env(safe-area-inset-top)); }
+            nav.scrolled { height: calc(clamp(65px, 7vh, 75px) + env(safe-area-inset-top)); }
         }
 
         .nav-logo-img {
-            height: 60px;
+            height: 65px;
             width: auto;
-            transition: var(--transition-smooth);
+            transition: height 0.6s var(--ease-luxury), filter 0.6s var(--ease-luxury);
             filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
         }
-        nav.scrolled .nav-logo-img { height: 48px; }
+        nav.scrolled .nav-logo-img { height: 45px; }
         @media (max-width: 1024px) {
-            .nav-logo-img { height: 45px; }
+            .nav-logo-img { height: 48px; }
             nav.scrolled .nav-logo-img { height: 38px; }
         }
 
         .nav-links {
             display: flex;
-            gap: 3.5rem;
+            gap: 3rem;
             list-style: none;
             flex: 1;
             justify-content: center;
+            padding: 0 2rem;
         }
         .nav-links a {
             text-decoration: none;
             color: var(--text-dim);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: var(--transition-fast);
+            letter-spacing: 0.2em;
+            transition: color 0.4s var(--ease-luxury);
             position: relative;
-            padding: 10px 0;
+            padding: 12px 0;
+            font-weight: 400;
         }
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 50%;
+            bottom: 4px; left: 0;
             width: 0%; height: 1px;
             background: var(--gold-primary);
-            transition: var(--transition-fast);
-            transform: translateX(-50%);
+            transition: width 0.4s var(--ease-luxury);
         }
+        .nav-links li:nth-child(2) a::after { background: var(--gold-bright); }
         .nav-links a:hover { color: var(--gold-primary); }
-        .nav-links a:hover::after { width: 40%; }
+        .nav-links a:hover::after { width: 100%; }
 
-        .nav-actions { display: flex; align-items: center; gap: 2.5rem; }
-        @media (max-width: 1024px) {
+        .nav-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+        
+        .nav-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+        @media (max-width: 1440px) {
             .nav-actions { gap: 1.2rem; }
+            .nav-links { gap: 2rem; }
+        }
+        @media (max-width: 1200px) {
+            .nav-links { gap: 1.5rem; }
+        }
+        @media (max-width: 1024px) {
+            .nav-actions { gap: 1rem; }
         }
         @media (max-width: 480px) {
             .nav-actions { gap: 0.8rem; }
         }
-        .social-icons-nav { display: flex; gap: 0.8rem; align-items: center; }
+        .social-icons-nav { display: flex; gap: 0.5rem; align-items: center; }
         .social-link-header {
             width: 32px;
             height: 32px;
@@ -796,16 +942,43 @@
         @media (max-width: 1024px) {
             .btn-gold { padding: 18px 36px; letter-spacing: 3px; }
         }
+        .btn-gold:hover {
+            color: var(--bg-dark);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 30px rgba(203, 163, 92, 0.3);
+            transform: translateY(-2px);
+        }
         .btn-gold::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(203, 163, 92, 0.4), transparent);
             transition: 0.6s;
             z-index: -1;
         }
-        .btn-gold:hover { color: var(--bg-dark); background: var(--gold-primary); border-color: var(--gold-primary); letter-spacing: 3px; }
-        .btn-gold:hover::before { left: 100%; }
+        .btn-gold::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(180deg, var(--gold-primary), var(--gold-bright));
+            transform: translateY(100%);
+            transition: transform 0.6s var(--ease-luxury);
+            z-index: -1;
+        }
+        .btn-gold:hover::after {
+            transform: translateY(0);
+        }
+        .btn-gold:hover::before {
+            left: 100%;
+        }
+        .btn-gold i {
+            transition: transform 0.6s var(--ease-luxury);
+        }
+        .btn-gold:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
 
         /* Product Library */
         #shop { padding: clamp(60px, 10vh, 120px) var(--container-padding); background: var(--bg-accent); position: relative; }
@@ -815,7 +988,7 @@
         }
         .product-grid { 
             display: grid; 
-            gap: clamp(20px, 4vw, 50px); 
+            gap: clamp(30px, 5vw, 60px); 
             grid-template-columns: repeat(auto-fill, minmax(clamp(260px, 22vw, 340px), 1fr));
             transition: opacity 0.4s ease, transform 0.4s ease;
         }
@@ -826,13 +999,13 @@
         }
 
         @media (max-width: 480px) {
-            .product-card { padding: 20px; }
+            .product-card { padding: 25px; }
         }
 
         .product-card {
             background: rgba(255,255,255,0.015);
             border: 1px solid var(--border-gold);
-            padding: clamp(30px, 5vw, 55px);
+            padding: clamp(35px, 6vw, 65px);
             transition: 
                 transform 0.8s var(--ease-luxury), 
                 border-color 0.8s var(--ease-luxury), 
@@ -881,7 +1054,7 @@
             aspect-ratio: 1/1;
             overflow: hidden;
             background: radial-gradient(circle, rgba(203,163,92,0.08) 0%, rgba(0,0,0,0.1) 100%);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -985,6 +1158,100 @@
             z-index: 20;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
+
+        /* Scarcity & Urgency Styles */
+        .urgency-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(211, 47, 47, 0.1);
+            border: 1px solid rgba(211, 47, 47, 0.3);
+            color: #d32f2f;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            margin-bottom: 20px;
+            animation: pulse-red 2s infinite;
+        }
+
+        .live-viewers {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-primary);
+            margin: 20px 0;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .viewer-dot {
+            width: 8px;
+            height: 8px;
+            background: #4caf50;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #4caf50;
+            animation: pulse-green 1.5s infinite;
+        }
+
+        .social-proof-ticker {
+            position: fixed;
+            bottom: clamp(90px, 12vh, 120px);
+            left: 20px;
+            z-index: 9999;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid var(--border-gold);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 320px;
+            transform: translateX(-120%);
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border-radius: 4px;
+        }
+
+        .social-proof-ticker.active {
+            transform: translateX(0);
+        }
+
+        .cart-countdown {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--gold-primary);
+            padding: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            border: 1px dashed var(--gold-primary);
+        }
+
+        @keyframes pulse-red {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .social-proof-ticker {
+                left: 10px;
+                right: 10px;
+                max-width: calc(100% - 20px);
+                bottom: calc(var(--bottom-nav-height) + 15px);
+            }
+        }
         .wishlist-btn:hover .wishlist-tooltip {
             opacity: 1;
             visibility: visible;
@@ -1006,7 +1273,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             gap: 20px;
         }
         .product-name {
@@ -1531,9 +1798,9 @@
             animation: checkoutEntrance 0.8s var(--ease-luxury) both;
         }
         .input, textarea, select {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.4) !important;
             border: 1px solid rgba(203, 163, 92, 0.15);
-            color: var(--text-white);
+            color: var(--text-white) !important;
             padding: 18px;
             font-size: 1rem;
             transition: all 0.3s ease;
@@ -1541,6 +1808,22 @@
             width: 100%;
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
             -webkit-tap-highlight-color: transparent;
+            appearance: none;
+        }
+
+        /* Custom arrow for select */
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23cba35c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 18px;
+            padding-right: 45px !important;
+        }
+
+        /* Specific for select dropdown options */
+        select option {
+            background-color: #050a09;
+            color: var(--text-white);
         }
 
         .input:focus, textarea:focus, select:focus {
@@ -1721,10 +2004,10 @@
         #mobile-menu-content {
             flex: 1;
             overflow-y: auto;
-            padding: 100px 40px 60px;
+            padding: 120px 40px 60px;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 2.2rem;
             -webkit-overflow-scrolling: touch;
             position: relative;
             z-index: 2;
@@ -1735,7 +2018,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 30px 40px;
+            padding: 35px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1744,11 +2027,11 @@
         }
 
         .mobile-menu-footer {
-            padding: 40px;
+            padding: 50px 40px;
             border-top: 1px solid rgba(203, 163, 92, 0.1);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 30px;
             background: var(--bg-dark);
             position: relative;
             z-index: 2;
@@ -1805,10 +2088,10 @@
         }
         
         .mobile-link { 
-            font-family: 'Playfair Display'; 
-            font-size: 1.1rem; 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.25rem; 
             color: var(--gold-primary); 
-            letter-spacing: 2px; 
+            letter-spacing: 3px; 
             text-decoration: none; 
             text-transform: uppercase;
             font-weight: 400;
@@ -1929,7 +2212,500 @@
         }
         #whatsapp-float:hover { transform: translateY(-10px); background: #25D366; color: white; border-color: #25D366; }
 
-        /* Comparison Bar */
+        /* Scent Finder Tool */
+        #scent-finder-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            z-index: 5000;
+            display: none;
+            opacity: 0;
+            transition: all 0.8s var(--ease-luxury);
+            overflow-y: auto;
+            color: var(--text-white);
+        }
+        #scent-finder-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        .scent-finder-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: clamp(80px, 12vh, 120px) var(--container-padding) 120px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        .finder-progress-bar {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: rgba(255,255,255,0.02);
+            z-index: 5001;
+        }
+        .finder-progress-inner {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-bright));
+            width: 20%;
+            transition: width 0.6s var(--ease-luxury);
+            box-shadow: 0 0 20px var(--gold-primary);
+            position: relative;
+        }
+        .finder-progress-segments {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            pointer-events: none;
+            z-index: 5002;
+        }
+        .progress-segment {
+            flex: 1;
+            border-right: 2px solid var(--bg-dark);
+        }
+        .progress-segment:last-child { border-right: none; }
+
+        /* Scent Profile Modal */
+        .scent-profile-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 6000;
+            display: none;
+            opacity: 0;
+            transition: all 0.4s var(--ease-luxury);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .scent-profile-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .scent-profile-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--gold-primary);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.6s var(--ease-luxury);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .scent-profile-modal.active .scent-profile-card { transform: scale(1); }
+        .profile-thumb {
+            width: 100px; height: 100px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.02);
+            padding: 10px;
+            border-radius: 4px;
+            margin-right: 20px;
+        }
+        .scent-profile-header { display: flex; align-items: center; margin-bottom: 40px; }
+        .note-section { margin-bottom: 25px; }
+        .note-cat {
+            display: block;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold-muted);
+            margin-bottom: 10px;
+        }
+        .note-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .note-tag {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            color: var(--text-white);
+            border-radius: 2px;
+        }
+        .metric-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .metric-name { width: 80px; font-size: 0.75rem; color: var(--text-dim); }
+        .metric-bar-bg { flex: 1; height: 4px; background: rgba(255,255,255,0.05); }
+        .metric-bar-fill { height: 100%; background: var(--gold-primary); }
+        .metric-val { font-size: 0.7rem; color: var(--gold-primary); font-weight: 600; width: 35px; text-align: right; }
+        
+        .scent-profile-trigger {
+            background: transparent;
+            border: none;
+            color: var(--gold-muted);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        .scent-profile-trigger:hover { color: var(--gold-bright); }
+
+        /* Magic Icon Shimmer */
+        @keyframes magicShimmer {
+            0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 0 rgba(203, 163, 92, 0)); }
+            50% { transform: scale(1.1) rotate(5deg); filter: drop-shadow(0 0 10px rgba(203, 163, 92, 0.5)); }
+            100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 0 rgba(203, 163, 92, 0)); }
+        }
+        .magic-icon-glow {
+            animation: magicShimmer 3s infinite ease-in-out;
+            color: var(--gold-bright) !important;
+            display: inline-block;
+        }
+
+        .finder-top-step-label {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600;
+            z-index: 5002;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .finder-step {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .finder-step.active {
+            display: block !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible !important;
+            pointer-events: all !important;
+        }
+
+        /* Luxury Intensity Slider */
+        .intensity-slider-container {
+            max-width: 800px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .intensity-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+        .intensity-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-muted);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .intensity-label.active {
+            color: var(--gold-bright);
+            text-shadow: 0 0 10px var(--gold-primary);
+            transform: scale(1.1);
+        }
+        .intensity-slider-track {
+            position: relative;
+            height: 2px;
+            background: rgba(203, 163, 92, 0.2);
+            margin: 40px 0;
+            width: 100%;
+        }
+        .intensity-slider-input {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 2px;
+            background: transparent;
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .intensity-slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 0 15px var(--gold-primary), inset 0 0 8px var(--gold-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .intensity-slider-btn {
+            margin-top: 80px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s var(--ease-luxury);
+            pointer-events: none;
+        }
+        .intensity-slider-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        .intensity-info {
+            min-height: 120px;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(203, 163, 92, 0.05);
+            border-radius: 8px;
+            transition: all 0.5s ease;
+        }
+        .intensity-info-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+        }
+        .intensity-info-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Final Action Pulse Animation */
+        @keyframes findScentPulse {
+            0% { box-shadow: 0 0 15px rgba(203, 163, 92, 0.2); }
+            50% { box-shadow: 0 0 35px rgba(203, 163, 92, 0.6), 0 0 15px var(--gold-primary); }
+            100% { box-shadow: 0 0 15px rgba(203, 163, 92, 0.2); }
+        }
+        .btn-find-scent {
+            background: linear-gradient(135deg, rgba(203, 163, 92, 0.15) 0%, rgba(203, 163, 92, 0.05) 100%) !important;
+            border-width: 2px !important;
+            animation: findScentPulse 3s infinite ease-in-out;
+            font-weight: 700 !important;
+            letter-spacing: 4px !important;
+            transition: all 0.5s var(--ease-luxury) !important;
+        }
+        .btn-find-scent:hover {
+            background: var(--gold-primary) !important;
+            color: var(--bg-dark) !important;
+            transform: scale(1.05) translateY(-5px) !important;
+            box-shadow: 0 20px 50px rgba(203, 163, 92, 0.4) !important;
+        }
+        .finder-title {
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            margin-bottom: clamp(30px, 6vh, 60px);
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .finder-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(15px, 3vw, 24px);
+            margin-top: 0;
+            width: 100%;
+        }
+        .finder-option-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s var(--ease-luxury);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            border-radius: 8px;
+            user-select: none;
+            -webkit-user-select: none;
+            min-height: 220px;
+        }
+        .finder-option-card:hover {
+            background: rgba(203, 163, 92, 0.05);
+            border-color: rgba(203, 163, 92, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .finder-option-card.selected {
+            background: rgba(203, 163, 92, 0.1);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 30px rgba(203, 163, 92, 0.12);
+        }
+
+        /* Option Selection Confirmation Animation */
+        @keyframes optionConfirmPulse {
+            0% { transform: scale(1); background: rgba(203, 163, 92, 0.05); }
+            40% { transform: scale(0.97); background: rgba(203, 163, 92, 0.2); border-color: var(--gold-bright); box-shadow: 0 0 40px rgba(203, 163, 92, 0.3); }
+            100% { transform: scale(1.02); background: rgba(203, 163, 92, 0.15); border-color: var(--gold-primary); box-shadow: 0 0 30px rgba(203, 163, 92, 0.2); }
+        }
+        .finder-option-card.confirming {
+            animation: optionConfirmPulse 0.5s var(--ease-luxury) forwards;
+            z-index: 10;
+        }
+
+        .finder-option-card i, .finder-tag i {
+            pointer-events: none;
+        }
+        .finder-option-card i {
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            transition: all 0.6s var(--ease-luxury);
+            opacity: 0.8;
+        }
+        .finder-option-card:hover i {
+            transform: scale(1.15) translateY(-5px);
+            opacity: 1;
+            color: var(--gold-bright);
+        }
+        .finder-option-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-white);
+            letter-spacing: 1px;
+        }
+        .finder-option-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .finder-controls {
+            margin-top: 50px;
+            padding: 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .finder-results-controls {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding-top: 40px;
+        }
+        .finder-continue-btn {
+            min-width: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .finder-nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--gold-muted);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s var(--ease-luxury);
+        }
+        .finder-nav-btn:hover {
+            color: var(--gold-primary);
+        }
+        .finder-close {
+            position: fixed;
+            top: 40px; right: 40px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: var(--gold-primary);
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-luxury);
+            z-index: 5002;
+        }
+        .finder-close:hover {
+            background: var(--gold-primary);
+            color: var(--bg-dark);
+            transform: rotate(90deg);
+        }
+        
+        .finder-tag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .finder-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(203, 163, 92, 0.15);
+            padding: 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-luxury);
+        }
+        .finder-tag i { color: var(--gold-primary); opacity: 0.6; transition: all 0.3s ease; }
+        .finder-tag span { font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; }
+        .finder-tag:hover {
+            background: rgba(203, 163, 92, 0.05);
+            border-color: var(--gold-primary);
+        }
+        .finder-tag.selected {
+            background: rgba(203, 163, 92, 0.12);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(203, 163, 92, 0.05);
+        }
+        .finder-tag.selected i { opacity: 1; transform: scale(1.1); }
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            padding: 20px 0;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .recommendation-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+        }
+        
+        @keyframes finderSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .scent-finder-container { padding: 80px var(--container-padding) 40px; }
+            .finder-options { grid-template-columns: 1fr; }
+            .finder-option-card { padding: 30px 20px; }
+            .finder-close { top: 20px; right: 20px; width: 40px; height: 40px; }
+            .finder-title { margin-bottom: 2rem; }
+        }
         .compare-bar {
             position: fixed;
             bottom: -120px;
@@ -1944,25 +2720,24 @@
             box-shadow: 0 -15px 50px rgba(0,0,0,0.9);
             backdrop-filter: blur(25px);
         }
-        .compare-bar.active { bottom: 0; }
-        .compare-bar-content {
-            padding: 20px 35px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 25px;
-        }
-        .compare-item-thumb {
-            width: 55px;
-            height: 55px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(203, 163, 92, 0.2);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: transform 0.3s ease;
+        @media (max-width: 1024px) {
+            .compare-bar.active { bottom: 75px; }
+            .compare-bar { 
+                width: 100%; 
+                border-radius: 0; 
+                border-left: none; 
+                border-right: none;
+                bottom: -150px;
+                z-index: 1500;
+            }
+            .compare-bar-content {
+                padding: 15px 20px;
+                gap: 15px;
+            }
+            .compare-item-thumb {
+                width: 45px;
+                height: 45px;
+            }
         }
         .compare-item-thumb:hover { transform: translateY(-5px); border-color: var(--gold-primary); }
         .compare-item-thumb img { max-width: 80%; max-height: 80%; object-fit: contain; }
@@ -2272,10 +3047,10 @@
             width: 100%;
             background: transparent;
             border: none;
-            border-bottom: 1px solid rgba(203, 163, 92, 0.3);
-            padding: 15px 45px 15px 0;
+            border-bottom: 2px solid rgba(203, 163, 92, 0.3);
+            padding: 15px 50px 15px 40px;
             color: var(--text-white);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             border-radius: 0;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -2289,7 +3064,7 @@
         }
         .mobile-search-icon {
             position: absolute;
-            right: 0;
+            left: 0;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gold-primary);
@@ -2514,7 +3289,24 @@
             z-index: 3001;
         }
 
+        .search-suggestions {
+            position: absolute;
+            background: rgba(10, 10, 10, 0.98);
+            border: 1px solid rgba(203, 163, 92, 0.2);
+            width: 100%;
+            max-height: 450px;
+            overflow-y: auto;
+            z-index: 2500;
+            display: none;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            left: 0;
+            top: 100%;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
         .search-suggestions.active { display: block; }
+        
         .search-highlight {
             background: rgba(203, 163, 92, 0.2);
             color: var(--gold-bright);
@@ -2522,6 +3314,7 @@
             padding: 0 2px;
             border-radius: 2px;
         }
+
         .suggestion-item {
             padding: 14px 20px;
             cursor: pointer;
@@ -2531,6 +3324,18 @@
             color: var(--text-dim);
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+        }
+
+        .suggestion-item.selected {
+            background: rgba(203, 163, 92, 0.1);
+            color: var(--gold-primary);
+            padding-left: 25px;
+        }
+
+        .suggestion-item.selected .suggestion-arrow {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
         }
         .suggestion-item:hover {
             background: rgba(203, 163, 92, 0.05);
@@ -2587,15 +3392,16 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 70px;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
+            height: 75px;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border-top: 1px solid var(--border-gold);
             display: none;
             grid-template-columns: repeat(6, 1fr);
-            z-index: 1000;
+            z-index: 2000;
             padding-bottom: env(safe-area-inset-bottom);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
         }
 
         @media (max-width: 1024px) {
@@ -2603,12 +3409,21 @@
                 display: grid;
             }
             body {
-                padding-bottom: 70px;
+                padding-bottom: 75px;
+            }
+            #whatsapp-float {
+                bottom: 95px;
+                right: 25px;
+            }
+            #back-to-top {
+                bottom: 165px;
+                right: 25px;
             }
         }
 
         .bottom-nav-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: rgba(255, 255, 255, 0.4);
@@ -2616,14 +3431,28 @@
             transition: all 0.4s var(--ease-luxury);
             position: relative;
             -webkit-tap-highlight-color: transparent;
+            gap: 6px;
+        }
+
+        .bottom-nav-item span.nav-label {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            transition: all 0.4s var(--ease-luxury);
         }
 
         .bottom-nav-item:active {
-            transform: scale(0.9);
+            transform: scale(0.92);
         }
 
         .bottom-nav-item.active {
             color: var(--gold-primary);
+        }
+
+        .bottom-nav-item.active span.nav-label {
+            color: var(--gold-primary);
+            font-weight: 700;
         }
 
         .bottom-nav-item svg {
@@ -2632,15 +3461,16 @@
 
         .bottom-nav-item.active svg {
             filter: drop-shadow(0 0 10px rgba(203, 163, 92, 0.3));
+            transform: translateY(-2px);
         }
 
         .bottom-nav-badge {
             position: absolute;
-            top: 15px;
-            right: 30%;
+            top: 10px;
+            right: 25%;
             background: var(--gold-primary);
             color: var(--bg-dark);
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-weight: 800;
             min-width: 14px;
             height: 14px;
@@ -3066,8 +3896,8 @@
     <div id="mobile-menu" aria-hidden="true">
         <div class="mobile-menu-header">
             <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo" style="height: 40px; filter: drop-shadow(0 0 10px rgba(203, 163, 92, 0.2));" referrerPolicy="no-referrer">
-            <button onclick="closeMobileMenu()" aria-label="Close menu" class="interactive" style="background:none; border:none; color:var(--gold-primary); padding: 5px;">
-                <i data-lucide="x" size="32"></i>
+            <button onclick="closeMobileMenu()" aria-label="Close menu" class="interactive" style="background:none; border:none; color:var(--gold-primary); padding: 5px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="x" size="24"></i>
             </button>
         </div>
 
@@ -3076,7 +3906,11 @@
         </div>
         
         <div id="mobile-menu-content">
-            <div id="mobile-main-links" style="display: flex; flex-direction: column; gap: 1.8rem; width: 100%;">
+            <button onclick="openScentFinder()" class="btn-gold interactive" style="margin-bottom: 20px; width: 100%; font-size: 0.8rem; border-color: rgba(203, 163, 92, 0.3); background: rgba(203, 163, 92, 0.03); letter-spacing: 3px; padding: 22px;">
+                <i data-lucide="wand-sparkles" class="magic-icon-glow" size="18"></i>
+                Find My Perfect Scent
+            </button>
+            <div id="mobile-main-links" style="display: flex; flex-direction: column; gap: 2.2rem; width: 100%;">
                 <a href="javascript:void(0)" style="--i:1" class="mobile-link interactive" onclick="handleNavClick('hero'); toggleMobileMenu();">
                     The Scent
                 </a>
@@ -3111,54 +3945,95 @@
             </div>
         </div>
 
-        <div id="mobile-search-view" style="display:none; flex: 1; overflow-y: auto; padding: 100px 40px 60px; flex-direction: column; gap: 1rem; position: relative; z-index: 2;">
+        <div id="mobile-search-view" style="display:none; flex: 1; overflow-y: auto; padding: 40px 30px 60px; flex-direction: column; gap: 1.5rem; position: relative; z-index: 2; background: var(--bg-dark);">
+            <!-- Search Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <p style="font-size: 0.7rem; color: var(--gold-muted); letter-spacing: 4px; text-transform: uppercase; margin: 0; font-weight: 600; opacity: 0.8;">Search Collection</p>
+                <button onclick="closeMobileMenu()" class="interactive" style="background: none; border: none; color: var(--gold-primary); cursor: pointer; padding: 5px;">
+                    <i data-lucide="x" size="24"></i>
+                </button>
+            </div>
+
             <!-- Search Bar -->
-            <div class="mobile-search-container" style="width: 100%; position: relative; margin-bottom: 20px;">
-                <input type="text" id="mobile-search-input-view" class="mobile-search-input" placeholder="SEARCH COLLECTION..." onkeyup="if(event.key === 'Enter') handleMobileSearch()" oninput="handleSearchInput(this.value, 'mobile')">
-                <i data-lucide="search" class="mobile-search-icon" size="18"></i>
-                <button id="clear-mobile-search-view" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:0; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:10px; z-index: 10;">
-                    <i data-lucide="x" size="16"></i>
+            <div class="mobile-search-container" style="width: 100%; position: relative; margin-bottom: 10px;">
+                <i data-lucide="search" class="mobile-search-icon" size="20" style="left: 10px;"></i>
+                <input type="text" id="mobile-search-input-view" class="mobile-search-input" placeholder="What are you looking for?" onkeyup="if(event.key === 'Enter') handleMobileSearch()" oninput="handleSearchInput(this.value, 'mobile')">
+                <button id="clear-mobile-search-view" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="x" size="14"></i>
                 </button>
                 
                 <!-- Suggestions Container -->
-                <div id="search-suggestions-view" class="search-suggestions" style="top: 100%; left: 0; width: 100%; background: var(--bg-dark); border: 1px solid rgba(203, 163, 92, 0.1); border-top: none; z-index: 100;"></div>
+                <div id="search-suggestions-view" class="search-suggestions"></div>
             </div>
 
             <div id="mobile-search-content-wrapper">
+                <button onclick="openScentFinder()" class="btn-gold interactive" style="margin-bottom: 25px; width: 100%; font-size: 0.7rem; border-color: rgba(203, 163, 92, 0.3);">
+                    <i data-lucide="sparkles" size="14"></i>
+                    Scent Finder Tool
+                </button>
+                <!-- Quick Filters -->
+                <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; -ms-overflow-style: none; scrollbar-width: none;" class="hide-scrollbar">
+                    <span onclick="applyRecentSearch('Oud')" class="interactive" style="font-size: 0.55rem; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; transition: all 0.3s ease;">Oud</span>
+                    <span onclick="applyRecentSearch('Floral')" class="interactive" style="font-size: 0.55rem; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; transition: all 0.3s ease;">Floral</span>
+                    <span onclick="applyRecentSearch('Fresh')" class="interactive" style="font-size: 0.55rem; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; transition: all 0.3s ease;">Fresh</span>
+                    <span onclick="applyRecentSearch('Spicy')" class="interactive" style="font-size: 0.55rem; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; transition: all 0.3s ease;">Spicy</span>
+                </div>
+
                 <!-- Recent Searches Section -->
-                <div id="search-history-section" style="margin-top: 20px; display: none;">
+                <div id="search-history-section" style="margin-top: 10px; display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <p id="search-history-title" style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 3px; text-transform: uppercase; margin: 0; font-weight: 600;">Recent Searches</p>
-                        <button id="clear-history-btn" onclick="clearSearchHistory()" class="interactive" style="background: none; border: none; color: var(--gold-muted); font-size: 0.5rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; opacity: 0.5;">Clear All</button>
+                        <p id="search-history-title" style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; margin: 0; font-weight: 600; opacity: 0.7;">Recent Searches</p>
+                        <button id="clear-history-btn" onclick="clearSearchHistory()" class="interactive" style="background: none; border: none; color: var(--gold-muted); font-size: 0.5rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; opacity: 0.5;">Clear</button>
                     </div>
-                    <div id="search-history-container" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                    <div id="search-history-container" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+                </div>
+
+                <!-- Trending Section -->
+                <div style="margin-top: 30px;">
+                    <p style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; font-weight: 600; opacity: 0.7;">Trending Now</p>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div onclick="applyRecentSearch('Baccarat Rouge 540')" class="interactive" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 5px 0;">
+                            <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.6;"></i>
+                            <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase;">Baccarat Rouge 540</span>
+                        </div>
+                        <div onclick="applyRecentSearch('Ehsas Al Arabia')" class="interactive" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 5px 0;">
+                            <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.6;"></i>
+                            <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase;">Ehsas Al Arabia</span>
+                        </div>
+                        <div onclick="applyRecentSearch('Oud Wood')" class="interactive" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 5px 0;">
+                            <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.6;"></i>
+                            <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase;">Oud Wood</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Popular Categories -->
-                <div id="mobile-popular-categories" style="margin-top: 30px;">
-                    <p style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; font-weight: 600;">Explore Categories</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                        <span onclick="applyRecentSearch('Masculine')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 8px 16px; border-radius: 1px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.03); transition: all 0.3s ease;">Masculine</span>
-                        <span onclick="applyRecentSearch('Feminine')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 8px 16px; border-radius: 1px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.03); transition: all 0.3s ease;">Feminine</span>
-                        <span onclick="applyRecentSearch('Unisex')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 8px 16px; border-radius: 1px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.03); transition: all 0.3s ease;">Unisex</span>
+                <div id="mobile-popular-categories" style="margin-top: 35px;">
+                    <p style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; font-weight: 600; opacity: 0.7;">Collections</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <span onclick="applyRecentSearch('Masculine')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.15); padding: 8px 16px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.02);">Masculine</span>
+                        <span onclick="applyRecentSearch('Feminine')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.15); padding: 8px 16px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.02);">Feminine</span>
+                        <span onclick="applyRecentSearch('Unisex')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.15); padding: 8px 16px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.02);">Unisex</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="mobile-menu-footer">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                <div style="width: 40px; height: 1px; background: var(--gold-muted); opacity: 0.2; margin-bottom: 5px;"></div>
-                <p style="font-family: 'Playfair Display', serif; font-size: 0.7rem; color: var(--gold-muted); letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.8; font-weight: 500; margin: 0;">Follow Us</p>
-                <div style="display: flex; justify-content: center; gap: 45px; margin: 5px 0;">
-                    <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="interactive" style="color: var(--gold-primary); opacity: 0.9; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 25px;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <p style="font-family: 'Playfair Display', serif; font-size: 0.75rem; color: var(--gold-primary); letter-spacing: 3px; text-transform: uppercase; font-weight: 500; margin: 0;">Follow Us</p>
+                    <div style="width: 20px; height: 1px; background: var(--gold-muted); opacity: 0.3;"></div>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 50px;">
+                    <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="interactive mobile-social-btn" style="color: var(--gold-primary); transform: scale(1.1);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                     </a>
-                    <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="interactive" style="color: var(--gold-primary); opacity: 0.9; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                    <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="interactive mobile-social-btn" style="color: var(--gold-primary); transform: scale(1.1);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
                     </a>
                 </div>
-                <p class="follow-journey-text" style="font-family: 'Playfair Display', serif; font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; margin-top: 5px;">Follow Our Journey</p>
+                <p class="follow-journey-text" style="font-family: 'Playfair Display', serif; font-size: 0.65rem; color: var(--gold-muted); letter-spacing: 5px; text-transform: uppercase; opacity: 0.4; margin-top: 10px;">Follow Our Journey</p>
             </div>
         </div>
     </div>
@@ -3189,13 +4064,17 @@
             </ul>
 
             <div class="nav-actions">
+                <button onclick="openScentFinder()" class="btn-luxury-spark interactive">
+                    <i data-lucide="wand-sparkles" class="magic-icon-glow" size="16"></i>
+                    <span>Find My Scent</span>
+                </button>
                 <div class="desktop-search-container" id="desktop-search-container">
                     <input type="text" id="desktop-search" class="desktop-search-input" placeholder="Search collection..." onkeyup="if(event.key === 'Enter') handleDesktopSearch()" oninput="handleSearchInput(this.value, 'desktop')">
-                    <button id="clear-desktop-search" onclick="clearDesktopSearch()" class="interactive" style="position:absolute; right:45px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:5px; z-index: 10;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+                    <button id="clear-desktop-search" onclick="clearDesktopSearch()" class="interactive" style="position:absolute; right:45px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="x" size="14"></i>
                     </button>
                     <div class="desktop-search-trigger interactive" onclick="handleSearchIconClick()" role="button" aria-label="Toggle search">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <i data-lucide="search" size="20"></i>
                     </div>
                     <div id="desktop-search-suggestions" class="search-suggestions"></div>
                 </div>
@@ -3242,11 +4121,17 @@
                 </a>
                 <div style="width: 1px; height: 60px; background: var(--border-gold); margin: 10px auto 0;"></div>
             </div>
-            <div class="hero-content">
+            <div class="hero-content" style="padding-bottom: 80px;">
                 <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" loading="lazy" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(2rem, 5vh, 3.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2));" referrerPolicy="no-referrer">
                 <h1>LUBAN</h1>
-                <p style="letter-spacing: clamp(2px, 1vw, 6px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.65rem, 1.5vw, 0.8rem); margin-bottom: clamp(2.5rem, 6vh, 4.5rem); font-weight: 500;">Refined Quality In Every Drop</p>
-                <button class="btn-gold interactive" onclick="setFilter('All'); handleNavClick('shop')">Explore Collection</button>
+                <p style="letter-spacing: clamp(1px, 1vw, 5px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.6rem, 1.2vw, 0.75rem); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); font-weight: 500; opacity: 0.8;">Refined Quality In Every Drop</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-gold interactive" onclick="setFilter('All'); handleNavClick('shop')">Explore Collection</button>
+                    <button class="btn-gold interactive" onclick="openScentFinder()" style="border-color: var(--gold-muted); color: var(--gold-muted); background: transparent;">
+                        <i data-lucide="wand-sparkles" class="magic-icon-glow" size="16"></i>
+                        Find My Scent
+                    </button>
+                </div>
             </div>
             <div class="scroll-indicator" onclick="setFilter('All'); handleNavClick('shop')">
                 <span>Scroll</span>
@@ -3265,11 +4150,15 @@
                 
                 <div style="max-width: 600px; margin: 0 auto 60px; position: relative; padding: 0 20px;">
                     <div style="position: relative;">
-                        <input type="text" id="shop-search" class="input interactive" placeholder="Search our collection..." onkeyup="if(event.key === 'Enter') handleShopSearch()" oninput="handleSearchInput(this.value, 'shop')" style="padding: 15px 50px 15px 20px; border-radius: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(203, 163, 92, 0.2); width: 100%;">
-                        <button id="clear-shop-search" onclick="clearShopSearch()" class="interactive" style="position:absolute; right:50px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:5px; z-index: 10;">
-                            <i data-lucide="x" size="14"></i>
-                        </button>
-                        <i data-lucide="search" onclick="handleShopSearch()" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--gold-primary); cursor: pointer;" size="20" class="interactive"></i>
+                        <input type="text" id="shop-search" class="input interactive" placeholder="Search our collection..." onkeyup="if(event.key === 'Enter') handleShopSearch()" oninput="handleSearchInput(this.value, 'shop')" style="padding: 16px 85px 16px 25px; border-radius: 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(203, 163, 92, 0.2); width: 100%; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-white);">
+                        <div style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 8px;">
+                            <button id="clear-shop-search" onclick="clearShopSearch()" class="interactive" style="background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="x" size="14"></i>
+                            </button>
+                            <button onclick="handleShopSearch()" class="interactive" style="background: none; border: none; color: var(--gold-primary); cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="search" size="20"></i>
+                            </button>
+                        </div>
                         <div id="shop-search-suggestions" class="search-suggestions" style="top: 100%; width: 100%;"></div>
                     </div>
                     <div id="shop-popular-searches" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 15px;"></div>
@@ -3429,7 +4318,7 @@
                             <div style="display: flex; gap: 10px; align-items: flex-end;">
                                 <div class="checkout-input-group" style="flex: 1;">
                                     <input type="text" id="discount-code-input" placeholder="Enter code" class="input interactive" style="flex: 1; font-size: 0.8rem; padding: 12px; text-transform: uppercase; letter-spacing: 1px;">
-                                    <label style="top: 12px; font-size: 0.7rem;">Promotional Code</label>
+                                    <label>Promotional Code</label>
                                 </div>
                                 <button type="button" onclick="applyDiscountCode()" class="btn-gold interactive" style="width: auto; padding: 12px 20px; font-size: 0.7rem; letter-spacing: 1px; height: 46px;">Apply</button>
                             </div>
@@ -3487,7 +4376,7 @@
 
                         <div style="margin-top:30px; border-top:1px solid rgba(203, 163, 92, 0.1); padding-top:20px;">
                             <h4 style="font-size:0.65rem; text-transform:uppercase; letter-spacing:2px; color:var(--gold-primary); margin-bottom:15px;">Need Assistance?</h4>
-                            <a href="https://wa.me/8801XXXXXXXXX" target="_blank" style="display:flex; align-items:center; gap:10px; color:var(--text-white); text-decoration:none; font-size:0.75rem;" class="interactive">
+                            <a href="https://wa.me/8801935322213?text=Hello%21%20I%20have%20a%20question%20about%20your%20fragrances." target="_blank" style="display:flex; align-items:center; gap:10px; color:var(--text-white); text-decoration:none; font-size:0.75rem;" class="interactive">
                                 <i data-lucide="message-circle" size="16" color="#25D366"></i>
                                 <span>Chat with a Specialist</span>
                             </a>
@@ -3664,6 +4553,218 @@
 
     </main>
 
+    <!-- Scent Finder Tool Overlay -->
+    <div id="scent-finder-overlay">
+        <!-- Scent Profile Detail Modal (nested or sibling) -->
+        <div id="scent-profile-modal" class="scent-profile-modal" onclick="closeScentProfile()">
+            <div class="scent-profile-card" onclick="event.stopPropagation()">
+                <button class="finder-close" onclick="closeScentProfile()" style="top: 20px; right: 20px; width: 34px; height: 34px; background: rgba(255,255,255,0.05);">
+                    <i data-lucide="x" size="16"></i>
+                </button>
+                <div id="scent-profile-content"></div>
+            </div>
+        </div>
+
+        <div class="finder-progress-bar">
+            <div id="finder-progress-inner" class="finder-progress-inner"></div>
+            <div class="finder-progress-segments">
+                <div class="progress-segment"></div>
+                <div class="progress-segment"></div>
+                <div class="progress-segment"></div>
+                <div class="progress-segment"></div>
+                <div class="progress-segment"></div>
+            </div>
+        </div>
+        
+        <div id="finder-top-label" class="finder-top-step-label">Step 1 of 5</div>
+        
+        <button class="finder-close interactive" onclick="closeScentFinder()" aria-label="Close scent finder">
+            <i data-lucide="x"></i>
+        </button>
+
+        <div class="scent-finder-container">
+            <!-- Step 1: Gender -->
+            <div id="finder-step-1" class="finder-step active">
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">Defining Your Presence</span>Who is this fragrance for?</h2>
+                <div class="finder-options">
+                    <div class="finder-option-card interactive" onclick="selectFinderOption(1, 'Masculine', this)">
+                        <i data-lucide="user" size="32"></i>
+                        <h3 class="finder-option-title">For Him</h3>
+                        <p class="finder-option-desc">Bold, robust, and commanding profiles.</p>
+                    </div>
+                    <div class="finder-option-card interactive" onclick="selectFinderOption(1, 'Feminine', this)">
+                        <i data-lucide="user-plus" size="32"></i>
+                        <h3 class="finder-option-title">For Her</h3>
+                        <p class="finder-option-desc">Elegant, floral, and captivating notes.</p>
+                    </div>
+                    <div class="finder-option-card interactive" onclick="selectFinderOption(1, 'Unisex', this)">
+                        <i data-lucide="users" size="32"></i>
+                        <h3 class="finder-option-title">Shared</h3>
+                        <p class="finder-option-desc">Versatile creations that transcend gender.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Occasion -->
+            <div id="finder-step-2" class="finder-step">
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">The Setting</span>Where will you wear it?</h2>
+                <div class="finder-options">
+                    <div class="finder-option-card interactive" onclick="selectFinderOption(2, 'daily', this)">
+                        <i data-lucide="sun" size="32"></i>
+                        <h3 class="finder-option-title">Daily Signature</h3>
+                        <p class="finder-option-desc">Office, casual outings, or daytime events.</p>
+                    </div>
+                    <div class="finder-option-card interactive" onclick="selectFinderOption(2, 'evening', this)">
+                        <i data-lucide="moon" size="32"></i>
+                        <h3 class="finder-option-title">Evening / Romance</h3>
+                        <p class="finder-option-desc">Date nights, dinners, or intimate settings.</p>
+                    </div>
+                    <div class="finder-option-card interactive" onclick="selectFinderOption(2, 'formal', this)">
+                        <i data-lucide="award" size="32"></i>
+                        <h3 class="finder-option-title">Formal / Grand</h3>
+                        <p class="finder-option-desc">Weddings, galas, or high-profile meetings.</p>
+                    </div>
+                    <div class="finder-option-card interactive" onclick="selectFinderOption(2, 'outdoor', this)">
+                        <i data-lucide="wind" size="32"></i>
+                        <h3 class="finder-option-title">Outdoor / Sport</h3>
+                        <p class="finder-option-desc">Fresh, airy, and movement-ready scents.</p>
+                    </div>
+                </div>
+                <div class="finder-controls">
+                    <button class="finder-nav-btn" onclick="goToStep(1)"><i data-lucide="arrow-left"></i> Previous</button>
+                    <span>Step 2/5</span>
+                </div>
+            </div>
+
+            <!-- Step 3: Scent Family (MULTI) -->
+            <div id="finder-step-3" class="finder-step">
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">The Olfactory Journey</span>Which families draw you in? <span style="font-size: 0.8rem; opacity: 0.4; display: block; margin-top: 5px; text-transform: none; letter-spacing: 0;">Multi-select enabled</span></h2>
+                <div class="finder-options">
+                    <div class="finder-option-card interactive" data-multi-val="Fresh" onclick="toggleFinderOption(3, 'Fresh', this)">
+                        <i data-lucide="waves" size="32"></i>
+                        <h3 class="finder-option-title">Fresh</h3>
+                        <p class="finder-option-desc">Clean, airy, and light notes.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Citrus" onclick="toggleFinderOption(3, 'Citrus', this)">
+                        <i data-lucide="citrus" size="32"></i>
+                        <h3 class="finder-option-title">Citrus</h3>
+                        <p class="finder-option-desc">Zesty, vibrant, and energetic.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Aquatic" onclick="toggleFinderOption(3, 'Aquatic', this)">
+                        <i data-lucide="droplets" size="32"></i>
+                        <h3 class="finder-option-title">Aquatic</h3>
+                        <p class="finder-option-desc">Fresh sea breeze and water.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Gourmand" onclick="toggleFinderOption(3, 'Gourmand', this)">
+                        <i data-lucide="cookie" size="32"></i>
+                        <h3 class="finder-option-title">Gourmand</h3>
+                        <p class="finder-option-desc">Sweet, edible, and comforting.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Woody" onclick="toggleFinderOption(3, 'Woody', this)">
+                        <i data-lucide="tree-pine" size="32"></i>
+                        <h3 class="finder-option-title">Woody</h3>
+                        <p class="finder-option-desc">Cedar, sandalwood, and moss.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Spicy" onclick="toggleFinderOption(3, 'Spicy', this)">
+                        <i data-lucide="zap" size="32"></i>
+                        <h3 class="finder-option-title">Spicy</h3>
+                        <p class="finder-option-desc">Cardamom, amber, and exotic heat.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Floral" onclick="toggleFinderOption(3, 'Floral', this)">
+                        <i data-lucide="flower" size="32"></i>
+                        <h3 class="finder-option-title">Floral</h3>
+                        <p class="finder-option-desc">Rose, jasmine, and petals.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Oriental" onclick="toggleFinderOption(3, 'Oriental', this)">
+                        <i data-lucide="moon" size="32"></i>
+                        <h3 class="finder-option-title">Oriental</h3>
+                        <p class="finder-option-desc">Rich resins and deep mysteries.</p>
+                    </div>
+                    <div class="finder-option-card interactive" data-multi-val="Leather" onclick="toggleFinderOption(3, 'Leather', this)">
+                        <i data-lucide="shield" size="32"></i>
+                        <h3 class="finder-option-title">Leather</h3>
+                        <p class="finder-option-desc">Smoky, animalic, and bold textures.</p>
+                    </div>
+                </div>
+                <div class="finder-controls">
+                    <button class="finder-nav-btn" onclick="goToStep(2)"><i data-lucide="arrow-left"></i> Previous</button>
+                    <span>Step 3/5</span>
+                    <button class="btn-gold" style="min-width: 180px;" onclick="goToStep(4)">Continue <i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 4: Individual Notes (MULTI TAGS) -->
+            <div id="finder-step-4" class="finder-step">
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">Specific Resonance</span>Which notes do you cherish? <span style="font-size: 0.8rem; opacity: 0.4; display: block; margin-top: 5px; text-transform: none; letter-spacing: 0;">Select your favorite ingredients</span></h2>
+                <div class="finder-tag-grid">
+                    <div class="finder-tag interactive" data-multi-note="Oud" onclick="toggleFinderNote('Oud', this)"><i data-lucide="gem"></i><span>Oud</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Musk" onclick="toggleFinderNote('Musk', this)"><i data-lucide="cloud"></i><span>Musk</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Rose" onclick="toggleFinderNote('Rose', this)"><i data-lucide="flower-2"></i><span>Rose</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Amber" onclick="toggleFinderNote('Amber', this)"><i data-lucide="zap"></i><span>Amber</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Vanilla" onclick="toggleFinderNote('Vanilla', this)"><i data-lucide="cookie"></i><span>Vanilla</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Bergamot" onclick="toggleFinderNote('Bergamot', this)"><i data-lucide="citrus"></i><span>Bergamot</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Sandalwood" onclick="toggleFinderNote('Sandalwood', this)"><i data-lucide="tree-pine"></i><span>Sandalwood</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Jasmine" onclick="toggleFinderNote('Jasmine', this)"><i data-lucide="sun"></i><span>Jasmine</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Patchouli" onclick="toggleFinderNote('Patchouli', this)"><i data-lucide="leaf"></i><span>Patchouli</span></div>
+                    <div class="finder-tag interactive" data-multi-note="Saffron" onclick="toggleFinderNote('Saffron', this)"><i data-lucide="flame"></i><span>Saffron</span></div>
+                </div>
+                <div class="finder-controls">
+                    <button class="finder-nav-btn" onclick="goToStep(3)"><i data-lucide="arrow-left"></i> Previous</button>
+                    <span>Step 4/5</span>
+                    <button class="btn-gold" style="min-width: 180px;" onclick="goToStep(5)">Continue <i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 5: Intensity -->
+            <div id="finder-step-5" class="finder-step">
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">The Aura</span>Define Your Projection</h2>
+                
+                <div class="intensity-slider-container">
+                    <div class="intensity-labels">
+                        <span class="intensity-label" onclick="setIntensity(0)"><i data-lucide="feather" size="16" style="display:block; margin: 0 auto 8px;"></i>Subtle</span>
+                        <span class="intensity-label active" onclick="setIntensity(50)"><i data-lucide="balance-beam" size="16" style="display:block; margin: 0 auto 8px;"></i>Balanced</span>
+                        <span class="intensity-label" onclick="setIntensity(100)"><i data-lucide="flame" size="16" style="display:block; margin: 0 auto 8px;"></i>Intense</span>
+                    </div>
+                    <div class="intensity-slider-track">
+                        <input type="range" min="0" max="100" value="50" step="50" class="intensity-slider-input" id="intensity-range" oninput="handleIntensityChange(this.value)">
+                    </div>
+                    
+                    <div class="intensity-info" id="intensity-info">
+                        <h3 class="intensity-info-title" id="intensity-info-title">Balanced & Classic</h3>
+                        <p class="intensity-info-desc" id="intensity-info-desc">The perfect medium. Versatile, confident, and enduring without overwhelming—true olfactory harmony for any occasion.</p>
+                    </div>
+
+                    <div class="intensity-slider-btn visible" id="intensity-trigger">
+                        <button class="btn-gold btn-find-scent interactive" style="min-width: 280px; font-size: 1.1rem; padding: 22px 50px;" onclick="showScentResults()">
+                            Find My Scent <i data-lucide="wand-sparkles" class="magic-icon-glow" style="margin-left: 10px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="finder-controls">
+                    <button class="finder-nav-btn" onclick="goToStep(4)"><i data-lucide="arrow-left"></i> Previous</button>
+                    <span>Step 5/5</span>
+                </div>
+            </div>
+
+            <!-- Results Step -->
+            <div id="finder-results" class="finder-step">
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">Your Olfactory Match</span>Discover Luban's Finest</h2>
+                <div id="finder-results-container" class="recommendation-grid">
+                    <!-- Recommendations will be injected here -->
+                </div>
+                <div class="finder-results-controls">
+                    <button class="btn-gold interactive" onclick="resetScentFinder()">
+                        <i data-lucide="refresh-cw"></i> Start Over
+                    </button>
+                    <button class="btn-gold interactive" onclick="closeScentFinder()">
+                        Explore All Shop
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Comparison Bar -->
     <div id="compare-bar" class="compare-bar">
         <div class="compare-bar-content">
@@ -3748,9 +4849,9 @@
                         <i data-lucide="message-square" size="18"></i>
                         <a href="javascript:void(0)" onclick="handleNavClick('contact')" class="footer-contact-link interactive">Contact Our Experts</a>
                     </li>
-                    <li class="footer-contact-item">
-                        <i data-lucide="sparkles" size="18"></i>
-                        <a href="javascript:void(0)" onclick="handleNavClick('contact')" class="footer-contact-link interactive">Bespoke Consultations</a>
+                    <li class="footer-contact-item interactive" onclick="openScentFinder()" style="cursor: pointer;">
+                        <i data-lucide="wand-sparkles" class="magic-icon-glow" size="18"></i>
+                        <span class="footer-contact-link">FIND MY SCENT</span>
                     </li>
                     <li class="footer-contact-item">
                         <i data-lucide="map-pin" size="18"></i>
@@ -3801,6 +4902,11 @@
         const REGULAR_PRICE_6ML_BDT = 500;
         const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbx-2IooPMPFvx02eF5inEmrQ4G2LKT8HoE0ZjifrJIILT0flmSLHxetFN1vDsFVON31Ig/exec";
         let viewerInterval = null;
+        let cartExpiryInterval = null;
+        let socialProofInterval = null;
+        let cartExpiryTime = null;
+
+        const CITIES = ['Dhaka', 'Chittagong', 'Sylhet', 'Rajshahi', 'Khulna', 'Barisal', 'Rangpur', 'Mymensingh', 'Uttara', 'Gulshan', 'Banani', 'Dhanmondi'];
 
         const DISCOUNT_CODES = {
             'LUBAN10': { type: 'percentage', value: 10, minPurchase: 1000 },
@@ -3821,8 +4927,92 @@
             viewerInterval = setInterval(() => {
                 const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
                 count = Math.max(5, Math.min(40, count + change));
-                if (viewerEl) viewerEl.innerText = count;
+                if (viewerEl) {
+                    viewerEl.innerText = count;
+                    // Flash effect
+                    viewerEl.parentElement.style.opacity = '0.5';
+                    setTimeout(() => { if(viewerEl) viewerEl.parentElement.style.opacity = '1'; }, 200);
+                }
             }, 4000);
+        }
+
+        function initSocialProof() {
+            if (socialProofInterval) clearInterval(socialProofInterval);
+            
+            socialProofInterval = setInterval(() => {
+                const randomProduct = products[Math.floor(Math.random() * products.length)];
+                const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+                const action = Math.random() > 0.5 ? 'ordered' : 'added to their collection';
+                
+                showSocialProof(randomProduct, randomCity, action);
+            }, 45000); // Every 45 seconds
+            
+            // Initial one after 10 seconds
+            setTimeout(() => {
+                const randomProduct = products[Math.floor(Math.random() * products.length)];
+                const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+                showSocialProof(randomProduct, randomCity, 'ordered');
+            }, 10000);
+        }
+
+        function showSocialProof(product, city, action) {
+            let ticker = document.getElementById('social-proof-ticker');
+            if (!ticker) {
+                ticker = document.createElement('div');
+                ticker.id = 'social-proof-ticker';
+                ticker.className = 'social-proof-ticker';
+                document.body.appendChild(ticker);
+            }
+            
+            ticker.innerHTML = `
+                <div style="width: 45px; height: 45px; background: var(--bg-accent); border: 1px solid var(--border-gold); border-radius: 2px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <img src="${product.img}" alt="${product.name}" style="width: 80%; height: 80%; object-fit: contain;" referrerPolicy="no-referrer">
+                </div>
+                <div style="flex: 1;">
+                    <p style="font-size: 0.75rem; margin: 0; color: var(--text-white); font-weight: 500;">Someone in <span style="color: var(--gold-primary);">${city}</span> just ${action}</p>
+                    <p style="font-size: 0.65rem; margin: 2px 0 0; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 1px;">${product.name}</p>
+                </div>
+                <button onclick="this.parentElement.classList.remove('active')" style="background: none; border: none; color: var(--text-dim); cursor: pointer; padding: 5px;"><i data-lucide="x" size="14"></i></button>
+            `;
+            
+            if (window.lucide) lucide.createIcons();
+            setTimeout(() => ticker.classList.add('active'), 100);
+            
+            setTimeout(() => ticker.classList.remove('active'), 6000);
+        }
+
+        function startCartTimer() {
+            if (cart.length === 0) {
+                if (cartExpiryInterval) clearInterval(cartExpiryInterval);
+                cartExpiryTime = null;
+                return;
+            }
+            
+            if (!cartExpiryTime) {
+                cartExpiryTime = new Date().getTime() + 10 * 60 * 1000; // 10 minutes
+            }
+            
+            if (cartExpiryInterval) clearInterval(cartExpiryInterval);
+            
+            cartExpiryInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = cartExpiryTime - now;
+                
+                const timerEl = document.getElementById('cart-reservation-timer');
+                if (!timerEl) return;
+                
+                if (distance < 0) {
+                    clearInterval(cartExpiryInterval);
+                    timerEl.innerHTML = "RESERVATION EXPIRED";
+                    timerEl.style.color = "#d32f2f";
+                    return;
+                }
+                
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                timerEl.innerHTML = `Items reserved for ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
         }
 
         const products = [
@@ -3933,7 +5123,8 @@
       "Sweet": 95,
       "Spicy": 70,
       "Warm": 90,
-      "Boozy": 60
+      "Boozy": 60,
+      "Gourmand": 95
     }
   },
   {
@@ -3955,7 +5146,8 @@
       "Sweet": 90,
       "Powdery": 70,
       "Floral": 60,
-      "Creamy": 80
+      "Creamy": 80,
+      "Gourmand": 85
     }
   },
   {
@@ -3999,7 +5191,8 @@
       "Sweet": 90,
       "Creamy": 85,
       "Airy": 70,
-      "Floral": 40
+      "Floral": 40,
+      "Gourmand": 80
     }
   },
   {
@@ -4086,8 +5279,9 @@
     "scentProfile": {
       "Fresh": 95,
       "Fruity": 80,
-      "Aquatic": 70,
-      "Sweet": 50
+      "Aquatic": 90,
+      "Sweet": 50,
+      "Citrus": 70
     }
   },
   {
@@ -4131,7 +5325,8 @@
       "Sweet": 80,
       "Spicy": 70,
       "Tobacco": 95,
-      "Warm": 90
+      "Warm": 90,
+      "Gourmand": 75
     }
   },
   {
@@ -4404,7 +5599,7 @@
                 "image": logoUrl,
                 "@id": currentUrl,
                 "url": currentUrl,
-                "telephone": "+8801XXXXXXXXX",
+                "telephone": "+8801935322213",
                 "address": {
                     "@type": "PostalAddress",
                     "streetAddress": "Dhaka",
@@ -4642,7 +5837,414 @@
             document.head.appendChild(script);
         }
 
+        // Scent Finder Logic
         let comparisonList = [];
+        let finderState = {
+            step: 1,
+            preferences: {
+                gender: '',
+                occasion: '',
+                families: [],
+                notes: [],
+                intensity: ''
+            }
+        };
+
+        function openScentFinder() {
+            const overlay = document.getElementById('scent-finder-overlay');
+            if (!overlay) return;
+            overlay.classList.add('active');
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden'; 
+            resetScentFinder();
+            setTimeout(() => { overlay.style.opacity = '1'; }, 10);
+            closeMobileMenu();
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeScentFinder() {
+            const overlay = document.getElementById('scent-finder-overlay');
+            if (!overlay) return;
+            overlay.style.opacity = '0';
+            document.body.style.overflow = ''; 
+            setTimeout(() => { 
+                overlay.style.display = 'none'; 
+                overlay.classList.remove('active'); 
+            }, 600);
+        }
+
+        /**
+         * Core Navigation Controller
+         * Handles all transitions between steps with definitive visibility state
+         */
+        function goToStep(n) {
+            const overlay = document.getElementById('scent-finder-overlay');
+            if (!overlay) return;
+
+            const targetStep = n === 'results' ? 'results' : parseInt(n);
+            if (targetStep !== 'results') finderState.step = targetStep;
+
+            // Forced visibility reset
+            document.querySelectorAll('.finder-step').forEach(s => {
+                s.style.setProperty('display', 'none', 'important');
+                s.style.setProperty('opacity', '0', 'important');
+                s.style.setProperty('pointer-events', 'none', 'important');
+                s.classList.remove('active');
+            });
+
+            const targetId = targetStep === 'results' ? 'finder-results' : `finder-step-${targetStep}`;
+            const target = document.getElementById(targetId);
+
+            if (target) {
+                overlay.scrollTop = 0;
+                target.style.setProperty('display', 'block', 'important');
+                target.style.setProperty('pointer-events', 'all', 'important');
+                
+                // Final activation
+                setTimeout(() => {
+                    target.classList.add('active');
+                    target.style.setProperty('opacity', '1', 'important');
+                    updateFinderProgress();
+
+                    // Special initialization for Intensity Step
+                    if (targetStep === 5) {
+                        const range = document.getElementById('intensity-range');
+                        if (range) handleIntensityChange(range.value);
+                    }
+
+                    try { if (window.lucide) lucide.createIcons(); } catch(e) {}
+                }, 30);
+            }
+        }
+
+        function selectFinderOption(step, value, target) {
+            const s = parseInt(step);
+            
+            // 1. Visual feedback with confirmation animation
+            const stepEl = document.getElementById(`finder-step-${s}`);
+            if (stepEl) {
+                stepEl.querySelectorAll('.finder-option-card').forEach(c => {
+                    c.classList.remove('selected', 'confirming');
+                });
+                if (target) {
+                    target.classList.add('confirming', 'selected');
+                }
+            }
+
+            // 2. Save preference
+            if (s === 1) finderState.preferences.gender = value;
+            if (s === 2) finderState.preferences.occasion = value;
+
+            // 3. Auto-advance for step 1 (Gender) with a polished delay
+            if (s === 1) {
+                setTimeout(() => goToStep(2), 600);
+            } else if (s === 2) {
+                // Also auto-advance step 2 as it's a single selection
+                setTimeout(() => goToStep(3), 600);
+            }
+        }
+
+        const intensityData = {
+            '0': { 
+                val: 'subtle', 
+                title: 'Subtle & Airy', 
+                desc: 'Transparent and delicate. A soft, clean trail that follows you closely—ideal for intimate spaces and subtle elegance.' 
+            },
+            '50': { 
+                val: 'balanced', 
+                title: 'Balanced & Classic', 
+                desc: 'The perfect medium. Versatile, confident, and enduring without overwhelming—true olfactory harmony for any occasion.' 
+            },
+            '100': { 
+                val: 'bold', 
+                title: 'Intense & Bold', 
+                desc: 'Commanding and opulent. A deep, long-lasting sillage that makes a powerful statement and leaves an unforgettable impression.' 
+            }
+        };
+
+        function handleIntensityChange(val) {
+            const data = intensityData[val];
+            if (!data) return;
+
+            finderState.preferences.intensity = data.val;
+
+            // Update UI
+            const title = document.getElementById('intensity-info-title');
+            const desc = document.getElementById('intensity-info-desc');
+            const labels = document.querySelectorAll('.intensity-label');
+            
+            if(title) title.innerText = data.title;
+            if(desc) desc.innerText = data.desc;
+
+            labels.forEach((l, i) => {
+                const stepVal = i * 50;
+                l.classList.toggle('active', stepVal == val);
+            });
+
+            // Minor haptic feedback feel
+            const info = document.getElementById('intensity-info');
+            if (info) {
+                info.style.transform = 'scale(0.98)';
+                setTimeout(() => info.style.transform = 'scale(1)', 100);
+            }
+        }
+
+        function setIntensity(val) {
+            const range = document.getElementById('intensity-range');
+            if (range) {
+                range.value = val;
+                handleIntensityChange(val);
+            }
+        }
+
+        function toggleFinderOption(step, value, target) {
+            const s = parseInt(step);
+            if (s === 3) {
+                const idx = finderState.preferences.families.indexOf(value);
+                if (idx > -1) {
+                    finderState.preferences.families.splice(idx, 1);
+                    if (target) target.classList.remove('selected');
+                } else {
+                    finderState.preferences.families.push(value);
+                    if (target) target.classList.add('selected');
+                }
+            }
+        }
+
+        function toggleFinderNote(value, target) {
+            const idx = finderState.preferences.notes.indexOf(value);
+            if (idx > -1) {
+                finderState.preferences.notes.splice(idx, 1);
+                if (target) target.classList.remove('selected');
+            } else {
+                finderState.preferences.notes.push(value);
+                if (target) target.classList.add('selected');
+            }
+        }
+
+        function nextFinderStep() {
+            const current = parseInt(finderState.step);
+            if (current >= 5) {
+                showScentResults();
+            } else {
+                goToStep(current + 1);
+            }
+        }
+
+        function prevFinderStep() {
+            const current = parseInt(finderState.step);
+            if (current > 1) {
+                goToStep(current - 1);
+            }
+        }
+
+        function updateFinderProgress() {
+            const bar = document.getElementById('finder-progress-inner');
+            const label = document.getElementById('finder-top-label');
+            if (bar) {
+                const isResults = document.getElementById('finder-results').classList.contains('active');
+                if (isResults) {
+                    bar.style.width = '100%';
+                    if(label) label.innerText = 'CONGRATULATIONS';
+                } else {
+                    const step = parseInt(finderState.step);
+                    const pct = step * 20; 
+                    bar.style.width = `${pct}%`;
+                    if(label) label.innerText = `Step ${step} of 5`;
+                }
+            }
+        }
+
+        function resetScentFinder() {
+            finderState = { 
+                step: 1, 
+                preferences: { gender: '', occasion: '', families: [], notes: [], intensity: '' } 
+            };
+            document.querySelectorAll('.finder-option-card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.finder-tag').forEach(t => t.classList.remove('selected'));
+            goToStep(1);
+        }
+
+        function showScentResults() {
+            goToStep('results');
+            const bar = document.getElementById('finder-progress-inner');
+            if (bar) bar.style.width = '100%';
+            
+            try {
+                const resultsData = calculateScentMatch();
+                renderScentResults(resultsData || []);
+            } catch (err) {
+                console.error("Critical Scent Finder Error:", err);
+                const container = document.getElementById('finder-results-container');
+                if (container) {
+                    container.innerHTML = `<div class="col-span-full py-20 text-center"><p class="text-dim">Unable to find perfect matches. Please try different options.</p></div>`;
+                }
+            }
+        }
+
+        function showScentProfile(id) {
+            const p = products.find(prod => prod.id === id);
+            if (!p) return;
+            
+            const modal = document.getElementById('scent-profile-modal');
+            const content = document.getElementById('scent-profile-content');
+            if(!modal || !content) return;
+            
+            const notes = p.notes || {};
+            const profile = p.scentProfile || {};
+            
+            content.innerHTML = `
+                <div class="scent-profile-header">
+                    <img src="${p.img}" alt="${p.name}" class="profile-thumb" referrerPolicy="no-referrer">
+                    <div>
+                        <h2 class="serif" style="color: var(--gold-primary); font-size: 1.8rem; line-height: 1.2;">${p.name}</h2>
+                        <p style="opacity: 0.6; font-size: 0.85rem; margin-top: 5px;">${p.vibe}</p>
+                    </div>
+                </div>
+                
+                <div class="notes-breakdown" style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <div class="note-section">
+                        <span class="note-cat">Top Notes</span>
+                        <div class="note-tags">${(notes.top || []).map(n => `<span class="note-tag">${n}</span>`).join('')}</div>
+                    </div>
+                    <div class="note-section">
+                        <span class="note-cat">Heart Notes</span>
+                        <div class="note-tags">${(notes.heart || []).map(n => `<span class="note-tag">${n}</span>`).join('')}</div>
+                    </div>
+                    <div class="note-section">
+                        <span class="note-cat">Base Notes</span>
+                        <div class="note-tags">${(notes.base || []).map(n => `<span class="note-tag">${n}</span>`).join('')}</div>
+                    </div>
+                </div>
+                
+                <div class="intensity-metrics" style="margin-top: 20px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <h4 class="serif" style="margin-bottom: 20px; font-size: 1.1rem; color: var(--gold-muted);">Olfactory Intensity Profile</h4>
+                    ${Object.entries(profile).map(([key, val]) => `
+                        <div class="metric-row">
+                            <span class="metric-name">${key}</span>
+                            <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: ${val}%"></div></div>
+                            <span class="metric-val">${val}%</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            if(window.lucide) lucide.createIcons();
+        }
+
+        function closeScentProfile() {
+            const modal = document.getElementById('scent-profile-modal');
+            if(modal) modal.classList.remove('active');
+        }
+
+        function calculateScentMatch() {
+            const prefs = finderState.preferences;
+            if (!products || products.length === 0) return [];
+            
+            return products.map(p => {
+                let score = 0;
+                
+                // Gender match (Strong weighting 40%)
+                if (p.gender === prefs.gender || p.gender === 'Unisex') score += 40;
+                
+                const profile = p.scentProfile || {};
+                
+                // Occasion match (20%)
+                if (prefs.occasion) {
+                    const occ = prefs.occasion.toLowerCase();
+                    if (occ === 'daily' && (profile.Fresh || profile.Citrus)) score += 20;
+                    else if (occ === 'evening' && (profile.Sweet || profile.Warm || profile.Spicy)) score += 20;
+                    else if (occ === 'formal' && (profile.Woody || profile.Oriental)) score += 20;
+                    else if (p.category && p.category.toLowerCase() === occ) score += 20;
+                }
+
+                // Scent Families (20%)
+                if (prefs.families.length > 0) {
+                    let totalFamilyScore = 0;
+                    prefs.families.forEach(f => {
+                        if (profile[f]) totalFamilyScore += profile[f];
+                    });
+                    score += Math.min(20, (totalFamilyScore / prefs.families.length) * 0.2);
+                }
+
+                // Notes match (20%)
+                if (prefs.notes.length > 0 && p.notes) {
+                    const productNotes = [
+                        ...(p.notes.top || []), 
+                        ...(p.notes.heart || []), 
+                        ...(p.notes.base || [])
+                    ].map(n => String(n).toLowerCase());
+                    
+                    let noteHits = 0;
+                    prefs.notes.forEach(un => {
+                        if (productNotes.some(pn => pn.includes(un.toLowerCase()))) noteHits++;
+                    });
+                    score += (noteHits / prefs.notes.length) * 20;
+                }
+
+                // Intensity Match (New heuristic - 20%)
+                if (prefs.intensity) {
+                    let intensityScore = 0;
+                    const intensity = prefs.intensity;
+                    
+                    if (intensity === 'bold') {
+                        if (profile.Spicy || profile.Warm || profile.Woody || profile.Oriental || profile.Leather || profile.Oud) intensityScore += 20;
+                    } else if (intensity === 'subtle') {
+                        if (profile.Fresh || profile.Citrus || profile.Aquatic || profile.Airy) intensityScore += 20;
+                    } else { // balanced
+                        if (profile.Sweet || profile.Floral || profile.Powdery || profile.Creamy) intensityScore += 20;
+                        else intensityScore += 10; // Neutral fallback
+                    }
+                    score += intensityScore;
+                }
+                
+                return { ...p, score: Math.min(100, Math.round(score + (Math.random() * 5))) };
+            })
+            .filter(p => p.score > 20)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 4);
+        }
+
+        function renderScentResults(recs) {
+            const container = document.getElementById('finder-results-container');
+            if (!container) return;
+
+            if (recs.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-20 text-center"><p class="text-dim" style="font-size: 1.2rem; opacity: 0.5;">We couldn't find a direct match. Try selecting different scent families or occasions.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = recs.map(p => {
+                const isWishlisted = wishlist.includes(p.id);
+                return `
+                <div class="product-card interactive" onclick="showView('details', ${p.id})" style="width: 100%; animation: finderSlideUp 0.6s ease forwards;">
+                    <div style="position: absolute; top: 15px; left: 15px; background: var(--gold-primary); color: var(--bg-dark); padding: 4px 10px; font-size: 0.65rem; font-weight: 800; border-radius: 2px; z-index: 10; letter-spacing: 1px;">${p.score}% MATCH</div>
+                    
+                    <div class="image-container" style="margin-bottom: 20px;">
+                        <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" style="top: 15px; right: 15px;">
+                            <i data-lucide="heart" size="18"></i>
+                        </button>
+                        <div class="parallax-wrapper">
+                            <img src="${p.img}" alt="${p.name}" referrerPolicy="no-referrer">
+                        </div>
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-name" style="font-size: 1rem; margin-bottom: 5px;">${p.name}</h3>
+                        <button onclick="event.stopPropagation(); showScentProfile(${p.id})" class="scent-profile-trigger">View Scent Profile</button>
+                        <p class="product-vibe" style="font-size: 0.8rem; opacity: 0.6; margin-bottom: 20px; min-height: 40px;">${p.vibe}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--gold-bright); font-weight: 600;">${p.price["3ml"]}৳</span>
+                            <button onclick="event.stopPropagation(); addToCart(${p.id}, '3ml');" class="btn-gold" style="padding: 10px 15px; font-size: 0.7rem; letter-spacing: 1px;">
+                                <i data-lucide="shopping-bag" size="14"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+            if (window.lucide) lucide.createIcons();
+        }
 
         function toggleComparison(id) {
             const index = comparisonList.indexOf(id);
@@ -4812,6 +6414,9 @@
         let wishlistQuantities = {};
         let selectedSize = '3ml';
         let currentFilter = 'All';
+        let searchTimeout = null;
+        let selectedSuggestionIndex = -1;
+        let currentSuggestions = [];
 
         function saveCartToStorage() { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart)); }
         function loadCartFromStorage() { const raw = localStorage.getItem(CART_STORAGE_KEY); if (raw) cart = JSON.parse(raw); }
@@ -5309,7 +6914,7 @@
             const clearBtnId = source === 'mobile' ? 'clear-mobile-search-view' : (source === 'shop' ? 'clear-shop-search' : (source === 'desktop' ? 'clear-desktop-search' : null));
             if (clearBtnId) {
                 const clearBtn = document.getElementById(clearBtnId);
-                if (clearBtn) clearBtn.style.display = value ? 'block' : 'none';
+                if (clearBtn) clearBtn.style.display = value ? 'flex' : 'none';
             }
             if (window.lucide) lucide.createIcons();
             
@@ -5325,17 +6930,32 @@
                 }
             }
 
-            if (!value || value.length < 2) {
+            if (!value || value.length < 1) {
                 suggestionsEl.classList.remove('active');
+                selectedSuggestionIndex = -1;
                 if (source === 'shop') renderShop();
                 return;
             }
 
-            const query = value.toLowerCase();
-            
-            // Trigger shop render if it's the shop search
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                performSearch(value, source);
+            }, 250);
+        }
+
+        function performSearch(value, source) {
+            const query = value.toLowerCase().trim();
+            const suggestionsId = source === 'mobile' ? 'search-suggestions-view' : (source === 'shop' ? 'shop-search-suggestions' : 'desktop-search-suggestions');
+            const suggestionsEl = document.getElementById(suggestionsId);
+            if (!suggestionsEl) return;
+
             if (source === 'shop') {
                 renderShop(value);
+            }
+
+            if (query.length < 2) {
+                suggestionsEl.classList.remove('active');
+                return;
             }
 
             const results = products.filter(p => {
@@ -5344,36 +6964,118 @@
                 return fuzzyMatch(text, query);
             });
 
+            selectedSuggestionIndex = -1;
+            currentSuggestions = results.slice(0, 6);
+
             if (results.length > 0) {
-                const displayResults = results.slice(0, 5);
-                let html = displayResults.map(p => `
-                    <div onclick="applySuggestion('${p.name}', '${source}')" class="suggestion-item interactive" style="padding: 15px 20px; border-bottom: 1px solid rgba(203, 163, 92, 0.05); display: flex; align-items: center; gap: 15px; cursor: pointer; transition: background 0.4s ease;">
-                        <img src="${p.img}" alt="${p.name}" style="width: 40px; height: 40px; object-fit: contain; background: rgba(255,255,255,0.02); border: 1px solid rgba(203, 163, 92, 0.1);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
-                        <div style="flex: 1;">
-                            <p style="font-size: 0.5rem; color: var(--gold-muted); margin: 0; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2px;">LUBAN</p>
-                            <p style="font-size: 0.8rem; color: var(--gold-primary); margin: 0; text-transform: uppercase; letter-spacing: 1px;">${highlightMatch(p.name, query)}</p>
-                            <p style="font-size: 0.65rem; color: var(--text-dim); margin: 0; display: flex; align-items: center; gap: 8px;">
-                                ${highlightMatch(p.category, query)} • 
-                                <span class="regular-price" style="font-size: 0.6rem; opacity: 0.5;">${REGULAR_PRICE_3ML_BDT}৳</span>
-                                <span style="color: var(--gold-price); font-weight: 600;">${PRICE_3ML_BDT}৳</span>
+                let html = currentSuggestions.map((p, idx) => `
+                    <div onclick="applySuggestion('${p.name}', '${source}')" 
+                         class="suggestion-item interactive" 
+                         data-name="${p.name}"
+                         data-index="${idx}"
+                         style="padding: 12px 15px; border-bottom: 1px solid rgba(203, 163, 92, 0.05); display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
+                        <div style="width: 45px; height: 45px; flex-shrink: 0; background: rgba(255,255,255,0.02); border: 1px solid rgba(203, 163, 92, 0.08); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                            <img src="${p.img}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease;" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
+                                <p style="font-size: 0.75rem; color: var(--text-white); margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${highlightMatch(p.name, query)}</p>
+                                <span style="font-size: 0.65rem; color: var(--gold-price); font-weight: 600; margin-left: 10px;">${PRICE_3ML_BDT}৳</span>
+                            </div>
+                            <p style="font-size: 0.6rem; color: var(--gold-muted); margin: 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7;">
+                                ${highlightMatch(p.category, query)}
                             </p>
+                        </div>
+                        <div class="suggestion-arrow" style="opacity: 0; transform: translateX(-10px); transition: all 0.3s ease;">
+                            <i data-lucide="chevron-right" size="14" style="color: var(--gold-primary);"></i>
                         </div>
                     </div>
                 `).join('');
 
-                if (results.length > 5) {
+                if (results.length > 6) {
                     html += `
-                        <div onclick="handleMobileSearch()" class="interactive" style="padding: 12px; text-align: center; background: rgba(203, 163, 92, 0.03); cursor: pointer;">
-                            <span style="font-size: 0.6rem; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 2px;">View All ${results.length} Results</span>
+                        <div onclick="executeSearch('${source}')" class="interactive" style="padding: 15px; text-align: center; background: rgba(203, 163, 92, 0.02); cursor: pointer; border-top: 1px solid rgba(203, 163, 92, 0.08);">
+                            <span style="font-size: 0.65rem; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">View All ${results.length} Masterpieces</span>
                         </div>
                     `;
                 }
                 suggestionsEl.innerHTML = html;
                 suggestionsEl.classList.add('active');
+                if (window.lucide) lucide.createIcons();
             } else {
-                suggestionsEl.innerHTML = '<div style="padding: 15px; color: var(--gold-muted); font-size: 0.75rem; text-align: center;">No results found</div>';
+                suggestionsEl.innerHTML = `
+                    <div style="padding: 30px 20px; text-align: center;">
+                        <i data-lucide="search-x" size="24" style="color: var(--gold-muted); opacity: 0.3; margin-bottom: 10px;"></i>
+                        <p style="color: var(--gold-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin: 0;">No matches found</p>
+                        <p style="color: var(--text-dim); font-size: 0.6rem; margin-top: 5px;">Try searching for "Oud", "Floral", or "Fresh"</p>
+                    </div>
+                `;
                 suggestionsEl.classList.add('active');
+                if (window.lucide) lucide.createIcons();
             }
+        }
+
+        function handleSearchKeydown(e, source) {
+            const suggestionsId = source === 'mobile' ? 'search-suggestions-view' : (source === 'shop' ? 'shop-search-suggestions' : 'desktop-search-suggestions');
+            const suggestionsEl = document.getElementById(suggestionsId);
+            
+            if (!suggestionsEl || !suggestionsEl.classList.contains('active')) return;
+            
+            const items = suggestionsEl.querySelectorAll('.suggestion-item');
+            if (items.length === 0) return;
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedSuggestionIndex = (selectedSuggestionIndex + 1) % items.length;
+                updateSuggestionsSelection(items);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedSuggestionIndex = (selectedSuggestionIndex - 1 + items.length) % items.length;
+                updateSuggestionsSelection(items);
+            } else if (e.key === 'Enter') {
+                if (selectedSuggestionIndex >= 0) {
+                    e.preventDefault();
+                    const selectedItem = items[selectedSuggestionIndex];
+                    const productName = selectedItem.dataset.name;
+                    applySuggestion(productName, source);
+                }
+            } else if (e.key === 'Escape') {
+                suggestionsEl.classList.remove('active');
+                selectedSuggestionIndex = -1;
+            }
+        }
+
+        function updateSuggestionsSelection(items) {
+            items.forEach((item, index) => {
+                if (index === selectedSuggestionIndex) {
+                    item.classList.add('selected');
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+
+        function executeSearch(source) {
+            const inputId = source === 'mobile' ? 'mobile-search-input-view' : (source === 'shop' ? 'shop-search' : 'desktop-search');
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
+            const query = input.value.trim();
+            if (!query) return;
+
+            addToSearchHistory(query);
+            setFilter('All');
+            renderShop(query);
+            handleNavClick('shop');
+            
+            if (source === 'mobile') toggleMobileMenu();
+            
+            // Hide suggestions
+            const suggestionsId = source === 'mobile' ? 'search-suggestions-view' : (source === 'shop' ? 'shop-search-suggestions' : 'desktop-search-suggestions');
+            const suggestionsEl = document.getElementById(suggestionsId);
+            if (suggestionsEl) suggestionsEl.classList.remove('active');
+            selectedSuggestionIndex = -1;
         }
 
         function renderSearchHistory() {
@@ -5510,16 +7212,7 @@
         }
 
         function handleMobileSearch() {
-            const input = document.getElementById('mobile-search-input-view');
-            if (!input) return;
-            const query = input.value.trim().toLowerCase();
-            if (!query) return;
-            
-            addToSearchHistory(query);
-            setFilter('All');
-            renderShop(query);
-            handleNavClick('shop');
-            toggleMobileMenu();
+            executeSearch('mobile');
         }
 
         function handleNavClick(id) {
@@ -5698,19 +7391,19 @@
         }
 
         function renderStockIndicator(stock, isCompact = false) {
-            if (stock > 10) return '';
+            if (stock > 12) return '';
             
-            const isLow = stock <= 5;
+            const isCritical = stock <= 3;
+            const isLow = stock <= 6;
             const percentage = (stock / 20) * 100;
-            const color = isLow ? '#ea4335' : '#fbbc05';
-            const icon = isLow ? 'alert-triangle' : 'trending-up';
-            const text = isLow ? `Only ${stock} left` : `Selling fast! ${stock} left`;
-            const badgeClass = isLow ? 'scarcity-low' : 'scarcity-medium';
+            const color = isCritical ? '#d32f2f' : (isLow ? '#fbbc05' : 'var(--gold-primary)');
+            const icon = isCritical ? 'zap' : (isLow ? 'alert-triangle' : 'trending-up');
+            const text = isCritical ? `Almost gone! Only ${stock} remaining` : (isLow ? `Selling fast! Only ${stock} left` : `Limited Collection: ${stock} left`);
 
             if (isCompact) {
                 return `
                     <div class="scarcity-container" style="margin-top: 10px; margin-bottom: 5px;">
-                        <div class="stock-bar-container" style="height: 3px; margin-top: 0;">
+                        <div class="stock-bar-container" style="height: 3px; margin-top: 0; background:rgba(255,255,255,0.05);">
                             <div class="stock-bar-fill" style="width: ${percentage}%; background: ${color};"></div>
                         </div>
                         <div style="font-size: 0.6rem; color: ${color}; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; display: flex; align-items: center; gap: 4px;">
@@ -5721,12 +7414,15 @@
             }
 
             return `
-                <div class="scarcity-container" style="margin-bottom: 15px; margin-top: 10px;">
-                    <div class="scarcity-badge ${badgeClass}">
-                        <i data-lucide="${icon}" size="10"></i> ${text}
+                <div class="scarcity-container" style="margin-bottom: 25px; margin-top: 20px;">
+                    ${isCritical ? `<div class="urgency-badge"><i data-lucide="zap" size="14"></i> ALMOST GONE - HIGH DEMAND</div>` : ''}
+                    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px;">
+                        <span style="font-size:0.7rem; color:${color}; font-weight:700; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="${icon}" size="14"></i> ${text}
+                        </span>
                     </div>
-                    <div class="stock-bar-container">
-                        <div class="stock-bar-fill" style="width: ${percentage}%; background: ${color};"></div>
+                    <div class="stock-bar-container" style="background:rgba(255,255,255,0.05);">
+                        <div class="stock-bar-fill" style="width: ${percentage}%; background: ${color}; box-shadow: 0 0 10px ${color}44;"></div>
                     </div>
                 </div>
             `;
@@ -5884,7 +7580,7 @@
                             <span class="wishlist-tooltip">${isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}</span>
                         </button>
                         <div class="image-container" style="${currentFilter === 'Wishlist' ? 'height:200px; margin-bottom:15px; background:var(--bg-accent); border-radius:2px;' : ''}">
-                            ${isWishlisted ? '<div class="wishlist-badge"><i data-lucide="heart" size="10"></i> Saved</div>' : '<div class="discount-badge"><i data-lucide="zap" size="10"></i> 43% OFF</div>'}
+                            ${isWishlisted ? '<div class="wishlist-badge"><i data-lucide="heart" size="10"></i> Saved</div>' : (p.stock <= 5 ? '<div class="discount-badge" style="background:#ea4335;"><i data-lucide="zap" size="10"></i> SELLING FAST</div>' : '<div class="discount-badge"><i data-lucide="zap" size="10"></i> 43% OFF</div>')}
                             <div class="parallax-wrapper">
                                 <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" style="${currentFilter === 'Wishlist' ? 'max-width:85%; max-height:85%;' : ''}" referrerPolicy="no-referrer">
                             </div>
@@ -6131,6 +7827,9 @@
         function updateBottomNavActive(view, section = '') {
             document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('active'));
             
+            const urlParams = new URLSearchParams(window.location.search);
+            const filterParam = urlParams.get('filter') || currentFilter;
+
             if (view === 'details') {
                 document.getElementById('nav-shop')?.classList.add('active');
                 return;
@@ -6142,13 +7841,14 @@
             }
 
             if (view === 'main') {
-                if (section === 'shop') {
-                    if (currentFilter === 'Wishlist') {
-                        document.getElementById('nav-wishlist')?.classList.add('active');
-                    } else {
-                        document.getElementById('nav-shop')?.classList.add('active');
-                    }
-                } else if (section === 'hero' || section === '') {
+                if (filterParam === 'Wishlist' || currentFilter === 'Wishlist') {
+                    document.getElementById('nav-wishlist')?.classList.add('active');
+                    return;
+                }
+
+                if (section === 'shop' || window.location.search.includes('filter')) {
+                    document.getElementById('nav-shop')?.classList.add('active');
+                } else {
                     document.getElementById('nav-home')?.classList.add('active');
                 }
             }
@@ -6254,11 +7954,23 @@
                         </span>
                         <span class="brand-name" style="font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 15px;">LUBAN</span>
                         <h2 style="font-size:clamp(2.2rem, 6vw, 4.5rem); margin-bottom:20px; text-transform: uppercase;">${p.name}</h2>
-                        <div id="detail-price" style="font-size:clamp(1.8rem, 4vw, 2.5rem); color:var(--gold-price); font-weight: 700; margin-bottom:30px; letter-spacing:1px; display: flex; align-items: center; gap: 15px;">
+                        <div id="detail-price" style="font-size:clamp(1.8rem, 4vw, 2.5rem); color:var(--gold-price); font-weight: 700; margin-bottom:10px; letter-spacing:1px; display: flex; align-items: center; gap: 15px;">
                             <span class="regular-price" style="font-size: 1.4rem;">${REGULAR_PRICE_3ML_BDT}৳</span>
                             ${PRICE_3ML_BDT}৳
                         </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <p style="color: #ea4335; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;">
+                                <i data-lucide="shopping-cart" size="14"></i> Ordered in ${CITIES[Math.floor(Math.random() * CITIES.length)]} ${Math.floor(Math.random() * 55) + 5} minutes ago
+                            </p>
+                        </div>
+
                         ${renderScentSwatches(p.scentProfile, false)}
+                        
+                        <div class="live-viewers">
+                            <span class="viewer-dot"></span>
+                            <span><strong id="dynamic-viewers">8</strong> others are currently viewing this masterpiece</span>
+                        </div>
                         
                         ${renderStockIndicator(p.stock)}
                         ${p.stock > 10 ? `
@@ -6747,6 +8459,23 @@
                     cont.appendChild(div);
                 });
                 document.getElementById('cart-total').innerText = `${subtotal}৳`;
+                
+                // Add Reservation Timer logic
+                if (cart.length > 0) {
+                    let timerContainer = document.getElementById('cart-reservation-container');
+                    if (!timerContainer) {
+                        timerContainer = document.createElement('div');
+                        timerContainer.id = 'cart-reservation-container';
+                        timerContainer.className = 'cart-countdown';
+                        document.querySelector('.cart-drawer h2').parentElement.insertAdjacentElement('afterend', timerContainer);
+                    }
+                    timerContainer.innerHTML = `<i data-lucide="timer" size="14" style="vertical-align: middle; margin-right: 8px;"></i> <span id="cart-reservation-timer">Items reserved for 10:00</span>`;
+                    startCartTimer();
+                } else {
+                    const timerContainer = document.getElementById('cart-reservation-container');
+                    if (timerContainer) timerContainer.remove();
+                }
+
                 if (window.lucide) lucide.createIcons();
             }, 400);
         }
@@ -7247,6 +8976,9 @@
         document.addEventListener('mousemove', (e) => {
             const cursor = document.getElementById('custom-cursor');
             if(cursor) {
+                if (cursor.style.opacity === '0' || !cursor.style.opacity) {
+                    cursor.style.opacity = '1';
+                }
                 cursor.style.left = e.clientX + 'px';
                 cursor.style.top = e.clientY + 'px';
             }
@@ -7285,6 +9017,28 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Attach keydown listeners for search inputs
+            const desktopSearch = document.getElementById('desktop-search');
+            if (desktopSearch) {
+                desktopSearch.addEventListener('keydown', (e) => handleSearchKeydown(e, 'desktop'));
+                desktopSearch.addEventListener('blur', () => {
+                    // Small delay to allow clicking on suggestions
+                    setTimeout(() => {
+                        const suggestionsEl = document.getElementById('desktop-search-suggestions');
+                        if (suggestionsEl) {
+                            suggestionsEl.classList.remove('active');
+                            selectedSuggestionIndex = -1;
+                        }
+                    }, 200);
+                });
+            }
+            
+            const mobileSearch = document.getElementById('mobile-search-input-view');
+            if (mobileSearch) mobileSearch.addEventListener('keydown', (e) => handleSearchKeydown(e, 'mobile'));
+            
+            const shopSearch = document.getElementById('shop-search');
+            if (shopSearch) shopSearch.addEventListener('keydown', (e) => handleSearchKeydown(e, 'shop'));
+
             loadCartFromStorage();
             loadRecentlyViewed();
             loadSearchHistory();
@@ -7310,6 +9064,20 @@
                         toggleDesktopSearch();
                     }
                 }
+                
+                // Close suggestions when clicking outside
+                const suggestions = ['search-suggestions-view', 'shop-search-suggestions', 'desktop-search-suggestions'];
+                suggestions.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && el.classList.contains('active')) {
+                        const inputId = id === 'search-suggestions-view' ? 'mobile-search-input-view' : (id === 'shop-search-suggestions' ? 'shop-search' : 'desktop-search');
+                        const input = document.getElementById(inputId);
+                        if (!el.contains(e.target) && (!input || !input.contains(e.target))) {
+                            el.classList.remove('active');
+                            selectedSuggestionIndex = -1;
+                        }
+                    }
+                });
             });
 
             // Handle filled state for inputs and selects
@@ -7347,6 +9115,9 @@
                 showWishlist();
             }
 
+            // Start urgency features
+            initSocialProof();
+
             // Handle browser back/forward
             window.addEventListener('popstate', (event) => {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -7367,24 +9138,30 @@
     </script>
     <nav class="bottom-nav">
         <a href="javascript:void(0)" onclick="handleNavClick('hero')" class="bottom-nav-item active" id="nav-home">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <i data-lucide="home" size="20"></i>
+            <span class="nav-label">Home</span>
         </a>
         <a href="javascript:void(0)" onclick="setFilter('All'); handleNavClick('shop');" class="bottom-nav-item" id="nav-shop">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            <i data-lucide="compass" size="20"></i>
+            <span class="nav-label">Shop</span>
         </a>
         <a href="javascript:void(0)" onclick="handleSearchIconClick()" class="bottom-nav-item" id="nav-search">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <i data-lucide="search" size="20"></i>
+            <span class="nav-label">Search</span>
         </a>
         <a href="javascript:void(0)" onclick="showWishlist()" class="bottom-nav-item" id="nav-wishlist">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <i data-lucide="heart" size="20"></i>
+            <span class="nav-label">Saved</span>
             <span id="bottom-wishlist-count" class="bottom-nav-badge">0</span>
         </a>
         <a href="javascript:void(0)" onclick="toggleCart(true)" class="bottom-nav-item" id="nav-cart">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <i data-lucide="shopping-bag" size="20"></i>
+            <span class="nav-label">Cart</span>
             <span id="bottom-cart-count" class="bottom-nav-badge">0</span>
         </a>
         <a href="javascript:void(0)" onclick="toggleMobileMenu('menu')" class="bottom-nav-item" id="nav-menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+            <i data-lucide="menu" size="20"></i>
+            <span class="nav-label">More</span>
         </a>
     </nav>
 
