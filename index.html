@@ -215,6 +215,89 @@
             margin-bottom: 80px;
         }
 
+        /* Description Handling */
+        .description-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: var(--gold-primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition-fast);
+        }
+        .read-more-btn:hover {
+            color: var(--gold-bright);
+        }
+        .description-expanded .line-clamp-2 {
+            display: block;
+            -webkit-line-clamp: unset;
+        }
+
+        /* Olfactory Pyramid Styling */
+        .olfactory-pyramid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .pyramid-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .pyramid-label {
+            font-size: 0.6rem;
+            color: var(--gold-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            width: 45px;
+            font-weight: 700;
+            opacity: 0.8;
+        }
+        .pyramid-bars {
+            flex: 1;
+            display: flex;
+            gap: 8px;
+        }
+        .pyramid-bar {
+            height: 3px;
+            flex: 1;
+            background: rgba(203, 163, 92, 0.08);
+            border-radius: 1px;
+            overflow: hidden;
+            position: relative;
+        }
+        .pyramid-bar.filled::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0;
+            background: var(--gold-primary);
+            animation: pyramidFill 2s var(--ease-luxury) forwards;
+        }
+        @keyframes pyramidFill {
+            to { width: 100%; }
+        }
+
         /* Footer Refinements */
         .footer-section-title {
             font-family: 'Playfair Display', serif;
@@ -554,35 +637,56 @@
         /* Scroll Indicator in Hero */
         .scroll-indicator {
             position: absolute;
-            bottom: 25px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             color: var(--gold-muted);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-family: 'Playfair Display', serif;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: bounce 2s infinite;
+            letter-spacing: 5px;
+            text-indent: 5px;
+            animation: bounceLuxury 3s var(--ease-luxury) infinite;
             cursor: pointer;
-            opacity: 0.6;
-            transition: var(--transition-fast);
+            opacity: 0.5;
+            transition: all 0.6s var(--ease-luxury);
             will-change: transform, opacity;
             z-index: 10;
         }
-        .scroll-indicator:hover { opacity: 1; color: var(--gold-primary); }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+        .scroll-indicator:hover { 
+            opacity: 1; 
+            color: var(--gold-primary);
+            letter-spacing: 7px;
+            text-indent: 7px;
+        }
+        @keyframes bounceLuxury {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(12px); }
         }
         .scroll-line {
             width: 1px;
-            height: 30px;
-            background: linear-gradient(to bottom, var(--gold-muted), transparent);
+            height: 60px;
+            background: linear-gradient(to bottom, var(--gold-muted) 0%, rgba(203, 163, 92, 0.1) 50%, transparent 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gold-primary);
+            animation: scrollLineMove 2.5s infinite var(--ease-luxury);
+        }
+        @keyframes scrollLineMove {
+            0% { top: -100%; }
+            50%, 100% { top: 100%; }
         }
 
         /* Navigation - Glassmorphism & Elevation */
@@ -784,7 +888,7 @@
 
         /* Hero - Cinematic Entrance */
         #hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -792,9 +896,7 @@
             position: relative;
             overflow: hidden;
             text-align: center;
-            padding: 0 var(--container-padding);
-            padding-top: 180px;
-            padding-bottom: 60px;
+            padding: 20px var(--container-padding);
             background: var(--bg-dark); /* Fallback */
         }
 
@@ -848,6 +950,8 @@
             line-height: 0.8;
             letter-spacing: 0.05em;
             text-transform: uppercase;
+            /* Balanced centering for tracking */
+            margin-right: -0.05em;
         }
 
         .hero-content {
@@ -867,8 +971,8 @@
         #hero h1 {
             font-size: clamp(2.2rem, 12vw, 10rem);
             font-weight: 500;
-            margin-bottom: 2rem;
-            background: linear-gradient(180deg, #FFFFFF 10%, #cba35c 100%);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #FFFFFF 15%, #cba35c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             opacity: 0;
@@ -876,6 +980,10 @@
             /* Premium Sophisticated Reveal */
             animation: revealTitle 2.8s var(--ease-luxury) forwards 0.6s;
             max-width: 100%;
+            text-align: center;
+            /* Robust Centering: margin-right balances the letter-spacing trailing space */
+            margin-right: -0.15em;
+            filter: drop-shadow(0 0 30px rgba(203,163,92,0.1));
         }
 
         .hero-content p {
@@ -1319,7 +1427,6 @@
         .product-desc {
             font-size: 0.75rem;
             color: var(--text-dim);
-            text-transform: uppercase;
             letter-spacing: 1px;
             line-height: 1.8;
             opacity: 0.7;
@@ -1513,14 +1620,15 @@
 
         .checkout-input-group label {
             position: absolute;
-            top: 18px;
+            top: 50%;
             left: 18px;
+            transform: translateY(-50%);
             background: transparent;
             padding: 0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             z-index: 1;
             pointer-events: none;
             transition: all 0.4s var(--ease-luxury);
@@ -1530,18 +1638,19 @@
         .checkout-input-group input:focus + label,
         .checkout-input-group select:focus + label,
         .checkout-input-group input:not(:placeholder-shown) + label,
+        .checkout-input-group input.filled + label,
         .checkout-input-group input:-webkit-autofill + label,
         .checkout-input-group select.filled + label,
         .checkout-input-group select:valid + label {
             top: -10px;
             left: 15px;
+            transform: translateY(0);
             font-size: 0.65rem;
             color: var(--gold-bright);
             background: #020606;
             padding: 0 10px;
             font-weight: 700;
             letter-spacing: 3px;
-            transform: translateY(0);
             z-index: 10;
         }
 
@@ -1681,9 +1790,10 @@
             display: flex;
             gap: 20px;
             align-items: center;
-            padding: 15px 0;
+            padding: 18px 0;
             border-bottom: 1px solid rgba(203, 163, 92, 0.1);
             transition: var(--transition-fast);
+            min-height: 85px;
         }
 
         .checkout-item-row:hover {
@@ -2240,30 +2350,48 @@
         }
         .finder-progress-bar {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 5px;
-            background: rgba(255,255,255,0.02);
+            top: 0; left: 0; width: 100%; height: 6px;
+            background: rgba(255,255,255,0.03);
             z-index: 5001;
-        }
-        .finder-progress-inner {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold-primary), var(--gold-bright));
-            width: 20%;
-            transition: width 0.6s var(--ease-luxury);
-            box-shadow: 0 0 20px var(--gold-primary);
-            position: relative;
+            display: flex;
+            gap: 4px;
+            padding: 0 4px;
         }
         .finder-progress-segments {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            pointer-events: none;
-            z-index: 5002;
+            display: contents; /* Allows children to behave as flex items of .finder-progress-bar */
         }
         .progress-segment {
             flex: 1;
-            border-right: 2px solid var(--bg-dark);
+            height: 100%;
+            background: rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 2px 2px;
+            transition: all 0.5s var(--ease-luxury);
         }
-        .progress-segment:last-child { border-right: none; }
+        .progress-segment::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-bright));
+            transition: left 0.6s var(--ease-luxury);
+            box-shadow: 0 0 15px rgba(203, 163, 92, 0.4);
+        }
+        .progress-segment.filled::after {
+            left: 0;
+        }
+        .progress-segment.active {
+            background: rgba(203, 163, 92, 0.1);
+            box-shadow: inset 0 0 10px rgba(203, 163, 92, 0.1);
+        }
+        .progress-segment.active::after {
+            animation: segmentPulse 2s infinite ease-in-out;
+            left: -50%; /* Partial fill look for active */
+        }
+        @keyframes segmentPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
 
         /* Scent Profile Modal */
         .scent-profile-modal {
@@ -3681,7 +3809,26 @@
 
         /* Mob Menu Refinement */
         @media (max-width: 1024px) {
-            nav { padding: 0 var(--container-padding); }
+            nav#navbar { 
+                padding: 0 var(--container-padding);
+                display: flex;
+                justify-content: center;
+                position: relative;
+            }
+            .nav-logo-container {
+                position: static;
+                transform: none;
+                margin: 0 auto;
+            }
+            .nav-actions { 
+                position: absolute;
+                right: var(--container-padding);
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
             .nav-links { display: none; }
             .menu-toggle { display: block; }
         }
@@ -3958,7 +4105,7 @@
             <div class="mobile-search-container" style="width: 100%; position: relative; margin-bottom: 10px;">
                 <i data-lucide="search" class="mobile-search-icon" size="20" style="left: 10px;"></i>
                 <input type="text" id="mobile-search-input-view" class="mobile-search-input" placeholder="What are you looking for?" onkeyup="if(event.key === 'Enter') handleMobileSearch()" oninput="handleSearchInput(this.value, 'mobile')">
-                <button id="clear-mobile-search-view" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                <button id="clear-mobile-search-view" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; align-items: center; justify-content: center;">
                     <i data-lucide="x" size="14"></i>
                 </button>
                 
@@ -4046,7 +4193,7 @@
     <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" role="button" aria-label="Back to top" class="interactive">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
     </div>
-    <a id="whatsapp-float" href="https://wa.me/8801935322213?text=Hello%2C%20I'm%20interested%20in%20Luban%20Fragrance!" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp contact" class="interactive">
+    <a id="whatsapp-float" href="javascript:void(0)" onclick="openWhatsApp('float')" aria-label="Whatsapp contact" class="interactive">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
     </a>
 
@@ -4070,7 +4217,7 @@
                 </button>
                 <div class="desktop-search-container" id="desktop-search-container">
                     <input type="text" id="desktop-search" class="desktop-search-input" placeholder="Search collection..." onkeyup="if(event.key === 'Enter') handleDesktopSearch()" oninput="handleSearchInput(this.value, 'desktop')">
-                    <button id="clear-desktop-search" onclick="clearDesktopSearch()" class="interactive" style="position:absolute; right:45px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                    <button id="clear-desktop-search" onclick="clearDesktopSearch()" class="interactive" style="position:absolute; right:45px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; align-items: center; justify-content: center;">
                         <i data-lucide="x" size="14"></i>
                     </button>
                     <div class="desktop-search-trigger interactive" onclick="handleSearchIconClick()" role="button" aria-label="Toggle search">
@@ -4121,10 +4268,10 @@
                 </a>
                 <div style="width: 1px; height: 60px; background: var(--border-gold); margin: 10px auto 0;"></div>
             </div>
-            <div class="hero-content" style="padding-bottom: 80px;">
-                <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" loading="lazy" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(2rem, 5vh, 3.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2));" referrerPolicy="no-referrer">
+            <div class="hero-content" style="display: flex; flex-direction: column; align-items: center;">
+                <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" loading="lazy" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(1.5rem, 3vh, 2.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2)); display: block;" referrerPolicy="no-referrer">
                 <h1>LUBAN</h1>
-                <p style="letter-spacing: clamp(1px, 1vw, 5px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.6rem, 1.2vw, 0.75rem); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); font-weight: 500; opacity: 0.8;">Refined Quality In Every Drop</p>
+                <p style="letter-spacing: clamp(2px, 1.2vw, 8px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.55rem, 1vw, 0.7rem); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); font-weight: 500; opacity: 0.8; margin-right: -clamp(2px, 1.2vw, 8px);">Refined Quality In Every Drop</p>
                 <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn-gold interactive" onclick="setFilter('All'); handleNavClick('shop')">Explore Collection</button>
                     <button class="btn-gold interactive" onclick="openScentFinder()" style="border-color: var(--gold-muted); color: var(--gold-muted); background: transparent;">
@@ -4152,7 +4299,7 @@
                     <div style="position: relative;">
                         <input type="text" id="shop-search" class="input interactive" placeholder="Search our collection..." onkeyup="if(event.key === 'Enter') handleShopSearch()" oninput="handleSearchInput(this.value, 'shop')" style="padding: 16px 85px 16px 25px; border-radius: 4px; background: rgba(255,255,255,0.03); border: 1px solid rgba(203, 163, 92, 0.2); width: 100%; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-white);">
                         <div style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 8px;">
-                            <button id="clear-shop-search" onclick="clearShopSearch()" class="interactive" style="background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                            <button id="clear-shop-search" onclick="clearShopSearch()" class="interactive" style="background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; align-items: center; justify-content: center;">
                                 <i data-lucide="x" size="14"></i>
                             </button>
                             <button onclick="handleShopSearch()" class="interactive" style="background: none; border: none; color: var(--gold-primary); cursor: pointer; display: flex; align-items: center; justify-content: center;">
@@ -4317,7 +4464,7 @@
                         <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(203, 163, 92, 0.15);">
                             <div style="display: flex; gap: 10px; align-items: flex-end;">
                                 <div class="checkout-input-group" style="flex: 1;">
-                                    <input type="text" id="discount-code-input" placeholder="Enter code" class="input interactive" style="flex: 1; font-size: 0.8rem; padding: 12px; text-transform: uppercase; letter-spacing: 1px;">
+                                    <input type="text" id="discount-code-input" class="input interactive" style="flex: 1; font-size: 0.85rem; padding: 12px 18px; text-transform: uppercase; letter-spacing: 1px; height: 46px;">
                                     <label>Promotional Code</label>
                                 </div>
                                 <button type="button" onclick="applyDiscountCode()" class="btn-gold interactive" style="width: auto; padding: 12px 20px; font-size: 0.7rem; letter-spacing: 1px; height: 46px;">Apply</button>
@@ -4376,7 +4523,7 @@
 
                         <div style="margin-top:30px; border-top:1px solid rgba(203, 163, 92, 0.1); padding-top:20px;">
                             <h4 style="font-size:0.65rem; text-transform:uppercase; letter-spacing:2px; color:var(--gold-primary); margin-bottom:15px;">Need Assistance?</h4>
-                            <a href="https://wa.me/8801935322213?text=Hello%21%20I%20have%20a%20question%20about%20your%20fragrances." target="_blank" style="display:flex; align-items:center; gap:10px; color:var(--text-white); text-decoration:none; font-size:0.75rem;" class="interactive">
+                            <a href="javascript:void(0)" onclick="openWhatsApp('checkout')" style="display:flex; align-items:center; gap:10px; color:var(--text-white); text-decoration:none; font-size:0.75rem;" class="interactive">
                                 <i data-lucide="message-circle" size="16" color="#25D366"></i>
                                 <span>Chat with a Specialist</span>
                             </a>
@@ -4566,7 +4713,6 @@
         </div>
 
         <div class="finder-progress-bar">
-            <div id="finder-progress-inner" class="finder-progress-inner"></div>
             <div class="finder-progress-segments">
                 <div class="progress-segment"></div>
                 <div class="progress-segment"></div>
@@ -4749,7 +4895,12 @@
 
             <!-- Results Step -->
             <div id="finder-results" class="finder-step">
-                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">Your Olfactory Match</span>Discover Luban's Finest</h2>
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 40px;">
+                    <button class="interactive" onclick="goToStep(5)" style="background: none; border: 1px solid var(--border-gold); color: var(--gold-primary); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
+                        <i data-lucide="arrow-left" size="20"></i>
+                    </button>
+                    <h2 class="playfair" style="font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--gold-primary); margin: 0; letter-spacing: 2px;">Your Scent Profiles</h2>
+                </div>
                 <div id="finder-results-container" class="recommendation-grid">
                     <!-- Recommendations will be injected here -->
                 </div>
@@ -4845,9 +4996,9 @@
             <div>
                 <h4 class="footer-section-title">Assistance</h4>
                 <ul style="list-style: none; display: flex; flex-direction: column; gap: 20px;">
-                    <li class="footer-contact-item">
+                    <li class="footer-contact-item interactive" onclick="openWhatsApp('footer')" style="cursor: pointer;">
                         <i data-lucide="message-square" size="18"></i>
-                        <a href="javascript:void(0)" onclick="handleNavClick('contact')" class="footer-contact-link interactive">Contact Our Experts</a>
+                        <span class="footer-contact-link">Contact Our Experts</span>
                     </li>
                     <li class="footer-contact-item interactive" onclick="openScentFinder()" style="cursor: pointer;">
                         <i data-lucide="wand-sparkles" class="magic-icon-glow" size="18"></i>
@@ -4894,6 +5045,23 @@
     </footer>
 
     <script>
+        // WhatsApp API Configuration
+        const WHATSAPP_CONFIG = {
+            number: "8801935322213",
+            messages: {
+                footer: "Hello Luban Fragrance! I would like to consult an expert.",
+                checkout: "Hello! I have a question about my current selection at the checkout.",
+                float: "Hello! I'm interested in Luban Fragrances and would like some more info.",
+                order: (id, total) => `*Order Summary from Luban Website*%0A*Order:* ${id}%0A*Total:* ${total}%0A*I'd like to confirm this order.*`
+            }
+        };
+
+        function openWhatsApp(context = 'float') {
+            const msg = WHATSAPP_CONFIG.messages[context] || WHATSAPP_CONFIG.messages.float;
+            const url = `https://wa.me/${WHATSAPP_CONFIG.number}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
         if (window.lucide) window.addEventListener('load', () => lucide.createIcons());
 
         const PRICE_3ML_BDT = 200;
@@ -5020,8 +5188,8 @@
     "id": 1,
     "name": "Ehsas Al Arabia",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Oud, Rose, and Amber",
-    "vibe": "Exotic, luxurious, and deeply Middle Eastern.",
+    "desc": "A majestic blend of hand-harvested Cambodian Oud, velvet Damascus Rose, and golden Baltic Amber resinated under the traditional desert sun.",
+    "vibe": "An opulent, sultan-tier masterpiece that evokes the timeless mystery and grandeur of ancient Arabian palaces.",
     "category": "Oriental",
     "gender": "Unisex",
     "img": "https://i.ibb.co/Cs01Jw3p/ehsas.webp",
@@ -5042,8 +5210,8 @@
     "id": 2,
     "name": "Vampire Blood",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Red Berries, Jasmine, and Plum",
-    "vibe": "Dark, sweet, and gothic.",
+    "desc": "An enigmatic elixir of wild Red Berries from the Black Forest, crushed midnight Jasmine, and succulent Italian Plum, deepened by dark Sumatran patchouli.",
+    "vibe": "Enigmatic, sweet, and provocatively gothic—designed for those who command the shadows with an addictive sweet trail.",
     "category": "Sweet",
     "gender": "Unisex",
     "img": "https://i.ibb.co/Mr9dm39/blood.webp",
@@ -5064,8 +5232,8 @@
     "id": 3,
     "name": "Creed Aventus",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Pineapple, Birch, and Musk",
-    "vibe": "Smoky, fruity, sophisticated.",
+    "desc": "The legendary signature for the ambitious wearer, featuring sun-drenched Mediterranean Pineapple, smoky Moroccan Birch, and a base of rare oceanic Grey Ambergris.",
+    "vibe": "The scent of power and success—a bold, fruity-smoky masterpiece that commands immediate attention and respect.",
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/20GFMS5j/creed.webp",
@@ -5086,8 +5254,8 @@
     "id": 4,
     "name": "Baccarat Rouge 540",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Saffron, Jasmine, and Amberwood",
-    "vibe": "Airy, burnt-sugar sweetness.",
+    "desc": "A crystalline symphony of radiant Iranian Saffron and Egyptian Jasmine, resting on a structural foundation of French Fir Resin and warm Cedarwood.",
+    "vibe": "Airy, crystalline, and unforgettable—this scent creates an addictive, burnt-sugar halo that hovers elegantly around the wearer.",
     "category": "Luxury",
     "gender": "Unisex",
     "img": "https://i.ibb.co/39fHzxmK/540.webp",
@@ -5108,8 +5276,8 @@
     "id": 5,
     "name": "Lattafa Khamrah",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Cinnamon, Dates, and Praline",
-    "vibe": "Warm, boozy, and decadently sweet gourmand.",
+    "desc": "A sumptuously warm desert feast of spicy Ceylon Cinnamon, sweet Medjool Dates, and buttery praline, matured in a base of Madagascan Vanilla and Omani Amber.",
+    "vibe": "Decadently sweet and boozy—an architectural gourmand that feels like a warm, golden embrace on a cold winter evening.",
     "category": "Gourmand",
     "gender": "Unisex",
     "img": "https://i.ibb.co/RGNbrf3X/khamra.webp",
@@ -5131,8 +5299,8 @@
     "id": 6,
     "name": "Lattafa Yara",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Heliotrope, Orchid, and Tropical Fruits",
-    "vibe": "Creamy, powdery, and strawberry-marshmallow sweetness.",
+    "desc": "A luminous, feminine cloud of delicate Heliotrope and Cattleya Orchid, blended with sun-kissed Tropical Fruits and a base of Tahitian Vanilla.",
+    "vibe": "Radiant, powdery, and delightfully sweet—reminiscent of a sophisticated strawberry marshmallow treats in a blooming garden.",
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/Z1LpMRV2/yara.webp",
@@ -5154,8 +5322,8 @@
     "id": 7,
     "name": "Stronger With You",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Chestnut, Cardamom, and Vanilla",
-    "vibe": "Warm, sweet, and cozy—the ultimate date night scent.",
+    "desc": "A magnetic masculine dialogue between roasted Piedmontese Chestnut and intense Cardamom, finished with a trail of spicy Pink Pepper and Madagascan Vanilla.",
+    "vibe": "Unapologetically warm and magnetic—the ultimate dates-night signature that balances rugged spice with creamy sweetness.",
     "category": "Date Night",
     "gender": "Masculine",
     "img": "https://i.ibb.co/gZYCRWmc/you.webp",
@@ -5176,8 +5344,8 @@
     "id": 8,
     "name": "Ariana Grande Cloud",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Lavender, Pear, Bergamot, and Whipped Cream",
-    "vibe": "Dreamy, fluffy, and sweet—like a cozy vanilla cloud.",
+    "desc": "An ethereal cocktail of wild Lavender and juicy French Pear, topped with an addictive heart of whipped coconut cream and praline from Brussels.",
+    "vibe": "Ethereal, fluffy, and comforting—like a weightless vanilla cloud that carries you through a peaceful dreamscape.",
     "category": "Female",
     "gender": "Feminine",
     "img": "https://i.ibb.co/kVGcWSg0/cloud.webp",
@@ -5199,8 +5367,8 @@
     "id": 10,
     "name": "YSL Black Opium",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Coffee, Vanilla, and White Flowers",
-    "vibe": "Addictive, energizing, and sensual.",
+    "desc": "An electric jolt of dark roasted Ethiopian Coffee and spicy Madagascan Vanilla, beautifully contrasted with the fragile elegance of Mediterranean Orange Blossoms.",
+    "vibe": "Addictive, energizing, and provocatively sensual—designed for the daring woman who thrives in the energy of the night.",
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/kVn358pR/opium.webp",
@@ -5221,8 +5389,8 @@
     "id": 11,
     "name": "Good Girl",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Tuberose, Jasmine, and Roasted Tonka Bean",
-    "vibe": "A powerful contrast of light and dark florals.",
+    "desc": "A sultry, high-contrast narrative between radiant Sambac Jasmine and dark roasted Brazilian Tonka Bean, accented by velvet Cacao and precious Florentine Orris.",
+    "vibe": "A powerful contrast of light and shadow—this scent perfectly captures the duality of the modern woman's elegant yet daring spirit.",
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/cKRpG7kN/Good-Girl.webp",
@@ -5243,8 +5411,8 @@
     "id": 13,
     "name": "Versace Eros",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Mint, Candy Apple, and Vanilla",
-    "vibe": "Loud, sweet, and perfect for a vibrant night out.",
+    "desc": "A heroic blast of chilled Italian Mint and crispy Green Apple, deepening into a seductive base of golden Amber and warm Madagascan Vanilla.",
+    "vibe": "The scent of the Greek God of Love—loud, energetic, and masterfully seductive for those who own the dance floor.",
     "category": "Date Night",
     "gender": "Masculine",
     "img": "https://i.ibb.co/m5GyHvdS/versoseros.webp",
@@ -5265,8 +5433,8 @@
     "id": 14,
     "name": "Hawas Ice",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Frozen Apple, Bergamot, and Mint",
-    "vibe": "Louder, fresher, and colder than the original DNA.",
+    "desc": "A glacial, high-performance aquatic experience featuring frozen Alpine Apple and frosted Sicilian Bergamot, layered over a shimmering crystalline musk.",
+    "vibe": "Fiercely fresh and impressively loud—this is the cooling, high-performance evolution of the legendary Hawas aquatic DNA.",
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/TDDSfD2Q/hawasice.webp",
@@ -5288,8 +5456,8 @@
     "id": 15,
     "name": "Hawas Fire",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Pepper, Nutmeg, and Intense Musk",
-    "vibe": "A spicy, fiery evolution of the Hawas DNA.",
+    "desc": "A smoldering volcanic fusion of Black Pepper from the Malabar Coast, Persian Saffron, and Nutmeg, evolving into a primal heart of Tuscan Leather and Oud.",
+    "vibe": "Spicy, intense, and profoundly masculine—a fiery evolution that brings volcanic heat and commanding projection to the profile.",
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/0VK5z58x/fire.webp",
@@ -5310,8 +5478,8 @@
     "id": 17,
     "name": "Tobacco Vanille",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Tobacco Leaf, Spices, and Creamy Vanilla",
-    "vibe": "Rich, opulent, and smells like a private luxury lounge.",
+    "desc": "An opulent interpretation of London’s high-end private clubs, blending sun-cured Tobacco Leaf and exotic spices with a creamy Madagascan vanilla and cacao finish.",
+    "vibe": "Classic, rich, and profoundly luxurious—this profile creates the atmosphere of a private London club lounge filled with fine aged woods.",
     "category": "Luxury",
     "gender": "Unisex",
     "img": "https://i.ibb.co/YFR6M3nN/image.webp",
@@ -5333,8 +5501,8 @@
     "id": 19,
     "name": "Miss Dior",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Iris, Peony, and Lily-of-the-Valley",
-    "vibe": "Elegant, floral, and romantic.",
+    "desc": "A 'Millefiori' masterpiece in a bottle, featuring radiant Grasse Peony and Damascus Rose, heart notes of fresh Lily-of-the-Valley and sun-ripened Peach.",
+    "vibe": "Elegantly light and timelessly romantic—a sophisticated floral bouquet that celebrates the joy of spring in full bloom.",
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/Zzw0DHTf/dior.webp",
@@ -5355,8 +5523,8 @@
     "id": 20,
     "name": "Lady Million",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Raspberry, Neroli, and Arabian Jasmine",
-    "vibe": "Vibrant, glamorous, and honey-sweet.",
+    "desc": "A vibrant, multi-faceted profile of zesty Tunisian Neroli and wild Raspberry, deepening into a heart of Arabian Jasmine and a luscious white honey trail.",
+    "vibe": "Vibrant, glamorous, and decadently honey-sweet—a fragrance that shines like a diamond under the spotlight.",
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/hJXVDTmk/lady.webp",
@@ -5377,8 +5545,8 @@
     "id": 21,
     "name": "Bombshell",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Passionfruit, Peony, and Orchid",
-    "vibe": "Bright, fruity, and unapologetically feminine.",
+    "desc": "A sparkling sunshine cocktail of purple Brazilian Passionfruit, Shangri-la Peony, and Vanilla Orchid, accented by the fresh zest of Italian Grapefruit.",
+    "vibe": "Bright, fruity, and unapologetically confident—the ultimate 'Golden Hour' fragrance for turning heads with effortless charm.",
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/cSMDrwBh/bomsheel.webp",
@@ -5399,8 +5567,8 @@
     "id": 22,
     "name": "Acqua Di Gio",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Sea Notes, Lime, and Jasmine",
-    "vibe": "The gold standard for aquatics—clean, light, and airy.",
+    "desc": "The quintessential Mediterranean escape, built on a foundation of ozonic Sea Notes, zesty Sicilian Lime, and sun-drenched Calabrian Bergamot.",
+    "vibe": "The gold standard of aquatics—clean, light, and as refreshing as a salt-misted breeze across the Italian coastline.",
     "category": "Fresh",
     "gender": "Masculine",
     "img": "https://i.ibb.co/LDc2f9RX/acqua.webp",
@@ -5421,8 +5589,8 @@
     "id": 23,
     "name": "Cool Water Man",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Sea Water, Mint, and Lavender",
-    "vibe": "Fresh, aquatic blue classic.",
+    "desc": "A pioneer of oceanic vitality, featuring a crisp start of cold Sea Water and fresh Mint, evolving into a clean forest of green Lavender and French Oakmoss.",
+    "vibe": "Timeless, aromatic, and profoundly fresh—a masculine blue classic that remains the definitive standard for clean vitality.",
     "category": "Classic",
     "gender": "Unisex",
     "img": "https://i.ibb.co/5gp5xdhG/coolwater.webp",
@@ -5443,8 +5611,8 @@
     "id": 27,
     "name": "Sultan",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Cedar, Juniper, and Musk",
-    "vibe": "Concentrated woodiness—very masculine and robust.",
+    "desc": "A royal decree of concentrated Siberian Cedar and Juniper berries from the Northern heights, anchored by a robust base of royal Musk and golden Amber.",
+    "vibe": "Commanding and exceptionally woody—a fragrance that projects a presence of historical nobility and masculine strength.",
     "category": "Oriental",
     "gender": "Unisex",
     "img": "https://i.ibb.co/fRTnbyL/sultan.webp",
@@ -5465,8 +5633,8 @@
     "id": 28,
     "name": "Paris Hilton (Men)",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Cucumber and Mango Profile",
-    "vibe": "A fruity, fresh profile that is casual and easy-going.",
+    "desc": "A vibrant, casual rooftop blend of refreshing Cucumber from the valley and tropical Mango, finished with a clean mandarin splash and West Indian Sandalwood.",
+    "vibe": "Playful, fruity, and immensely fresh—an easy-going profile that’s perfect for summer afternoons and relaxed social settings.",
     "category": "Fresh",
     "gender": "Unisex",
     "img": "https://i.ibb.co/bMtnhjq4/paris.webp",
@@ -5487,8 +5655,8 @@
     "id": 29,
     "name": "Yves Saint Laurent (YSL) Y EDP",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Bergamot, Sage, and Ginger",
-    "vibe": "Fresh, powerful, and sophisticated.",
+    "desc": "A sophisticated reinventing of the fougère, featuring sharp Bergamot, spicy Ginger, and Sage, grounded by a powerful woody-amber base of Haitian Vetiver.",
+    "vibe": "Fresh, powerful, and impeccably refined—a fragrance designed for the modern visionary who defines their own path to success with an enduring, masculine trail.",
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/RkQkm8Cd/YSLY.jpg",
@@ -5509,8 +5677,8 @@
     "id": 30,
     "name": "AZZARO THE MOST WANTED",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Cardamom, Toffee, and Amberwood",
-    "vibe": "Intense, charismatic, and irresistibly sweet.",
+    "desc": "An intense, charismatic fusion of spicy green Cardamom and rich, velvety Toffee, grounded by a structural Amberwood foundation that lingers with warmth.",
+    "vibe": "Charismatic, powerful, and irresistibly seductive—a fragrance designed for the man who dares to play and win in life and romance.",
     "category": "Date Night",
     "gender": "Masculine",
     "img": "https://i.ibb.co/Kj253NCK/mostwanted.jpg",
@@ -5531,8 +5699,8 @@
     "id": 31,
     "name": "Gucci Flora",
     "price": { "3ml": 200, "6ml": 300 },
-    "desc": "Pear Blossom, White Gardenia, and Brown Sugar",
-    "vibe": "Joyful, floral, and enchantingly sweet.",
+    "desc": "A joyful garden-fresh blend of radiant Italian White Gardenia and sun-ripened Pear Blossom, finished with a touch of brown sugar and creamy Indonesian patchouli.",
+    "vibe": "Enchantingly sweet and vibrantly floral—a youthful, airy masterpiece that celebrates the freedom of spirit and the beauty of nature.",
     "category": "Feminine",
     "gender": "Feminine",
     "img": "https://i.ibb.co/SwdKPfmn/flora.jpg",
@@ -6038,20 +6206,42 @@
             }
         }
 
+        function toggleReadMore(event, btn) {
+            if (event) event.stopPropagation();
+            const container = btn.closest('.description-container');
+            if (container) {
+                const isExpanded = container.classList.toggle('description-expanded');
+                btn.innerHTML = isExpanded ? 'Read Less <i data-lucide="chevron-up" size="14"></i>' : 'Read More <i data-lucide="chevron-down" size="14"></i>';
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
         function updateFinderProgress() {
-            const bar = document.getElementById('finder-progress-inner');
+            const segments = document.querySelectorAll('.progress-segment');
             const label = document.getElementById('finder-top-label');
-            if (bar) {
-                const isResults = document.getElementById('finder-results').classList.contains('active');
-                if (isResults) {
-                    bar.style.width = '100%';
-                    if(label) label.innerText = 'CONGRATULATIONS';
-                } else {
-                    const step = parseInt(finderState.step);
-                    const pct = step * 20; 
-                    bar.style.width = `${pct}%`;
-                    if(label) label.innerText = `Step ${step} of 5`;
-                }
+            const isResults = document.getElementById('finder-results').classList.contains('active');
+            
+            if (isResults) {
+                segments.forEach(seg => {
+                    seg.classList.add('filled');
+                    seg.classList.remove('active');
+                });
+                if(label) label.innerText = 'OLFACTORY DISCOVERY COMPLETE';
+            } else {
+                const currentStep = parseInt(finderState.step);
+                segments.forEach((seg, idx) => {
+                    const stepIdx = idx + 1;
+                    if (stepIdx < currentStep) {
+                        seg.classList.add('filled');
+                        seg.classList.remove('active');
+                    } else if (stepIdx === currentStep) {
+                        seg.classList.remove('filled');
+                        seg.classList.add('active');
+                    } else {
+                        seg.classList.remove('filled', 'active');
+                    }
+                });
+                if(label) label.innerText = `Step ${currentStep} of 5`;
             }
         }
 
@@ -6067,8 +6257,6 @@
 
         function showScentResults() {
             goToStep('results');
-            const bar = document.getElementById('finder-progress-inner');
-            if (bar) bar.style.width = '100%';
             
             try {
                 const resultsData = calculateScentMatch();
@@ -6215,31 +6403,72 @@
                 return;
             }
 
-            container.innerHTML = recs.map(p => {
+            container.innerHTML = recs.map((p, idx) => {
                 const isWishlisted = wishlist.includes(p.id);
+                const categoryLabel = p.category === 'Masculine' ? 'MASCULINE LINE' : (p.category === 'Feminine' ? 'FEMININE LINE' : 'UNISEX LINE');
+                
+                // Deterministic randomization for pyramid bars based on name length
+                const fillCount = (type) => {
+                    const seed = p.name.length + (type === 'top' ? 1 : (type === 'heart' ? 2 : 3));
+                    return (seed % 4) + 1; // 1 to 4 bars
+                };
+
+                const topFilled = fillCount('top');
+                const heartFilled = fillCount('heart');
+                const baseFilled = fillCount('base');
+
                 return `
-                <div class="product-card interactive" onclick="showView('details', ${p.id})" style="width: 100%; animation: finderSlideUp 0.6s ease forwards;">
-                    <div style="position: absolute; top: 15px; left: 15px; background: var(--gold-primary); color: var(--bg-dark); padding: 4px 10px; font-size: 0.65rem; font-weight: 800; border-radius: 2px; z-index: 10; letter-spacing: 1px;">${p.score}% MATCH</div>
+                <div class="product-card interactive" onclick="showView('details', ${p.id})" style="width: 100%; animation: finderSlideUp 0.8s var(--ease-luxury) forwards ${idx * 0.15}s; background: rgba(2, 6, 6, 0.4); border: 1px solid rgba(203, 163, 92, 0.05); border-radius: 4px; overflow: hidden; padding: 15px;">
+                    <div style="position: absolute; top: 25px; left: 25px; background: var(--gold-primary); color: var(--bg-dark); padding: 4px 10px; font-size: 0.65rem; font-weight: 800; border-radius: 2px; z-index: 10; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">${p.score}% MATCH</div>
                     
-                    <div class="image-container" style="margin-bottom: 20px;">
+                    <div class="image-container" style="margin-bottom: 25px; border: 1px solid rgba(203, 163, 92, 0.12); border-radius: 2px; background: radial-gradient(circle at center, rgba(203, 163, 92, 0.05) 0%, rgba(2, 6, 6, 0.1) 100%); aspect-ratio: 1/1.1; overflow: hidden;">
                         <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" style="top: 15px; right: 15px;">
                             <i data-lucide="heart" size="18"></i>
                         </button>
-                        <div class="parallax-wrapper">
-                            <img src="${p.img}" alt="${p.name}" referrerPolicy="no-referrer">
+                        <div class="parallax-wrapper" style="height: 100%;">
+                            <img src="${p.img}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.9);" referrerPolicy="no-referrer">
                         </div>
                     </div>
                     
-                    <div class="product-info">
-                        <h3 class="product-name" style="font-size: 1rem; margin-bottom: 5px;">${p.name}</h3>
-                        <button onclick="event.stopPropagation(); showScentProfile(${p.id})" class="scent-profile-trigger">View Scent Profile</button>
-                        <p class="product-vibe" style="font-size: 0.8rem; opacity: 0.6; margin-bottom: 20px; min-height: 40px;">${p.vibe}</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: var(--gold-bright); font-weight: 600;">${p.price["3ml"]}৳</span>
-                            <button onclick="event.stopPropagation(); addToCart(${p.id}, '3ml');" class="btn-gold" style="padding: 10px 15px; font-size: 0.7rem; letter-spacing: 1px;">
-                                <i data-lucide="shopping-bag" size="14"></i> Add
+                    <div class="product-info" style="padding: 0 5px;">
+                        <span style="font-size: 0.55rem; color: var(--gold-muted); letter-spacing: 4px; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 10px; opacity: 0.8;">${categoryLabel}</span>
+                        <h3 class="product-name playfair" style="font-size: clamp(1.8rem, 3vw, 2.2rem); margin-bottom: 25px; color: var(--gold-primary); letter-spacing: 1px; font-weight: 500;">${p.name}</h3>
+                        
+                        <div class="olfactory-pyramid">
+                            <p style="font-size: 0.6rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 18px; opacity: 0.6;">Olfactory Pyramid</p>
+                            
+                            <div class="pyramid-row">
+                                <span class="pyramid-label">Top</span>
+                                <div class="pyramid-bars">
+                                    ${Array(4).fill(0).map((_, i) => `<div class="pyramid-bar ${i < topFilled ? 'filled' : ''}"></div>`).join('')}
+                                </div>
+                            </div>
+                            
+                            <div class="pyramid-row">
+                                <span class="pyramid-label">Heart</span>
+                                <div class="pyramid-bars">
+                                    ${Array(4).fill(0).map((_, i) => `<div class="pyramid-bar ${i < heartFilled ? 'filled' : ''}"></div>`).join('')}
+                                </div>
+                            </div>
+                            
+                            <div class="pyramid-row">
+                                <span class="pyramid-label">Base</span>
+                                <div class="pyramid-bars">
+                                    ${Array(4).fill(0).map((_, i) => `<div class="pyramid-bar ${i < baseFilled ? 'filled' : ''}"></div>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="description-container" style="margin-bottom: 30px; margin-top: 25px;">
+                            <p class="product-vibe line-clamp-2" style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 5px; line-height: 1.8; opacity: 0.8; font-family: 'Playfair Display', serif; font-style: italic;">"${p.vibe}"</p>
+                            <button class="read-more-btn" onclick="event.stopPropagation(); toggleReadMore(event, this)">
+                                Read More <i data-lucide="chevron-down" size="14"></i>
                             </button>
                         </div>
+                        
+                        <button onclick="event.stopPropagation(); addToCart(${p.id}, '3ml');" class="btn-gold interactive" style="width: 100%; justify-content: center; padding: 22px; font-size: 0.75rem; letter-spacing: 3px; background: rgba(203, 163, 92, 0.05);">
+                            Buy Now
+                        </button>
                     </div>
                 </div>
             `}).join('');
@@ -6869,6 +7098,8 @@
                 bottomSearch?.classList.add('active');
             } else {
                 input.value = '';
+                const clearBtn = document.getElementById('clear-desktop-search');
+                if (clearBtn) clearBtn.style.display = 'none';
                 suggestions.classList.remove('active');
                 bottomSearch?.classList.remove('active');
             }
@@ -7599,7 +7830,19 @@
                             </div>
                             ${currentFilter !== 'Wishlist' ? `
                                 ${renderStockIndicator(p.stock)}
-                                <p class="product-desc">${highlightMatch(p.desc, searchQuery)}</p>
+                                <div class="description-container">
+                                    <div class="product-desc line-clamp-2" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); text-transform: none;">
+                                        <span style="display: inline-block; color: var(--gold-primary); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-right: 8px;">The Vibe:</span>
+                                        ${highlightMatch(p.vibe, searchQuery)}
+                                        <span style="display: block; margin-top: 10px; opacity: 0.8; font-size: 0.85rem; line-height: 1.5; border-left: 1px solid var(--gold-primary); padding-left: 12px;">
+                                            <span style="display: block; color: var(--gold-muted); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px;">Profile & Origins:</span>
+                                            ${highlightMatch(p.desc, searchQuery)}
+                                        </span>
+                                    </div>
+                                    <button class="read-more-btn" onclick="toggleReadMore(event, this)">
+                                        Read More <i data-lucide="chevron-down" size="14"></i>
+                                    </button>
+                                </div>
                             ` : ''}
                             ${qtyControls}
                             ${quickAddBtn}
@@ -7984,8 +8227,16 @@
                             <button class="size-btn active interactive" onclick="setSize('3ml', ${p.id}, this)">3 mL Volume</button>
                             <button class="size-btn interactive" onclick="setSize('6ml', ${p.id}, this)">6 mL Volume</button>
                         </div>
-                        <p style="font-style:italic; color:var(--text-dim); margin-bottom:30px; border-left:2px solid var(--gold-primary); padding-left:30px; font-size:clamp(1rem, 3vw, 1.2rem); font-family:'Playfair Display'; opacity:0.8;">"${p.vibe}"</p>
-                        <p style="color:var(--text-dim); margin-bottom:50px; line-height: 2; font-size:1.05rem;">Masterfully blended notes of ${p.desc}. Every drop is a testament to quality, curated for those who seek the extraordinary and demand only the finest.</p>
+                        <p style="font-style:italic; color:var(--text-dim); margin-bottom:30px; border-left:2px solid var(--gold-primary); padding-left:30px; font-size:clamp(1rem, 3vw, 1.25rem); font-family:'Playfair Display'; opacity:0.9;">"${p.vibe}"</p>
+                        <div class="description-container" style="margin-bottom: 50px;">
+                            <div class="product-desc line-clamp-2" style="color:var(--text-dim); line-height: 2.1; font-size:1.1rem; margin-bottom: 5px;">
+                                <span style="display: block; margin-bottom: 15px; color: var(--gold-primary); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;">Olfactory Narrative</span>
+                                ${p.desc} This masterpiece is curated for those who seek the extraordinary and demand only the finest olfactory craftsmanship.
+                            </div>
+                            <button class="read-more-btn" onclick="toggleReadMore(event, this)">
+                                Read More <i data-lucide="chevron-down" size="14"></i>
+                            </button>
+                        </div>
                         
                         ${renderScentProfile(p)}
 
@@ -8529,7 +8780,7 @@
                         <img src="${item.img}" alt="${item.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     </div>
                     <div style="flex:1">
-                        <div style="font-weight:500; text-transform:uppercase; font-size:0.8rem; letter-spacing:1.5px; margin-bottom:4px; color:var(--text-white);">${item.name}</div>
+                        <div style="font-weight:500; text-transform:uppercase; font-size:0.8rem; letter-spacing:1.5px; margin-bottom:4px; color:var(--text-white); line-height: 1.3;">${item.name}</div>
                         <div style="color:var(--gold-muted); font-size:0.65rem; text-transform:uppercase; letter-spacing:1px; display: flex; align-items: center; gap: 6px;">
                             ${item.qty} units • ${item.selectedSize} • 
                             <span class="regular-price" style="font-size: 0.55rem; opacity: 0.5;">${item.selectedSize === '3ml' ? REGULAR_PRICE_3ML_BDT : REGULAR_PRICE_6ML_BDT}৳</span>
@@ -8806,9 +9057,14 @@
                         </div>
                     </div>
 
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                        <button onclick="document.getElementById('order-confirmation-modal').remove()" class="filter-btn interactive" style="width:100%; padding:15px; font-size: 0.6rem; letter-spacing:1px; text-transform: uppercase; border-radius: 0;">Modify</button>
-                        <button onclick="document.getElementById('order-confirmation-modal').remove(); executeOrder();" class="btn-gold interactive" style="width:100%; padding:15px; font-size:0.6rem; letter-spacing:1px; text-transform: uppercase; border-radius: 0;">Confirm</button>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <button onclick="document.getElementById('order-confirmation-modal').remove(); executeOrder();" class="btn-gold interactive" style="width:100%; padding:18px; font-size:0.75rem; letter-spacing:2px; text-transform: uppercase;">Finalize Procurement</button>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                            <button onclick="document.getElementById('order-confirmation-modal').remove()" class="filter-btn interactive" style="width:100%; padding:14px; font-size: 0.6rem; letter-spacing:1px; text-transform: uppercase;">Modify</button>
+                            <button onclick="confirmOrderViaWhatsApp()" class="interactive" style="width:100%; padding:14px; font-size: 0.6rem; letter-spacing:1px; text-transform: uppercase; background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); color: #25D366; display: flex; align-items:center; justify-content:center; gap:8px;">
+                                <i data-lucide="message-circle" size="12"></i> WhatsApp
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -8817,18 +9073,31 @@
             if (window.lucide) lucide.createIcons();
         }
 
+        function confirmOrderViaWhatsApp() {
+            const orderId = 'LB' + Date.now();
+            const total = document.getElementById('checkout-total').innerText;
+            const msg = WHATSAPP_CONFIG.messages.order(orderId, total);
+            const url = `https://wa.me/${WHATSAPP_CONFIG.number}?text=${encodeURIComponent(msg)}`;
+            
+            window.open(url, '_blank');
+            
+            const modal = document.getElementById('order-confirmation-modal');
+            if (modal) modal.remove();
+            
+            executeOrder();
+        }
+
         function handleContactSubmit(event) {
             event.preventDefault();
             const name = document.getElementById('contact-name').value;
             const email = document.getElementById('contact-email').value;
             const message = document.getElementById('contact-message').value;
             
-            const whatsappNumber = "8801935322213";
             const text = `*New Inquiry from Luban Fragrance Website*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
+            const whatsappUrl = `https://wa.me/${WHATSAPP_CONFIG.number}?text=${text}`;
             
             window.open(whatsappUrl, '_blank');
-            showToast('Opening WhatsApp...');
+            showToast('Opening WhatsApp Messaging API...');
             
             // Clear form
             event.target.reset();
