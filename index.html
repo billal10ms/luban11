@@ -1177,6 +1177,71 @@
             filter: brightness(1.05);
         }
 
+        /* Perfect Luxury CTA Button - The pinnacle of elegance */
+        .btn-luxury-nav-cta {
+            background: rgba(203, 163, 92, 0.03);
+            border: 1px solid rgba(203, 163, 92, 0.4);
+            color: var(--gold-primary);
+            width: 100%;
+            padding: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.8s var(--ease-luxury);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        .btn-luxury-nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 150%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), rgba(203, 163, 92, 0.2), rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.8s var(--ease-luxury);
+            animation: luxuryShimmer 4s infinite var(--ease-luxury);
+        }
+
+        @keyframes luxuryShimmer {
+            0% { left: -150%; }
+            30% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .btn-luxury-nav-cta:hover {
+            background: rgba(203, 163, 92, 0.08);
+            border-color: var(--gold-primary);
+            color: var(--gold-bright);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 45px rgba(203, 163, 92, 0.2), 0 0 20px rgba(203, 163, 92, 0.1);
+            letter-spacing: 0.4em;
+        }
+
+        .btn-luxury-nav-cta:hover::before {
+            left: 100%;
+        }
+
+        .btn-luxury-nav-cta .cta-icon {
+            opacity: 0.4;
+            transition: all 0.8s var(--ease-luxury);
+            transform: scale(0.9);
+        }
+
+        .btn-luxury-nav-cta:hover .cta-icon {
+            opacity: 1;
+            transform: scale(1.1) rotate(10deg);
+            color: var(--gold-bright);
+        }
+
         /* Responsive UI Utilities */
         @media (max-width: 480px) {
             .mobile-icon-only span {
@@ -5195,8 +5260,9 @@
         
         <div id="mobile-menu-content">
             <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; --i: 0;">
-                <button onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();" class="btn-gold solid interactive" style="width: 100%; font-size: 0.9rem; letter-spacing: 1px; padding: 22px; box-shadow: 0 10px 30px rgba(203, 163, 92, 0.2);">
-                    Shop Now
+                <button onclick="setFilter('All'); handleNavClick('shop');" class="btn-luxury-nav-cta interactive">
+                    <span>Shop Now</span>
+                    <i data-lucide="sparkles" class="cta-icon" size="18"></i>
                 </button>
             </div>
             
@@ -5210,30 +5276,30 @@
                         Collections <i data-lucide="plus" class="submenu-icon" size="16" style="opacity: 0.3; transition: transform 0.4s var(--ease-luxury);"></i>
                     </a>
                     <div id="collection-submenu" class="mobile-submenu">
-                        <a href="javascript:void(0)" style="--si:1" class="mobile-sublink interactive" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">Featured Curation</a>
-                        <a href="javascript:void(0)" style="--si:2" class="mobile-sublink interactive" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">The Masculine Edit</a>
-                        <a href="javascript:void(0)" style="--si:3" class="mobile-sublink interactive" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">The Feminine Edit</a>
-                        <a href="javascript:void(0)" style="--si:4" class="mobile-sublink interactive" onclick="setFilter('Unisex'); handleNavClick('shop'); toggleMobileMenu();">Unisex Masterpieces</a>
+                        <a href="javascript:void(0)" style="--si:1" class="mobile-sublink interactive" onclick="setFilter('All'); handleNavClick('shop');">Featured Curation</a>
+                        <a href="javascript:void(0)" style="--si:2" class="mobile-sublink interactive" onclick="setFilter('Masculine'); handleNavClick('shop');">The Masculine Edit</a>
+                        <a href="javascript:void(0)" style="--si:3" class="mobile-sublink interactive" onclick="setFilter('Feminine'); handleNavClick('shop');">The Feminine Edit</a>
+                        <a href="javascript:void(0)" style="--si:4" class="mobile-sublink interactive" onclick="setFilter('Unisex'); handleNavClick('shop');">Unisex Masterpieces</a>
                     </div>
                 </div>
 
-                <a href="javascript:void(0)" style="--i:3" class="mobile-link interactive" onclick="openScentFinder(); toggleMobileMenu();">
+                <a href="javascript:void(0)" style="--i:3" class="mobile-link interactive" onclick="openScentFinder();">
                     Scent Finder <span style="font-size: 0.5rem; background: var(--gold-primary); color: var(--bg-dark); padding: 2px 5px; border-radius: 1px; margin-left: 5px; vertical-align: middle;">NEW</span>
                 </a>
 
-                <a href="javascript:void(0)" style="--i:4" class="mobile-link interactive" onclick="handleNavClick('about'); toggleMobileMenu();">
-                    The Heritage
+                <a href="javascript:void(0)" style="--i:4" class="mobile-link interactive" onclick="handleNavClick('about');">
+                    Heritage
                 </a>
-                <a href="javascript:void(0)" style="--i:5" class="mobile-link interactive" onclick="handleNavClick('contact'); toggleMobileMenu();">
+                <a href="javascript:void(0)" style="--i:5" class="mobile-link interactive" onclick="handleNavClick('contact');">
                     Contact Us
                 </a>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 1.5rem; width: 100%; margin-top: 45px; padding-top: 40px; border-top: 1px solid rgba(203, 163, 92, 0.05);">
-                <a href="javascript:void(0)" style="--i:7" class="mobile-link interactive" onclick="showWishlist(); toggleMobileMenu();" style="font-size: 1rem; color: var(--gold-muted);">
+                <a href="javascript:void(0)" style="--i:7" class="mobile-link interactive" onclick="showWishlist();" style="font-size: 1rem; color: var(--gold-muted);">
                     Reserved <span id="wishlist-count-mobile" style="font-size: 0.7rem; color: var(--gold-muted); margin-left: 10px; opacity: 0.5;">(0)</span>
                 </a>
-                <a href="javascript:void(0)" style="--i:8" class="mobile-link interactive" onclick="toggleCart(true); toggleMobileMenu();" style="font-size: 1rem; color: var(--gold-muted);">
+                <a href="javascript:void(0)" style="--i:8" class="mobile-link interactive" onclick="toggleCart(true); closeMobileMenu();" style="font-size: 1rem; color: var(--gold-muted);">
                     Cart <span id="cart-count-mobile" style="font-size: 0.7rem; color: var(--gold-muted); margin-left: 10px; opacity: 0.5;">(0)</span>
                 </a>
             </div>
@@ -7265,6 +7331,9 @@
         };
 
         function openScentFinder() {
+            if (document.body.classList.contains('menu-open')) {
+                closeMobileMenu();
+            }
             const overlay = document.getElementById('scent-finder-overlay');
             if (!overlay) return;
             overlay.classList.add('active');
@@ -8249,6 +8318,9 @@
             const menu = document.getElementById('mobile-menu');
             const backdrop = document.getElementById('mobile-menu-backdrop');
             document.body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+            document.body.classList.remove('no-cursor');
+
             if (menu) menu.classList.remove('active');
             if (backdrop) backdrop.classList.remove('active');
             
@@ -8276,8 +8348,6 @@
             });
 
             setTimeout(() => {
-                document.body.style.overflow = '';
-                document.body.classList.remove('no-cursor');
                 if (menu) menu.style.display = 'none';
             }, 800);
         }
@@ -8409,6 +8479,9 @@
         }
 
         function showWishlist() {
+            if (document.body.classList.contains('menu-open')) {
+                closeMobileMenu();
+            }
             currentFilter = 'Wishlist';
             updateFilterUI();
             renderShop();
@@ -8847,18 +8920,28 @@
             if (searchContainer && searchContainer.classList.contains('active')) {
                 toggleDesktopSearch();
             }
+            
+            // If mobile menu is open, we need to close it and restore body overflow
+            if (document.body.classList.contains('menu-open')) {
+                closeMobileMenu();
+            }
+
+            // showView handles showing the 'main' container
             showView('main', null, true);
+            
+            // Increased timeout for full stabilization of content (renderShop skeletons etc)
             setTimeout(() => {
                 const el = document.getElementById(id);
                 if (el) {
                     const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 80;
-                    const offset = el.offsetTop - navHeight;
+                    // Slightly more offset for luxury white space
+                    const offset = el.offsetTop - navHeight - 10;
                     window.scrollTo({
                         top: offset,
                         behavior: 'smooth'
                     });
                 }
-            }, 100);
+            }, 800);
         }
 
         /* Generic Error Handling for Images to ensure luxury look even if assets fail */
