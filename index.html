@@ -175,7 +175,7 @@
 
         /* Desktop (> 1025px) */
         @media (min-width: 1025px) {
-            :root { --container-padding: 12%; }
+            :root { --container-padding: 5%; }
         }
 
         /* Tablet (481px - 1024px) */
@@ -640,7 +640,7 @@
         h1, h2, h3, .playfair {
             font-family: 'Playfair Display', serif;
             font-weight: 400;
-            letter-spacing: -0.01em;
+            letter-spacing: 0.02em;
             word-wrap: break-word;
         }
 
@@ -773,6 +773,7 @@
 
         .nav-links {
             display: flex;
+            flex-wrap: nowrap;
             gap: 3rem;
             list-style: none;
             flex: 1;
@@ -789,6 +790,7 @@
             position: relative;
             padding: 12px 0;
             font-weight: 400;
+            white-space: nowrap;
         }
         .nav-links a::after {
             content: '';
@@ -804,6 +806,7 @@
 
         .nav-logo-container {
             display: flex;
+            flex-wrap: nowrap;
             align-items: center;
             gap: 20px;
             flex-shrink: 0;
@@ -812,6 +815,7 @@
         
         .nav-actions { 
             display: flex; 
+            flex-wrap: nowrap;
             align-items: center; 
             gap: 1.5rem;
             flex-shrink: 0;
@@ -993,8 +997,8 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            max-width: 1200px;
-            width: 100%;
+            width: 90%;
+            max-width: 100%;
             will-change: transform;
         }
 
@@ -1017,6 +1021,7 @@
             animation: revealTitle 2.8s var(--ease-luxury) forwards 0.6s;
             max-width: 100%;
             text-align: center;
+            white-space: nowrap;
             /* Robust Centering: margin-right balances the letter-spacing trailing space */
             margin-right: -0.15em;
             filter: drop-shadow(0 0 30px rgba(203,163,92,0.1));
@@ -1078,6 +1083,7 @@
             gap: 12px;
             min-height: 48px; /* Touch target */
             -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
         }
         .btn-gold:active {
             transform: scale(0.96);
@@ -1388,6 +1394,7 @@
             transition: background 0.5s ease;
             position: relative; /* Anchor for badges */
             cursor: zoom-in;
+            perspective: 1200px; /* Enhanced depth for parallax */
         }
         
         .image-container img {
@@ -1396,6 +1403,22 @@
             transition: transform 0.6s var(--ease-luxury), opacity 0.5s ease, filter 0.6s ease;
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6)) brightness(1.05);
             will-change: transform, filter;
+            transform: translateZ(20px); /* Slight lift for parallax feel */
+        }
+        
+        .image-shine {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            mix-blend-mode: soft-light;
+            z-index: 2;
+        }
+        
+        .product-card:hover .image-shine {
+            opacity: 1;
         }
 
         /* Olfactory Pyramid Visualization */
@@ -1660,6 +1683,8 @@
             animation-timeline: --card-view;
             animation-range: entry 0% exit 100%;
             will-change: transform;
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
         @keyframes luxuryParallax {
@@ -1913,6 +1938,9 @@
             flex: 1;
             color: var(--text-white);
             transition: color 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .brand-name {
             font-size: 0.65rem;
@@ -2006,6 +2034,7 @@
             overflow: hidden;
             box-shadow: var(--shadow-medium);
             touch-action: pan-y;
+            perspective: 2000px; /* Deeper perspective for detail view */
         }
 
         .zoom-image {
@@ -2015,6 +2044,7 @@
             transition: transform 0.6s var(--ease-luxury), opacity 0.3s ease;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
             will-change: transform, opacity;
+            transform: translateZ(50px); /* Lift element in 3D space */
         }
 
         .main-image-container:hover .zoom-image {
@@ -2530,6 +2560,7 @@
 
         .checkout-summary-line {
             display: flex;
+            flex-wrap: nowrap;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
@@ -2541,7 +2572,7 @@
         .breadcrumbs {
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 12px;
             font-size: 0.65rem;
             text-transform: uppercase;
@@ -2723,80 +2754,180 @@
         .cart-drawer {
             position: fixed;
             top: 0; right: -100%;
-            width: 100%; max-width: 520px;
+            width: 90%; max-width: 100%;
             height: 100%;
-            background: radial-gradient(circle at top right, rgba(20, 20, 20, 0.98) 0%, var(--bg-dark) 100%);
-            backdrop-filter: blur(25px);
-            border-left: 1px solid var(--border-gold);
-            padding: clamp(30px, 5vw, 60px);
+            background: linear-gradient(135deg, #0f0f0f 0%, #050505 100%);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-left: 1px solid rgba(203, 163, 92, 0.15);
+            padding: clamp(25px, 5vw, 50px);
             transition: right 0.8s var(--ease-luxury);
             display: flex; flex-direction: column;
-            box-shadow: -20px 0 60px rgba(0,0,0,0.8);
-            z-index: 2001;
-            padding-bottom: calc(30px + env(safe-area-inset-bottom));
+            box-shadow: -40px 0 100px rgba(0,0,0,0.95);
+            z-index: 3000;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
         }
 
-        .cart-drawer::before {
+        #cart-items::-webkit-scrollbar {
+            width: 3px;
+        }
+        #cart-items::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        #cart-items::-webkit-scrollbar-thumb {
+            background: var(--gold-muted);
+            border-radius: 10px;
+            opacity: 0.3;
+        }
+
+        .cart-countdown {
+            padding: 18px;
+            background: rgba(203, 163, 92, 0.03);
+            border: 1px solid rgba(203, 163, 92, 0.15);
+            margin: 25px 0;
+            text-align: center;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(203, 163, 92, 0.02);
+        }
+
+        .cart-countdown::after {
             content: "";
             position: absolute;
-            inset: 15px;
-            border: 1px solid rgba(203, 163, 92, 0.1);
-            pointer-events: none;
-            z-index: 0;
+            bottom: 0; left: 0;
+            height: 1px;
+            background: var(--gold-primary);
+            width: 100%;
+            animation: timer-shrink 600s linear forwards;
+            transform-origin: left;
+            opacity: 0.5;
         }
-        /* Sophisticated Internal Materialization */
-        .cart-drawer > * {
-            opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 1s var(--ease-out-expo) 0.1s, transform 1s var(--ease-out-expo) 0.1s;
-        }
-        #cart-overlay.open .cart-drawer { right: 0; }
-        #cart-overlay.open .cart-drawer > * { opacity: 1; transform: translateX(0); }
 
-        /* Cart Item Specific Animation - Slide-in from the right with fade-in */
         .cart-item {
             animation: cartItemAppear 0.8s var(--ease-out-expo) both;
             will-change: transform, opacity;
             display: flex;
             align-items: center;
             gap: 20px;
-            margin-bottom: 15px;
-            padding: 15px;
-            border: 1px solid transparent;
-            border-bottom: 1px solid var(--border-gold);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 4px;
-            cursor: pointer;
+            margin-bottom: 20px;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(203, 163, 92, 0.05);
+            transition: all 0.4s var(--ease-luxury);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
         }
+        
         .cart-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--gold-primary);
-            transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background: rgba(203, 163, 92, 0.04);
+            border-color: rgba(203, 163, 92, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
+
         @keyframes cartItemAppear {
             0% { 
                 opacity: 0; 
-                transform: translateX(30px); 
+                transform: translateX(30px) scale(0.95);
+                filter: blur(10px);
             }
             100% { 
                 opacity: 1; 
-                transform: translateX(0); 
+                transform: translateX(0) scale(1);
+                filter: blur(0);
             }
+        }
+
+        .cart-item-img-container {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover .cart-item-img-container {
+            border-color: rgba(203, 163, 92, 0.3);
+            background: rgba(203, 163, 92, 0.05);
+        }
+
+        .cart-item-title {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+            color: var(--text-white);
+        }
+
+        .cart-item-meta {
+            font-size: 0.75rem;
+            color: var(--gold-muted);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .cart-qty-display {
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gold-primary);
         }
 
         @media (max-width: 1024px) {
             .cart-drawer {
                 top: auto; bottom: -100%; right: 0;
-                height: 85vh; max-width: 100%;
-                border-left: none; border-top: 1px solid var(--border-gold);
-                transition: bottom 0.8s var(--ease-out-expo);
-                padding: 30px 20px calc(20px + env(safe-area-inset-bottom));
+                height: 90vh; max-width: 100%;
+                border-left: none; 
+                border-top: 1px solid var(--border-gold);
+                transition: bottom 0.8s var(--ease-luxury);
+                padding: 40px 20px calc(25px + env(safe-area-inset-bottom));
+                border-radius: 24px 24px 0 0;
             }
             #cart-overlay.open .cart-drawer { bottom: 0; right: 0; }
-            .cart-drawer > * { transform: translateY(40px) translateX(0); }
-            #cart-overlay.open .cart-drawer > * { transform: translateY(0); }
+            
+            .cart-drawer h2 {
+                font-size: 1.6rem !important;
+            }
+
+            .cart-item {
+                padding: 15px;
+                gap: 15px;
+                margin-bottom: 12px;
+            }
+            
+            .cart-item-img-container {
+                width: 60px !important;
+                height: 60px !important;
+            }
+            
+            .cart-item-title {
+                font-size: 0.85rem !important;
+                letter-spacing: 1px;
+            }
+            
+            .cart-item-meta {
+                font-size: 0.7rem !important;
+            }
+
+            .cart-qty-display {
+                font-size: 0.75rem !important;
+                min-width: 20px !important;
+            }
         }
+
 
         /* Floating CTA */
         #floating-shop-cta {
@@ -2841,30 +2972,47 @@
         }
 
         /* Mobile Menu Refined Animation - Luxury Side Slide */
-        #mobile-menu {
+        #mobile-menu { 
             position: fixed; 
             top: 0;
             right: 0;
             bottom: 0;
-            width: 85%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 100%;
             background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(30px);
             z-index: 2100;
             display: flex; 
             flex-direction: column; 
             transform: translateX(100%); 
             opacity: 0;
             visibility: hidden;
-            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s ease, visibility 0.8s;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, visibility 0.8s;
             overflow: hidden;
             box-shadow: -20px 0 60px rgba(0,0,0,0.8);
+        }
+
+        body.menu-open header, 
+        body.menu-open main, 
+        body.menu-open footer,
+        body.menu-open #scent-finder-overlay,
+        body.menu-open #compare-view,
+        body.menu-open #wishlist-view,
+        body.menu-open #bottom-nav {
+            filter: blur(15px);
+            transform: scale(0.99);
+            pointer-events: none;
+            transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        header, main, footer, #scent-finder-overlay, #compare-view, #wishlist-view, #bottom-nav {
+            transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #mobile-menu-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(0px);
             z-index: 2000;
             opacity: 0;
@@ -2875,7 +3023,7 @@
         #mobile-menu-backdrop.active {
             opacity: 1;
             visibility: visible;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
         }
         
         #mobile-menu-content {
@@ -2903,11 +3051,11 @@
         }
 
         .mobile-menu-footer {
-            padding: 50px 40px;
+            padding: 15px 40px;
             border-top: 1px solid rgba(203, 163, 92, 0.1);
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 15px;
             background: var(--bg-dark);
             position: relative;
             z-index: 2;
@@ -2944,11 +3092,20 @@
         }
         #mobile-menu button[aria-label="Close menu"]:hover {
             color: var(--gold-bright);
-            transform: rotate(90deg);
+            transform: rotate(90deg) scale(1.1);
         }
         #mobile-menu button[aria-label="Close menu"]:active {
             transform: scale(0.85) rotate(90deg);
             filter: drop-shadow(0 0 15px var(--gold-primary-glow));
+        }
+
+        @keyframes closeButtonEntrance {
+            0% { transform: rotate(-180deg) scale(0); opacity: 0; }
+            100% { transform: rotate(0) scale(1); opacity: 1; }
+        }
+
+        #mobile-menu.active button[aria-label="Close menu"] {
+            animation: closeButtonEntrance 0.8s var(--ease-luxury) forwards;
         }
 
         #mobile-menu.active { 
@@ -2965,75 +3122,168 @@
         
         .mobile-link { 
             font-family: 'Playfair Display', serif; 
-            font-size: 1.25rem; 
+            font-size: 0.95rem; 
             color: var(--gold-primary); 
-            letter-spacing: 3px; 
+            letter-spacing: 0.8px; 
             text-decoration: none; 
             text-transform: uppercase;
             font-weight: 400;
-            will-change: transform, opacity;
+            will-change: transform, opacity, filter, letter-spacing;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s var(--ease-luxury), transform 0.8s var(--ease-luxury), color 0.3s ease;
-            transition-delay: calc(0.2s + (0.08s * var(--i))); 
+            filter: blur(12px);
+            transform: translateY(40px) scale(0.92);
+            transition: 
+                opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                letter-spacing 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: calc(0.05s * var(--i)); 
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
+            position: relative;
+            padding: 4px 0;
         }
         
+        .mobile-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1), left 1s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.2;
+            transform: translateX(-50%);
+        }
+
+        .mobile-link:hover::after {
+            width: 100%;
+            opacity: 0.5;
+        }
+
         .mobile-link:hover, .mobile-link:active {
+            transform: scale(1.03) translateX(10px);
+            letter-spacing: 5px;
             color: var(--gold-bright);
+            text-shadow: 0 0 25px rgba(203, 163, 92, 0.4);
+        }
+
+        .mobile-link.active-section {
+            color: var(--gold-bright);
+            font-weight: 600;
+            letter-spacing: 4px;
+        }
+
+        .mobile-link.active-section::after {
+            width: 40%;
+            opacity: 0.6;
         }
 
         .mobile-submenu {
             width: 100%;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.8s var(--ease-luxury), opacity 0.6s ease;
+            transition: max-height 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s ease;
             opacity: 0;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
             padding-left: 20px;
-            border-left: 1px solid rgba(203, 163, 92, 0.1);
+            border-left: 1px solid rgba(203, 163, 92, 0.08);
             margin-top: 0;
             pointer-events: none;
         }
 
         .mobile-submenu.active {
-            max-height: 500px;
+            max-height: 550px;
             opacity: 1;
-            margin-top: 15px;
-            margin-bottom: 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
             pointer-events: auto;
         }
 
         .mobile-sublink {
-            font-size: 0.9rem;
+            font-size: 0.65rem;
             color: var(--text-dim);
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease, padding-left 0.3s ease, transform 0.6s var(--ease-luxury), opacity 0.6s ease;
+            letter-spacing: 0.5px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
-            transform: translateX(-10px);
-            display: block;
+            transform: translateX(-40px) blur(6px);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-weight: 500;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .mobile-sublink::before {
+            content: '';
+            width: 0;
+            height: 1px;
+            background: var(--gold-primary);
+            transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.4;
         }
 
         .mobile-submenu.active .mobile-sublink {
             opacity: 1;
-            transform: translateX(0);
-            transition-delay: calc(0.1s + (0.05s * var(--si)));
+            transform: translateX(0) blur(0);
+            transition-delay: calc(0.25s + (var(--si) * 0.1s));
         }
 
         .mobile-sublink:hover, .mobile-sublink:active {
-            color: var(--gold-primary);
-            padding-left: 5px;
+            color: var(--gold-bright);
+            padding-left: 20px;
+            letter-spacing: 3.5px;
+            text-shadow: 0 0 15px rgba(203, 163, 92, 0.2);
         }
+
+        .mobile-sublink:hover::before {
+            width: 30px;
+            opacity: 1;
+        }
+
+        .mobile-sublink.active-filter {
+            color: var(--gold-bright);
+            font-weight: 600;
+            padding-left: 15px;
+        }
+
+        .mobile-sublink.active-filter::before {
+            width: 25px;
+            opacity: 1;
+        }
+        .social-icon-mobile {
+            transform: translateY(15px);
+            opacity: 0;
+            transition: transform 0.8s var(--ease-luxury), opacity 0.8s ease;
+            transition-delay: calc(0.6s + (0.1s * var(--si)));
+        }
+
         #mobile-menu.active .mobile-link { 
             opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+            transition-delay: calc(0.2s + (0.08s * var(--i)));
+        }
+
+        #mobile-menu.active .social-icon-mobile {
             transform: translateY(0);
+            opacity: 0.6;
+            transition-delay: calc(0.5s + (0.08s * var(--si)));
+        }
+
+        #mobile-menu.active .social-icon-mobile:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+            color: var(--gold-bright) !important;
         }
 
         .follow-journey-text {
@@ -3042,6 +3292,11 @@
         @keyframes luxuryTracking {
             0%, 100% { letter-spacing: 5px; opacity: 0.3; }
             50% { letter-spacing: 7px; opacity: 0.6; }
+        }
+
+        @keyframes goldShimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
 
         /* Micro-interactions (Floaters) */
@@ -3188,7 +3443,8 @@
             opacity: 1;
         }
         .scent-finder-container {
-            max-width: 1000px;
+            width: 90%;
+            max-width: 100%;
             margin: 0 auto;
             padding: clamp(80px, 12vh, 120px) var(--container-padding) 120px;
             min-height: 100vh;
@@ -3363,7 +3619,8 @@
 
         /* Luxury Intensity Slider */
         .intensity-slider-container {
-            max-width: 800px;
+            width: 90%;
+            max-width: 100%;
             margin: 60px auto 0;
             padding: 0 20px;
             text-align: center;
@@ -3476,8 +3733,9 @@
             margin-bottom: clamp(30px, 6vh, 60px);
             text-align: center;
             line-height: 1.15;
-            letter-spacing: -0.02em;
-            max-width: 800px;
+            letter-spacing: 0.05rem;
+            width: 90%;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -3564,8 +3822,8 @@
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid rgba(255,255,255,0.04);
-            width: 100%;
-            max-width: 800px;
+            width: 90%;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -3740,8 +3998,8 @@
 
         /* Comparison Modal */
         .compare-modal-content {
-            width: 98vw;
-            max-width: 1500px;
+            width: 95%;
+            max-width: 100%;
             max-height: 92vh;
             overflow-y: auto;
             padding: 40px 0;
@@ -4122,58 +4380,6 @@
             background: rgba(203, 163, 92, 0.03);
             border-radius: 2px;
         }
-        .mobile-sublink {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.4s var(--ease-luxury);
-            text-align: left;
-            opacity: 0;
-            will-change: transform, opacity, filter;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-        }
-        .mobile-sublink::before {
-            content: '';
-            width: 0;
-            height: 1px;
-            background: var(--gold-primary);
-            transition: width 0.4s var(--ease-luxury);
-        }
-        .mobile-sublink:hover::before {
-            width: 15px;
-        }
-        .mobile-sublink:hover {
-            color: var(--gold-primary);
-            padding-left: 5px;
-        }
-        .mobile-sublink:active {
-            color: var(--gold-bright);
-            transform: scale(0.98);
-            filter: drop-shadow(0 0 10px var(--gold-primary-glow));
-        }
-        .mobile-sublink.active {
-            color: var(--gold-bright);
-            font-weight: 700;
-            padding-left: 15px;
-            text-shadow: 0 0 15px rgba(253, 238, 153, 0.4);
-            letter-spacing: 2px;
-        }
-        .mobile-sublink.active::before {
-            width: 20px;
-        }
-        #mobile-menu.active .mobile-sublink {
-            /* Initial state for sublinks when menu opens but submenu is closed */
-        }
-        .mobile-submenu.active .mobile-sublink {
-            animation: luxurySlideIn 0.8s var(--ease-luxury) both;
-            animation-delay: calc(0.1s + (var(--j) * 0.06s));
-        }
-
         .search-suggestions {
             position: absolute;
             top: 100%;
@@ -4201,15 +4407,17 @@
                 box-shadow: none;
                 max-height: none;
                 padding: 0;
-                margin-top: 10px;
+                margin-top: 5px;
+                animation: none;
             }
             #search-suggestions-view .suggestion-item {
-                padding: 15px 0;
-                border-bottom: 1px solid rgba(203, 163, 92, 0.1);
+                padding: 18px 0;
+                border-bottom: 1px solid rgba(203, 163, 92, 0.08);
             }
-            #search-suggestions-view .suggestion-item:hover {
-                padding-left: 10px;
-                background: transparent;
+            #search-suggestions-view .suggestion-item:hover,
+            #search-suggestions-view .suggestion-item.selected {
+                padding-left: 15px;
+                background: rgba(203, 163, 92, 0.05);
                 box-shadow: none;
             }
         }
@@ -4311,15 +4519,22 @@
             display: none;
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             left: 0;
-            top: 100%;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            top: calc(100% + 5px);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 4px;
+            animation: searchFadeIn 0.4s var(--ease-luxury) both;
+        }
+
+        @keyframes searchFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .search-suggestions.active { display: block; }
         
         .search-highlight {
-            background: rgba(203, 163, 92, 0.2);
+            background: rgba(203, 163, 92, 0.15);
             color: var(--gold-bright);
             font-weight: 600;
             padding: 0 2px;
@@ -4327,7 +4542,7 @@
         }
 
         .suggestion-item {
-            padding: 14px 20px;
+            padding: 16px 20px;
             cursor: pointer;
             transition: all 0.4s var(--ease-luxury);
             border-bottom: 1px solid rgba(255,255,255,0.03);
@@ -4336,6 +4551,47 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover, .suggestion-item.selected {
+            background: rgba(203, 163, 92, 0.08);
+            padding-left: 25px;
+        }
+
+        .suggestion-item:hover .suggestion-arrow {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+
+        .suggestion-item .product-img-mini {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(203, 163, 92, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .suggestion-item img {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            transition: transform 0.5s var(--ease-luxury);
+        }
+
+        .suggestion-item:hover img {
+            transform: scale(1.1);
         }
 
         .suggestion-item.selected {
@@ -4928,7 +5184,7 @@
     <div id="mobile-menu" aria-hidden="true" style="display: none;">
         <div class="mobile-menu-header">
             <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Logo" style="height: 40px; filter: drop-shadow(0 0 10px rgba(203, 163, 92, 0.2));" loading="lazy" referrerPolicy="no-referrer">
-            <button onclick="closeMobileMenu()" aria-label="Close menu" class="interactive" style="background:none; border:none; color:var(--gold-primary); padding: 5px; display: flex; align-items: center; justify-content: center;">
+            <button onclick="closeMobileMenu()" aria-label="Close menu" class="interactive" style="background:none; border:none; color:var(--gold-primary); padding: 15px; display: flex; align-items: center; justify-content: center;">
                 <i data-lucide="x" size="24"></i>
             </button>
         </div>
@@ -4938,52 +5194,69 @@
         </div>
         
         <div id="mobile-menu-content">
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; --i: 0;">
-                <button onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();" class="btn-gold solid interactive" style="width: 100%; font-size: 0.9rem; letter-spacing: 4px; padding: 22px; box-shadow: 0 10px 20px rgba(203, 163, 92, 0.15);">
-                    SHOP NOW
-                </button>
-                <button onclick="openScentFinder(); toggleMobileMenu();" class="btn-gold interactive" style="width: 100%; font-size: 0.75rem; border-color: rgba(203, 163, 92, 0.2); background: rgba(203, 163, 92, 0.02); letter-spacing: 2px; padding: 18px;">
-                    <i data-lucide="wand-sparkles" class="magic-icon-glow" size="16"></i>
-                    Find My Scent
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; --i: 0;">
+                <button onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();" class="btn-gold solid interactive" style="width: 100%; font-size: 0.9rem; letter-spacing: 1px; padding: 22px; box-shadow: 0 10px 30px rgba(203, 163, 92, 0.2);">
+                    Shop Now
                 </button>
             </div>
-            <div id="mobile-main-links" style="display: flex; flex-direction: column; gap: 2.2rem; width: 100%;">
+            
+            <div id="mobile-main-links" style="display: flex; flex-direction: column; gap: 1rem; width: 100%;">
                 <a href="javascript:void(0)" style="--i:1" class="mobile-link interactive" onclick="handleNavClick('hero'); toggleMobileMenu();">
-                    The Scent
+                    Home
                 </a>
                 
                 <div style="width: 100%; --i:2">
                     <a href="javascript:void(0)" class="mobile-link interactive" onclick="toggleSubmenu('collection-submenu', this)">
-                        Shop <i data-lucide="plus" class="submenu-icon" size="16" style="opacity: 0.3; transition: transform 0.4s var(--ease-luxury);"></i>
+                        Collections <i data-lucide="plus" class="submenu-icon" size="16" style="opacity: 0.3; transition: transform 0.4s var(--ease-luxury);"></i>
                     </a>
                     <div id="collection-submenu" class="mobile-submenu">
-                        <a href="javascript:void(0)" style="--si:1" class="mobile-sublink interactive" data-filter="All" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">✨ All Scents</a>
-                        <a href="javascript:void(0)" style="--si:2" class="mobile-sublink interactive" data-filter="Masculine" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">👨 Masculine</a>
-                        <a href="javascript:void(0)" style="--si:3" class="mobile-sublink interactive" data-filter="Feminine" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">👩 Feminine</a>
-                        <a href="javascript:void(0)" style="--si:4" class="mobile-sublink interactive" data-filter="Unisex" onclick="setFilter('Unisex'); handleNavClick('shop'); toggleMobileMenu();">⚖️ Unisex</a>
+                        <a href="javascript:void(0)" style="--si:1" class="mobile-sublink interactive" onclick="setFilter('All'); handleNavClick('shop'); toggleMobileMenu();">Featured Curation</a>
+                        <a href="javascript:void(0)" style="--si:2" class="mobile-sublink interactive" onclick="setFilter('Masculine'); handleNavClick('shop'); toggleMobileMenu();">The Masculine Edit</a>
+                        <a href="javascript:void(0)" style="--si:3" class="mobile-sublink interactive" onclick="setFilter('Feminine'); handleNavClick('shop'); toggleMobileMenu();">The Feminine Edit</a>
+                        <a href="javascript:void(0)" style="--si:4" class="mobile-sublink interactive" onclick="setFilter('Unisex'); handleNavClick('shop'); toggleMobileMenu();">Unisex Masterpieces</a>
                     </div>
                 </div>
 
-                <a href="javascript:void(0)" style="--i:3" class="mobile-link interactive" onclick="handleNavClick('about'); toggleMobileMenu();">
-                    Heritage
+                <a href="javascript:void(0)" style="--i:3" class="mobile-link interactive" onclick="openScentFinder(); toggleMobileMenu();">
+                    Scent Finder <span style="font-size: 0.5rem; background: var(--gold-primary); color: var(--bg-dark); padding: 2px 5px; border-radius: 1px; margin-left: 5px; vertical-align: middle;">NEW</span>
                 </a>
-                <a href="javascript:void(0)" style="--i:4" class="mobile-link interactive" onclick="handleNavClick('contact'); toggleMobileMenu();">
-                    Contact
+
+                <a href="javascript:void(0)" style="--i:4" class="mobile-link interactive" onclick="handleNavClick('about'); toggleMobileMenu();">
+                    The Heritage
+                </a>
+                <a href="javascript:void(0)" style="--i:5" class="mobile-link interactive" onclick="handleNavClick('contact'); toggleMobileMenu();">
+                    Contact Us
                 </a>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 1.8rem; width: 100%; margin-top: 40px;">
-                <a href="javascript:void(0)" style="--i:6" class="mobile-link interactive" onclick="showWishlist(); toggleMobileMenu();">
-                    Wishlist <span id="wishlist-count-mobile" style="font-size: 0.7rem; color: var(--gold-muted); margin-left: 10px; opacity: 0.5;">(0)</span>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; width: 100%; margin-top: 45px; padding-top: 40px; border-top: 1px solid rgba(203, 163, 92, 0.05);">
+                <a href="javascript:void(0)" style="--i:7" class="mobile-link interactive" onclick="showWishlist(); toggleMobileMenu();" style="font-size: 1rem; color: var(--gold-muted);">
+                    Reserved <span id="wishlist-count-mobile" style="font-size: 0.7rem; color: var(--gold-muted); margin-left: 10px; opacity: 0.5;">(0)</span>
                 </a>
-                <a href="javascript:void(0)" style="--i:7" class="mobile-link interactive" onclick="toggleCart(true); toggleMobileMenu();">
+                <a href="javascript:void(0)" style="--i:8" class="mobile-link interactive" onclick="toggleCart(true); toggleMobileMenu();" style="font-size: 1rem; color: var(--gold-muted);">
                     Cart <span id="cart-count-mobile" style="font-size: 0.7rem; color: var(--gold-muted); margin-left: 10px; opacity: 0.5;">(0)</span>
                 </a>
             </div>
 
             <div id="recently-viewed-mobile-container" style="margin-top: 50px; width: 100%; display: none;">
-                <p style="font-size: 0.65rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; font-weight: 600; opacity: 0.6;">Recently Viewed</p>
-                <div id="recently-viewed-mobile-list" style="display: flex; flex-direction: column; gap: 15px;"></div>
+                <p style="font-size: 0.65rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; font-weight: 600; opacity: 0.6;">Recently Perceived</p>
+                <div id="recently-viewed-mobile-list" style="display: flex; flex-direction: column; gap: 20px;"></div>
+            </div>
+
+            <!-- Social Links Footer -->
+            <div style="margin-top: 70px; width: 100%; padding-bottom: 40px; border-top: 1px solid rgba(203, 163, 92, 0.05); padding-top: 40px;">
+                <p style="font-size: 0.55rem; color: var(--gold-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 25px; opacity: 0.4; text-align: center;">Follow The Heritage</p>
+                <div style="display: flex; justify-content: center; gap: 40px;">
+                    <a href="https://instagram.com" class="interactive social-icon-mobile" style="--si:1; color: var(--gold-primary); opacity: 0; transition: all 0.3s ease;">
+                        <i data-lucide="instagram" size="20"></i>
+                    </a>
+                    <a href="https://facebook.com" class="interactive social-icon-mobile" style="--si:2; color: var(--gold-primary); opacity: 0; transition: all 0.3s ease;">
+                        <i data-lucide="facebook" size="20"></i>
+                    </a>
+                    <a href="https://twitter.com" class="interactive social-icon-mobile" style="--si:3; color: var(--gold-primary); opacity: 0; transition: all 0.3s ease;">
+                        <i data-lucide="twitter" size="20"></i>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -4991,24 +5264,31 @@
             <!-- Search Header -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <p style="font-size: 0.7rem; color: var(--gold-muted); letter-spacing: 4px; text-transform: uppercase; margin: 0; font-weight: 600; opacity: 0.8;">Search Collection</p>
-                <button onclick="closeMobileMenu()" class="interactive" style="background: none; border: none; color: var(--gold-primary); cursor: pointer; padding: 5px;">
+                <button onclick="closeMobileMenu()" aria-label="Close menu" class="interactive" style="background: none; border: none; color: var(--gold-primary); cursor: pointer; padding: 15px; display: flex; align-items: center; justify-content: center;">
                     <i data-lucide="x" size="24"></i>
                 </button>
             </div>
 
             <!-- Search Bar -->
-            <div class="mobile-search-container" style="width: 100%; position: relative; margin-bottom: 10px;">
-                <i data-lucide="search" class="mobile-search-icon" size="20" style="left: 10px;"></i>
-                <input type="text" id="mobile-search-input-view" class="mobile-search-input" placeholder="What are you looking for?" onkeyup="if(event.key === 'Enter') handleMobileSearch()" oninput="handleSearchInput(this.value, 'mobile')">
-                <button id="clear-mobile-search-view" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; align-items: center; justify-content: center;">
+            <div class="mobile-search-container" style="width: 100%; position: relative; margin-bottom: 5px;">
+                <i data-lucide="search" class="mobile-search-icon" size="20" style="left: 15px;"></i>
+                <input type="text" id="mobile-search-input-view" class="mobile-search-input" 
+                       placeholder="Discover Luban's collection..." 
+                       onkeyup="if(event.key === 'Enter') handleMobileSearch()" 
+                       oninput="handleSearchInput(this.value, 'mobile')"
+                       onfocus="handleSearchFocus('mobile')"
+                       style="padding-left: 50px;">
+                <button id="clear-mobile-search-view" onclick="clearMobileSearch()" class="interactive" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.05); border:none; color:var(--gold-primary); cursor:pointer; display:none; padding:8px; border-radius:50%; z-index: 10; align-items: center; justify-content: center;">
                     <i data-lucide="x" size="14"></i>
                 </button>
-                
-                <!-- Suggestions Container -->
-                <div id="search-suggestions-view" class="search-suggestions"></div>
             </div>
+            
+            <div style="height: 1px; width: 100%; background: linear-gradient(90deg, transparent, rgba(203, 163, 92, 0.2), transparent); margin-bottom: 5px;"></div>
 
-            <div id="mobile-search-content-wrapper">
+            <!-- Suggestions Container -->
+            <div id="search-suggestions-view" class="search-suggestions" style="transition: all 0.4s var(--ease-luxury);"></div>
+
+            <div id="mobile-search-content-wrapper" style="transition: all 0.4s var(--ease-luxury);">
                 <button onclick="openScentFinder()" class="btn-gold interactive" style="margin-bottom: 25px; width: 100%; font-size: 0.7rem; border-color: rgba(203, 163, 92, 0.3);">
                     <i data-lucide="sparkles" size="14"></i>
                     Scent Finder Tool
@@ -5031,51 +5311,66 @@
                 </div>
 
                 <!-- Trending Section -->
-                <div style="margin-top: 30px;">
-                    <p style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; font-weight: 600; opacity: 0.7;">Trending Now</p>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <div onclick="applyRecentSearch('Baccarat Rouge 540')" class="interactive" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 5px 0;">
-                            <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.6;"></i>
-                            <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase;">Baccarat Rouge 540</span>
+                <div style="margin-top: 35px;">
+                    <p style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; font-weight: 700; opacity: 0.8; display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 15px; height: 1px; background: var(--gold-primary); opacity: 0.3;"></span>
+                        Trending Now
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <div onclick="applyRecentSearch('Oud Supreme')" class="interactive" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 12px 15px; background: rgba(255,255,255,0.02); border-radius: 4px; border: 1px solid rgba(203, 163, 92, 0.05); transition: all 0.3s ease;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.8;"></i>
+                                <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase; font-weight: 500;">Oud Supreme</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" size="12" style="color: var(--gold-muted); opacity: 0.4;"></i>
                         </div>
-                        <div onclick="applyRecentSearch('Ehsas Al Arabia')" class="interactive" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 5px 0;">
-                            <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.6;"></i>
-                            <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase;">Ehsas Al Arabia</span>
+                        <div onclick="applyRecentSearch('Amber Royal')" class="interactive" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 12px 15px; background: rgba(255,255,255,0.02); border-radius: 4px; border: 1px solid rgba(203, 163, 92, 0.05); transition: all 0.3s ease;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.8;"></i>
+                                <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase; font-weight: 500;">Amber Royal</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" size="12" style="color: var(--gold-muted); opacity: 0.4;"></i>
                         </div>
-                        <div onclick="applyRecentSearch('Oud Wood')" class="interactive" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 5px 0;">
-                            <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.6;"></i>
-                            <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase;">Oud Wood</span>
+                        <div onclick="applyRecentSearch('Musk Al Kaba')" class="interactive" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 12px 15px; background: rgba(255,255,255,0.02); border-radius: 4px; border: 1px solid rgba(203, 163, 92, 0.05); transition: all 0.3s ease;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <i data-lucide="trending-up" size="14" style="color: var(--gold-primary); opacity: 0.8;"></i>
+                                <span style="font-size: 0.75rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase; font-weight: 500;">Musk Al Kaba</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" size="12" style="color: var(--gold-muted); opacity: 0.4;"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Popular Categories -->
-                <div id="mobile-popular-categories" style="margin-top: 35px;">
-                    <p style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; font-weight: 600; opacity: 0.7;">Collections</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <span onclick="applyRecentSearch('Masculine')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.15); padding: 8px 16px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.02);">Masculine</span>
-                        <span onclick="applyRecentSearch('Feminine')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.15); padding: 8px 16px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.02);">Feminine</span>
-                        <span onclick="applyRecentSearch('Unisex')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.15); padding: 8px 16px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; background: rgba(203, 163, 92, 0.02);">Unisex</span>
+                <div id="mobile-popular-categories" style="margin-top: 40px;">
+                    <p style="font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; font-weight: 700; opacity: 0.8; display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 15px; height: 1px; background: var(--gold-primary); opacity: 0.3;"></span>
+                        Elite Collections
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <span onclick="applyRecentSearch('Masculine')" class="interactive search-history-tag" style="font-size: 0.65rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 10px 20px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; background: rgba(203, 163, 92, 0.04); transition: all 0.3s ease; font-weight: 600;">Masculine</span>
+                        <span onclick="applyRecentSearch('Feminine')" class="interactive search-history-tag" style="font-size: 0.65rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 10px 20px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; background: rgba(203, 163, 92, 0.04); transition: all 0.3s ease; font-weight: 600;">Feminine</span>
+                        <span onclick="applyRecentSearch('Unisex')" class="interactive search-history-tag" style="font-size: 0.65rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 10px 20px; border-radius: 2px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.8px; background: rgba(203, 163, 92, 0.04); transition: all 0.3s ease; font-weight: 600;">Unisex</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="mobile-menu-footer">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 25px;">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                    <p style="font-family: 'Playfair Display', serif; font-size: 0.75rem; color: var(--gold-primary); letter-spacing: 3px; text-transform: uppercase; font-weight: 500; margin: 0;">Follow Us</p>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                    <p style="font-family: 'Playfair Display', serif; font-size: 0.7rem; color: var(--gold-primary); letter-spacing: 0.8px; text-transform: uppercase; font-weight: 500; margin: 0;">Follow Us</p>
                     <div style="width: 20px; height: 1px; background: var(--gold-muted); opacity: 0.3;"></div>
                 </div>
-                <div style="display: flex; justify-content: center; gap: 50px;">
-                    <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="interactive mobile-social-btn" style="color: var(--gold-primary); transform: scale(1.1);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                <div style="display: flex; justify-content: center; gap: 30px;">
+                    <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="interactive mobile-social-btn" style="color: var(--gold-primary); transform: scale(1);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                     </a>
-                    <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="interactive mobile-social-btn" style="color: var(--gold-primary); transform: scale(1.1);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                    <a href="https://www.instagram.com/lubanfragrance/" target="_blank" rel="noopener noreferrer" class="interactive mobile-social-btn" style="color: var(--gold-primary); transform: scale(1);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#cba35c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
                     </a>
                 </div>
-                <p class="follow-journey-text" style="font-family: 'Playfair Display', serif; font-size: 0.65rem; color: var(--gold-muted); letter-spacing: 5px; text-transform: uppercase; opacity: 0.4; margin-top: 10px;">Follow Our Journey</p>
+                <p class="follow-journey-text" style="font-family: 'Playfair Display', serif; font-size: 0.6rem; color: var(--gold-muted); letter-spacing: 1.2px; text-transform: uppercase; opacity: 0.4; margin-top: 0;">Follow Our Journey</p>
             </div>
         </div>
     </div>
@@ -5108,7 +5403,7 @@
                 <li><a href="javascript:void(0)" onclick="handleNavClick('hero')" class="interactive">The Scent</a></li>
                 <li><a href="javascript:void(0)" onclick="setFilter('All'); handleNavClick('shop')" class="interactive">Shop</a></li>
                 <li><a href="javascript:void(0)" onclick="handleNavClick('about')" class="interactive">Heritage</a></li>
-                <li><a href="javascript:void(0)" onclick="handleNavClick('contact')" class="interactive">Contact</a></li>
+                <li><a href="javascript:void(0)" onclick="handleNavClick('contact')" class="interactive">Contact Us</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -5172,8 +5467,8 @@
             <div class="hero-content" style="display: flex; flex-direction: column; align-items: center;">
                 <img src="https://i.ibb.co.com/Vcq9NZsL/Logo.png" alt="Luban Emblem" loading="lazy" style="width: clamp(60px, 15vw, 100px); margin-bottom: clamp(1.5rem, 3vh, 2.5rem); opacity: 0.9; filter: drop-shadow(0 4px 15px rgba(203,163,92,0.2)); display: block;" referrerPolicy="no-referrer">
                 <h1>LUBAN</h1>
-                <p style="letter-spacing: clamp(2px, 1.2vw, 8px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.55rem, 1vw, 0.7rem); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); font-weight: 500; opacity: 0.8; margin-right: -clamp(2px, 1.2vw, 8px);">Refined Quality In Every Drop</p>
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <p style="letter-spacing: clamp(2px, 1.2vw, 8px); color: var(--gold-muted); text-transform: uppercase; font-size: clamp(0.55rem, 1vw, 0.7rem); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); font-weight: 500; opacity: 0.8; margin-right: -clamp(2px, 1.2vw, 8px); white-space: nowrap;">Refined Quality In Every Drop</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: nowrap;">
                     <button class="btn-gold solid interactive" onclick="setFilter('All'); handleNavClick('shop')">SHOP NOW</button>
                     <button class="btn-gold interactive" onclick="openScentFinder()" style="border-color: var(--gold-muted); color: var(--gold-muted); background: transparent;">
                         <i data-lucide="wand-sparkles" class="magic-icon-glow" size="16"></i>
@@ -5189,7 +5484,7 @@
 
             <div class="section-separator"></div>
             <section id="shop">
-            <div id="shop-breadcrumbs-container" style="max-width: 1300px; margin: 0 auto 30px; padding: 0 20px;"></div>
+            <div id="shop-breadcrumbs-container" style="width: 90%; max-width: 100%; margin: 0 auto 30px; padding: 0 20px;"></div>
             <div id="shop-header-content" style="animation: luxuryFadeIn 0.5s ease;">
                 <div style="text-align: center; margin-bottom: clamp(40px, 8vh, 80px);">
                     <h2 style="font-size: clamp(1.5rem, 5vw, 4.5rem); margin-bottom: 15px; color: var(--gold-primary); letter-spacing: clamp(2px, 1vw, 4px);">The Library</h2>
@@ -5251,7 +5546,7 @@
 
 
         <section id="compare" style="display:none; background: var(--bg-dark); border-top: 1px solid var(--border-gold);">
-            <div style="max-width: 1300px; margin: 0 auto;">
+            <div style="width: 90%; max-width: 100%; margin: 0 auto;">
                 <div style="text-align: center; margin-bottom: clamp(40px, 8vh, 80px);">
                     <span style="font-size:0.7rem; text-transform:uppercase; letter-spacing:4px; color:var(--gold-muted); display:block; margin-bottom:15px;">Olfactory Analysis</span>
                     <h2 class="playfair" style="font-size: clamp(1.5rem, 5vw, 3.5rem); letter-spacing: 2px; color: var(--gold-primary); margin:0;">Scent Comparison</h2>
@@ -5332,12 +5627,12 @@
     </div>
 
     <div id="details-view" style="display: none; min-height: 100vh;">
-        <div id="details-breadcrumbs-container" style="max-width: 1300px; margin: 0 auto 40px;"></div>
+        <div id="details-breadcrumbs-container" style="width: 90%; max-width: 100%; margin: 0 auto 40px;"></div>
         <div id="details-content"></div>
     </div>
 
     <section id="checkout-view" style="display:none; background: radial-gradient(circle at 50% -20%, rgba(203, 163, 92, 0.05) 0%, transparent 70%);">
-        <div style="max-width:1300px; margin:0 auto;">
+        <div style="width: 90%; max-width: 100%; margin: 0 auto;">
             <div id="checkout-breadcrumbs-container" style="margin-bottom: 40px;"></div>
             <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; margin-bottom:clamp(40px, 8vh, 80px); border-bottom: 1px solid rgba(203, 163, 92, 0.2); padding-bottom: 30px; gap: 20px;">
                 <a href="javascript:void(0)" onclick="showView('main')" style="color:var(--gold-primary); font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; display:inline-flex; align-items:center; gap:12px; text-decoration:none; font-weight:600;" class="interactive"><i data-lucide="arrow-left" size="16"></i> Return to Collection</a>
@@ -5699,7 +5994,7 @@
 
             <!-- Step 3: Scent Family (MULTI) -->
             <div id="finder-step-3" class="finder-step">
-                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">The Olfactory Journey</span>Which families draw you in? <span style="font-size: 0.8rem; opacity: 0.4; display: block; margin-top: 5px; text-transform: none; letter-spacing: 0;">Multi-select enabled</span></h2>
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">The Olfactory Journey</span>Which families draw you in? <span style="font-size: 0.8rem; opacity: 0.4; display: block; margin-top: 5px; text-transform: none; letter-spacing: 0.05rem;">Multi-select enabled</span></h2>
                 <div class="finder-options">
                     <div class="finder-option-card interactive" data-multi-val="Fresh" onclick="toggleFinderOption(3, 'Fresh', this)">
                         <i data-lucide="waves" size="32"></i>
@@ -5756,7 +6051,7 @@
 
             <!-- Step 4: Individual Notes (MULTI TAGS) -->
             <div id="finder-step-4" class="finder-step">
-                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">Specific Resonance</span>Which notes do you cherish? <span style="font-size: 0.8rem; opacity: 0.4; display: block; margin-top: 5px; text-transform: none; letter-spacing: 0;">Select your favorite ingredients</span></h2>
+                <h2 class="finder-title"><span class="serif italic-small" style="font-size: 1.2rem; display: block; opacity: 0.6; margin-bottom: 15px; letter-spacing: 5px; text-transform: uppercase;">Specific Resonance</span>Which notes do you cherish? <span style="font-size: 0.8rem; opacity: 0.4; display: block; margin-top: 5px; text-transform: none; letter-spacing: 0.05rem;">Select your favorite ingredients</span></h2>
                 <div class="finder-tag-grid">
                     <div class="finder-tag interactive" data-multi-note="Oud" onclick="toggleFinderNote('Oud', this)"><i data-lucide="gem"></i><span>Oud</span></div>
                     <div class="finder-tag interactive" data-multi-note="Musk" onclick="toggleFinderNote('Musk', this)"><i data-lucide="cloud"></i><span>Musk</span></div>
@@ -5851,23 +6146,28 @@
                 <h2 class="playfair" style="font-size: 1.8rem; letter-spacing: 1.5px;">Selection</h2>
                 <button id="cart-close-btn" onclick="toggleCart(false)" aria-label="Close cart" style="background:none; border:none; color:var(--text-dim); cursor:pointer;" class="interactive"><i data-lucide="x" size="32"></i></button>
             </div>
-            <div id="cart-items" style="flex: 1; overflow-y: auto; margin-bottom: 40px; padding-right: 15px;"></div>
-            <div style="border-top: 1px solid var(--border-gold); padding-top: 30px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom: 30px;">
-                    <span style="text-transform:uppercase; letter-spacing:2px; font-size:0.8rem; color:var(--text-dim);">Total</span>
-                    <span id="cart-total" style="font-size:1.8rem; color:var(--gold-price); font-weight: 700; letter-spacing:1px;">0৳</span>
+            <div id="cart-items" style="flex: 1; overflow-y: auto; overflow-x: hidden; margin-bottom: 40px; padding-right: 10px;"></div>
+            <div id="cart-footer" style="border-top: 1px solid rgba(203, 163, 92, 0.2); padding-top: 30px; background: inherit; position: relative; z-index: 5;">
+                <div style="display:flex; justify-content:space-between; align-items: baseline; margin-bottom: 25px;">
+                    <span style="text-transform:uppercase; letter-spacing:3px; font-size:0.75rem; color:var(--text-dim); font-weight: 500;">Investment Total</span>
+                    <span id="cart-total" style="font-size:2rem; color:var(--gold-price); font-weight: 700; letter-spacing:1px; font-family: 'Playfair Display', serif;">0৳</span>
                 </div>
-                <button onclick="checkout()" class="btn-gold interactive" style="width:100%; padding: 22px; font-weight:700;">Proceed to Procurement</button>
+                <button onclick="checkout()" class="btn-gold solid interactive" style="width:100%; padding: 22px; font-weight:800; font-size: 0.9rem; letter-spacing: 4px; box-shadow: 0 10px 40px rgba(203, 163, 92, 0.2); text-transform: uppercase; border: none; transition: all 0.4s var(--ease-luxury);">
+                    PROCEED TO PROCUREMENT
+                </button>
                 
-                <div style="display:flex; justify-content:center; gap:20px; margin-top: 25px; opacity:0.4;">
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
-                        <i data-lucide="shield-check" size="14"></i> Secure
+                <div style="display:flex; justify-content:space-around; margin-top: 30px; padding: 15px 10px; background: rgba(255,255,255,0.02); border-radius: 4px; border: 1px solid rgba(203, 163, 92, 0.05);">
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; opacity: 0.6;">
+                        <i data-lucide="shield-check" size="16" style="color: var(--gold-primary);"></i>
+                        <span style="font-size:0.55rem; text-transform:uppercase; letter-spacing:1.5px;">Secure</span>
                     </div>
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
-                        <i data-lucide="award" size="14"></i> Authentic
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; opacity: 0.6;">
+                        <i data-lucide="award" size="16" style="color: var(--gold-primary);"></i>
+                        <span style="font-size:0.55rem; text-transform:uppercase; letter-spacing:1.5px;">Authentic</span>
                     </div>
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.6rem; text-transform:uppercase; letter-spacing:1px;">
-                        <i data-lucide="truck" size="14"></i> Fast
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:6px; opacity: 0.6;">
+                        <i data-lucide="truck" size="16" style="color: var(--gold-primary);"></i>
+                        <span style="font-size:0.55rem; text-transform:uppercase; letter-spacing:1.5px;">Fast</span>
                     </div>
                 </div>
             </div>
@@ -5940,7 +6240,7 @@
         </div>
 
         <!-- Footer Bottom -->
-        <div class="footer-bottom" style="padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; gap: 30px;">
+        <div class="footer-bottom" style="padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: 30px;">
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 <p style="font-size: 0.65rem; letter-spacing: 2px; color: var(--gold-muted); text-transform: uppercase; font-weight: 500; margin: 0;">
                     &copy; 2026 Luban Fragrance.
@@ -7157,20 +7457,18 @@
             const container = btn.closest('.description-container');
             if (container) {
                 const isExpanded = container.classList.toggle('description-expanded');
-                const label = isExpanded ? 'Show Less' : (btn.getAttribute('data-original-text') || 'Show More');
-                if (!btn.getAttribute('data-original-text')) {
-                    btn.setAttribute('data-original-text', btn.innerText.trim());
-                }
                 
-                // Update text based on context
-                if (btn.classList.contains('detail-btn')) {
-                    btn.innerHTML = isExpanded ? 
+                // Store original text if not already stored
+                if (!btn.getAttribute('data-original-text')) {
+                    btn.setAttribute('data-original-text', btn.innerHTML);
+                }
+
+                if (isExpanded) {
+                    btn.innerHTML = btn.classList.contains('detail-btn') ? 
                         `COLLAPSE STORY <i data-lucide="chevron-up" size="14"></i>` : 
-                        `SHOW FULL STORY <i data-lucide="chevron-down" size="14"></i>`;
+                        `Show Less <i data-lucide="chevron-up" size="12"></i>`;
                 } else {
-                    btn.innerHTML = isExpanded ? 
-                        `Hide Vibe <i data-lucide="chevron-up" size="12"></i>` : 
-                        `Discover Vibe <i data-lucide="chevron-down" size="12"></i>`;
+                    btn.innerHTML = btn.getAttribute('data-original-text');
                 }
                 
                 if (window.lucide) lucide.createIcons();
@@ -7954,6 +8252,19 @@
             if (menu) menu.classList.remove('active');
             if (backdrop) backdrop.classList.remove('active');
             
+            // Restore bottom nav active state based on current view
+            const mainView = document.getElementById('main-view');
+            const detailsView = document.getElementById('details-view');
+            const checkoutView = document.getElementById('checkout-view');
+            
+            if (detailsView && detailsView.style.display !== 'none') {
+                updateBottomNavActive('details');
+            } else if (checkoutView && checkoutView.style.display !== 'none') {
+                updateBottomNavActive('checkout');
+            } else if (mainView && mainView.style.display !== 'none') {
+                updateBottomNavActive('main');
+            }
+
             // Close all submenus when menu is closed
             document.querySelectorAll('.mobile-submenu').forEach(el => {
                 el.classList.remove('active');
@@ -7971,62 +8282,95 @@
             }, 800);
         }
 
+        function updateMobileMenuActiveState() {
+            const menu = document.getElementById('mobile-menu-content');
+            if (!menu) return;
+            
+            // Current view detection
+            const mainView = document.getElementById('main-view');
+            const currentView = (mainView && mainView.style.display !== 'none') ? 'main' : 'other';
+            
+            // Update mobile links based on current view/section
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.classList.remove('active-section');
+                
+                // Home detection
+                if (link.innerText.toLowerCase().includes('home') && currentView === 'main' && window.scrollY < 500) {
+                    link.classList.add('active-section');
+                }
+                // About detection
+                if (link.innerText.toLowerCase().includes('about') && window.scrollY > 1500) {
+                    link.classList.add('active-section');
+                }
+            });
+
+            // Update sublinks based on current filter
+            document.querySelectorAll('.mobile-sublink').forEach(sublink => {
+                sublink.classList.remove('active-filter');
+                if (sublink.innerText.toLowerCase() === currentFilter.toLowerCase() + ' masterpieces' || 
+                    (currentFilter === 'All' && sublink.innerText.toLowerCase().includes('curation')) ||
+                    sublink.innerText.toLowerCase().includes(currentFilter.toLowerCase())) {
+                    sublink.classList.add('active-filter');
+                }
+            });
+        }
+
         function toggleMobileMenu(mode = 'menu') {
             const menu = document.getElementById('mobile-menu');
             const backdrop = document.getElementById('mobile-menu-backdrop');
             const menuContent = document.getElementById('mobile-menu-content');
             const searchContainer = document.getElementById('mobile-search-view');
             
-            // If already active and just switching mode, don't toggle class
+            if (!menu) return;
+
             const isCurrentlyActive = menu.classList.contains('active');
             
-            if (!isCurrentlyActive) {
-                if (menu) menu.style.display = 'flex';
+            if (isCurrentlyActive) {
+                const isSearchVisible = searchContainer && searchContainer.style.display === 'flex';
+                const isMenuVisible = menuContent && menuContent.style.display === 'flex';
+                
+                if ((mode === 'search' && isSearchVisible) || (mode === 'menu' && isMenuVisible)) {
+                    closeMobileMenu();
+                    return;
+                }
+            } else {
+                menu.style.display = 'flex';
                 document.body.classList.add('menu-open');
-                // Small delay to allow display:flex to register for animation
+                
                 setTimeout(() => {
                     menu.classList.add('active');
                     if (backdrop) backdrop.classList.add('active');
                 }, 10);
-            } else if (isCurrentlyActive && ((mode === 'search' && searchContainer?.style.display === 'flex') || (mode === 'menu' && menuContent.style.display === 'flex'))) {
-                // If clicking same mode while active, close it
-                closeMobileMenu();
-                return;
-            }
-
-            const isActive = menu.classList.contains('active');
-            
-            if (isActive) {
+                
                 document.body.style.overflow = 'hidden';
                 document.body.classList.add('no-cursor');
-                if (window.lucide) lucide.createIcons();
-                
-                // Set mode-based visibility
-                if (mode === 'search') {
-                    if (searchContainer) searchContainer.style.display = 'flex';
-                    if (menuContent) menuContent.style.display = 'none';
-                    setTimeout(() => {
-                        const input = document.getElementById('mobile-search-input-view');
-                        if (input) input.focus();
-                    }, 600);
-                } else {
-                    if (searchContainer) searchContainer.style.display = 'none';
-                    if (menuContent) menuContent.style.display = 'flex';
-                    // Scroll to top of menu content
-                    if (menu) menu.scrollTop = 0;
-                }
-
-                // Reset submenu on open
-                const submenu = document.getElementById('collection-submenu');
-                if (submenu) submenu.classList.remove('active');
-                
-                updateWishlistCount();
-                updateCartCount();
-                updateFilterUI();
-                renderRecentlyViewedMobile();
-            } else {
-                closeMobileMenu();
             }
+
+            if (mode === 'search') {
+                if (searchContainer) searchContainer.style.display = 'flex';
+                if (menuContent) menuContent.style.display = 'none';
+                
+                renderSearchHistory();
+                
+                setTimeout(() => {
+                    const input = document.getElementById('mobile-search-input-view');
+                    if (input) input.focus();
+                }, 600);
+                
+                updateBottomNavActive('search');
+            } else {
+                if (searchContainer) searchContainer.style.display = 'none';
+                if (menuContent) menuContent.style.display = 'flex';
+                
+                menu.scrollTop = 0;
+                updateMobileMenuActiveState();
+                
+                updateBottomNavActive('menu');
+            }
+
+            if (window.lucide) lucide.createIcons();
+            updateWishlistCount();
+            updateCartCount();
         }
 
         function renderRecentlyViewedMobile() {
@@ -8173,6 +8517,23 @@
             handleNavClick('shop');
         }
 
+        function handleSearchFocus(source) {
+            const inputId = source === 'mobile' ? 'mobile-search-input-view' : (source === 'shop' ? 'shop-search' : 'desktop-search');
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
+            const value = input.value;
+            if (!value || value.length < 1) {
+                if (source === 'mobile') {
+                    const contentWrapper = document.getElementById('mobile-search-content-wrapper');
+                    if (contentWrapper) contentWrapper.style.display = 'block';
+                    renderSearchHistory();
+                }
+            } else {
+                handleSearchInput(value, source);
+            }
+        }
+
         function handleSearchInput(value, source = 'mobile') {
             const clearBtnId = source === 'mobile' ? 'clear-mobile-search-view' : (source === 'shop' ? 'clear-shop-search' : (source === 'desktop' ? 'clear-desktop-search' : null));
             if (clearBtnId) {
@@ -8188,8 +8549,15 @@
             // Manage mobile menu content visibility
             if (source === 'mobile') {
                 const contentWrapper = document.getElementById('mobile-search-content-wrapper');
+                const suggestionsEl = document.getElementById('search-suggestions-view');
+                
                 if (contentWrapper) {
-                    contentWrapper.style.display = value.trim() ? 'none' : 'block';
+                    if (value.trim().length > 0) {
+                        contentWrapper.style.display = 'none';
+                    } else {
+                        contentWrapper.style.display = 'block';
+                        renderSearchHistory();
+                    }
                 }
             }
 
@@ -8239,10 +8607,9 @@
                     <div onclick="applySuggestion('${p.name}', '${source}')" 
                          class="suggestion-item interactive" 
                          data-name="${p.name}"
-                         data-index="${idx}"
-                         style="padding: 12px 15px; border-bottom: 1px solid rgba(203, 163, 92, 0.05); display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;">
-                        <div style="width: 45px; height: 45px; flex-shrink: 0; background: rgba(255,255,255,0.02); border: 1px solid rgba(203, 163, 92, 0.08); display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                            <img src="${p.img}" alt="${p.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease;" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                         data-index="${idx}">
+                        <div class="product-img-mini">
+                            <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                         </div>
                         <div style="flex: 1; min-width: 0;">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
@@ -8355,16 +8722,22 @@
             
             let html = '';
             
-            // Show Popular Searches if history is empty or as a separate section
             if (searchHistory.length > 0) {
                 html += `
-                    <div style="width: 100%; margin-bottom: 10px;">
-                        <p style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Recent</p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <div style="width: 100%; margin-bottom: 20px;">
+                        <p style="font-size: 0.6rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px; font-weight: 700; opacity: 0.8; display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 15px; height: 1px; background: var(--gold-primary); opacity: 0.3;"></span>
+                            Recent Explorations
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
                             ${searchHistory.map(q => `
-                                <span onclick="applyRecentSearch('${q}', 'mobile')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 6px 12px; border-radius: 1px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s var(--ease-luxury); background: rgba(203, 163, 92, 0.03);">
-                                    ${q}
-                                </span>
+                                <div onclick="applyRecentSearch('${q}', 'mobile')" class="interactive" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 12px 15px; background: rgba(255,255,255,0.02); border-radius: 4px; border: 1px solid rgba(203, 163, 92, 0.05); transition: all 0.3s ease;">
+                                    <div style="display: flex; align-items: center; gap: 15px;">
+                                        <i data-lucide="history" size="14" style="color: var(--gold-muted); opacity: 0.6;"></i>
+                                        <span style="font-size: 0.7rem; color: var(--text-white); letter-spacing: 1px; text-transform: uppercase;">${q}</span>
+                                    </div>
+                                    <i data-lucide="chevron-right" size="12" style="color: var(--gold-muted); opacity: 0.3;"></i>
+                                </div>
                             `).join('')}
                         </div>
                     </div>
@@ -8372,23 +8745,15 @@
                 if (clearBtn) clearBtn.style.display = 'flex';
             } else {
                 if (clearBtn) clearBtn.style.display = 'none';
+                html = `
+                    <div style="padding: 20px 0; text-align: center; opacity: 0.5;">
+                        <p style="font-size: 0.6rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 1px;">No recent explorations</p>
+                    </div>
+                `;
             }
             
-            // Always show Popular Searches
-            html += `
-                <div style="width: 100%; margin-top: 15px;">
-                    <p style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Popular</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        ${popularSearches.map(q => `
-                            <span onclick="applyRecentSearch('${q}', 'mobile')" class="interactive search-history-tag" style="font-size: 0.6rem; color: var(--gold-primary); border: 1px solid rgba(203, 163, 92, 0.2); padding: 6px 12px; border-radius: 1px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s var(--ease-luxury); background: rgba(203, 163, 92, 0.03);">
-                                ${q}
-                            </span>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
             container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
         }
 
         function renderShopPopularSearches() {
@@ -8445,27 +8810,21 @@
             const submenu = document.getElementById(id);
             if (!submenu) return;
             
-            const isOpening = !submenu.classList.contains('active');
-            
-            // Close all other submenus
+            // Close all other submenus for an accordion effect
             document.querySelectorAll('.mobile-submenu').forEach(el => {
                 if (el.id !== id) {
                     el.classList.remove('active');
-                    // Find corresponding icon and reset it
-                    const otherTrigger = el.previousElementSibling;
-                    if (otherTrigger) {
-                        const otherIcon = otherTrigger.querySelector('.submenu-icon');
-                        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
-                    }
+                    const otherIcon = el.previousElementSibling?.querySelector('.submenu-icon');
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
                 }
             });
             
+            const wasActive = submenu.classList.contains('active');
             submenu.classList.toggle('active');
             
-            // Find icon within the trigger
             const icon = trigger ? trigger.querySelector('.submenu-icon') : null;
             if (icon) {
-                icon.style.transform = submenu.classList.contains('active') ? 'rotate(45deg)' : 'rotate(0deg)';
+                icon.style.transform = !wasActive ? 'rotate(45deg)' : 'rotate(0deg)';
             }
         }
 
@@ -8848,7 +9207,7 @@
                 <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 5px;">
                     <del class="regular-price" style="font-size: 0.75rem; color: var(--text-dim); opacity: 0.3; display: block; margin-bottom: -5px;">${regularPrice}৳</del>
                     <div style="display: flex; align-items: baseline; gap: 12px;">
-                        <span class="product-price" style="font-size: clamp(1.4rem, 4vw, 1.8rem); font-weight: 900; color: var(--gold-price); line-height: 1; letter-spacing: -1px;">${displayPrice}৳</span>
+                        <span class="product-price" style="font-size: clamp(1.4rem, 4vw, 1.8rem); font-weight: 900; color: var(--gold-price); line-height: 1; letter-spacing: normal;">${displayPrice}৳</span>
                         <span style="font-size: 0.6rem; color: var(--gold-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5;">${size}</span>
                     </div>
                 </div>
@@ -9080,6 +9439,7 @@
                             <div class="parallax-wrapper">
                                 <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" style="${currentFilter === 'Wishlist' ? 'max-width:80%; max-height:80%;' : ''}" referrerPolicy="no-referrer">
                             </div>
+                            <div class="image-shine"></div>
                         </div>
                         <div class="product-info" style="margin-top: 10px;">
                             <div class="product-header" style="flex-direction:column; align-items:flex-start; gap:2px; margin-bottom:5px;">
@@ -9344,27 +9704,39 @@
             const urlParams = new URLSearchParams(window.location.search);
             const filterParam = urlParams.get('filter') || currentFilter;
 
+            if (view === 'menu') {
+                document.getElementById('nav-menu')?.classList.add('active');
+                return;
+            }
+
+            if (view === 'search') {
+                document.getElementById('nav-search')?.classList.add('active');
+                return;
+            }
+
+            if (view === 'wishlist' || filterParam === 'Wishlist' || currentFilter === 'Wishlist') {
+                document.getElementById('nav-wishlist')?.classList.add('active');
+                return;
+            }
+
             if (view === 'details') {
                 document.getElementById('nav-shop')?.classList.add('active');
                 return;
             }
             
-            if (view === 'checkout') {
+            if (view === 'checkout' || view === 'cart') {
                 document.getElementById('nav-cart')?.classList.add('active');
                 return;
             }
 
-            if (view === 'main') {
-                if (filterParam === 'Wishlist' || currentFilter === 'Wishlist') {
-                    document.getElementById('nav-wishlist')?.classList.add('active');
-                    return;
-                }
+            if (view === 'shop' || section === 'shop' || filterParam !== 'All') {
+                document.getElementById('nav-shop')?.classList.add('active');
+                return;
+            }
 
-                if (section === 'shop' || window.location.search.includes('filter')) {
-                    document.getElementById('nav-shop')?.classList.add('active');
-                } else {
-                    document.getElementById('nav-home')?.classList.add('active');
-                }
+            if (view === 'main' || view === 'hero' || view === 'home') {
+                document.getElementById('nav-home')?.classList.add('active');
+                return;
             }
         }
 
@@ -9556,7 +9928,10 @@
                              onclick="openLightbox('${p.img}')"
                              ${hasMultipleImages ? `ontouchstart="handleTouchStart(event)" ontouchend="handleTouchEnd(event, ${p.id})"` : ''}>
                             ${renderProductBadge(p, isWishlisted)}
-                            <img src="${p.img}" alt="${p.name}" class="zoom-image" loading="lazy" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                            <div class="parallax-wrapper">
+                                <img src="${p.img}" alt="${p.name}" class="zoom-image" loading="lazy" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                            </div>
+                            <div class="image-shine"></div>
                             <div style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.5); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--gold-primary); opacity: 0; transition: opacity 0.3s ease;" class="zoom-hint">
                                 <i data-lucide="maximize-2" size="18"></i>
                             </div>
@@ -10250,94 +10625,91 @@
 
         function renderCart() {
             const cont = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            if (!cont) return;
             
             if (cart.length === 0) {
                 cont.innerHTML = `
-                    <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; animation: luxuryFadeIn 0.5s ease forwards; padding-top: 40px;">
-                        <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(203, 163, 92, 0.05); border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                    <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; animation: luxuryFadeIn 0.5s ease forwards; padding: 60px 20px;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(203, 163, 92, 0.05); border: 1px solid rgba(203, 163, 92, 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
                             <i data-lucide="shopping-bag" size="32" style="color: var(--gold-primary); opacity: 0.8;"></i>
                         </div>
-                        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text-white); margin-bottom: 12px; letter-spacing: 1px;">Your Cart is Empty</h3>
-                        <p style="color: var(--text-dim); font-size: 0.9rem; max-width: 260px; margin-bottom: 35px; line-height: 1.6;">Discover our exclusive collection of fragrances and find your signature scent.</p>
-                        <button onclick="toggleCart(false); showView('main');" class="btn-gold interactive" style="padding: 14px 28px; font-size: 0.75rem; letter-spacing: 1px; width: auto;">
-                            EXPLORE COLLECTION
+                        <h3 class="playfair" style="font-size: 1.4rem; color: var(--text-white); margin-bottom: 15px; letter-spacing: 2.5px;">YOUR SELECTION IS EMPTY</h3>
+                        <p style="color: var(--text-dim); font-size: 0.85rem; max-width: 260px; margin-bottom: 35px; line-height: 1.8; letter-spacing: 0.5px;">Discover our exclusive collection of fragrances and find your signature scent.</p>
+                        <button onclick="toggleCart(false); handleNavClick('shop');" class="btn-gold interactive" style="padding: 16px 32px; font-size: 0.7rem; letter-spacing: 3px; font-weight: 700; width: auto;">
+                            EXPLORE BOUTIQUE
                         </button>
                     </div>
                 `;
-                document.getElementById('cart-total').innerText = '0৳';
+                if (totalEl) totalEl.innerText = '0৳';
+                
+                const timerContainer = document.getElementById('cart-reservation-container');
+                if (timerContainer) timerContainer.remove();
+                if (cartTimer) { clearInterval(cartTimer); cartTimer = null; }
+                
                 if (window.lucide) lucide.createIcons();
                 return;
             }
 
-            // Show skeletons for cart items
-            cont.innerHTML = Array(cart.length).fill(0).map(() => `
-                <div class="skeleton-checkout-item" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                    <div class="skeleton skeleton-checkout-img" style="width:70px; height:70px;"></div>
-                    <div class="skeleton-checkout-info">
-                        <div class="skeleton skeleton-checkout-title"></div>
-                        <div class="skeleton skeleton-checkout-meta"></div>
+            cont.innerHTML = '';
+            let subtotal = 0;
+            cart.forEach((item, index) => {
+                const itemActivePrice = Number(item.activePrice) || 0;
+                const itemQty = Number(item.qty) || 0;
+                const itemSize = item.selectedSize || '3ml';
+
+                subtotal += Number(itemActivePrice) * Number(itemQty);
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.style.animationDelay = `${index * 0.1}s`;
+                div.innerHTML = `
+                    <div class="cart-item-img-container" onclick="showView('details', ${item.id}); toggleCart(false);" style="cursor: pointer;">
+                        <img src="${item.img}" alt="${item.name}" loading="lazy" style="max-width:85%; max-height:85%; object-fit:contain" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     </div>
-                    <div class="skeleton skeleton-checkout-price"></div>
-                </div>
-            `).join('');
+                    <div style="flex:1; min-width: 0;">
+                        <h4 class="cart-item-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${item.name}</h4>
+                        <p class="cart-item-meta">
+                            ${itemSize} &bull; <span style="color: var(--gold-price); font-weight: 600;">${itemActivePrice}৳</span>
+                        </p>
+                        <div class="qty-controls" style="width:fit-content; background: rgba(255,255,255,0.03); border: 1px solid rgba(203, 163, 92, 0.1); padding: 4px 8px; gap: 12px; margin-top: 8px;">
+                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', -1)" style="width:24px; height:24px;"><i data-lucide="minus" size="10"></i></button>
+                            <div class="cart-qty-display" style="font-size: 0.8rem; min-width: 20px;">${itemQty}</div>
+                            <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', 1)" style="width:24px; height:24px;"><i data-lucide="plus" size="10"></i></button>
+                        </div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:12px;">
+                        <span style="font-weight:700; color:var(--text-white); font-size: 0.95rem; font-family: 'Playfair Display', serif;">${(itemActivePrice * itemQty).toLocaleString()}৳</span>
+                        <button onclick="changeQty('${item.cartId}', -${itemQty})" class="interactive" style="background:none; border:none; color:rgba(255,255,255,0.2); padding:5px; transition: color 0.3s ease;">
+                            <i data-lucide="trash-2" size="16"></i>
+                        </button>
+                    </div>
+                `;
+                cont.appendChild(div);
+            });
 
-            setTimeout(() => {
-                cont.innerHTML = '';
-                let subtotal = 0;
-                cart.forEach((item, index) => {
-                    const itemActivePrice = Number(item.activePrice) || 0;
-                    const itemQty = Number(item.qty) || 0;
-                    const itemSize = item.selectedSize || '3ml';
-
-                    subtotal += Number(itemActivePrice) * Number(itemQty);
-                    const div = document.createElement('div');
-                    div.className = 'cart-item';
-                    /* Sequential entrance delay as requested */
-                    div.style.animationDelay = `${index * 0.08}s`;
-                    div.innerHTML = `
-                        <div style="width:70px; height:70px; background:var(--bg-accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid var(--border-white);">
-                            <img src="${item.img}" alt="${item.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain" onerror="handleImageError(this)" referrerPolicy="no-referrer">
-                        </div>
-                        <div style="flex:1">
-                            <h4 style="font-size:0.95rem; margin-bottom:5px; text-transform:uppercase; letter-spacing:1px; font-weight:400;">${item.name}</h4>
-                            <p style="font-size:0.75rem; color:var(--gold-muted); margin-bottom:10px; letter-spacing:1px; display: flex; align-items: center; gap: 8px;">
-                                ${itemSize} Essence • 
-                                <span class="regular-price" style="font-size: 0.65rem; opacity: 0.5;">${itemSize === '3ml' ? REGULAR_PRICE_3ML_BDT : REGULAR_PRICE_6ML_BDT}৳</span>
-                                <span style="color: var(--gold-price); font-weight: 600;">${itemActivePrice}৳</span>
-                            </p>
-                            <div class="qty-controls" style="width:fit-content; padding: 4px 12px; gap: 12px;">
-                                <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', -1)" aria-label="Decrease quantity"><i data-lucide="minus" size="14"></i></button>
-                                <div style="font-weight:700; min-width:15px; text-align:center; font-size: 0.8rem;">${itemQty}</div>
-                                <button class="qty-btn interactive" onclick="changeQty('${item.cartId}', 1)" aria-label="Increase quantity"><i data-lucide="plus" size="14"></i></button>
-                            </div>
-                        </div>
-                        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:15px;">
-                            <span style="font-weight:700; color:var(--gold-price); font-size: 0.9rem;">${itemActivePrice * itemQty}৳</span>
-                            <i data-lucide="trash-2" size="18" style="cursor:pointer; color:rgba(255,255,255,0.2);" onclick="changeQty('${item.cartId}', -${itemQty})" class="interactive"></i>
-                        </div>
-                    `;
-                    cont.appendChild(div);
-                });
-                document.getElementById('cart-total').innerText = `${subtotal}৳`;
-                
-                // Add Reservation Timer logic
-                if (cart.length > 0) {
-                    let timerContainer = document.getElementById('cart-reservation-container');
-                    if (!timerContainer) {
-                        timerContainer = document.createElement('div');
-                        timerContainer.id = 'cart-reservation-container';
-                        timerContainer.className = 'cart-countdown';
-                        document.querySelector('.cart-drawer h2').parentElement.insertAdjacentElement('afterend', timerContainer);
-                    }
-                    timerContainer.innerHTML = `<i data-lucide="timer" size="14" style="vertical-align: middle; margin-right: 8px;"></i> <span id="cart-reservation-timer">Items reserved for 10:00</span>`;
-                    startCartTimer();
-                } else {
-                    const timerContainer = document.getElementById('cart-reservation-container');
-                    if (timerContainer) timerContainer.remove();
+            if (totalEl) totalEl.innerText = subtotal.toLocaleString() + '৳';
+            if (window.lucide) lucide.createIcons();
+            
+            let timerContainer = document.getElementById('cart-reservation-container');
+            if (!timerContainer && cart.length > 0) {
+                timerContainer = document.createElement('div');
+                timerContainer.id = 'cart-reservation-container';
+                timerContainer.className = 'cart-countdown';
+                const header = document.querySelector('.cart-drawer h2');
+                if (header && header.parentElement) {
+                    header.parentElement.insertAdjacentElement('afterend', timerContainer);
                 }
-
-                if (window.lucide) lucide.createIcons();
-            }, 400);
+            }
+            
+            if (timerContainer) {
+                timerContainer.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <div style="width:6px; height:6px; background:var(--gold-primary); border-radius:50%; box-shadow: 0 0 10px var(--gold-primary);"></div>
+                        <span id="cart-reservation-timer" style="font-weight: 700; letter-spacing: 3px; font-size: 0.65rem; text-transform: uppercase; color: var(--gold-muted);">Items reserved for 10:00</span>
+                    </div>
+                `;
+                startCartTimer();
+            }
         }
 
         function updateCartCount() {
@@ -10829,8 +11201,34 @@
             const floatingCta = document.getElementById('floating-shop-cta');
             if (floatingCta) {
                 const mainView = document.getElementById('main-view');
-                const isMainViewVisible = mainView && mainView.style.display !== 'none';
-                if (scrollY > 500 && isMainViewVisible) {
+                const detailView = document.getElementById('details-view');
+                const checkoutView = document.getElementById('checkout-view');
+                const isMenuOpen = document.body.classList.contains('menu-open');
+                const isCartOpen = document.getElementById('cart-overlay')?.classList.contains('open');
+                const isScentFinderOpen = document.getElementById('scent-finder-overlay')?.style.display === 'block';
+                
+                // Be very rigorous about identifying the active view
+                const isMainActive = mainView && mainView.style.display !== 'none';
+                const isDetailActive = detailView && detailView.style.display === 'block';
+                const isCheckoutActive = checkoutView && checkoutView.style.display === 'block';
+                
+                // Determine if we are in a section where CTA is redundant
+                const shopSection = document.getElementById('shop');
+                let isInShopSection = false;
+                if (shopSection && isMainActive) {
+                    const shopRect = shopSection.getBoundingClientRect();
+                    // If the top of the shop section is visible or above the viewport top, we hide the redundant CTA
+                    isInShopSection = shopRect.top < 150;
+                }
+
+                // Correct criteria:
+                // 1. Must be in the main view (Hero/Home)
+                // 2. Must not be in the shop area already 
+                // 3. Must not have any overlays (details, checkout, menu, cart, or finder) open
+                // 4. Must have scrolled past a certain threshold
+                const shouldShow = scrollY > 700 && isMainActive && !isDetailActive && !isCheckoutActive && !isMenuOpen && !isCartOpen && !isScentFinderOpen && !isInShopSection;
+
+                if (shouldShow) {
                     floatingCta.classList.add('visible');
                 } else {
                     floatingCta.classList.remove('visible');
@@ -11031,6 +11429,46 @@
 
             // Start urgency features
             initSocialProof();
+
+            // Parallax 3D Tilt Effect for Product Cards
+            document.addEventListener('mousemove', e => {
+                const card = e.target.closest('.image-container, .main-image-container');
+                if (!card) return;
+                
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Sensitivity factors
+                const tiltIntensity = 8; 
+                const rotateX = ((y - centerY) / centerY) * -tiltIntensity;
+                const rotateY = ((x - centerX) / centerX) * tiltIntensity;
+                
+                const wrapper = card.querySelector('.parallax-wrapper');
+                if (wrapper) {
+                    wrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                }
+                
+                const shine = card.querySelector('.image-shine');
+                if (shine) {
+                    const shineX = (x / rect.width) * 100;
+                    const shineY = (y / rect.height) * 100;
+                    shine.style.background = `radial-gradient(circle at ${shineX}% ${shineY}%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 80%)`;
+                }
+            });
+
+            document.addEventListener('mouseout', e => {
+                const card = e.target.closest('.image-container, .main-image-container');
+                if (!card || e.relatedTarget?.closest('.image-container, .main-image-container') === card) return;
+                
+                const wrapper = card.querySelector('.parallax-wrapper');
+                if (wrapper) {
+                    wrapper.style.transform = `rotateX(0deg) rotateY(0deg)`;
+                }
+            }, true);
 
             // Handle browser back/forward
             window.addEventListener('popstate', (event) => {
