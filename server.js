@@ -9,10 +9,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static assets (images, css, etc.) if any
 app.use(express.static(__dirname, { index: false }));
 
-// Serve index.html for all routes, replacing any environment variables if provided
 app.get('*', (req, res) => {
   const indexPath = path.join(__dirname, 'index.html');
   if (fs.existsSync(indexPath)) {
