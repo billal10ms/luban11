@@ -128,7 +128,7 @@
           "name": "What sizes are available for purchase?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Our artisanal scents are available in 3ml and 6ml sizes, allowing you to experience luxury in portable and elegant formats."
+            "text": "Our artisanal scents are available in 3ml, 6ml, and 30ml Spray sizes, allowing you to experience luxury in portable attar formats as well as our long-lasting 30 ML Spray edition."
           }
         }
       ]
@@ -8325,8 +8325,10 @@
 
         const PRICE_3ML_BDT = 200;
         const PRICE_6ML_BDT = 300;
+        const PRICE_30ML_BDT = 850;
         const REGULAR_PRICE_3ML_BDT = 350;
         const REGULAR_PRICE_6ML_BDT = 500;
+        const REGULAR_PRICE_30ML_BDT = 1200;
         const APPS_SCRIPT_EXEC_URL = "https://script.google.com/macros/s/AKfycbx-2IooPMPFvx02eF5inEmrQ4G2LKT8HoE0ZjifrJIILT0flmSLHxetFN1vDsFVON31Ig/exec";
         let viewerInterval = null;
         let cartExpiryInterval = null;
@@ -8451,13 +8453,13 @@
   {
     "id": 1,
     "name": "Ehsas Al Arabia",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A majestic blend of hand-harvested Cambodian Oud, velvet Damascus Rose, and golden Baltic Amber resinated under the traditional desert sun.",
     "vibe": "An opulent, sultan-tier masterpiece that evokes the timeless mystery and grandeur of ancient Arabian palaces.",
     "category": "Oriental",
     "gender": "Unisex",
     "img": "https://i.ibb.co/Cs01Jw3p/ehsas.webp",
-    "stock": { "3ml": 5, "6ml": 12 },
+    "stock": { "3ml": 5, "6ml": 12, "30ml": 10 },
     "notes": {
       "top": ["Saffron", "Rose"],
       "heart": ["Oud", "Patchouli"],
@@ -8474,13 +8476,13 @@
   {
     "id": 2,
     "name": "Vampire Blood",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "An enigmatic elixir of wild Red Berries from the Black Forest, crushed midnight Jasmine, and succulent Italian Plum, deepened by dark Sumatran patchouli.",
     "vibe": "Enigmatic, sweet, and provocatively gothic—designed for those who command the shadows with an addictive sweet trail.",
     "category": "Sweet",
     "gender": "Unisex",
     "img": "https://i.ibb.co/Mr9dm39/blood.webp",
-    "stock": { "3ml": 0, "6ml": 8 },
+    "stock": { "3ml": 0, "6ml": 8, "30ml": 15 },
     "notes": {
       "top": ["Red Berries", "Plum"],
       "heart": ["Jasmine", "Rose"],
@@ -8497,13 +8499,13 @@
   {
     "id": 3,
     "name": "Creed Aventus",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "The legendary signature for the ambitious wearer, featuring sun-drenched Mediterranean Pineapple, smoky Moroccan Birch, and a base of rare oceanic Grey Ambergris.",
     "vibe": "The scent of power and success—a bold, fruity-smoky masterpiece that commands immediate attention and respect.",
     "category": "Masculine",
     "gender": "Masculine",
     "img": "https://i.ibb.co/20GFMS5j/creed.webp",
-    "stock": { "3ml": 3, "6ml": 2 },
+    "stock": { "3ml": 3, "6ml": 2, "30ml": 8 },
     "notes": {
       "top": ["Pineapple", "Bergamot", "Black Currant"],
       "heart": ["Birch", "Patchouli", "Jasmine"],
@@ -8520,7 +8522,7 @@
   {
     "id": 4,
     "name": "Baccarat Rouge 540",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A crystalline symphony of radiant Iranian Saffron and Egyptian Jasmine, resting on a structural foundation of French Fir Resin and warm Cedarwood.",
     "vibe": "Airy, crystalline, and unforgettable—this scent creates an addictive, burnt-sugar halo that hovers elegantly around the wearer.",
     "category": "Luxury",
@@ -8543,7 +8545,7 @@
   {
     "id": 5,
     "name": "Lattafa Khamrah",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A sumptuously warm desert feast of spicy Ceylon Cinnamon, sweet Medjool Dates, and buttery praline, matured in a base of Madagascan Vanilla and Omani Amber.",
     "vibe": "Decadently sweet and boozy—an architectural gourmand that feels like a warm, golden embrace on a cold winter evening.",
     "category": "Gourmand",
@@ -8567,7 +8569,7 @@
   {
     "id": 6,
     "name": "Lattafa Yara",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A luminous, feminine cloud of delicate Heliotrope and Cattleya Orchid, blended with sun-kissed Tropical Fruits and a base of Tahitian Vanilla.",
     "vibe": "Radiant, powdery, and delightfully sweet—reminiscent of a sophisticated strawberry marshmallow treats in a blooming garden.",
     "category": "Feminine",
@@ -8591,7 +8593,7 @@
   {
     "id": 7,
     "name": "Stronger With You",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A magnetic masculine dialogue between roasted Piedmontese Chestnut and intense Cardamom, finished with a trail of spicy Pink Pepper and Madagascan Vanilla.",
     "vibe": "Unapologetically warm and magnetic—the ultimate dates-night signature that balances rugged spice with creamy sweetness.",
     "category": "Date Night",
@@ -8614,7 +8616,7 @@
   {
     "id": 8,
     "name": "Ariana Grande Cloud",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "An ethereal cocktail of wild Lavender and juicy French Pear, topped with an addictive heart of whipped coconut cream and praline from Brussels.",
     "vibe": "Ethereal, fluffy, and comforting—like a weightless vanilla cloud that carries you through a peaceful dreamscape.",
     "category": "Female",
@@ -8638,7 +8640,7 @@
   {
     "id": 10,
     "name": "YSL Black Opium",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "An electric jolt of dark roasted Ethiopian Coffee and spicy Madagascan Vanilla, beautifully contrasted with the fragile elegance of Mediterranean Orange Blossoms.",
     "vibe": "Addictive, energizing, and provocatively sensual—designed for the daring woman who thrives in the energy of the night.",
     "category": "Feminine",
@@ -8661,7 +8663,7 @@
   {
     "id": 11,
     "name": "Good Girl",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A sultry, high-contrast narrative between radiant Sambac Jasmine and dark roasted Brazilian Tonka Bean, accented by velvet Cacao and precious Florentine Orris.",
     "vibe": "A powerful contrast of light and shadow—this scent perfectly captures the duality of the modern woman's elegant yet daring spirit.",
     "category": "Feminine",
@@ -8684,7 +8686,7 @@
   {
     "id": 13,
     "name": "Versace Eros",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A heroic blast of chilled Italian Mint and crispy Green Apple, deepening into a seductive base of golden Amber and warm Madagascan Vanilla.",
     "vibe": "The scent of the Greek God of Love—loud, energetic, and masterfully seductive for those who own the dance floor.",
     "category": "Date Night",
@@ -8707,7 +8709,7 @@
   {
     "id": 14,
     "name": "Hawas Ice",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A glacial, high-performance aquatic experience featuring frozen Alpine Apple and frosted Sicilian Bergamot, layered over a shimmering crystalline musk.",
     "vibe": "Fiercely fresh and impressively loud—this is the cooling, high-performance evolution of the legendary Hawas aquatic DNA.",
     "category": "Masculine",
@@ -8731,7 +8733,7 @@
   {
     "id": 15,
     "name": "Hawas Fire",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A smoldering volcanic fusion of Black Pepper from the Malabar Coast, Persian Saffron, and Nutmeg, evolving into a primal heart of Tuscan Leather and Oud.",
     "vibe": "Spicy, intense, and profoundly masculine—a fiery evolution that brings volcanic heat and commanding projection to the profile.",
     "category": "Masculine",
@@ -8754,7 +8756,7 @@
   {
     "id": 17,
     "name": "Tobacco Vanille",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "An opulent interpretation of London’s high-end private clubs, blending sun-cured Tobacco Leaf and exotic spices with a creamy Madagascan vanilla and cacao finish.",
     "vibe": "Classic, rich, and profoundly luxurious—this profile creates the atmosphere of a private London club lounge filled with fine aged woods.",
     "category": "Luxury",
@@ -8778,7 +8780,7 @@
   {
     "id": 19,
     "name": "Miss Dior",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A 'Millefiori' masterpiece in a bottle, featuring radiant Grasse Peony and Damascus Rose, heart notes of fresh Lily-of-the-Valley and sun-ripened Peach.",
     "vibe": "Elegantly light and timelessly romantic—a sophisticated floral bouquet that celebrates the joy of spring in full bloom.",
     "category": "Feminine",
@@ -8801,7 +8803,7 @@
   {
     "id": 20,
     "name": "Lady Million",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A vibrant, multi-faceted profile of zesty Tunisian Neroli and wild Raspberry, deepening into a heart of Arabian Jasmine and a luscious white honey trail.",
     "vibe": "Vibrant, glamorous, and decadently honey-sweet—a fragrance that shines like a diamond under the spotlight.",
     "category": "Feminine",
@@ -8824,7 +8826,7 @@
   {
     "id": 21,
     "name": "Bombshell",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A sparkling sunshine cocktail of purple Brazilian Passionfruit, Shangri-la Peony, and Vanilla Orchid, accented by the fresh zest of Italian Grapefruit.",
     "vibe": "Bright, fruity, and unapologetically confident—the ultimate 'Golden Hour' fragrance for turning heads with effortless charm.",
     "category": "Feminine",
@@ -8847,7 +8849,7 @@
   {
     "id": 22,
     "name": "Acqua Di Gio",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "The quintessential Mediterranean escape, built on a foundation of ozonic Sea Notes, zesty Sicilian Lime, and sun-drenched Calabrian Bergamot.",
     "vibe": "The gold standard of aquatics—clean, light, and as refreshing as a salt-misted breeze across the Italian coastline.",
     "category": "Fresh",
@@ -8870,7 +8872,7 @@
   {
     "id": 23,
     "name": "Cool Water Man",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A pioneer of oceanic vitality, featuring a crisp start of cold Sea Water and fresh Mint, evolving into a clean forest of green Lavender and French Oakmoss.",
     "vibe": "Timeless, aromatic, and profoundly fresh—a masculine blue classic that remains the definitive standard for clean vitality.",
     "category": "Classic",
@@ -8893,7 +8895,7 @@
   {
     "id": 27,
     "name": "Sultan",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A royal decree of concentrated Siberian Cedar and Juniper berries from the Northern heights, anchored by a robust base of royal Musk and golden Amber.",
     "vibe": "Commanding and exceptionally woody—a fragrance that projects a presence of historical nobility and masculine strength.",
     "category": "Oriental",
@@ -8916,7 +8918,7 @@
   {
     "id": 28,
     "name": "Paris Hilton (Men)",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A vibrant, casual rooftop blend of refreshing Cucumber from the valley and tropical Mango, finished with a clean mandarin splash and West Indian Sandalwood.",
     "vibe": "Playful, fruity, and immensely fresh—an easy-going profile that’s perfect for summer afternoons and relaxed social settings.",
     "category": "Fresh",
@@ -8939,7 +8941,7 @@
   {
     "id": 29,
     "name": "Yves Saint Laurent (YSL) Y EDP",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A sophisticated reinventing of the fougère, featuring sharp Bergamot, spicy Ginger, and Sage, grounded by a powerful woody-amber base of Haitian Vetiver.",
     "vibe": "Fresh, powerful, and impeccably refined—a fragrance designed for the modern visionary who defines their own path to success with an enduring, masculine trail.",
     "category": "Masculine",
@@ -8962,7 +8964,7 @@
   {
     "id": 30,
     "name": "AZZARO THE MOST WANTED",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "An intense, charismatic fusion of spicy green Cardamom and rich, velvety Toffee, grounded by a structural Amberwood foundation that lingers with warmth.",
     "vibe": "Charismatic, powerful, and irresistibly seductive—a fragrance designed for the man who dares to play and win in life and romance.",
     "category": "Date Night",
@@ -8985,7 +8987,7 @@
   {
     "id": 31,
     "name": "Gucci Flora",
-    "price": { "3ml": 200, "6ml": 300 },
+    "price": { "3ml": 200, "6ml": 300, "30ml": 850 },
     "desc": "A joyful garden-fresh blend of radiant Italian White Gardenia and sun-ripened Pear Blossom, finished with a touch of brown sugar and creamy Indonesian patchouli.",
     "vibe": "Enchantingly sweet and vibrantly floral—a youthful, airy masterpiece that celebrates the freedom of spirit and the beauty of nature.",
     "category": "Feminine",
@@ -9110,8 +9112,8 @@
                             "@type": "AggregateOffer",
                             "priceCurrency": "BDT",
                             "lowPrice": p.price["3ml"],
-                            "highPrice": p.price["6ml"],
-                            "offerCount": 2,
+                            "highPrice": p.price["30ml"] || 850,
+                            "offerCount": 3,
                             "availability": "https://schema.org/InStock",
                             "url": `${currentUrl}?product=${p.id}`
                         },
@@ -9158,8 +9160,8 @@
                     "@type": "AggregateOffer",
                     "priceCurrency": "BDT",
                     "lowPrice": p.price["3ml"],
-                    "highPrice": p.price["6ml"],
-                    "offerCount": 2,
+                    "highPrice": p.price["30ml"] || 850,
+                    "offerCount": 3,
                     "availability": "https://schema.org/InStock",
                     "url": `${currentUrl}?product=${p.id}`,
                     "priceValidUntil": "2027-12-31"
@@ -9242,6 +9244,16 @@
                         "url": productUrl,
                         "priceCurrency": "BDT",
                         "price": p.price["6ml"],
+                        "priceValidUntil": "2027-12-31",
+                        "availability": "https://schema.org/InStock",
+                        "itemCondition": "https://schema.org/NewCondition"
+                    },
+                    {
+                        "@type": "Offer",
+                        "name": "30ml Spray Volume",
+                        "url": productUrl,
+                        "priceCurrency": "BDT",
+                        "price": p.price["30ml"] || 850,
                         "priceValidUntil": "2027-12-31",
                         "availability": "https://schema.org/InStock",
                         "itemCondition": "https://schema.org/NewCondition"
@@ -9778,9 +9790,10 @@
                         
                         <div style="margin-bottom: 20px;">
                             <p style="font-size: 0.6rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 12px; opacity: 0.6;">Select Volume</p>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <button class="size-btn ${selectedSize === '3ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('3ml', ${p.id}, this);" style="padding: 12px; font-size: 0.65rem; border-radius: 2px;">3 ML</button>
-                                <button class="size-btn ${selectedSize === '6ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('6ml', ${p.id}, this);" style="padding: 12px; font-size: 0.65rem; border-radius: 2px;">6 ML</button>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+                                <button class="size-btn ${selectedSize === '3ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('3ml', ${p.id}, this);" style="padding: 10px 4px; font-size: 0.6rem; border-radius: 2px;">3 ML</button>
+                                <button class="size-btn ${selectedSize === '6ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('6ml', ${p.id}, this);" style="padding: 10px 4px; font-size: 0.6rem; border-radius: 2px;">6 ML</button>
+                                <button class="size-btn ${selectedSize === '30ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('30ml', ${p.id}, this);" style="padding: 10px 4px; font-size: 0.6rem; border-radius: 2px;">30 ML Spray</button>
                             </div>
                         </div>
 
@@ -9817,8 +9830,9 @@
             // Update active state of all size buttons globally
             document.querySelectorAll('.size-btn').forEach(btn => {
                 const text = btn.innerText.toLowerCase();
-                const isMatch = (selectedSize === '3ml' && text.includes('3')) || 
-                                (selectedSize === '6ml' && text.includes('6'));
+                const isMatch = (selectedSize === '3ml' && text.includes('3') && !text.includes('30')) || 
+                                (selectedSize === '6ml' && text.includes('6')) ||
+                                (selectedSize === '30ml' && text.includes('30'));
                 if (isMatch) {
                     btn.classList.add('active');
                 } else {
@@ -9939,6 +9953,10 @@
                         <tr>
                             <td class="compare-row-label">Price (6ml)</td>
                             ${compareProducts.map(p => `<td style="font-size:1.2rem; color:var(--gold-price); font-weight:700;">${p.price['6ml']}৳</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="compare-row-label">Price (30ml Spray)</td>
+                            ${compareProducts.map(p => `<td style="font-size:1.2rem; color:var(--gold-price); font-weight:700;">${p.price['30ml'] || 850}৳</td>`).join('')}
                         </tr>
                         <tr>
                             <td class="compare-row-label">Category</td>
@@ -11312,31 +11330,36 @@
         function renderPrice(p, isCompact = false) {
             if (!p) return '';
             
-            const size = (selectedSize === '3ml' || selectedSize === '6ml') ? selectedSize : '3ml';
+            const size = (selectedSize === '3ml' || selectedSize === '6ml' || selectedSize === '30ml') ? selectedSize : '3ml';
             
             // Determine baseline prices
-            const b3 = Number(PRICE_3ML_BDT) || 690;
-            const b6 = Number(PRICE_6ML_BDT) || 1250;
-            const r3 = Number(REGULAR_PRICE_3ML_BDT) || 850;
-            const r6 = Number(REGULAR_PRICE_6ML_BDT) || 1500;
+            const b3 = Number(PRICE_3ML_BDT) || 200;
+            const b6 = Number(PRICE_6ML_BDT) || 300;
+            const b30 = Number(PRICE_30ML_BDT) || 850;
+            const r3 = Number(REGULAR_PRICE_3ML_BDT) || 350;
+            const r6 = Number(REGULAR_PRICE_6ML_BDT) || 500;
+            const r30 = Number(REGULAR_PRICE_30ML_BDT) || 1200;
             
-            let currentPrice = size === '3ml' ? b3 : b6;
-            let regularPrice = size === '3ml' ? r3 : r6;
+            let currentPrice = size === '30ml' ? b30 : (size === '3ml' ? b3 : b6);
+            let regularPrice = size === '30ml' ? r30 : (size === '3ml' ? r3 : r6);
             
             // Check specific product prices override
             if (p.price) {
                 if (size === '3ml' && p.price['3ml']) currentPrice = p.price['3ml'];
                 else if (size === '6ml' && p.price['6ml']) currentPrice = p.price['6ml'];
+                else if (size === '30ml' && p.price['30ml']) currentPrice = p.price['30ml'];
                 else if (p.price.default) currentPrice = p.price.default;
             }
             
             if (p.regularPrice) {
                 if (size === '3ml' && p.regularPrice['3ml']) regularPrice = p.regularPrice['3ml'];
                 else if (size === '6ml' && p.regularPrice['6ml']) regularPrice = p.regularPrice['6ml'];
+                else if (size === '30ml' && p.regularPrice['30ml']) regularPrice = p.regularPrice['30ml'];
             }
             
             const numericPrice = Number(currentPrice);
             const displayPrice = isNaN(numericPrice) ? '0' : numericPrice;
+            const sizeLabel = size === '30ml' ? '30 ML Spray' : size.toUpperCase();
 
             if (isCompact) {
                 return `
@@ -11344,7 +11367,7 @@
                         <span style="font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--gold-price); font-weight: 800; line-height: 1.1; margin-bottom: 2px;">${displayPrice}৳</span>
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <del style="font-size: 0.55rem; color: var(--text-dim); opacity: 0.4;">${regularPrice}৳</del>
-                            <span style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 1px; opacity: 0.6;">${selectedSize.toUpperCase()}</span>
+                            <span style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 1px; opacity: 0.6;">${sizeLabel}</span>
                         </div>
                     </div>
                 `;
@@ -11355,7 +11378,7 @@
                     <del class="regular-price" style="font-size: 0.75rem; color: var(--text-dim); opacity: 0.3; display: block; margin-bottom: -5px;">${regularPrice}৳</del>
                     <div style="display: flex; align-items: baseline; gap: 12px;">
                         <span class="product-price" style="font-size: clamp(1.4rem, 4vw, 1.8rem); font-weight: 900; color: var(--gold-price); line-height: 1; letter-spacing: normal;">${displayPrice}৳</span>
-                        <span style="font-size: 0.6rem; color: var(--gold-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5;">${size}</span>
+                        <span style="font-size: 0.6rem; color: var(--gold-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5;">${sizeLabel}</span>
                     </div>
                 </div>
             `;
@@ -11553,8 +11576,9 @@
                             <div class="product-card-actions" style="gap: 8px;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
                                     <div class="size-selector compact" style="margin: 0;">
-                                        <button class="size-btn ${selectedSize === '3ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('3ml', ${p.id}, this);">3ML</button>
-                                        <button class="size-btn ${selectedSize === '6ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('6ml', ${p.id}, this);">6ML</button>
+                                        <button class="size-btn ${selectedSize === '3ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('3ml', ${p.id}, this);" style="padding: 8px 6px; font-size: 0.6rem;">3ML</button>
+                                        <button class="size-btn ${selectedSize === '6ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('6ml', ${p.id}, this);" style="padding: 8px 6px; font-size: 0.6rem;">6ML</button>
+                                        <button class="size-btn ${selectedSize === '30ml' ? 'active' : ''} interactive" onclick="event.stopPropagation(); setSize('30ml', ${p.id}, this);" style="padding: 8px 6px; font-size: 0.6rem;">30ML Spray</button>
                                     </div>
                                     <button onclick="event.stopPropagation(); toggleComparison(${p.id})" class="btn-text-gold interactive ${isCompared ? 'active' : ''}" style="font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; opacity: 0.6; display: flex; align-items: center; gap: 4px;">
                                         <i data-lucide="${isCompared ? 'check' : 'layers'}" size="11"></i> <span>${isCompared ? 'Added' : 'Compare'}</span>
@@ -11959,14 +11983,15 @@
             // Update details stock indicator
             const stockIndicator = document.getElementById('details-stock-indicator');
             if (stockIndicator) {
-                stockIndicator.innerHTML = renderStockIndicator(typeof p.stock === 'object' ? p.stock[size] : p.stock);
+                const stockVal = typeof p.stock === 'object' ? (p.stock[size] ?? 10) : p.stock;
+                stockIndicator.innerHTML = renderStockIndicator(stockVal);
                 if (window.lucide) lucide.createIcons();
             }
 
             // Update Add to Bag button status
             const addBtn = document.getElementById(`quick-add-btn-${productId}`);
             if (addBtn) {
-                const stockVal = typeof p.stock === 'object' ? p.stock[size] : p.stock;
+                const stockVal = typeof p.stock === 'object' ? (p.stock[size] ?? 10) : p.stock;
                 if (stockVal === 0) {
                     addBtn.disabled = true;
                     addBtn.classList.add('disabled');
@@ -11993,11 +12018,9 @@
             
             const stickyPriceField = document.getElementById('sticky-price');
             if (stickyPriceField) {
-                // Use a simplified version of renderPrice logic for the sticky text
-                let currentPrice = size === '3ml' ? (PRICE_3ML_BDT || 690) : (PRICE_6ML_BDT || 1250);
-                if (p.price) {
-                    if (size === '3ml' && p.price['3ml']) currentPrice = p.price['3ml'];
-                    else if (size === '6ml' && p.price['6ml']) currentPrice = p.price['6ml'];
+                let currentPrice = size === '30ml' ? (PRICE_30ML_BDT || 850) : (size === '3ml' ? (PRICE_3ML_BDT || 200) : (PRICE_6ML_BDT || 300));
+                if (p.price && p.price[size]) {
+                    currentPrice = p.price[size];
                 }
                 stickyPriceField.innerText = `${currentPrice}৳`;
             }
@@ -12138,7 +12161,7 @@
         function renderDetails(p) {
             const isWishlisted = wishlist.includes(p.id);
             const isCompared = comparisonList.includes(p.id);
-            const currentProductPrice = selectedSize === '3ml' ? (p.price?.['3ml'] || PRICE_3ML_BDT) : (p.price?.['6ml'] || PRICE_6ML_BDT);
+            const currentProductPrice = p.price?.[selectedSize] || (selectedSize === '30ml' ? PRICE_30ML_BDT : (selectedSize === '6ml' ? PRICE_6ML_BDT : PRICE_3ML_BDT));
             
             const path = [
                 { label: 'Home', view: 'main' },
@@ -12219,17 +12242,18 @@
 
                         <div class="selection-box" style="margin-bottom: 35px;">
                             <p style="text-transform:uppercase; font-size:0.6rem; color:var(--gold-muted); letter-spacing:2px; margin-bottom:12px; font-weight:700;">Volume Choice</p>
-                            <div class="size-selector compact" style="max-width: 320px; margin-bottom: 10px;">
+                            <div class="size-selector compact" style="max-width: 440px; margin-bottom: 10px;">
                                 ${Object.keys(p.price).map(size => {
-                                    const stockVal = typeof p.stock === 'object' ? p.stock[size] : p.stock;
+                                    const stockVal = typeof p.stock === 'object' ? (p.stock[size] ?? 10) : p.stock;
                                     const isOutOfStock = stockVal === 0;
                                     const isLowStock = stockVal > 0 && stockVal <= 3;
+                                    const sizeLabel = size === '30ml' ? '30 ML Spray' : (size === '3ml' ? '3 ML' : (size === '6ml' ? '6 ML' : size.toUpperCase()));
                                     
                                     return `
                                         <button class="size-btn ${selectedSize === size ? 'active' : ''} ${isOutOfStock ? 'out-of-stock' : ''} interactive" 
                                                 onclick="${isOutOfStock ? '' : `setSize('${size}', ${p.id}, this)`}"
-                                                style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 20px; height: auto;">
-                                            <span style="font-size: 0.85rem;">${size}</span>
+                                                style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 14px; height: auto;">
+                                            <span style="font-size: 0.75rem; font-weight: 700;">${sizeLabel}</span>
                                             ${isOutOfStock ? `
                                                 <span class="status-text" style="font-size: 0.5rem; letter-spacing: 0.5px; font-weight: 800; text-transform: uppercase;">Sold Out</span>
                                             ` : isLowStock ? `
@@ -12324,7 +12348,7 @@
 
             // Populate Sticky Bar
             const stickyBar = document.getElementById('sticky-cart-bar');
-            const initialStickyPrice = selectedSize === '3ml' ? (p.price?.['3ml'] || PRICE_3ML_BDT) : (p.price?.['6ml'] || PRICE_6ML_BDT);
+            const initialStickyPrice = p.price?.[selectedSize] || (selectedSize === '30ml' ? PRICE_30ML_BDT : (selectedSize === '6ml' ? PRICE_6ML_BDT : PRICE_3ML_BDT));
             stickyBar.innerHTML = `
                 <div class="sticky-cart-info">
                     <img src="${p.img}" alt="${p.name}" loading="lazy" class="sticky-cart-img" onerror="handleImageError(this)" referrerPolicy="no-referrer">
@@ -12360,12 +12384,12 @@
             if (typeof trackEvent === 'function') {
                 trackEvent('view_item', {
                     currency: 'BDT',
-                    value: selectedSize === '6ml' ? (p.price?.['6ml'] || PRICE_6ML_BDT) : (p.price?.['3ml'] || PRICE_3ML_BDT),
+                    value: p.price?.[selectedSize] || (selectedSize === '30ml' ? PRICE_30ML_BDT : (selectedSize === '6ml' ? PRICE_6ML_BDT : PRICE_3ML_BDT)),
                     items: [{
                         item_id: p.id,
                         item_name: p.name,
                         item_category: p.gender,
-                        price: selectedSize === '6ml' ? (p.price?.['6ml'] || PRICE_6ML_BDT) : (p.price?.['3ml'] || PRICE_3ML_BDT)
+                        price: p.price?.[selectedSize] || (selectedSize === '30ml' ? PRICE_30ML_BDT : (selectedSize === '6ml' ? PRICE_6ML_BDT : PRICE_3ML_BDT))
                     }]
                 });
             }
@@ -12601,8 +12625,9 @@
             
             qtyInput.value = 1;
             
-            const size = (selectedSize === '3ml' || selectedSize === '6ml') ? selectedSize : '3ml';
-            let currentPrice = product.price ? (product.price[size] || (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT)) : (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT);
+            const size = (selectedSize === '3ml' || selectedSize === '6ml' || selectedSize === '30ml') ? selectedSize : '3ml';
+            let currentPrice = product.price ? (product.price[size] || (size === '30ml' ? PRICE_30ML_BDT : (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT))) : (size === '30ml' ? PRICE_30ML_BDT : (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT));
+            const sizeLabel = size === '30ml' ? '30 ML Spray' : size.toUpperCase();
             
             preview.innerHTML = `
                 <img src="${product.img}" alt="${product.name}" class="buy-now-img" loading="lazy" onerror="this.src='https://picsum.photos/seed/fragrance/200/200'" referrerPolicy="no-referrer">
@@ -12610,7 +12635,7 @@
                     <p style="font-size: 0.6rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2px;">Exquisite Selection</p>
                     <h3 class="playfair" style="font-size: 1.2rem; color: var(--text-white); margin-bottom: 5px;">${product.name}</h3>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 700;">${size.toUpperCase()}</span>
+                        <span style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 700;">${sizeLabel}</span>
                         <span style="font-size: 0.8rem; color: var(--text-dim);">৳${currentPrice.toLocaleString()}</span>
                     </div>
                 </div>
@@ -12650,8 +12675,8 @@
         function updateBuyNowTotal() {
             if (!currentBuyNowProduct) return;
             const qty = parseInt(document.getElementById('buy-now-qty').value);
-            const size = (selectedSize === '3ml' || selectedSize === '6ml') ? selectedSize : '3ml';
-            let unitPrice = currentBuyNowProduct.price ? (currentBuyNowProduct.price[size] || (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT)) : (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT);
+            const size = (selectedSize === '3ml' || selectedSize === '6ml' || selectedSize === '30ml') ? selectedSize : '3ml';
+            let unitPrice = currentBuyNowProduct.price ? (currentBuyNowProduct.price[size] || (size === '30ml' ? PRICE_30ML_BDT : (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT))) : (size === '30ml' ? PRICE_30ML_BDT : (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT));
             
             const total = unitPrice * qty;
             const totalEl = document.querySelector('#buy-now-total .playfair');
@@ -12663,11 +12688,13 @@
             if (!p) return;
             
             // Defensive price resolution
-            const size = (selectedSize === '3ml' || selectedSize === '6ml') ? selectedSize : '3ml';
+            const size = (selectedSize === '3ml' || selectedSize === '6ml' || selectedSize === '30ml') ? selectedSize : '3ml';
             let currentPrice = 200; // default fallback
             
             if (p.price && typeof p.price[size] === 'number') {
                 currentPrice = p.price[size];
+            } else if (size === '30ml' && typeof PRICE_30ML_BDT === 'number') {
+                currentPrice = PRICE_30ML_BDT;
             } else if (size === '3ml' && typeof PRICE_3ML_BDT === 'number') {
                 currentPrice = PRICE_3ML_BDT;
             } else if (size === '6ml' && typeof PRICE_6ML_BDT === 'number') {
@@ -12718,13 +12745,12 @@
                 return;
             }
 
-            const size = (selectedSize === '3ml' || selectedSize === '6ml') ? selectedSize : '3ml';
+            const size = (selectedSize === '3ml' || selectedSize === '6ml' || selectedSize === '30ml') ? selectedSize : '3ml';
             
             // Determine price
-            let currentPrice = size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT;
+            let currentPrice = size === '30ml' ? PRICE_30ML_BDT : (size === '3ml' ? PRICE_3ML_BDT : PRICE_6ML_BDT);
             if (p.price) {
-                if (size === '3ml' && p.price['3ml']) currentPrice = p.price['3ml'];
-                else if (size === '6ml' && p.price['6ml']) currentPrice = p.price['6ml'];
+                if (p.price[size]) currentPrice = p.price[size];
             }
 
             const cartId = `${id}-${size}`;
@@ -12991,7 +13017,7 @@
                     const itemQty = Number(item.qty) || 0;
                     const itemSize = item.selectedSize || '3ml';
                     const totalPrice = itemActivePrice * itemQty;
-                    const regularPrice = itemSize === '3ml' ? (Number(REGULAR_PRICE_3ML_BDT) || 350) : (Number(REGULAR_PRICE_6ML_BDT) || 500);
+                    const regularPrice = itemSize === '30ml' ? (Number(REGULAR_PRICE_30ML_BDT) || 1200) : (itemSize === '3ml' ? (Number(REGULAR_PRICE_3ML_BDT) || 350) : (Number(REGULAR_PRICE_6ML_BDT) || 500));
 
                     subtotal += totalPrice;
                     
@@ -13006,7 +13032,7 @@
                                     <span style="font-weight:700; color:var(--text-white); font-size: 1.1rem; font-family: 'Playfair Display', serif;">${totalPrice.toLocaleString()}৳</span>
                                 </div>
                                 <p class="cart-item-meta" style="margin-bottom: 12px; font-size: 0.75rem;">
-                                    <span style="opacity: 0.4;">${itemSize}</span> &bull; 
+                                    <span style="opacity: 0.4;">${itemSize === '30ml' ? '30 ML Spray' : itemSize}</span> &bull; 
                                     <span style="color: var(--gold-bright); font-weight: 600;">${itemActivePrice}৳</span>
                                     ${itemActivePrice < regularPrice ? ` <span style="text-decoration: line-through; opacity: 0.3; margin-left: 5px; font-size: 0.7rem;">${regularPrice}৳</span>` : ''}
                                 </p>
@@ -13159,7 +13185,7 @@
                 const itemActivePrice = Number(item.activePrice) || 0;
                 const itemQty = Number(item.qty) || 0;
                 const itemSize = item.selectedSize || '3ml';
-                const regularPrice = itemSize === '3ml' ? (Number(REGULAR_PRICE_3ML_BDT) || 350) : (Number(REGULAR_PRICE_6ML_BDT) || 500);
+                const regularPrice = itemSize === '30ml' ? (Number(REGULAR_PRICE_30ML_BDT) || 1200) : (itemSize === '3ml' ? (Number(REGULAR_PRICE_3ML_BDT) || 350) : (Number(REGULAR_PRICE_6ML_BDT) || 500));
                 totalSavings += (regularPrice - itemActivePrice) * itemQty;
                 subtotal += itemActivePrice * itemQty;
                 totalItems += itemQty;
@@ -13227,7 +13253,7 @@
                     const itemActivePrice = Number(item.activePrice) || 0;
                     const itemQty = Number(item.qty) || 0;
                     const itemSize = item.selectedSize || '3ml';
-                    const regularPrice = itemSize === '3ml' ? (Number(REGULAR_PRICE_3ML_BDT) || 350) : (Number(REGULAR_PRICE_6ML_BDT) || 500);
+                    const regularPrice = itemSize === '30ml' ? (Number(REGULAR_PRICE_30ML_BDT) || 1200) : (itemSize === '3ml' ? (Number(REGULAR_PRICE_3ML_BDT) || 350) : (Number(REGULAR_PRICE_6ML_BDT) || 500));
                     
                     const row = document.createElement('div');
                     row.className = 'checkout-item-row interactive';
@@ -13243,7 +13269,7 @@
                             <div class="checkout-item-name">${item.name}</div>
                             <div class="checkout-item-meta">
                                 <span class="qty-pill">${itemQty} Unit${itemQty > 1 ? 's' : ''}</span>
-                                <span style="display: flex; align-items: center; gap: 6px; color: var(--white); opacity: 0.9;"><i data-lucide="droplets" size="12"></i> ${itemSize}</span>
+                                <span style="display: flex; align-items: center; gap: 6px; color: var(--white); opacity: 0.9;"><i data-lucide="${itemSize === '30ml' ? 'sparkles' : 'droplets'}" size="12"></i> ${itemSize === '30ml' ? '30 ML Spray' : itemSize}</span>
                             </div>
                             <div class="checkout-item-price-group">
                                 <span style="color:var(--gold-price); font-weight:800; font-size: 1rem; font-family: var(--font-mono);">${itemActivePrice}৳</span>
