@@ -1,0 +1,8 @@
+{
+  "name": "Luban Fragrance | The Essence of Elegance",
+  "description": "Luban Fragrance - Discover the essence of elegance with our refined collection of artisanal scents, luxury perfumes, and niche fragrances. Handcrafted quality in every drop. Explore our masculine, feminine, and unisex olfactory masterpieces.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
