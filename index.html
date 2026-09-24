@@ -34,10 +34,9 @@
     <link rel="canonical" href="https://ais-pre-jtfpbyuaoiog4ktxcq4pr6-24760088017.asia-southeast1.run.app/" />
     
     <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="9BiU7OAE87PQygQ3zCCayGSNj3hpTWGLo2ffm07bgFc" />
     <meta name="google-site-verification" content="3BSjj2xcfsRlDFJrUUz5zvRbXq8JL1kW1YFyum897yA" />
     <meta name="google-site-verification" content="google029e2e4699dd657e" />
-    <meta name="google-site-verification" content="9BiU7OAE87PQygQ3zCCayGSNj3hpTWGLo2ffm07bgFc" />
-    <meta name="google-site-verification" content="f8Y0u6_r7_8_9_0_1_2_3_4_5_6_7_8_9_0_1_2_3_4" />
 
     <!-- Google Analytics (gtag.js) -->
     <script>
@@ -6141,11 +6140,11 @@
         }
         .suggestion-item:last-child { border-bottom: none; }
 
-        /* Shimmer/Skeleton Loading States */
+        /* Shimmer/Skeleton Loading States & Crossfade Transitions */
         .skeleton {
-            background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 75%);
+            background: linear-gradient(90deg, rgba(255,255,255,0.02) 20%, rgba(203, 163, 92, 0.07) 50%, rgba(255,255,255,0.02) 80%);
             background-size: 200% 100%;
-            animation: shimmer 2s infinite linear;
+            animation: luxuryShimmer 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             border-radius: 4px;
             position: relative;
             overflow: hidden;
@@ -6158,11 +6157,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(203, 163, 92, 0.05), transparent);
-            animation: shimmer-gold 2s infinite linear;
+            background: linear-gradient(90deg, transparent 0%, rgba(203, 163, 92, 0.12) 50%, transparent 100%);
+            animation: shimmer-gold 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
 
-        @keyframes shimmer {
+        @keyframes luxuryShimmer {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
@@ -6180,6 +6179,109 @@
             gap: 20px;
             background: var(--bg-accent);
             border-radius: 4px;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Image Skeleton Loading Layer & Crossfade Animation */
+        .image-skeleton-loader {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            border-radius: 2px;
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s ease;
+        }
+
+        .image-skeleton-loader.fade-out {
+            opacity: 0 !important;
+            visibility: hidden;
+        }
+
+        .luxury-fade-img {
+            opacity: 0;
+            transform: scale(0.96);
+            filter: blur(6px);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .luxury-fade-img.is-loaded {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            filter: blur(0) !important;
+        }
+
+        /* Product Cards & Details Crossfade Transitions */
+        .skeleton-crossfading {
+            opacity: 0.15;
+            transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cards-crossfade-active .product-card {
+            animation: cardCrossfadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        }
+
+        @keyframes cardCrossfadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.985);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .details-crossfade-container {
+            animation: detailsCrossfadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes detailsCrossfadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(14px);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Price Fields Smooth Crossfade Transition */
+        .price-crossfade-box {
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .price-fade-transition {
+            opacity: 0 !important;
+            transform: translateY(-3px) scale(0.98) !important;
+            transition: opacity 0.13s ease-out, transform 0.13s ease-out !important;
+        }
+
+        .price-crossfade-enter {
+            animation: priceCrossfadeIn 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes priceCrossfadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(5px) scale(0.97);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
         }
 
         /* Bottom Navigation for Mobile */
@@ -9813,11 +9915,19 @@
         }
 
         function syncAllPrices() {
-            // Update Scent Finder Prices
+            // Update Scent Finder Prices with crossfade
             document.querySelectorAll('.scent-price-display').forEach(el => {
                 const id = parseInt(el.getAttribute('data-product-id'));
                 const p = products.find(x => x.id === id);
-                if (p) el.innerHTML = renderPrice(p);
+                if (p) {
+                    el.classList.add('price-fade-transition');
+                    setTimeout(() => {
+                        el.innerHTML = renderPrice(p);
+                        el.classList.remove('price-fade-transition');
+                        el.classList.add('price-crossfade-enter');
+                        setTimeout(() => el.classList.remove('price-crossfade-enter'), 400);
+                    }, 100);
+                }
             });
             
             // Update Shop Prices
@@ -11025,6 +11135,22 @@
             updateTopNavActive(id);
         }
 
+        /* Image Loading & Crossfade Handler */
+        function handleLuxuryImageLoad(img) {
+            if (!img) return;
+            img.classList.add('is-loaded');
+            const wrapper = img.closest('.parallax-wrapper') || img.closest('.image-container') || img.closest('.main-image-container') || img.parentElement;
+            if (wrapper) {
+                const skeleton = wrapper.querySelector('.image-skeleton-loader');
+                if (skeleton) {
+                    skeleton.classList.add('fade-out');
+                    setTimeout(() => {
+                        if (skeleton.parentElement) skeleton.style.display = 'none';
+                    }, 650);
+                }
+            }
+        }
+
         /* Generic Error Handling for Images to ensure luxury look even if assets fail */
         function handleImageError(img) {
             img.onerror = null;
@@ -11032,10 +11158,19 @@
             img.style.opacity = '0.08';
             img.style.filter = 'grayscale(1) contrast(1.1)';
             img.style.scale = '0.7';
-            // Enhance the parent background with a shimmering luxury radial gradient if it's a shop or detail view
-            const container = img.closest('.image-container') || img.parentElement;
-            if (container && (container.classList.contains('image-container') || container.style.aspectRatio)) {
-                container.style.background = 'radial-gradient(circle at center, rgba(203, 163, 92, 0.15) 0%, rgba(2, 6, 6, 1) 100%)';
+            img.classList.add('is-loaded');
+            const wrapper = img.closest('.parallax-wrapper') || img.closest('.image-container') || img.closest('.main-image-container') || img.parentElement;
+            if (wrapper) {
+                const skeleton = wrapper.querySelector('.image-skeleton-loader');
+                if (skeleton) {
+                    skeleton.classList.add('fade-out');
+                    setTimeout(() => {
+                        if (skeleton.parentElement) skeleton.style.display = 'none';
+                    }, 400);
+                }
+                if (wrapper.classList.contains('image-container') || wrapper.style.aspectRatio) {
+                    wrapper.style.background = 'radial-gradient(circle at center, rgba(203, 163, 92, 0.15) 0%, rgba(2, 6, 6, 1) 100%)';
+                }
             }
         }
 
@@ -11364,7 +11499,7 @@
 
             if (isCompact) {
                 return `
-                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                    <div class="price-crossfade-box" style="display: flex; flex-direction: column; align-items: flex-start;">
                         <span style="font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--gold-price); font-weight: 800; line-height: 1.1; margin-bottom: 2px;">${displayPrice}৳</span>
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <del style="font-size: 0.55rem; color: var(--text-dim); opacity: 0.4;">${regularPrice}৳</del>
@@ -11375,7 +11510,7 @@
             }
             
             return `
-                <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 5px;">
+                <div class="price-crossfade-box" style="display: flex; flex-direction: column; gap: 2px; margin-top: 5px;">
                     <del class="regular-price" style="font-size: 0.75rem; color: var(--text-dim); opacity: 0.3; display: block; margin-bottom: -5px;">${regularPrice}৳</del>
                     <div style="display: flex; align-items: baseline; gap: 12px;">
                         <span class="product-price" style="font-size: clamp(1.4rem, 4vw, 1.8rem); font-weight: 900; color: var(--gold-price); line-height: 1; letter-spacing: normal;">${displayPrice}৳</span>
@@ -11544,6 +11679,10 @@
                 const totalFiltered = filtered.length;
                 const paginated = (currentFilter === 'Wishlist') ? filtered : filtered.slice(0, visibleProductsCount);
 
+                if (!isAppending) {
+                    list.classList.add('skeleton-crossfading');
+                }
+
                 list.innerHTML = paginated.map(p => {
                     const isWishlisted = wishlist.includes(p.id);
                     const isCompared = comparisonList.includes(p.id);
@@ -11606,7 +11745,8 @@
                             </button>
                             ${renderProductBadge(p, isWishlisted)}
                             <div class="parallax-wrapper">
-                                <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" style="${currentFilter === 'Wishlist' ? 'max-width:80%; max-height:80%;' : ''}" referrerPolicy="no-referrer">
+                                <div class="image-skeleton-loader skeleton"></div>
+                                <img src="${p.img}" alt="${p.name}" class="luxury-fade-img" loading="lazy" onload="handleLuxuryImageLoad(this)" onerror="handleImageError(this)" style="${currentFilter === 'Wishlist' ? 'max-width:80%; max-height:80%;' : ''}" referrerPolicy="no-referrer">
                             </div>
                             <div class="image-shine"></div>
                             
@@ -11663,6 +11803,19 @@
                 }
 
                 if (window.lucide) lucide.createIcons();
+
+                if (!isAppending) {
+                    list.classList.remove('skeleton-crossfading');
+                    list.classList.add('cards-crossfade-active');
+                    setTimeout(() => list.classList.remove('cards-crossfade-active'), 600);
+                }
+
+                // Instantly mark loaded for any already-cached images
+                list.querySelectorAll('.luxury-fade-img').forEach(img => {
+                    if (img.complete && img.naturalWidth > 0) {
+                        handleLuxuryImageLoad(img);
+                    }
+                });
 
                 // Track view item list
                 if (typeof trackEvent === 'function') {
@@ -11857,8 +12010,16 @@
                 detailView.style.display = 'block';
                 
                 setTimeout(() => {
-                    renderDetails(p);
-                }, 500);
+                    const detailEl = document.getElementById('details-content');
+                    if (detailEl) detailEl.classList.add('skeleton-crossfading');
+                    setTimeout(() => {
+                        renderDetails(p);
+                        const detailImg = document.querySelector('#details-content .luxury-fade-img');
+                        if (detailImg && detailImg.complete && detailImg.naturalWidth > 0) {
+                            handleLuxuryImageLoad(detailImg);
+                        }
+                    }, 140);
+                }, 400);
             } else if (view === 'checkout') {
                 updateTopNavActive('checkout');
                 updateBreadcrumbs('checkout');
@@ -12009,22 +12170,36 @@
                 if (window.lucide) lucide.createIcons();
             }
             
-            document.querySelectorAll(`.shop-price-display[data-product-id="${productId}"]`).forEach(display => {
-                const isWishlistMode = display.getAttribute('data-wishlist-mode') === 'true';
-                display.innerHTML = renderPrice(p, isWishlistMode);
-            });
-
+            const priceDisplays = document.querySelectorAll(`.shop-price-display[data-product-id="${productId}"]`);
             const detailPrice = document.getElementById('detail-price');
-            if (detailPrice) detailPrice.innerHTML = renderPrice(p);
-            
             const stickyPriceField = document.getElementById('sticky-price');
-            if (stickyPriceField) {
-                let currentPrice = size === '30ml' ? (PRICE_30ML_BDT || 850) : (size === '3ml' ? (PRICE_3ML_BDT || 200) : (PRICE_6ML_BDT || 300));
-                if (p.price && p.price[size]) {
-                    currentPrice = p.price[size];
+            const elementsToCrossfade = [...priceDisplays];
+            if (detailPrice) elementsToCrossfade.push(detailPrice);
+
+            elementsToCrossfade.forEach(el => el.classList.add('price-fade-transition'));
+
+            setTimeout(() => {
+                priceDisplays.forEach(display => {
+                    const isWishlistMode = display.getAttribute('data-wishlist-mode') === 'true';
+                    display.innerHTML = renderPrice(p, isWishlistMode);
+                });
+
+                if (detailPrice) detailPrice.innerHTML = renderPrice(p);
+                
+                if (stickyPriceField) {
+                    let currentPrice = size === '30ml' ? (PRICE_30ML_BDT || 850) : (size === '3ml' ? (PRICE_3ML_BDT || 200) : (PRICE_6ML_BDT || 300));
+                    if (p.price && p.price[size]) {
+                        currentPrice = p.price[size];
+                    }
+                    stickyPriceField.innerText = `${currentPrice}৳`;
                 }
-                stickyPriceField.innerText = `${currentPrice}৳`;
-            }
+
+                elementsToCrossfade.forEach(el => {
+                    el.classList.remove('price-fade-transition');
+                    el.classList.add('price-crossfade-enter');
+                    setTimeout(() => el.classList.remove('price-crossfade-enter'), 400);
+                });
+            }, 120);
 
             // Sync with other UI elements (Shop cards, Scent Finder results, etc.)
             if (typeof syncAllPrices === 'function') {
@@ -12097,12 +12272,19 @@
         function switchMainImage(src, el) {
             const mainSection = el.closest('#product-main-section');
             const mainImg = mainSection.querySelector('.zoom-image');
+            const skeleton = mainSection.querySelector('.image-skeleton-loader');
             if (mainImg) {
-                mainImg.style.opacity = '0';
+                mainImg.classList.remove('is-loaded');
+                if (skeleton) {
+                    skeleton.style.display = 'block';
+                    skeleton.classList.remove('fade-out');
+                }
                 setTimeout(() => {
                     mainImg.src = src;
-                    mainImg.style.opacity = '1';
-                }, 300);
+                    if (mainImg.complete && mainImg.naturalWidth > 0) {
+                        handleLuxuryImageLoad(mainImg);
+                    }
+                }, 180);
             }
             
             // Update thumbnails
@@ -12174,15 +12356,18 @@
             const thumbnails = [p.img]; 
             const hasMultipleImages = thumbnails.length > 1;
 
-            document.getElementById('details-content').innerHTML = `
-                <div id="product-main-section" class="details-grid">
+            const detailsEl = document.getElementById('details-content');
+            detailsEl.classList.remove('skeleton-crossfading');
+            detailsEl.innerHTML = `
+                <div id="product-main-section" class="details-grid details-crossfade-container">
                     <div class="product-visuals">
                         <div class="main-image-container" 
                              onclick="openLightbox('${p.img}')"
                              ${hasMultipleImages ? `ontouchstart="handleTouchStart(event)" ontouchend="handleTouchEnd(event, ${p.id})"` : ''}>
                             ${renderProductBadge(p, isWishlisted)}
                             <div class="parallax-wrapper">
-                                <img src="${p.img}" alt="${p.name}" class="zoom-image" loading="lazy" onerror="handleImageError(this)" referrerPolicy="no-referrer">
+                                <div class="image-skeleton-loader skeleton"></div>
+                                <img src="${p.img}" alt="${p.name}" class="zoom-image luxury-fade-img" loading="lazy" onload="handleLuxuryImageLoad(this)" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                             </div>
                             <div class="image-shine"></div>
                             <div style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.5); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--gold-primary); opacity: 0; transition: opacity 0.3s ease;" class="zoom-hint">
