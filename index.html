@@ -1610,13 +1610,13 @@
             .product-card { padding: 20px; }
             .product-grid { gap: 20px !important; }
             .image-container { min-height: 140px !important; margin-bottom: 12px !important; }
-            .product-name { font-size: 0.9rem !important; }
+            .product-name { font-size: 0.85rem !important; line-height: 1.3 !important; }
             .product-price { font-size: 0.95rem !important; }
             .product-info { margin-top: 15px !important; }
             .product-header { margin-bottom: 20px !important; }
             .description-container { min-height: 55px !important; margin-top: 12px !important; }
             .product-desc { font-size: 0.75rem !important; line-height: 1.4 !important; }
-            .product-name-container { min-height: 2rem !important; }
+            .product-name-container { min-height: 2.6rem !important; }
             .card-meta-group { min-height: 40px !important; margin-top: 5px !important; }
             .discount-badge {
                 top: 8px !important;
@@ -1700,7 +1700,7 @@
         }
 
         .product-name-container {
-            min-height: 2.2rem; /* Streamlined height */
+            min-height: 2.85rem; /* Allows 2 full lines of title comfortably */
             display: flex;
             align-items: flex-start;
         }
@@ -1946,12 +1946,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 4px;
+            width: 100%;
+            margin-bottom: 3px;
         }
 
         .intensity-label {
-            font-size: 0.55rem;
+            font-size: 0.58rem;
             color: var(--gold-muted);
             text-transform: uppercase;
             letter-spacing: 0.8px;
@@ -1959,9 +1959,13 @@
         }
 
         .intensity-value {
-            font-size: 0.6rem;
+            font-size: 0.62rem;
             color: var(--gold-primary);
             font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: right;
+            white-space: nowrap;
         }
 
         .intensity-meter {
@@ -2463,17 +2467,22 @@
             gap: 20px;
         }
         .product-name {
-            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            font-size: clamp(0.88rem, 2vw, 1.05rem);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 500;
-            line-height: 1.3;
+            letter-spacing: 1px;
+            font-weight: 600;
+            line-height: 1.35;
             flex: 1;
             color: var(--text-white);
             transition: color 0.3s ease;
-            white-space: nowrap;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: normal;
+            word-break: break-word;
         }
         .brand-name {
             font-size: 0.65rem;
@@ -2493,17 +2502,103 @@
             font-weight: 700;
             font-size: clamp(0.9rem, 2vw, 1.05rem);
             white-space: nowrap;
-            margin-top: 5px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
         }
-        .regular-price {
-            color: var(--text-dim);
-            text-decoration: line-through;
-            font-size: 0.9rem;
-            opacity: 0.6;
-            font-weight: 400;
+        .sale-price-highlight {
+            color: var(--gold-bright, #ffd700) !important;
+            font-weight: 900 !important;
+            letter-spacing: -0.3px;
+            text-shadow: 0 0 16px rgba(212, 175, 55, 0.35);
+        }
+        .anchor-original-price, .regular-price, del.anchor-original-price {
+            color: rgba(220, 205, 180, 0.65) !important;
+            text-decoration: line-through !important;
+            text-decoration-color: #d4af37 !important;
+            -webkit-text-decoration-color: #d4af37 !important;
+            text-decoration-thickness: 2px !important;
+            font-weight: 600;
+            font-family: var(--font-mono, monospace);
+            letter-spacing: 0.5px;
+            display: inline-block;
+            opacity: 0.85;
+            position: relative;
+        }
+        del.anchor-original-price {
+            color: rgba(220, 205, 180, 0.65) !important;
+            text-decoration: line-through !important;
+            text-decoration-color: #d4af37 !important;
+            -webkit-text-decoration-color: #d4af37 !important;
+            text-decoration-thickness: 2px !important;
+        }
+        .special-atelier-tag {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.54rem;
+            color: rgba(212, 175, 55, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            background: rgba(212, 175, 55, 0.08);
+            padding: 2px 6px;
+            border-radius: 2px;
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            white-space: nowrap;
+        }
+        .atelier-save-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 7px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #ffe082;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(160, 110, 30, 0.28));
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 2px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 0 8px rgba(212, 175, 55, 0.1);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        .atelier-save-badge::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: skewX(-20deg);
+            animation: atelierBadgeShimmer 3.5s infinite;
+        }
+        @keyframes atelierBadgeShimmer {
+            0%, 70% { left: -100%; }
+            100% { left: 160%; }
+        }
+        .atelier-save-badge.compact {
+            padding: 1px 5px;
+            font-size: 0.52rem;
+            letter-spacing: 0.5px;
+        }
+        .atelier-save-badge.detail-badge {
+            padding: 5px 12px;
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            border-color: rgba(212, 175, 55, 0.65);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(180, 130, 40, 0.32));
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.15);
+        }
+        .details-pricing-card {
+            transition: all 0.3s var(--ease-luxury);
+        }
+        .details-pricing-card:hover {
+            border-color: rgba(212, 175, 55, 0.45) !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 20px rgba(212, 175, 55, 0.15) !important;
         }
         .product-desc {
             font-size: 0.75rem;
@@ -9600,7 +9695,7 @@
       "Aromatic": 80,
       "Smoky": 65
     },
-    "intensity": 4
+    "intensity": 3
   },
   {
     "id": 35,
@@ -10644,15 +10739,15 @@
                     <tbody>
                         <tr>
                             <td class="compare-row-label">Price (6ml)</td>
-                            ${compareProducts.map(p => `<td style="font-size:1.2rem; color:var(--gold-price); font-weight:700;">${p.price['6ml']}৳</td>`).join('')}
+                            ${compareProducts.map(p => `<td style="text-align:center;"><div style="display:inline-flex; flex-direction:column; align-items:center; gap:2px;"><del class="anchor-original-price" style="font-size:0.75rem;">750৳</del><span class="sale-price-highlight" style="font-size:1.15rem;">${p.price['6ml']}৳</span><span class="atelier-save-badge compact" style="font-size:0.5rem; padding:1px 5px;">Save 200৳</span></div></td>`).join('')}
                         </tr>
                         <tr>
                             <td class="compare-row-label">Price (10ml)</td>
-                            ${compareProducts.map(p => `<td style="font-size:1.2rem; color:var(--gold-price); font-weight:700;">${p.price['10ml']}৳</td>`).join('')}
+                            ${compareProducts.map(p => `<td style="text-align:center;"><div style="display:inline-flex; flex-direction:column; align-items:center; gap:2px;"><del class="anchor-original-price" style="font-size:0.75rem;">1050৳</del><span class="sale-price-highlight" style="font-size:1.15rem;">${p.price['10ml']}৳</span><span class="atelier-save-badge compact" style="font-size:0.5rem; padding:1px 5px;">Save 300৳</span></div></td>`).join('')}
                         </tr>
                         <tr>
                             <td class="compare-row-label">Price (30ml Spray)</td>
-                            ${compareProducts.map(p => `<td style="font-size:1.2rem; color:var(--gold-price); font-weight:700;">${p.price['30ml'] || 1450}৳</td>`).join('')}
+                            ${compareProducts.map(p => `<td style="text-align:center;"><div style="display:inline-flex; flex-direction:column; align-items:center; gap:2px;"><del class="anchor-original-price" style="font-size:0.75rem;">1950৳</del><span class="sale-price-highlight" style="font-size:1.15rem;">${p.price['30ml'] || 1450}৳</span><span class="atelier-save-badge compact" style="font-size:0.5rem; padding:1px 5px;">Save 500৳</span></div></td>`).join('')}
                         </tr>
                         <tr>
                             <td class="compare-row-label">Category</td>
@@ -11972,17 +12067,19 @@
         }
 
         function renderIntensity(intensity, showInfo = false) {
-            const labels = ["Subtle", "Balanced", "Intense"];
-            const val = intensity || 2;
+            const rawVal = Number(intensity);
+            const val = (isNaN(rawVal) || rawVal < 1) ? 2 : Math.min(Math.max(Math.round(rawVal), 1), 3);
+            const labels = { 1: "Subtle", 2: "Balanced", 3: "Intense" };
+            const label = labels[val] || "Balanced";
             const fillWidth = (val / 3) * 100;
             
             return `
                 <div class="intensity-container">
                     <div class="intensity-header">
                         <span class="intensity-label">Intensity</span>
-                        <span class="intensity-value">${labels[val-1]}</span>
+                        <span class="intensity-value">${label}</span>
                     </div>
-                    <div class="intensity-meter">
+                    <div class="intensity-meter" role="progressbar" aria-valuenow="${val}" aria-valuemin="1" aria-valuemax="3" aria-label="Scent Intensity: ${label}">
                         <div class="intensity-fill" style="width: ${fillWidth}%"></div>
                         <div class="intensity-dots">
                             <div class="intensity-dot ${val >= 1 ? 'active' : ''}"></div>
@@ -12048,7 +12145,7 @@
             `;
         }
 
-        function renderPrice(p, isCompact = false) {
+        function renderPrice(p, isCompact = false, isDetail = false) {
             if (!p) return '';
             
             const size = (selectedSize === '6ml' || selectedSize === '10ml' || selectedSize === '30ml') ? selectedSize : '6ml';
@@ -12080,26 +12177,73 @@
             
             const numericPrice = Number(currentPrice);
             const displayPrice = isNaN(numericPrice) ? '0' : numericPrice;
+            const numericRegular = Number(regularPrice);
+            const savings = Math.max(0, numericRegular - numericPrice);
             const sizeLabel = size === '30ml' ? '30 ML Spray' : (size === '10ml' ? '10 ML' : '6 ML');
+
+            if (isDetail) {
+                return `
+                    <div class="price-crossfade-box price-anchor-group details-pricing-card" style="display: flex; flex-direction: column; gap: 10px; padding: 18px 22px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(255, 255, 255, 0.015)); border: 1px solid rgba(212, 175, 55, 0.28); border-radius: 3px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <div style="display: flex; align-items: baseline; gap: 8px;">
+                                <span style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold-muted); font-weight: 600;">Original Anchor Price:</span>
+                                <del class="anchor-original-price" style="font-size: 1.05rem; font-weight: 600;">${regularPrice}৳</del>
+                            </div>
+                            ${savings > 0 ? `
+                                <div class="atelier-save-badge detail-badge">
+                                    <span style="color: var(--gold-bright); font-size: 0.75rem;">✦</span>
+                                    <span>Save ${savings}৳</span>
+                                    <span style="opacity: 0.4;">·</span>
+                                    <span>Special Atelier Price</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div style="display: flex; align-items: baseline; gap: 14px; margin-top: 2px;">
+                            <span class="product-price sale-price-highlight" style="font-size: clamp(2.1rem, 5vw, 2.85rem); font-family: 'Playfair Display', serif; line-height: 1;">${displayPrice}৳</span>
+                            <div style="display: flex; flex-direction: column; gap: 2px;">
+                                <span style="font-size: 0.75rem; color: var(--gold-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">${sizeLabel}</span>
+                                <span style="font-size: 0.6rem; color: #4caf50; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 4px;">
+                                    <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #4caf50; box-shadow: 0 0 6px #4caf50;"></span> Authentic Formulation
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
 
             if (isCompact) {
                 return `
-                    <div class="price-crossfade-box" style="display: flex; flex-direction: column; align-items: flex-start;">
-                        <span style="font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--gold-price); font-weight: 800; line-height: 1.1; margin-bottom: 2px;">${displayPrice}৳</span>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <del style="font-size: 0.55rem; color: var(--text-dim); opacity: 0.4;">${regularPrice}৳</del>
-                            <span style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 1px; opacity: 0.6;">${sizeLabel}</span>
+                    <div class="price-crossfade-box price-anchor-group compact" style="display: flex; flex-direction: column; align-items: flex-start; gap: 3px;">
+                        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                            <del class="anchor-original-price" style="font-size: 0.72rem;">${regularPrice}৳</del>
+                            ${savings > 0 ? `
+                                <span class="atelier-save-badge compact">
+                                    Save ${savings}৳
+                                </span>
+                            ` : ''}
+                        </div>
+                        <div style="display: flex; align-items: baseline; gap: 6px;">
+                            <span class="product-price sale-price-highlight" style="font-size: clamp(0.95rem, 2vw, 1.15rem);">${displayPrice}৳</span>
+                            <span style="font-size: 0.55rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 1px; opacity: 0.65;">${sizeLabel}</span>
                         </div>
                     </div>
                 `;
             }
             
             return `
-                <div class="price-crossfade-box" style="display: flex; flex-direction: column; gap: 2px; margin-top: 5px;">
-                    <del class="regular-price" style="font-size: 0.75rem; color: var(--text-dim); opacity: 0.3; display: block; margin-bottom: -5px;">${regularPrice}৳</del>
-                    <div style="display: flex; align-items: baseline; gap: 12px;">
-                        <span class="product-price" style="font-size: clamp(1.4rem, 4vw, 1.8rem); font-weight: 900; color: var(--gold-price); line-height: 1; letter-spacing: normal;">${displayPrice}৳</span>
-                        <span style="font-size: 0.6rem; color: var(--gold-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5;">${sizeLabel}</span>
+                <div class="price-crossfade-box price-anchor-group" style="display: flex; flex-direction: column; gap: 4px; margin-top: 6px;">
+                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        <span class="product-price sale-price-highlight" style="font-size: clamp(1.4rem, 3.8vw, 1.8rem); line-height: 1;">${displayPrice}৳</span>
+                        <del class="anchor-original-price" style="font-size: 0.88rem;">${regularPrice}৳</del>
+                        ${savings > 0 ? `
+                            <span class="atelier-save-badge" title="Special Atelier Price">
+                                <span style="color: var(--gold-bright); font-size: 0.65rem; line-height: 1;">✦</span> Save ${savings}৳
+                            </span>
+                        ` : ''}
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 1px;">
+                        <span style="font-size: 0.62rem; color: var(--gold-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.85;">${sizeLabel}</span>
+                        <span class="special-atelier-tag">Special Atelier Price</span>
                     </div>
                 </div>
             `;
@@ -12771,14 +12915,20 @@
                     display.innerHTML = renderPrice(p, isWishlistMode);
                 });
 
-                if (detailPrice) detailPrice.innerHTML = renderPrice(p);
+                if (detailPrice) detailPrice.innerHTML = renderPrice(p, false, true);
                 
                 if (stickyPriceField) {
                     let currentPrice = size === '30ml' ? (PRICE_30ML_BDT || 1450) : (size === '10ml' ? (PRICE_10ML_BDT || 750) : (PRICE_6ML_BDT || 550));
+                    let regularPrice = size === '30ml' ? (REGULAR_PRICE_30ML_BDT || 1950) : (size === '10ml' ? (REGULAR_PRICE_10ML_BDT || 1050) : (REGULAR_PRICE_6ML_BDT || 750));
                     if (p.price && p.price[size]) {
                         currentPrice = p.price[size];
                     }
-                    stickyPriceField.innerText = `${currentPrice}৳`;
+                    const savings = Math.max(0, regularPrice - currentPrice);
+                    stickyPriceField.innerHTML = `
+                        <del style="font-size:0.75rem; color:rgba(220,205,180,0.6); text-decoration:line-through; text-decoration-color:rgba(212,175,55,0.85);">${regularPrice}৳</del>
+                        <span style="font-weight:700; color:var(--gold-bright); font-size:1rem;">${currentPrice}৳</span>
+                        ${savings > 0 ? `<span class="atelier-save-badge compact" style="font-size:0.5rem; padding:1px 4px;">Save ${savings}৳</span>` : ''}
+                    `;
                 }
 
                 elementsToCrossfade.forEach(el => {
@@ -13002,7 +13152,7 @@
                         </div>
                         
                         <div id="detail-price" style="margin-bottom: 25px;">
-                            ${renderPrice(p)}
+                            ${renderPrice(p, false, true)}
                         </div>
 
                         <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; border-bottom: 1px solid rgba(203, 163, 92, 0.1); padding-bottom: 25px;">
@@ -13034,12 +13184,18 @@
                                     const isOutOfStock = stockVal === 0;
                                     const isLowStock = stockVal > 0 && stockVal <= 3;
                                     const sizeLabel = size === '30ml' ? '30 ML Spray' : (size === '10ml' ? '10 ML' : (size === '6ml' ? '6 ML' : size.toUpperCase()));
+                                    const sPrice = p.price[size] || (size === '30ml' ? 1450 : (size === '10ml' ? 750 : 550));
+                                    const sReg = size === '30ml' ? 1950 : (size === '10ml' ? 1050 : 750);
                                     
                                     return `
                                         <button class="size-btn ${selectedSize === size ? 'active' : ''} ${isOutOfStock ? 'out-of-stock' : ''} interactive" 
                                                 onclick="${isOutOfStock ? '' : `setSize('${size}', ${p.id}, this)`}"
-                                                style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 14px; height: auto;">
+                                                style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 14px; height: auto;">
                                             <span style="font-size: 0.75rem; font-weight: 700;">${sizeLabel}</span>
+                                            <span style="font-size: 0.65rem; color: var(--gold-bright); font-weight: 700; display: flex; align-items: baseline; gap: 4px;">
+                                                <span>${sPrice}৳</span>
+                                                <del style="font-size: 0.55rem; color: rgba(220, 205, 180, 0.55); text-decoration: line-through;">${sReg}৳</del>
+                                            </span>
                                             ${isOutOfStock ? `
                                                 <span class="status-text" style="font-size: 0.5rem; letter-spacing: 0.5px; font-weight: 800; text-transform: uppercase;">Sold Out</span>
                                             ` : isLowStock ? `
@@ -13136,12 +13292,18 @@
             // Populate Sticky Bar
             const stickyBar = document.getElementById('sticky-cart-bar');
             const initialStickyPrice = p.price?.[selectedSize] || (selectedSize === '30ml' ? PRICE_30ML_BDT : (selectedSize === '10ml' ? PRICE_10ML_BDT : PRICE_6ML_BDT));
+            const initialRegularPrice = selectedSize === '30ml' ? (REGULAR_PRICE_30ML_BDT || 1950) : (selectedSize === '10ml' ? (REGULAR_PRICE_10ML_BDT || 1050) : (REGULAR_PRICE_6ML_BDT || 750));
+            const initialStickySavings = Math.max(0, initialRegularPrice - initialStickyPrice);
             stickyBar.innerHTML = `
                 <div class="sticky-cart-info">
                     <img src="${p.img}" alt="${p.name}" loading="lazy" class="sticky-cart-img" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                     <div class="sticky-cart-details">
                         <h4>${p.name}</h4>
-                        <p id="sticky-price">${initialStickyPrice}৳</p>
+                        <div id="sticky-price" style="display:flex; align-items:baseline; gap:6px;">
+                            <del style="font-size:0.75rem; color:rgba(220,205,180,0.6); text-decoration:line-through; text-decoration-color:rgba(212,175,55,0.85);">${initialRegularPrice}৳</del>
+                            <span style="font-weight:700; color:var(--gold-bright); font-size:1rem;">${initialStickyPrice}৳</span>
+                            ${initialStickySavings > 0 ? `<span class="atelier-save-badge compact" style="font-size:0.5rem; padding:1px 4px;">Save ${initialStickySavings}৳</span>` : ''}
+                        </div>
                     </div>
                 </div>
                 <div class="sticky-cart-actions">
@@ -14104,6 +14266,8 @@
             
             const size = (selectedSize === '6ml' || selectedSize === '10ml' || selectedSize === '30ml') ? selectedSize : '6ml';
             let currentPrice = product.price ? (product.price[size] || (size === '30ml' ? PRICE_30ML_BDT : (size === '10ml' ? PRICE_10ML_BDT : PRICE_6ML_BDT))) : (size === '30ml' ? PRICE_30ML_BDT : (size === '10ml' ? PRICE_10ML_BDT : PRICE_6ML_BDT));
+            let regularPrice = size === '30ml' ? (REGULAR_PRICE_30ML_BDT || 1950) : (size === '10ml' ? (REGULAR_PRICE_10ML_BDT || 1050) : (REGULAR_PRICE_6ML_BDT || 750));
+            const savings = Math.max(0, regularPrice - currentPrice);
             const sizeLabel = size === '30ml' ? '30 ML Spray' : size.toUpperCase();
             
             preview.innerHTML = `
@@ -14111,9 +14275,11 @@
                 <div style="flex: 1;">
                     <p style="font-size: 0.6rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2px;">Exquisite Selection</p>
                     <h3 class="playfair" style="font-size: 1.2rem; color: var(--text-white); margin-bottom: 5px;">${product.name}</h3>
-                    <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
                         <span style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 700;">${sizeLabel}</span>
-                        <span style="font-size: 0.8rem; color: var(--text-dim);">৳${currentPrice.toLocaleString()}</span>
+                        <del class="anchor-original-price" style="font-size: 0.75rem;">৳${regularPrice.toLocaleString()}</del>
+                        <span class="sale-price-highlight" style="font-size: 0.95rem; font-weight: 800;">৳${currentPrice.toLocaleString()}</span>
+                        ${savings > 0 ? `<span class="atelier-save-badge compact">Save ৳${savings}</span>` : ''}
                     </div>
                 </div>
             `;
@@ -14154,10 +14320,26 @@
             const qty = parseInt(document.getElementById('buy-now-qty').value);
             const size = (selectedSize === '6ml' || selectedSize === '10ml' || selectedSize === '30ml') ? selectedSize : '6ml';
             let unitPrice = currentBuyNowProduct.price ? (currentBuyNowProduct.price[size] || (size === '30ml' ? PRICE_30ML_BDT : (size === '10ml' ? PRICE_10ML_BDT : PRICE_6ML_BDT))) : (size === '30ml' ? PRICE_30ML_BDT : (size === '10ml' ? PRICE_10ML_BDT : PRICE_6ML_BDT));
+            let regularPrice = size === '30ml' ? (REGULAR_PRICE_30ML_BDT || 1950) : (size === '10ml' ? (REGULAR_PRICE_10ML_BDT || 1050) : (REGULAR_PRICE_6ML_BDT || 750));
             
             const total = unitPrice * qty;
-            const totalEl = document.querySelector('#buy-now-total .playfair');
-            if (totalEl) totalEl.innerText = `৳${total.toLocaleString()}`;
+            const regTotal = regularPrice * qty;
+            const savings = regTotal - total;
+            const totalContainer = document.getElementById('buy-now-total');
+            if (totalContainer) {
+                totalContainer.innerHTML = `
+                    <p style="font-size: 0.7rem; color: var(--gold-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Total Investment</p>
+                    <div style="display: flex; align-items: baseline; justify-content: center; gap: 10px; margin-bottom: 4px;">
+                        <del class="anchor-original-price" style="font-size: 1.1rem;">৳${regTotal.toLocaleString()}</del>
+                        <p class="playfair sale-price-highlight" style="font-size: 2rem; margin: 0;">৳${total.toLocaleString()}</p>
+                    </div>
+                    ${savings > 0 ? `
+                        <div style="display: flex; justify-content: center; margin-top: 6px;">
+                            <span class="atelier-save-badge">✦ Save ৳${savings.toLocaleString()} (Special Atelier Price)</span>
+                        </div>
+                    ` : ''}
+                `;
+            }
         }
 
         function buyNow(id, qty = 1) {
