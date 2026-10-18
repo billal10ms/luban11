@@ -7533,6 +7533,182 @@
             color: var(--gold-primary);
         }
 
+    
+        /* =========================================
+           LUBAN 3D MOTION GRAPHICS & SPATIAL STYLES
+           ========================================= */
+        .hero-particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hero-content {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero-content img {
+            transform: translateZ(42px);
+        }
+
+        #hero h1 {
+            transform: translateZ(28px);
+        }
+
+        .hero-content p {
+            transform: translateZ(16px);
+        }
+
+        .hero-content .btn-gold {
+            transform: translateZ(32px);
+        }
+
+        /* 3D Product Cards & Specular Glare */
+        .product-card, .product-card-minimal {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+        }
+
+        .card-3d-glare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            border-radius: inherit;
+            z-index: 7;
+            mix-blend-mode: screen;
+            transition: opacity 0.35s ease;
+            background: radial-gradient(circle 280px at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 230, 160, 0.18) 0%, rgba(203, 163, 92, 0.06) 45%, transparent 80%);
+        }
+
+        .product-card:hover .card-3d-glare,
+        .product-card-minimal:hover .card-3d-glare {
+            opacity: 1;
+        }
+
+        /* 3D Depth Layer Separation */
+        .product-card .image-container {
+            transform-style: preserve-3d;
+            perspective: 800px;
+            transition: transform 0.4s var(--ease-luxury);
+        }
+
+        .product-card .parallax-wrapper {
+            transform-style: preserve-3d;
+        }
+
+        .product-card .image-container img {
+            transform: translateZ(32px);
+            transition: transform 0.4s var(--ease-luxury), filter 0.4s ease;
+        }
+
+        .product-card:hover .image-container img {
+            transform: translateZ(48px) scale(1.06);
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7)) brightness(1.08);
+        }
+
+        .product-card .stock-badge {
+            transform: translateZ(28px);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card .wishlist-btn {
+            transform: translateZ(30px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card .product-name {
+            transform: translateZ(16px);
+        }
+
+        .product-card .shop-price-display {
+            transform: translateZ(20px);
+        }
+
+        .product-card .product-card-actions {
+            transform: translateZ(24px);
+        }
+
+        .product-card .card-size-selector {
+            transform: translateZ(22px);
+        }
+
+        .product-card .action-overlay {
+            transform: translateZ(35px);
+        }
+
+        /* Details View 3D Bottle Showcase Levitation */
+        @keyframes luxuryBottleFloat {
+            0%, 100% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg) translateZ(40px);
+            }
+            50% {
+                transform: translateY(-8px) rotateX(2deg) rotateY(-1.8deg) translateZ(52px);
+            }
+        }
+
+        .main-image-container .zoom-image {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            transition: opacity 0.3s ease;
+            filter: drop-shadow(0 25px 45px rgba(0,0,0,0.65));
+            will-change: transform, opacity;
+            transform: translateZ(40px);
+            animation: luxuryBottleFloat 6s ease-in-out infinite;
+        }
+
+        .main-image-container.interacting .zoom-image {
+            animation: none !important;
+        }
+
+        /* 3D Magnetic Tactile Buttons */
+        .btn-gold, .btn-gold.solid, .action-btn-main, #buy-now-confirm-btn {
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+        }
+
+        .btn-gold:active, .btn-gold.solid:active, .action-btn-main:active {
+            transform: translateZ(-2px) scale(0.97) !important;
+        }
+
+        /* 3D Modal Unfolding */
+        .buy-now-modal-overlay {
+            perspective: 1200px;
+        }
+
+        .buy-now-modal {
+            transform: translateY(30px) scale(0.94) rotateX(8deg);
+            transform-style: preserve-3d;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 40px rgba(203,163,92,0.15);
+        }
+
+        .buy-now-modal-overlay.active .buy-now-modal {
+            transform: translateY(0) scale(1) rotateX(0deg);
+        }
+
+        /* 3D Review Cards */
+        .review-card {
+            transform-style: preserve-3d;
+            transition: transform 0.35s var(--ease-luxury), box-shadow 0.35s var(--ease-luxury), border-color 0.35s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px) translateZ(8px);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.6), 0 0 20px rgba(203, 163, 92, 0.15);
+            border-color: rgba(203, 163, 92, 0.3);
+        }
+
     </style>
 </head>
 <body>
@@ -7821,6 +7997,7 @@
                 </video>
                 <div class="hero-video-overlay"></div>
             </div>
+            <canvas id="hero-particles-canvas" class="hero-particles-canvas" aria-hidden="true"></canvas>
             <div class="hero-bg-text" aria-hidden="true">LUBAN</div>
             <div class="hero-social-rail">
                 <div style="font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.7rem; color: var(--gold-muted); margin-bottom: 25px; font-weight: 500; opacity: 0.8;">Follow Us</div>
@@ -8994,7 +9171,7 @@
     "vibe": "Addictive, energizing, and provocatively sensual—designed for the daring woman who thrives in the energy of the night.",
     "category": "Feminine",
     "gender": "Feminine",
-    "img": "https://i.ibb.co/kVn358pR/opium.webp",
+    "img": "https://i.ibb.co/S7mGM6gm/blackk.webp",
     "stock": 6,
     "notes": {
       "top": ["Pear", "Pink Pepper", "Orange Blossom"],
@@ -9364,7 +9541,7 @@
     "vibe": "A vibrant, sophisticated garden stroll capturing the spirit of contemporary, diverse, and authentic femininity.",
     "category": "Feminine",
     "gender": "Feminine",
-    "img": "/src/assets/images/gucci_bloom_perfume_1792308835346.jpg",
+    "img": "https://i.ibb.co/N2mqdwTx/Bllom.webp",
     "stock": { "6ml": 15, "10ml": 18, "30ml": 10 },
     "notes": {
       "top": ["Jasmine", "Rangoon Creeper"],
@@ -9387,7 +9564,7 @@
     "vibe": "Radiating confidence, inner power, and sensual warmth—the olfactory embodiment of a modern goddess.",
     "category": "Gourmand",
     "gender": "Feminine",
-    "img": "/src/assets/images/burberry_goddess_perfume_1792308836523.jpg",
+    "img": "https://i.ibb.co/p6ygpYVv/Goddess-For-Women.webp",
     "stock": { "6ml": 12, "10ml": 15, "30ml": 8 },
     "notes": {
       "top": ["Vanilla Infusion", "Lavender"],
@@ -9410,7 +9587,7 @@
     "vibe": "An ultra-potent, nocturnal trail crafted for the discerning gentleman commanding undeniable magnetic presence.",
     "category": "Masculine",
     "gender": "Masculine",
-    "img": "/src/assets/images/sauvage_elixir_dior_1792308836808.jpg",
+    "img": "https://i.ibb.co/5x59Z6qL/Exillior.webp",
     "stock": { "6ml": 10, "10ml": 14, "30ml": 12 },
     "notes": {
       "top": ["Nutmeg", "Cinnamon", "Cardamom", "Grapefruit"],
@@ -9433,7 +9610,7 @@
     "vibe": "Flirty, feminine, and delightfully comforting—reminiscent of sheer chiffon dancing in a gentle summer breeze.",
     "category": "Sweet",
     "gender": "Feminine",
-    "img": "/src/assets/images/pink_chiffon_scent_1792308838411.jpg",
+    "img": "https://i.ibb.co/yFL2z4fN/Pink-Chiffon.webp",
     "stock": { "6ml": 16, "10ml": 20, "30ml": 12 },
     "notes": {
       "top": ["Wild Red Berries", "Sparkling Pear", "Peach"],
@@ -9456,7 +9633,7 @@
     "vibe": "A bold manifesto of living life in total freedom—daring, couture, and unapologetically radiant.",
     "category": "Luxury",
     "gender": "Feminine",
-    "img": "/src/assets/images/ysl_libre_perfume_1792308838645.jpg",
+    "img": "https://i.ibb.co/CpCJBShf/Libre.webp",
     "stock": { "6ml": 14, "10ml": 18, "30ml": 10 },
     "notes": {
       "top": ["Mandarin Orange", "Lavender", "Blackcurrant"],
@@ -9479,7 +9656,7 @@
     "vibe": "Pure, intoxicating seduction—lively, delicious, and captivatingly sweet from dusk to dawn.",
     "category": "Sweet",
     "gender": "Feminine",
-    "img": "/src/assets/images/pure_seduction_vs_1792308840146.jpg",
+    "img": "https://i.ibb.co/xt5jWdz0/Pure-Seduction.webp",
     "stock": { "6ml": 20, "10ml": 22, "30ml": 15 },
     "notes": {
       "top": ["Juiced Red Plum", "Crushed Melon"],
@@ -9502,7 +9679,7 @@
     "vibe": "The definitive hallmark of timeless elegance and effortless authority—captivating, versatile, and profoundly distinguished.",
     "category": "Masculine",
     "gender": "Masculine",
-    "img": "/src/assets/images/bleu_de_chanel_1792308839083.jpg",
+    "img": "https://i.ibb.co/F47CfcKf/BBlue.webp",
     "stock": { "6ml": 18, "10ml": 20, "30ml": 14 },
     "notes": {
       "top": ["Grapefruit", "Lemon", "Mint", "Pink Pepper"],
@@ -10246,7 +10423,8 @@
                 const baseFilled = fillCount('base');
 
                 return `
-                <div class="product-card interactive" onclick="closeScentFinder(); showView('details', ${p.id})" style="width: 100%; animation: finderSlideUp 0.8s var(--ease-luxury) forwards ${idx * 0.15}s; background: rgba(2, 6, 6, 0.4); border: 1px solid rgba(203, 163, 92, 0.05); border-radius: 4px; overflow: hidden; padding: 20px;">
+                <div class="product-card interactive" onclick="closeScentFinder(); showView('details', ${p.id})">
+                    <div class="card-3d-glare"></div> style="width: 100%; animation: finderSlideUp 0.8s var(--ease-luxury) forwards ${idx * 0.15}s; background: rgba(2, 6, 6, 0.4); border: 1px solid rgba(203, 163, 92, 0.05); border-radius: 4px; overflow: hidden; padding: 20px;">
                     <div style="position: absolute; top: 20px; left: 20px; background: var(--gold-primary); color: var(--bg-dark); padding: 4px 10px; font-size: 0.65rem; font-weight: 800; border-radius: 2px; z-index: 10; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">${p.score}% MATCH</div>
 
                     <div style="position: absolute; top: 50px; left: 20px; width: 60px; height: 3px; background: rgba(255,255,255,0.05); border-radius: 1px; z-index: 10; overflow: hidden;">
@@ -12146,6 +12324,7 @@
                     
                     return `
                     <div class="product-card interactive ${isCompared ? 'comparing' : ''} ${isFeatured ? 'featured' : ''}" onclick="showView('details', ${p.id})" style="${currentFilter === 'Wishlist' ? 'padding:15px; display:flex; flex-direction:column; height:100%;' : ''}">
+                        <div class="card-3d-glare"></div>
                         <div class="image-container" onclick="event.stopPropagation(); openLightbox('${p.img}')" style="${currentFilter === 'Wishlist' ? 'height:150px; margin-bottom:8px; background:var(--bg-accent); border-radius:2px;' : 'min-height: 150px; margin-bottom: 8px;'}">
                             <button data-wishlist-id="${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="wishlist-btn interactive ${isWishlisted ? 'active' : ''}" aria-label="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}" style="${currentFilter === 'Wishlist' ? 'top:10px; right:10px; width:30px; height:30px;' : ''}">
                                 <i data-lucide="heart" size="${currentFilter === 'Wishlist' ? '14' : '18'}"></i>
@@ -13726,7 +13905,8 @@
                     <h3 class="playfair" style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 40px; color: var(--gold-primary); letter-spacing: 2px; text-transform: uppercase;">You Might Also Like</h3>
                     <div style="display: grid; gap: 30px; grid-template-columns: repeat(auto-fill, minmax(clamp(150px, 15vw, 200px), 1fr));">
                         ${related.map(rp => `
-                            <div class="interactive product-card-minimal" onclick="showView('details', ${rp.id})" style="cursor:pointer; background: rgba(255,255,255,0.01); border: 1px solid var(--border-gold); padding: 15px; border-radius: 1px; transition: all 0.4s var(--ease-luxury); display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden;">
+                            <div class="interactive product-card-minimal" onclick="showView('details', ${rp.id})">
+                                <div class="card-3d-glare"></div> style="cursor:pointer; background: rgba(255,255,255,0.01); border: 1px solid var(--border-gold); padding: 15px; border-radius: 1px; transition: all 0.4s var(--ease-luxury); display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden;">
                                 <div class="image-container" onclick="event.stopPropagation(); openLightbox('${rp.img}')" style="aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; margin-bottom:15px; background: var(--bg-accent); overflow:hidden; cursor: zoom-in; position: relative;">
                                     <img src="${rp.img}" alt="${rp.name}" loading="lazy" style="max-width:80%; max-height:80%; object-fit:contain; transition: all 0.6s var(--ease-luxury);" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                                     <div class="action-overlay">
@@ -15368,45 +15548,387 @@
             // Start urgency features
             initSocialProof();
 
-            // Parallax 3D Tilt Effect for Product Cards
-            document.addEventListener('mousemove', e => {
-                const card = e.target.closest('.image-container, .main-image-container');
-                if (!card) return;
-                
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                // Sensitivity factors
-                const tiltIntensity = 8; 
-                const rotateX = ((y - centerY) / centerY) * -tiltIntensity;
-                const rotateY = ((x - centerX) / centerX) * tiltIntensity;
-                
-                const wrapper = card.querySelector('.parallax-wrapper');
-                if (wrapper) {
-                    wrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                }
-                
-                const shine = card.querySelector('.image-shine');
-                if (shine) {
-                    const shineX = (x / rect.width) * 100;
-                    const shineY = (y / rect.height) * 100;
-                    shine.style.background = `radial-gradient(circle at ${shineX}% ${shineY}%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 80%)`;
-                }
-            });
+            // ==========================================
+            // LUBAN LUXURY 3D MOTION GRAPHICS ENGINE
+            // ==========================================
+            function initLuxury3DMotion() {
+                const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            document.addEventListener('mouseout', e => {
-                const card = e.target.closest('.image-container, .main-image-container');
-                if (!card || e.relatedTarget?.closest('.image-container, .main-image-container') === card) return;
-                
-                const wrapper = card.querySelector('.parallax-wrapper');
-                if (wrapper) {
-                    wrapper.style.transform = `rotateX(0deg) rotateY(0deg)`;
+                // ----------------------------------------------------
+                // 1. HERO 3D FRAGRANCE PARTICLE AURA (Canvas)
+                // ----------------------------------------------------
+                const heroSection = document.getElementById('hero');
+                const heroCanvas = document.getElementById('hero-particles-canvas');
+                let heroParticlesActive = false;
+                let heroAnimFrameId = null;
+
+                if (heroCanvas && heroSection) {
+                    const ctx = heroCanvas.getContext('2d');
+                    let width = 0;
+                    let height = 0;
+                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+                    function resizeHeroCanvas() {
+                        if (!heroCanvas) return;
+                        width = heroCanvas.clientWidth || window.innerWidth;
+                        height = heroCanvas.clientHeight || window.innerHeight;
+                        heroCanvas.width = width * dpr;
+                        heroCanvas.height = height * dpr;
+                        ctx.scale(dpr, dpr);
+                    }
+                    resizeHeroCanvas();
+                    window.addEventListener('resize', resizeHeroCanvas);
+
+                    // 3D Volumetric Particles
+                    const particleCount = window.innerWidth < 768 ? 32 : 55;
+                    const particles = [];
+                    
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push({
+                            x: (Math.random() - 0.5) * (width || 800) * 1.3,
+                            y: (Math.random() - 0.5) * (height || 600) * 1.3,
+                            z: Math.random() * 800 + 40,
+                            radius: Math.random() * 2.8 + 1.2,
+                            vx: (Math.random() - 0.5) * 0.4,
+                            vy: (Math.random() - 0.5) * 0.35 - 0.18, // gentle upward scent evaporation drift
+                            vz: (Math.random() - 0.5) * 0.6,
+                            baseAlpha: Math.random() * 0.5 + 0.25,
+                            pulseOffset: Math.random() * Math.PI * 2,
+                            pulseSpeed: Math.random() * 0.02 + 0.01,
+                            goldHue: Math.random() > 0.4 ? 'rgba(255, 230, 160,' : 'rgba(203, 163, 92,'
+                        });
+                    }
+
+                    let mouseX = 0;
+                    let mouseY = 0;
+                    let targetMouseX = 0;
+                    let targetMouseY = 0;
+
+                    heroSection.addEventListener('mousemove', (e) => {
+                        const rect = heroSection.getBoundingClientRect();
+                        targetMouseX = (e.clientX - rect.left - rect.width / 2);
+                        targetMouseY = (e.clientY - rect.top - rect.height / 2);
+                    });
+
+                    heroSection.addEventListener('mouseleave', () => {
+                        targetMouseX = 0;
+                        targetMouseY = 0;
+                    });
+
+                    // 3D Hero Content Parallax Tilt
+                    const heroContent = heroSection.querySelector('.hero-content');
+
+                    function renderHeroParticles() {
+                        if (!heroParticlesActive) return;
+
+                        mouseX += (targetMouseX - mouseX) * 0.05;
+                        mouseY += (targetMouseY - mouseY) * 0.05;
+
+                        // Hero 3D Parallax Tilt
+                        if (heroContent && !isReducedMotion) {
+                            const tiltX = (mouseY / (height / 2 || 1)) * -7;
+                            const tiltY = (mouseX / (width / 2 || 1)) * 7;
+                            heroContent.style.transform = `perspective(1200px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
+                        }
+
+                        ctx.clearRect(0, 0, width, height);
+
+                        const fov = 380;
+                        const centerX = width / 2;
+                        const centerY = height / 2;
+
+                        for (let i = 0; i < particles.length; i++) {
+                            const p = particles[i];
+
+                            p.x += p.vx;
+                            p.y += p.vy;
+                            p.z += p.vz;
+                            p.pulseOffset += p.pulseSpeed;
+
+                            const boundX = (width * 0.65) + 80;
+                            const boundY = (height * 0.65) + 80;
+                            if (p.x < -boundX) p.x = boundX;
+                            if (p.x > boundX) p.x = -boundX;
+                            if (p.y < -boundY) p.y = boundY;
+                            if (p.y > boundY) p.y = -boundY;
+                            if (p.z < 20) p.z = 800;
+                            if (p.z > 800) p.z = 20;
+
+                            const scale = fov / (fov + p.z);
+                            const projX = centerX + (p.x - mouseX * (1 - scale * 0.6)) * scale;
+                            const projY = centerY + (p.y - mouseY * (1 - scale * 0.6)) * scale;
+                            const projRadius = Math.max(0.6, p.radius * scale);
+
+                            if (projX < -50 || projX > width + 50 || projY < -50 || projY > height + 50) continue;
+
+                            const pulseAlpha = Math.sin(p.pulseOffset) * 0.15;
+                            const currentAlpha = Math.max(0.05, Math.min(0.9, (p.baseAlpha + pulseAlpha) * (scale * 1.2)));
+
+                            const grad = ctx.createRadialGradient(projX, projY, 0, projX, projY, projRadius * 3.5);
+                            grad.addColorStop(0, p.goldHue + currentAlpha + ')');
+                            grad.addColorStop(0.35, 'rgba(203, 163, 92, ' + (currentAlpha * 0.5) + ')');
+                            grad.addColorStop(1, 'rgba(203, 163, 92, 0)');
+
+                            ctx.fillStyle = grad;
+                            ctx.beginPath();
+                            ctx.arc(projX, projY, projRadius * 3.5, 0, Math.PI * 2);
+                            ctx.fill();
+
+                            ctx.fillStyle = 'rgba(255, 255, 255, ' + (currentAlpha * 0.75) + ')';
+                            ctx.beginPath();
+                            ctx.arc(projX, projY, Math.max(0.4, projRadius * 0.4), 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+
+                        heroAnimFrameId = requestAnimationFrame(renderHeroParticles);
+                    }
+
+                    const heroObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (!heroParticlesActive) {
+                                    heroParticlesActive = true;
+                                    resizeHeroCanvas();
+                                    heroAnimFrameId = requestAnimationFrame(renderHeroParticles);
+                                }
+                            } else {
+                                heroParticlesActive = false;
+                                if (heroAnimFrameId) cancelAnimationFrame(heroAnimFrameId);
+                            }
+                        });
+                    }, { threshold: 0.05 });
+
+                    heroObserver.observe(heroSection);
                 }
-            }, true);
+
+                // ----------------------------------------------------
+                // 2. UNIVERSAL 3D CARD TILT WITH LERP & SPECULAR LIGHT
+                // ----------------------------------------------------
+                if (!isReducedMotion) {
+                    const activeCards = new Map();
+                    let cardLoopRunning = false;
+
+                    function updateCardsLoop() {
+                        let hasActive = false;
+
+                        activeCards.forEach((data, card) => {
+                            data.currentRotX += (data.targetRotX - data.currentRotX) * 0.12;
+                            data.currentRotY += (data.targetRotY - data.currentRotY) * 0.12;
+                            data.currentTranslateZ += (data.targetTranslateZ - data.currentTranslateZ) * 0.12;
+
+                            const isNearRest = Math.abs(data.currentRotX - data.targetRotX) < 0.05 &&
+                                               Math.abs(data.currentRotY - data.targetRotY) < 0.05 &&
+                                               Math.abs(data.currentTranslateZ - data.targetTranslateZ) < 0.2;
+
+                            if (!data.isHovered && isNearRest) {
+                                card.style.transform = '';
+                                card.style.boxShadow = '';
+                                const glare = card.querySelector('.card-3d-glare');
+                                if (glare) glare.style.opacity = '0';
+                                activeCards.delete(card);
+                                return;
+                            }
+
+                            hasActive = true;
+
+                            const rotX = data.currentRotX;
+                            const rotY = data.currentRotY;
+                            const tz = data.currentTranslateZ;
+                            const shadowX = (-rotY * 2.2).toFixed(1);
+                            const shadowY = (rotX * 2.2 + 18).toFixed(1);
+                            const shadowGlowAlpha = (0.12 + Math.min(0.2, (Math.abs(rotX) + Math.abs(rotY)) * 0.015)).toFixed(3);
+
+                            card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) translateZ(${tz.toFixed(1)}px)`;
+                            card.style.boxShadow = `${shadowX}px ${shadowY}px 45px rgba(0,0,0,0.65), 0 0 30px rgba(203, 163, 92, ${shadowGlowAlpha})`;
+
+                            if (data.isHovered) {
+                                card.style.setProperty('--glare-x', `${data.glareX.toFixed(1)}%`);
+                                card.style.setProperty('--glare-y', `${data.glareY.toFixed(1)}%`);
+                                const glare = card.querySelector('.card-3d-glare');
+                                if (glare) glare.style.opacity = '1';
+                            }
+                        });
+
+                        if (hasActive) {
+                            requestAnimationFrame(updateCardsLoop);
+                        } else {
+                            cardLoopRunning = false;
+                        }
+                    }
+
+                    function startCardLoop() {
+                        if (!cardLoopRunning) {
+                            cardLoopRunning = true;
+                            requestAnimationFrame(updateCardsLoop);
+                        }
+                    }
+
+                    document.addEventListener('mousemove', (e) => {
+                        const card = e.target.closest('.product-card, .product-card-minimal');
+                        if (!card) return;
+
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+
+                        const maxTilt = 9;
+                        const targetRotX = ((y - centerY) / centerY) * -maxTilt;
+                        const targetRotY = ((x - centerX) / centerX) * maxTilt;
+                        const glareX = (x / rect.width) * 100;
+                        const glareY = (y / rect.height) * 100;
+
+                        let cardData = activeCards.get(card);
+                        if (!cardData) {
+                            cardData = {
+                                currentRotX: 0,
+                                currentRotY: 0,
+                                currentTranslateZ: 0,
+                                targetRotX: 0,
+                                targetRotY: 0,
+                                targetTranslateZ: 10,
+                                isHovered: true,
+                                glareX: 50,
+                                glareY: 50
+                            };
+                            activeCards.set(card, cardData);
+                        }
+
+                        cardData.targetRotX = targetRotX;
+                        cardData.targetRotY = targetRotY;
+                        cardData.targetTranslateZ = 12;
+                        cardData.isHovered = true;
+                        cardData.glareX = glareX;
+                        cardData.glareY = glareY;
+
+                        startCardLoop();
+                    });
+
+                    document.addEventListener('mouseout', (e) => {
+                        const card = e.target.closest('.product-card, .product-card-minimal');
+                        if (!card || e.relatedTarget?.closest('.product-card, .product-card-minimal') === card) return;
+
+                        const cardData = activeCards.get(card);
+                        if (cardData) {
+                            cardData.isHovered = false;
+                            cardData.targetRotX = 0;
+                            cardData.targetRotY = 0;
+                            cardData.targetTranslateZ = 0;
+                            startCardLoop();
+                        }
+                    }, true);
+
+                    // ----------------------------------------------------
+                    // 3. PRODUCT DETAILS VIEW 3D BOTTLE SHOWCASE
+                    // ----------------------------------------------------
+                    document.addEventListener('mousemove', (e) => {
+                        const container = e.target.closest('.main-image-container');
+                        if (!container) return;
+
+                        container.classList.add('interacting');
+                        const rect = container.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+
+                        const maxTilt = 11;
+                        const rotX = ((y - centerY) / centerY) * -maxTilt;
+                        const rotY = ((x - centerX) / centerX) * maxTilt;
+
+                        const zoomImg = container.querySelector('.zoom-image');
+                        if (zoomImg) {
+                            zoomImg.style.transform = `perspective(1200px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateZ(55px) scale(1.06)`;
+                        }
+
+                        const shine = container.querySelector('.image-shine');
+                        if (shine) {
+                            const shineX = (x / rect.width) * 100;
+                            const shineY = (y / rect.height) * 100;
+                            shine.style.background = `radial-gradient(circle 350px at ${shineX}% ${shineY}%, rgba(255,230,160,0.22) 0%, rgba(203,163,92,0.06) 50%, transparent 80%)`;
+                            shine.style.opacity = '1';
+                        }
+                    });
+
+                    document.addEventListener('mouseout', (e) => {
+                        const container = e.target.closest('.main-image-container');
+                        if (!container || e.relatedTarget?.closest('.main-image-container') === container) return;
+
+                        container.classList.remove('interacting');
+                        const zoomImg = container.querySelector('.zoom-image');
+                        if (zoomImg) {
+                            zoomImg.style.transform = '';
+                        }
+                        const shine = container.querySelector('.image-shine');
+                        if (shine) {
+                            shine.style.opacity = '0';
+                        }
+                    }, true);
+
+                    // ----------------------------------------------------
+                    // 4. 3D MAGNETIC MICRO-INTERACTIONS ON LUXURY BUTTONS
+                    // ----------------------------------------------------
+                    document.addEventListener('mousemove', (e) => {
+                        const btn = e.target.closest('.btn-gold, .btn-gold.solid, .action-btn-main, #buy-now-confirm-btn');
+                        if (!btn) return;
+
+                        const rect = btn.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+
+                        const deltaX = (x - centerX) * 0.18;
+                        const deltaY = (y - centerY) * 0.18;
+                        const rotX = ((y - centerY) / centerY) * -8;
+                        const rotY = ((x - centerX) / centerX) * 8;
+
+                        btn.style.transform = `translate3d(${deltaX.toFixed(1)}px, ${deltaY.toFixed(1)}px, 6px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+                        btn.style.boxShadow = `${-rotY.toFixed(1)}px ${(rotX + 10).toFixed(1)}px 25px rgba(203, 163, 92, 0.3)`;
+                    });
+
+                    document.addEventListener('mouseout', (e) => {
+                        const btn = e.target.closest('.btn-gold, .btn-gold.solid, .action-btn-main, #buy-now-confirm-btn');
+                        if (!btn || e.relatedTarget?.closest('.btn-gold, .btn-gold.solid, .action-btn-main, #buy-now-confirm-btn') === btn) return;
+
+                        btn.style.transform = '';
+                        btn.style.boxShadow = '';
+                    }, true);
+
+                    // ----------------------------------------------------
+                    // 5. MOBILE GYROSCOPE 3D PARALLAX TILT
+                    // ----------------------------------------------------
+                    if (window.DeviceOrientationEvent && 'ontouchstart' in window) {
+                        let lastOrientationTime = 0;
+                        window.addEventListener('deviceorientation', (e) => {
+                            const now = performance.now();
+                            if (now - lastOrientationTime < 45) return;
+                            lastOrientationTime = now;
+
+                            if (e.gamma === null || e.beta === null) return;
+
+                            const clampedGamma = Math.max(-30, Math.min(30, e.gamma));
+                            const clampedBeta = Math.max(15, Math.min(65, e.beta)) - 40;
+
+                            const gyroRotY = (clampedGamma / 30) * 6;
+                            const gyroRotX = -(clampedBeta / 25) * 6;
+
+                            const visibleCards = document.querySelectorAll('.product-card');
+                            visibleCards.forEach(c => {
+                                const rect = c.getBoundingClientRect();
+                                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                                    c.style.transform = `perspective(1000px) rotateX(${gyroRotX.toFixed(1)}deg) rotateY(${gyroRotY.toFixed(1)}deg)`;
+                                }
+                            });
+                        }, { passive: true });
+                    }
+                }
+            }
+
+            // Initialize 3D Motion Graphics
+            initLuxury3DMotion();
 
             // Handle browser back/forward
             window.addEventListener('popstate', (event) => {
