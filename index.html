@@ -1900,38 +1900,104 @@
             display: flex;
             flex-direction: column;
             gap: 0;
-            margin-top: 15px;
-            margin-bottom: 18px;
+            margin-top: 10px;
+            margin-bottom: 12px;
             padding: 0;
-            background: rgba(255,255,255,0.015);
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(212, 175, 55, 0.22);
             border-radius: 4px;
             backdrop-filter: blur(10px);
-            transition: all 0.5s var(--ease-luxury);
+            transition: all 0.4s var(--ease-luxury);
             overflow: hidden;
             position: relative;
+        }
+
+        .olfactory-pyramid:hover,
+        .product-card:hover .olfactory-pyramid {
+            border-color: rgba(212, 175, 55, 0.42);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), 0 0 10px rgba(212, 175, 55, 0.12);
+        }
+
+        .olfactory-pyramid.expanded {
+            border-color: rgba(212, 175, 55, 0.55);
+            background: rgba(203, 163, 92, 0.04);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 15px rgba(212, 175, 55, 0.18);
         }
 
         .pyramid-trigger {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 16px;
+            padding: 8px 12px;
             cursor: pointer;
             width: 100%;
             background: transparent;
             z-index: 10;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            user-select: none;
         }
 
         .pyramid-trigger:hover {
-            background: rgba(203, 163, 92, 0.05);
+            background: linear-gradient(90deg, rgba(203, 163, 92, 0.14), rgba(203, 163, 92, 0.04));
         }
 
-        .pyramid-trigger i:first-child {
-            color: var(--gold-muted);
-            opacity: 0.5;
-            margin-right: 12px;
+        .pyramid-trigger .pyramid-lead-icon {
+            color: var(--gold-primary);
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .pyramid-trigger:hover .pyramid-lead-icon {
+            color: var(--gold-bright);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .pyramid-trigger .pyramid-label-text {
+            font-size: 0.58rem;
+            color: #dcd7cc;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            opacity: 0.85;
+        }
+
+        .pyramid-trigger:hover .pyramid-label-text {
+            color: #ffffff;
+            opacity: 1;
+        }
+
+        .pyramid-trigger .trigger-icon-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.38);
+            background: rgba(203, 163, 92, 0.08);
+            color: var(--gold-primary);
+            transition: all 0.3s var(--ease-luxury);
+            flex-shrink: 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .pyramid-trigger:hover .trigger-icon-wrap {
+            border-color: var(--gold-bright);
+            background: rgba(203, 163, 92, 0.28);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transform: scale(1.08);
+        }
+
+        .olfactory-pyramid.expanded .trigger-icon-wrap {
+            border-color: var(--gold-bright);
+            background: rgba(203, 163, 92, 0.22);
+            color: var(--gold-bright);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
 
         /* Scent Intensity Indicator */
@@ -2026,7 +2092,7 @@
         }
         
         .product-card .pyramid-trigger {
-            padding: 6px 12px;
+            padding: 6px 10px;
         }
 
         .product-card .intensity-header {
@@ -2044,8 +2110,8 @@
         }
 
         .pyramid-trigger .trigger-icon {
-            transition: transform 0.5s var(--ease-luxury);
-            color: var(--gold-muted);
+            transition: transform 0.4s var(--ease-luxury);
+            color: inherit;
         }
 
         .olfactory-pyramid.expanded .trigger-icon {
@@ -2705,12 +2771,28 @@
         }
 
         #details-view .size-btn.active {
-            background: var(--gold-primary);
-            border-color: var(--gold-primary);
-            color: var(--bg-dark);
-            font-weight: 700;
-            box-shadow: 0 5px 20px var(--gold-primary-glow);
+            background: linear-gradient(135deg, #ebd188, #cba35c) !important;
+            border-color: #f3d483 !important;
+            color: #030606 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 5px 20px rgba(203, 163, 92, 0.45) !important;
             transform: scale(1.02);
+            text-shadow: none !important;
+        }
+        #details-view .size-btn.active * {
+            color: #030606 !important;
+            font-weight: 800 !important;
+            text-shadow: none !important;
+        }
+        #details-view .size-btn.active del {
+            color: rgba(3, 6, 6, 0.65) !important;
+            text-decoration: line-through 1.5px solid #8b0000 !important;
+            text-decoration-color: #8b0000 !important;
+            -webkit-text-decoration-color: #8b0000 !important;
+        }
+        #details-view .size-btn.active .status-text {
+            color: #0a3d12 !important;
+            font-weight: 900 !important;
         }
 
         #details-view .action-btn-secondary {
@@ -3059,7 +3141,7 @@
             padding: 8px 2px !important;
             font-size: clamp(0.58rem, 0.9vw, 0.64rem) !important;
             min-width: 0 !important;
-            font-weight: 600 !important;
+            font-weight: 700 !important;
             letter-spacing: 0.3px !important;
             white-space: nowrap !important;
             display: flex !important;
@@ -3068,18 +3150,32 @@
             text-align: center !important;
             overflow: visible !important;
             line-height: 1 !important;
+            color: #dcd7cc !important;
+            background: transparent !important;
+            transition: all 0.25s ease !important;
         }
 
         .card-size-selector .size-btn:not(:last-child) {
-            border-right: 1px solid rgba(203, 163, 92, 0.2) !important;
+            border-right: 1px solid rgba(203, 163, 92, 0.25) !important;
+        }
+
+        .card-size-selector .size-btn:hover:not(.active) {
+            background: rgba(203, 163, 92, 0.12) !important;
+            color: #ffffff !important;
         }
 
         .card-size-selector .size-btn.active {
-            background: var(--gold-primary) !important;
-            color: var(--bg-dark) !important;
-            font-weight: 700 !important;
+            background: linear-gradient(135deg, #ebd188, #cba35c) !important;
+            color: #030606 !important;
+            font-weight: 900 !important;
             box-shadow: none !important;
             transform: none !important;
+            text-shadow: none !important;
+        }
+        .card-size-selector .size-btn.active * {
+            color: #030606 !important;
+            font-weight: 900 !important;
+            text-shadow: none !important;
         }
 
         @media (max-width: 480px) {
@@ -3178,8 +3274,24 @@
                 padding: 18px;
             }
         }
-        .size-btn.active { background: var(--gold-primary); color: var(--bg-dark); font-weight: 700; border-color: var(--gold-primary); transform: scale(1.02); }
-        .size-btn:hover:not(.active) { border-color: var(--gold-primary); color: var(--gold-primary); background: rgba(203, 163, 92, 0.05); }
+        .size-btn.active {
+            background: linear-gradient(135deg, #ebd188, #cba35c) !important;
+            color: #030606 !important;
+            font-weight: 900 !important;
+            border-color: #f3d483 !important;
+            transform: scale(1.02);
+            text-shadow: none !important;
+        }
+        .size-btn.active * {
+            color: #030606 !important;
+            font-weight: 900 !important;
+            text-shadow: none !important;
+        }
+        .size-btn:hover:not(.active):not(.out-of-stock) {
+            border-color: var(--gold-primary) !important;
+            color: #ffffff !important;
+            background: rgba(203, 163, 92, 0.12) !important;
+        }
         .size-btn.out-of-stock {
             opacity: 0.5;
             cursor: not-allowed !important;
@@ -5907,10 +6019,25 @@
             color: var(--gold-bright);
         }
         #desktop-search-suggestions {
-            top: 100%;
-            margin-top: 10px;
-            width: 100%;
+            top: calc(100% + 10px);
+            right: 0;
+            left: auto;
+            width: clamp(380px, 32vw, 460px);
             border-radius: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: rgba(8, 12, 12, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(203, 163, 92, 0.15);
+            z-index: 2500;
+        }
+
+        @media (max-width: 640px) {
+            #desktop-search-suggestions {
+                width: calc(100vw - 30px);
+                right: -10px;
+                max-width: 360px;
+            }
         }
 
         /* Mobile Menu Search & Sub-menu Refinements */
@@ -6230,18 +6357,17 @@
         }
 
         .suggestion-item {
-            padding: 16px 20px;
+            padding: 12px 16px;
             cursor: pointer;
-            transition: all 0.4s var(--ease-luxury);
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.3s var(--ease-luxury);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            background: transparent;
+            box-sizing: border-box;
+            width: 100%;
         }
 
         .suggestion-item:last-child {
@@ -6249,56 +6375,172 @@
         }
 
         .suggestion-item:hover, .suggestion-item.selected {
-            background: rgba(203, 163, 92, 0.08);
-            padding-left: 25px;
-        }
-
-        .suggestion-item:hover .suggestion-arrow {
-            opacity: 1 !important;
-            transform: translateX(0) !important;
+            background: rgba(203, 163, 92, 0.09);
+            box-shadow: inset 4px 0 0 var(--gold-primary);
         }
 
         .suggestion-item .product-img-mini {
-            width: 48px;
-            height: 48px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(203, 163, 92, 0.1);
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(203, 163, 92, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
         }
 
-        .suggestion-item img {
-            max-width: 85%;
-            max-height: 85%;
+        .suggestion-item .product-img-mini img {
+            max-width: 90%;
+            max-height: 90%;
             object-fit: contain;
-            transition: transform 0.5s var(--ease-luxury);
+            transition: transform 0.4s var(--ease-luxury);
         }
 
-        .suggestion-item:hover img {
+        .suggestion-item:hover .product-img-mini img {
             transform: scale(1.1);
         }
 
-        .suggestion-item.selected {
-            background: rgba(203, 163, 92, 0.1);
-            color: var(--gold-primary);
-            padding-left: 25px;
+        .suggestion-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            overflow: hidden;
         }
 
+        .suggestion-title {
+            font-size: 0.78rem;
+            color: var(--text-white);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+
+        .suggestion-item:hover .suggestion-title {
+            color: var(--gold-bright);
+        }
+
+        .suggestion-meta {
+            font-size: 0.62rem;
+            color: var(--gold-muted);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1;
+        }
+
+        .suggestion-gender {
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+
+        .suggestion-sep {
+            opacity: 0.4;
+        }
+
+        .suggestion-notes {
+            color: var(--text-dim);
+            opacity: 0.75;
+            font-style: italic;
+            text-transform: capitalize;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .suggestion-price-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            flex-shrink: 0;
+            gap: 3px;
+            margin-left: auto;
+        }
+
+        .suggestion-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .suggestion-sale-price {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--gold-bright);
+            font-family: var(--font-mono, monospace);
+            line-height: 1;
+        }
+
+        .suggestion-orig-price {
+            font-size: 0.72rem;
+            color: #dcd7cc;
+            text-decoration: line-through 1.5px solid #e0684b;
+            font-family: var(--font-mono, monospace);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .suggestion-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .suggestion-vol-tag {
+            font-size: 0.55rem;
+            color: #ffffff;
+            background: rgba(212, 175, 55, 0.22);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 1px 5px;
+            border-radius: 2px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .suggestion-save-tag {
+            font-size: 0.52rem;
+            color: #ffe082;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            padding: 1px 4px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            line-height: 1.1;
+        }
+
+        .suggestion-arrow {
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: all 0.3s ease;
+            color: var(--gold-primary);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .suggestion-item:hover .suggestion-arrow,
         .suggestion-item.selected .suggestion-arrow {
             opacity: 1 !important;
             transform: translateX(0) !important;
         }
-        .suggestion-item:hover {
-            background: rgba(203, 163, 92, 0.05);
-            color: var(--gold-primary);
-            padding-left: 25px;
-            box-shadow: inset 5px 0 0 var(--gold-primary);
-        }
-        .suggestion-item:last-child { border-bottom: none; }
 
         /* Shimmer/Skeleton Loading States & Crossfade Transitions */
         .skeleton {
@@ -11541,28 +11783,43 @@
             currentSuggestions = results.slice(0, 6);
 
             if (results.length > 0) {
-                let html = currentSuggestions.map((p, idx) => `
-                    <div onclick="applySuggestion('${p.name}', '${source}')" 
+                let html = currentSuggestions.map((p, idx) => {
+                    const b6 = (p.price && p.price['6ml']) ? p.price['6ml'] : 550;
+                    const r6 = (p.regularPrice && p.regularPrice['6ml']) ? p.regularPrice['6ml'] : 750;
+                    const savings = Math.max(0, r6 - b6);
+                    const topNotes = p.notes && p.notes.top ? p.notes.top.slice(0, 2).join(', ') : '';
+                    const safeName = p.name ? p.name.replace(/'/g, "\\'") : '';
+                    return `
+                    <div onclick="applySuggestion('${safeName}', '${source}', ${p.id})" 
                          class="suggestion-item interactive" 
                          data-name="${p.name}"
                          data-index="${idx}">
                         <div class="product-img-mini">
                             <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="handleImageError(this)" referrerPolicy="no-referrer">
                         </div>
-                        <div style="flex: 1; min-width: 0;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px;">
-                                <p style="font-size: 0.75rem; color: var(--text-white); margin: 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${highlightMatch(p.name, query)}</p>
-                                ${renderPrice(p, true)}
-                            </div>
-                            <p style="font-size: 0.6rem; color: var(--gold-muted); margin: 0; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7;">
-                                ${highlightMatch(p.category, query)}
+                        <div class="suggestion-info">
+                            <h5 class="suggestion-title">${highlightMatch(p.name, query)}</h5>
+                            <p class="suggestion-meta">
+                                <span class="suggestion-gender">${p.gender || p.category}</span>
+                                ${topNotes ? `<span class="suggestion-sep">&bull;</span><span class="suggestion-notes">${topNotes}</span>` : ''}
                             </p>
                         </div>
-                        <div class="suggestion-arrow" style="opacity: 0; transform: translateX(-10px); transition: all 0.3s ease;">
-                            <i data-lucide="chevron-right" size="14" style="color: var(--gold-primary);"></i>
+                        <div class="suggestion-price-col">
+                            <div class="suggestion-price-row">
+                                <span class="suggestion-sale-price">${b6}৳</span>
+                                <del class="suggestion-orig-price">${r6}৳</del>
+                            </div>
+                            <div class="suggestion-badge-row">
+                                <span class="suggestion-vol-tag">6 ML</span>
+                                ${savings > 0 ? `<span class="suggestion-save-tag">Save ${savings}৳</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="suggestion-arrow">
+                            <i data-lucide="chevron-right" size="14"></i>
                         </div>
                     </div>
-                `).join('');
+                `;
+                }).join('');
 
                 if (results.length > 6) {
                     html += `
@@ -11710,16 +11967,23 @@
             renderSearchHistory();
         }
 
-        function applySuggestion(query, source = 'mobile') {
+        function applySuggestion(query, source = 'mobile', productId = null) {
             const inputId = source === 'mobile' ? 'mobile-search-input-view' : (source === 'shop' ? 'shop-search' : (source === 'desktop' ? 'desktop-search' : null));
             const input = document.getElementById(inputId);
             if (input) {
                 input.value = query;
-                // Hide suggestions
-                const suggestionsId = source === 'mobile' ? 'search-suggestions-view' : (source === 'shop' ? 'shop-search-suggestions' : 'desktop-search-suggestions');
-                const suggestionsEl = document.getElementById(suggestionsId);
-                if (suggestionsEl) suggestionsEl.classList.remove('active');
-                
+            }
+            // Hide suggestions
+            const suggestionsId = source === 'mobile' ? 'search-suggestions-view' : (source === 'shop' ? 'shop-search-suggestions' : 'desktop-search-suggestions');
+            const suggestionsEl = document.getElementById(suggestionsId);
+            if (suggestionsEl) suggestionsEl.classList.remove('active');
+            
+            addToSearchHistory(query);
+
+            if (productId) {
+                if (source === 'mobile') toggleMobileMenu();
+                showView('details', productId);
+            } else {
                 if (source === 'mobile') handleMobileSearch();
                 else if (source === 'shop') handleShopSearch();
                 else if (source === 'desktop') handleDesktopSearch();
@@ -12046,10 +12310,14 @@
 
             return `
                 <div class="olfactory-pyramid" onmouseenter="expandPyramid(this)" onmouseleave="collapsePyramid(this)">
-                    <div class="pyramid-trigger" onclick="togglePyramid(event, this)">
-                        <i data-lucide="droplets" size="14"></i>
-                        <span>Olfactory Notes</span>
-                        <i data-lucide="chevron-down" size="12" class="trigger-icon"></i>
+                    <div class="pyramid-trigger interactive" onclick="togglePyramid(event, this)" role="button" aria-expanded="false" title="Click to view Olfactory Notes">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="droplets" size="13" class="pyramid-lead-icon"></i>
+                            <span class="pyramid-label-text">Olfactory Notes</span>
+                        </div>
+                        <div class="trigger-icon-wrap">
+                            <i data-lucide="chevron-down" size="12" class="trigger-icon"></i>
+                        </div>
                     </div>
                     <div class="pyramid-content">
                         ${layers.map(layer => {
