@@ -587,12 +587,16 @@
     <main>
         <div id="main-view">
         <section id="hero">
-            <div class="hero-ambient-container" aria-hidden="true">
-                <div class="hero-ambient-glow"></div>
-                <div class="hero-aurora-layer"></div>
-                <div class="hero-sacred-aura"></div>
+            <div class="hero-video-container">
+                <div class="hero-video-poster" aria-hidden="true"></div>
+                <video autoplay muted loop playsinline preload="metadata" poster="/assets/images/hero-poster.webp" class="hero-video" aria-hidden="true">
+                    <source src="/assets/videos/hero-720p.webm" type="video/webm">
+                    <source src="/assets/videos/hero-720p.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-overlay"></div>
             </div>
             <canvas id="hero-particles-canvas" class="hero-particles-canvas" aria-hidden="true"></canvas>
+            <div class="hero-bg-text" aria-hidden="true">LUBAN</div>
             <div class="hero-social-rail">
                 <div style="font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.7rem; color: var(--gold-muted); margin-bottom: 25px; font-weight: 500; opacity: 0.8;">Follow Us</div>
                 <a href="https://www.facebook.com/profile.php?id=61586484638332" target="_blank" rel="noopener noreferrer" class="social-link-proper interactive" aria-label="Facebook">
