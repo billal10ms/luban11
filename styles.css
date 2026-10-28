@@ -811,3 +811,269 @@ textarea:focus-visible,
         transition: opacity 0.2s ease !important;
     }
 }
+
+
+/* ==========================================================================
+   FREQUENTLY BOUGHT TOGETHER & RELATED SCENTS CAROUSEL
+   ========================================================================== */
+.related-scents-section {
+    margin-top: clamp(60px, 10vh, 100px);
+    border-top: 1px solid var(--border-gold);
+    padding-top: clamp(40px, 6vh, 60px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.related-header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.carousel-nav-btns {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.carousel-nav-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(203, 163, 92, 0.3);
+    background: rgba(8, 13, 12, 0.9);
+    color: var(--gold-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-luxury);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    padding: 0;
+}
+
+.carousel-nav-btn:hover:not(:disabled) {
+    border-color: var(--gold-bright);
+    color: var(--gold-bright);
+    background: rgba(203, 163, 92, 0.16);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(203, 163, 92, 0.25);
+}
+
+.carousel-nav-btn:disabled, .carousel-nav-btn.disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
+}
+
+/* Frequently Bought Together Bundle Card */
+.frequently-bought-bundle {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(203, 163, 92, 0.22);
+    border-radius: 4px;
+    padding: clamp(20px, 3.5vw, 32px);
+    margin-bottom: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(203, 163, 92, 0.03);
+}
+
+.frequently-bought-bundle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--gold-primary), var(--gold-bright));
+}
+
+.bundle-items-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    min-width: 0;
+}
+
+.bundle-item-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(203, 163, 92, 0.15);
+    border-radius: 4px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    flex: 1;
+    min-width: 180px;
+}
+
+.bundle-item-card:hover {
+    border-color: rgba(203, 163, 92, 0.38);
+    background: rgba(203, 163, 92, 0.05);
+}
+
+.bundle-checkbox-custom {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--gold-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.bundle-thumb-wrap {
+    width: 55px;
+    height: 60px;
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(203, 163, 92, 0.12);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.bundle-thumb-img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+}
+
+.bundle-plus-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(203, 163, 92, 0.1);
+    border: 1px solid rgba(203, 163, 92, 0.3);
+    color: var(--gold-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.bundle-action-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 230px;
+    text-align: right;
+    border-left: 1px solid rgba(203, 163, 92, 0.15);
+    padding-left: 25px;
+}
+
+@media (max-width: 900px) {
+    .frequently-bought-bundle {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .bundle-items-wrap {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .bundle-plus-badge {
+        align-self: center;
+    }
+    .bundle-action-box {
+        border-left: none;
+        border-top: 1px solid rgba(203, 163, 92, 0.15);
+        padding-left: 0;
+        padding-top: 20px;
+        text-align: left;
+    }
+}
+
+/* Horizontal Carousel */
+.related-scents-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.related-scents-carousel {
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 12px 4px 24px 4px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.related-scents-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.related-carousel-card {
+    flex: 0 0 clamp(230px, 24vw, 290px);
+    scroll-snap-align: start;
+    background: rgba(8, 13, 12, 0.7);
+    border: 1px solid rgba(203, 163, 92, 0.16);
+    border-radius: 4px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.35s var(--ease-luxury);
+    box-sizing: border-box;
+}
+
+.related-carousel-card:hover {
+    border-color: rgba(203, 163, 92, 0.45);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(203, 163, 92, 0.16);
+    background: rgba(8, 13, 12, 0.85);
+}
+
+.related-card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 0.55rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gold-bright);
+    background: rgba(10, 16, 16, 0.88);
+    border: 1px solid rgba(203, 163, 92, 0.35);
+    padding: 3px 8px;
+    border-radius: 2px;
+    z-index: 5;
+}
+
+.carousel-progress-track {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-progress-fill {
+    height: 100%;
+    width: 30%;
+    background: linear-gradient(90deg, var(--gold-muted), var(--gold-primary));
+    border-radius: 2px;
+    transition: transform 0.15s ease-out, width 0.15s ease-out;
+}
