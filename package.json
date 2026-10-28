@@ -9,12 +9,6 @@
     "build": "node -e \"console.log('Build succeeded')\""
   },
   "dependencies": {
-    "compression": "^1.8.2",
     "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "clean-css": "^5.3.3",
-    "lucide": "^1.61.0",
-    "terser": "^5.51.2"
   }
 }
